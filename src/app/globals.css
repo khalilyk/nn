@@ -1,45 +1,84 @@
 @import "tailwindcss";
 
 :root {
-  --background: #0a0a0a;
-  --foreground: #f0f0f0;
+  --black: #080808;
+  --charcoal: #141414;
+  --bone: #E8E2D4;
+  --bone-dim: #B8B2A4;
+  --green: #D4FF38;
+  --white: #F5F5F5;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-background: var(--black);
+  --color-foreground: var(--bone);
+  --font-display: var(--font-bebas);
+  --font-body: var(--font-dm);
 }
 
-* {
-  box-sizing: border-box;
-}
+* { box-sizing: border-box; margin: 0; padding: 0; }
 
-html {
-  scroll-behavior: smooth;
-}
+html { scroll-behavior: auto; }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-geist-sans), system-ui, sans-serif;
+  background: var(--black);
+  color: var(--bone);
+  font-family: var(--font-dm), system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
 }
 
-::selection {
-  background: #f0f0f0;
-  color: #0a0a0a;
+::selection { background: var(--green); color: var(--black); }
+
+::-webkit-scrollbar { width: 0px; }
+
+/* Display font utility */
+.font-display { font-family: var(--font-bebas), 'Arial Narrow', sans-serif; letter-spacing: 0.01em; }
+
+/* Clip reveal for text animations */
+.clip-wrap { overflow: hidden; }
+
+/* Green accent */
+.text-green { color: var(--green); }
+.bg-green { background-color: var(--green); }
+
+/* Bone */
+.text-bone { color: var(--bone); }
+.text-bone-dim { color: var(--bone-dim); }
+
+/* Image fill text */
+.image-text {
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
 }
 
-::-webkit-scrollbar {
-  width: 4px;
+/* Horizontal rule */
+hr { border: none; border-top: 1px solid rgba(232,226,212,0.12); }
+
+/* Link reset */
+a { color: inherit; text-decoration: none; }
+
+/* Input reset */
+input, textarea, select {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: inherit;
+  font-family: inherit;
 }
 
-::-webkit-scrollbar-track {
-  background: #0a0a0a;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #333;
+/* Cursor dot */
+.cursor-dot {
+  position: fixed;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--green);
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: transform 0.1s ease, width 0.2s ease, height 0.2s ease;
+  mix-blend-mode: difference;
 }

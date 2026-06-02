@@ -1,33 +1,41 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Bebas_Neue, DM_Sans } from "next/font/google";
 import "./globals.css";
-import Nav from "@/components/Nav";
+import Header from "@/components/Header";
+import LenisProvider from "@/components/LenisProvider";
+import Cursor from "@/components/Cursor";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const bebas = Bebas_Neue({
+  weight: "400",
   subsets: ["latin"],
+  variable: "--font-bebas",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const dm = DM_Sans({
   subsets: ["latin"],
+  variable: "--font-dm",
+  weight: ["300", "400", "500"],
 });
 
 export const metadata: Metadata = {
-  title: "Not Normal — Creative Studio",
-  description: "Not Normal is a creative studio pushing the boundaries of design, art direction, and culture.",
+  title: "Not Normal — Hospitality Brand Advisory",
+  description: "Nobody Remembers Normal. A hospitality brand advisory for those that refuse to blend in. Sydney · Dubai · Beirut.",
+  openGraph: {
+    title: "Not Normal — Hospitality Brand Advisory",
+    description: "Nobody Remembers Normal.",
+    siteName: "Not Normal",
+  },
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
-      <body className="bg-[#0a0a0a] text-[#f0f0f0] min-h-screen flex flex-col">
-        <Nav />
-        <main className="flex-1">{children}</main>
+    <html lang="en" className={`${bebas.variable} ${dm.variable}`}>
+      <body className="bg-[#080808] text-[#E8E2D4] min-h-screen">
+        <LenisProvider>
+          <Cursor />
+          <Header />
+          <main>{children}</main>
+        </LenisProvider>
       </body>
     </html>
   );
