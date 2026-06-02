@@ -97,7 +97,7 @@ export default function Home() {
         {/* Left panel */}
         <div
           className="flex flex-col shrink-0 border-r border-[#E8E2D4]/8"
-          style={{ width: "clamp(220px, 32%, 420px)" }}
+          style={{ width: "clamp(260px, 38%, 560px)" }}
         >
           {/* Nav */}
           <div className="border-b border-[#E8E2D4]/8 px-6 py-5 flex flex-col gap-2">
@@ -129,7 +129,7 @@ export default function Home() {
                     animate={{ y: 0 }}
                     transition={{ duration: 1.05, ease: [0.16, 1, 0.3, 1], delay: 0.2 + i * 0.13 }}
                     className={`font-display ${g ? "text-[#D4FF38]" : "text-[#E8E2D4]"}`}
-                    style={{ fontSize: "clamp(3rem, 7vw, 6.5rem)" }}
+                    style={{ fontSize: "clamp(3rem, 8vw, 8rem)" }}
                   >
                     {t}
                   </motion.div>
@@ -190,7 +190,7 @@ export default function Home() {
           {/* Left content */}
           <div
             className="shrink-0 flex flex-col justify-center px-6 py-8 border-r border-[#E8E2D4]/8"
-            style={{ width: "clamp(220px, 32%, 420px)" }}
+            style={{ width: "clamp(260px, 38%, 560px)" }}
           >
             <span className="text-[8px] tracking-widest text-[#E8E2D4]/20 mb-3">{s.n}</span>
             {s.lines.map((line, i) => (
@@ -201,7 +201,7 @@ export default function Home() {
                   viewport={{ once: true, margin: "-8%" }}
                   transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1], delay: i * 0.07 }}
                   className={`font-display ${s.green.includes(i) ? "text-[#D4FF38]" : "text-[#E8E2D4]"}`}
-                  style={{ fontSize: "clamp(1.8rem, 4vw, 3.8rem)" }}
+                  style={{ fontSize: "clamp(2rem, 4.8vw, 5rem)" }}
                 >
                   {line}
                 </motion.div>
@@ -227,7 +227,7 @@ export default function Home() {
             <div className="absolute right-5 md:right-8 top-1/2 -translate-y-1/2 flex items-center gap-2 select-none">
               <span
                 className="font-display leading-none text-[#E8E2D4]/15"
-                style={{ fontSize: "clamp(4rem, 8vw, 7rem)" }}
+                style={{ fontSize: "clamp(3rem, 8vw, 8rem)" }}
               >
                 {s.n}
               </span>
