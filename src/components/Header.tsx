@@ -16,7 +16,6 @@ const manifesto = [
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [index, setIndex] = useState(0);
-  const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -25,63 +24,68 @@ export default function Header() {
     return () => clearInterval(interval);
   }, []);
 
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40);
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
   return (
     <>
-      <header
-        className={`fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 md:px-10 py-5 transition-all duration-500 ${
-          scrolled && !menuOpen ? "bg-[#080808]/80 backdrop-blur-sm" : ""
-        }`}
-      >
+      <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-5 md:px-8 py-5">
         {/* Left: Logo */}
-        <Link href="/" className="font-display text-sm tracking-[0.25em] text-[#E8E2D4] hover:text-[#D4FF38] transition-colors z-10">
-          NOT NORMAL
+        <Link
+          href="/"
+          className="text-[11px] tracking-[0.22em] uppercase text-[#E8E2D4] hover:text-[#D4FF38] transition-colors z-10 font-medium"
+        >
+          Not Normal
         </Link>
 
         {/* Centre: Rotating manifesto */}
-        <div className="absolute left-1/2 -translate-x-1/2 hidden md:block overflow-hidden h-5 pointer-events-none">
+        <div className="absolute left-1/2 -translate-x-1/2 overflow-hidden h-4 pointer-events-none hidden md:block">
           <AnimatePresence mode="wait">
             <motion.span
               key={index}
-              initial={{ y: 20, opacity: 0 }}
+              initial={{ y: 16, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
-              exit={{ y: -20, opacity: 0 }}
-              transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
-              className="block text-[10px] tracking-[0.2em] uppercase text-[#E8E2D4]/40 whitespace-nowrap"
+              exit={{ y: -16, opacity: 0 }}
+              transition={{ duration: 0.35, ease: [0.4, 0, 0.2, 1] }}
+              className="block text-[10px] tracking-[0.18em] uppercase text-[#E8E2D4]/50 whitespace-nowrap"
             >
               {manifesto[index]}
             </motion.span>
           </AnimatePresence>
         </div>
 
-        {/* Right: Menu button */}
+        {/* Right: Dot-grid menu button */}
         <button
           onClick={() => setMenuOpen(!menuOpen)}
-          className="w-9 h-9 rounded-full border border-[#E8E2D4]/20 flex items-center justify-center hover:border-[#D4FF38] transition-colors group z-10"
+          className="w-9 h-9 rounded-full border border-[#E8E2D4]/25 flex items-center justify-center hover:border-[#D4FF38]/60 transition-colors z-10 group"
           aria-label="Menu"
         >
-          <div className="flex flex-col gap-[5px] items-center justify-center w-4">
-            <motion.span
-              animate={menuOpen ? { rotate: 45, y: 6 } : { rotate: 0, y: 0 }}
-              transition={{ duration: 0.3 }}
-              className="block w-full h-px bg-[#E8E2D4] group-hover:bg-[#D4FF38] transition-colors origin-center"
-            />
-            <motion.span
-              animate={menuOpen ? { opacity: 0 } : { opacity: 1 }}
-              transition={{ duration: 0.2 }}
-              className="block w-full h-px bg-[#E8E2D4] group-hover:bg-[#D4FF38] transition-colors"
-            />
-            <motion.span
-              animate={menuOpen ? { rotate: -45, y: -6 } : { rotate: 0, y: 0 }}
-              transition={{ duration: 0.3 }}
-              className="block w-full h-px bg-[#E8E2D4] group-hover:bg-[#D4FF38] transition-colors origin-center"
-            />
-          </div>
+          <AnimatePresence mode="wait">
+            {menuOpen ? (
+              <motion.span
+                key="close"
+                initial={{ opacity: 0, rotate: -45 }}
+                animate={{ opacity: 1, rotate: 0 }}
+                exit={{ opacity: 0 }}
+                className="text-[#E8E2D4] text-xs leading-none"
+              >
+                ✕
+              </motion.span>
+            ) : (
+              <motion.div
+                key="grid"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="grid grid-cols-3 gap-[3px]"
+              >
+                {[...Array(9)].map((_, i) => (
+                  <div
+                    key={i}
+                    className="w-[3px] h-[3px] rounded-full bg-[#E8E2D4]/60 group-hover:bg-[#D4FF38] transition-colors"
+                    style={{ transitionDelay: `${i * 15}ms` }}
+                  />
+                ))}
+              </motion.div>
+            )}
+          </AnimatePresence>
         </button>
       </header>
 
