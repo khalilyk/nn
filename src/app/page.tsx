@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 
-/* ─── NAV ITEMS ─── */
 const navItems = [
   { n: "01", label: "HOME", id: "home" },
   { n: "02", label: "WORK", id: "work" },
@@ -13,7 +12,6 @@ const navItems = [
   { n: "05", label: "CONTACT", id: "contact" },
 ];
 
-/* ─── CONTENT SECTIONS ─── */
 const sections = [
   {
     id: "work",
@@ -23,8 +21,8 @@ const sections = [
     sub: "Restaurants. Cafes. Hotels. Bars.",
     cta: "VIEW ALL PROJECTS",
     href: "/work",
-    bg: "linear-gradient(145deg, #120e08 0%, #1c1508 40%, #0e0a04 80%, #080808 100%)",
-    light: "radial-gradient(ellipse 70% 80% at 62% 48%, rgba(70,50,15,0.45) 0%, transparent 65%)",
+    photo: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1400&q=80",
+    photoPos: "center center",
   },
   {
     id: "cities",
@@ -34,8 +32,8 @@ const sections = [
     sub: "Sydney. Dubai. Beirut.",
     cta: "EXPLORE OUR CITIES",
     href: "/about",
-    bg: "linear-gradient(160deg, #080808 0%, #100c04 30%, #201508 60%, #0a0808 100%)",
-    light: "radial-gradient(ellipse 90% 60% at 55% 85%, rgba(90,60,10,0.5) 0%, transparent 55%)",
+    photo: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1400&q=80",
+    photoPos: "center 60%",
   },
   {
     id: "journal",
@@ -45,8 +43,8 @@ const sections = [
     sub: "Insights on hospitality, marketing\nand guest experience.",
     cta: "READ ARTICLES",
     href: "/thinking",
-    bg: "linear-gradient(135deg, #0c0b08 0%, #161208 50%, #080808 100%)",
-    light: "radial-gradient(ellipse 60% 70% at 42% 42%, rgba(55,42,12,0.4) 0%, transparent 60%)",
+    photo: "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&w=1400&q=80",
+    photoPos: "center center",
   },
   {
     id: "contact",
@@ -56,53 +54,19 @@ const sections = [
     sub: "",
     cta: "START A PROJECT",
     href: "/contact",
-    bg: "linear-gradient(140deg, #0e0905 0%, #180e06 40%, #0a0808 100%)",
-    light: "radial-gradient(ellipse 75% 65% at 58% 55%, rgba(65,38,10,0.4) 0%, transparent 60%)",
+    photo: "https://images.unsplash.com/photo-1559329007-40df68a1daab?auto=format&fit=crop&w=1400&q=80",
+    photoPos: "center center",
   },
 ];
 
-/* ─── CTA BUTTON ─── */
 function Cta({ href, label }: { href: string; label: string }) {
   return (
     <Link href={href} className="inline-flex items-center gap-2 group mt-5">
-      <span className="text-[9px] tracking-[0.22em] uppercase text-[#D4FF38]">
-        {label}
-      </span>
-      <div className="w-6 h-6 rounded-full border border-[#D4FF38] flex items-center justify-center text-[#D4FF38] text-[10px] group-hover:bg-[#D4FF38] group-hover:text-[#080808] transition-colors">
+      <span className="text-[9px] tracking-[0.22em] uppercase text-[#D4FF38]">{label}</span>
+      <div className="w-6 h-6 rounded-full border border-[#D4FF38] flex items-center justify-center text-[#D4FF38] text-[10px] group-hover:bg-[#D4FF38] group-hover:text-[#080808] transition-colors shrink-0">
         →
       </div>
     </Link>
-  );
-}
-
-/* ─── PHOTO PANEL ─── */
-function Photo({
-  bg,
-  light,
-  counter,
-  showArrow = true,
-}: {
-  bg: string;
-  light?: string;
-  counter: string;
-  showArrow?: boolean;
-}) {
-  return (
-    <div className="relative h-full overflow-hidden flex-1" style={{ background: bg }}>
-      {light && <div className="absolute inset-0" style={{ background: light }} />}
-      {/* Left edge fade */}
-      <div className="absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-[#080808]/70 to-transparent" />
-      {/* Counter */}
-      <div className="absolute right-5 md:right-8 top-1/2 -translate-y-1/2 flex items-center gap-2 select-none">
-        <span
-          className="font-display text-[#E8E2D4]/12 leading-none"
-          style={{ fontSize: "clamp(4rem, 9vw, 7.5rem)" }}
-        >
-          {counter}
-        </span>
-        {showArrow && <span className="text-[#D4FF38] text-base">→</span>}
-      </div>
-    </div>
   );
 }
 
@@ -111,12 +75,8 @@ export default function Home() {
 
   useEffect(() => {
     const obs = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((e) => {
-          if (e.isIntersecting) setActive(e.target.id);
-        });
-      },
-      { threshold: 0.45 }
+      (entries) => entries.forEach((e) => { if (e.isIntersecting) setActive(e.target.id); }),
+      { threshold: 0.4 }
     );
     navItems.forEach(({ id }) => {
       const el = document.getElementById(id);
@@ -135,26 +95,28 @@ export default function Home() {
         style={{ minHeight: "calc(100vh - 96px)" }}
       >
         {/* Left panel */}
-        <div className="flex flex-col w-[38%] md:w-[32%] border-r border-[#E8E2D4]/8 shrink-0">
-
-          {/* Section nav */}
-          <div className="border-b border-[#E8E2D4]/8 px-4 md:px-6 py-5 flex flex-col gap-[10px]">
+        <div
+          className="flex flex-col shrink-0 border-r border-[#E8E2D4]/8"
+          style={{ width: "clamp(220px, 32%, 420px)" }}
+        >
+          {/* Nav */}
+          <div className="border-b border-[#E8E2D4]/8 px-6 py-5 flex flex-col gap-2">
             {navItems.map(({ n, label, id }) => (
               <a
                 key={id}
                 href={`#${id}`}
-                className={`flex items-center gap-2 transition-colors ${
-                  active === id ? "text-[#D4FF38]" : "text-[#E8E2D4]/22 hover:text-[#E8E2D4]/60"
+                className={`flex items-center gap-2.5 py-0.5 transition-colors ${
+                  active === id ? "text-[#D4FF38]" : "text-[#E8E2D4]/25 hover:text-[#E8E2D4]/60"
                 }`}
               >
-                <span className="text-[8px] tracking-widest">{n}</span>
+                <span className="text-[8px] tracking-widest font-medium">{n}</span>
                 <span className="text-[8px] tracking-[0.2em] uppercase">{label}</span>
               </a>
             ))}
           </div>
 
           {/* Hero copy */}
-          <div className="flex-1 flex flex-col justify-between px-4 md:px-6 py-7">
+          <div className="flex-1 flex flex-col justify-between px-6 py-8">
             <div>
               {[
                 { t: "NOBODY", g: false },
@@ -165,43 +127,56 @@ export default function Home() {
                   <motion.div
                     initial={{ y: "105%" }}
                     animate={{ y: 0 }}
-                    transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.25 + i * 0.12 }}
+                    transition={{ duration: 1.05, ease: [0.16, 1, 0.3, 1], delay: 0.2 + i * 0.13 }}
                     className={`font-display ${g ? "text-[#D4FF38]" : "text-[#E8E2D4]"}`}
-                    style={{ fontSize: "clamp(2.6rem, 6.5vw, 6rem)" }}
+                    style={{ fontSize: "clamp(3rem, 7vw, 6.5rem)" }}
                   >
                     {t}
                   </motion.div>
                 </div>
               ))}
-
               <motion.p
-                initial={{ opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.85, duration: 0.6 }}
-                className="text-[#E8E2D4]/40 text-[11px] leading-relaxed mt-5 max-w-[200px]"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.85, duration: 0.7 }}
+                className="text-[#E8E2D4]/40 text-[11px] leading-relaxed mt-6 max-w-[200px]"
               >
                 We build hospitality brands, guest experiences and marketing that people remember.
               </motion.p>
             </div>
-
-            <motion.div
+            <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 1.1 }}
-              className="flex items-center gap-1.5 text-[#E8E2D4]/25"
+              className="text-[9px] tracking-[0.2em] uppercase text-[#E8E2D4]/25"
             >
-              <span className="text-[9px] tracking-[0.2em] uppercase">↓ Scroll to Begin</span>
-            </motion.div>
+              ↓ Scroll to Begin
+            </motion.p>
           </div>
         </div>
 
-        {/* Right photo */}
-        <Photo
-          bg="linear-gradient(145deg, #141008 0%, #221808 25%, #1a1208 55%, #0c0808 100%)"
-          light="radial-gradient(ellipse 80% 70% at 58% 38%, rgba(75,52,18,0.5) 0%, transparent 60%)"
-          counter="01 / 05"
-          showArrow={false}
-        />
+        {/* Right: hero photo */}
+        <div className="flex-1 relative overflow-hidden">
+          <div
+            className="absolute inset-0 bg-cover bg-center"
+            style={{
+              backgroundImage:
+                "url('https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=1400&q=80')",
+            }}
+          />
+          {/* Overlays */}
+          <div className="absolute inset-0 bg-[#080808]/45" />
+          <div className="absolute inset-y-0 left-0 w-28 bg-gradient-to-r from-[#080808] to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#080808]/60 via-transparent to-[#080808]/30" />
+          {/* 01/05 counter */}
+          <div className="absolute bottom-6 right-6 text-[9px] tracking-widest text-[#E8E2D4]/30">01 / 05</div>
+          {/* Side dots */}
+          <div className="absolute right-5 top-1/2 -translate-y-1/2 flex flex-col gap-2">
+            {navItems.map(({ id }) => (
+              <div key={id} className={`w-1 h-1 rounded-full ${active === id ? "bg-[#D4FF38]" : "bg-[#E8E2D4]/15"}`} />
+            ))}
+          </div>
+        </div>
       </section>
 
       {/* ── SECTIONS 02–05 ── */}
@@ -210,12 +185,14 @@ export default function Home() {
           key={s.id}
           id={s.id}
           className="flex border-b border-[#E8E2D4]/8"
-          style={{ minHeight: "clamp(220px, 38vh, 340px)" }}
+          style={{ minHeight: "clamp(240px, 38vh, 360px)" }}
         >
           {/* Left content */}
-          <div className="w-[38%] md:w-[32%] shrink-0 flex flex-col justify-center px-4 md:px-6 py-7 border-r border-[#E8E2D4]/8">
-            <span className="text-[8px] tracking-widest text-[#E8E2D4]/18 mb-3 block">{s.n}</span>
-
+          <div
+            className="shrink-0 flex flex-col justify-center px-6 py-8 border-r border-[#E8E2D4]/8"
+            style={{ width: "clamp(220px, 32%, 420px)" }}
+          >
+            <span className="text-[8px] tracking-widest text-[#E8E2D4]/20 mb-3">{s.n}</span>
             {s.lines.map((line, i) => (
               <div key={i} className="overflow-hidden" style={{ lineHeight: 0.9 }}>
                 <motion.div
@@ -224,24 +201,39 @@ export default function Home() {
                   viewport={{ once: true, margin: "-8%" }}
                   transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1], delay: i * 0.07 }}
                   className={`font-display ${s.green.includes(i) ? "text-[#D4FF38]" : "text-[#E8E2D4]"}`}
-                  style={{ fontSize: "clamp(1.6rem, 4.2vw, 3.8rem)" }}
+                  style={{ fontSize: "clamp(1.8rem, 4vw, 3.8rem)" }}
                 >
                   {line}
                 </motion.div>
               </div>
             ))}
-
             {s.sub && (
-              <p className="text-[10px] text-[#E8E2D4]/35 mt-3 leading-relaxed max-w-[190px]">
+              <p className="text-[10px] text-[#E8E2D4]/35 mt-3 leading-relaxed" style={{ maxWidth: 190 }}>
                 {s.sub}
               </p>
             )}
-
             <Cta href={s.href} label={s.cta} />
           </div>
 
           {/* Right photo */}
-          <Photo bg={s.bg} light={s.light} counter={s.n} />
+          <div className="flex-1 relative overflow-hidden">
+            <div
+              className="absolute inset-0 bg-cover"
+              style={{ backgroundImage: `url('${s.photo}')`, backgroundPosition: s.photoPos }}
+            />
+            <div className="absolute inset-0 bg-[#080808]/50" />
+            <div className="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-[#080808] to-transparent" />
+            {/* Large counter + arrow */}
+            <div className="absolute right-5 md:right-8 top-1/2 -translate-y-1/2 flex items-center gap-2 select-none">
+              <span
+                className="font-display leading-none text-[#E8E2D4]/15"
+                style={{ fontSize: "clamp(4rem, 8vw, 7rem)" }}
+              >
+                {s.n}
+              </span>
+              <span className="text-[#D4FF38] text-lg">→</span>
+            </div>
+          </div>
         </section>
       ))}
     </div>
