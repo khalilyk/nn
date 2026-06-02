@@ -3,7 +3,7 @@
 import { useState } from "react";
 
 export default function Contact() {
-  const [form, setForm] = useState({ name: "", email: "", company: "", message: "", budget: "" });
+  const [form, setForm] = useState({ name: "", email: "", venue: "", message: "", budget: "" });
   const [submitted, setSubmitted] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -23,22 +23,45 @@ export default function Contact() {
           {/* Info */}
           <div>
             <p className="text-white/60 leading-relaxed text-lg mb-12">
-              Tell us about your project. We&apos;re selective about who we work with — we partner with brands that are serious about being different.
+              Tell us about your venue. We work with restaurants, cafes, and bars in Sydney, Dubai, and Beirut — and beyond.
             </p>
-            <div className="space-y-6">
+            <div className="space-y-8">
               <div>
-                <p className="text-xs tracking-widest uppercase text-white/30 mb-1">Email</p>
-                <a href="mailto:hello@notnormal.studio" className="text-white/70 hover:text-white transition-colors">
-                  hello@notnormal.studio
+                <p className="text-xs tracking-widest uppercase text-white/30 mb-2">Email</p>
+                <a href="mailto:hello@thisisnn.com" className="text-white/70 hover:text-white transition-colors">
+                  hello@thisisnn.com
                 </a>
               </div>
               <div>
-                <p className="text-xs tracking-widest uppercase text-white/30 mb-1">Based</p>
-                <p className="text-white/70">Sydney, AU — Working Worldwide</p>
+                <p className="text-xs tracking-widest uppercase text-white/30 mb-2">Phone</p>
+                <a href="tel:+61433714701" className="text-white/70 hover:text-white transition-colors">
+                  +61 433 714 701
+                </a>
               </div>
               <div>
-                <p className="text-xs tracking-widest uppercase text-white/30 mb-1">New Projects</p>
-                <p className="text-white/70">Currently Available Q3 2025</p>
+                <p className="text-xs tracking-widest uppercase text-white/30 mb-2">Based In</p>
+                <p className="text-white/70">Sydney · Dubai · Beirut</p>
+              </div>
+              <div>
+                <p className="text-xs tracking-widest uppercase text-white/30 mb-2">Instagram</p>
+                <a
+                  href="https://instagram.com/bynotnormal"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-white/70 hover:text-white transition-colors"
+                >
+                  @bynotnormal
+                </a>
+              </div>
+              <div className="pt-4">
+                <a
+                  href="https://calendly.com/notnormal/30min"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-block text-xs tracking-widest uppercase bg-white text-[#0a0a0a] px-6 py-3 hover:bg-white/80 transition-colors"
+                >
+                  Book a Free 30-Min Call
+                </a>
               </div>
             </div>
           </div>
@@ -75,13 +98,13 @@ export default function Contact() {
                   />
                 </div>
                 <div>
-                  <label className="text-xs tracking-widest uppercase text-white/30 block mb-2">Company</label>
+                  <label className="text-xs tracking-widest uppercase text-white/30 block mb-2">Venue / Business</label>
                   <input
                     type="text"
-                    value={form.company}
-                    onChange={(e) => setForm({ ...form, company: e.target.value })}
+                    value={form.venue}
+                    onChange={(e) => setForm({ ...form, venue: e.target.value })}
                     className="w-full bg-transparent border-b border-white/20 pb-3 text-white placeholder-white/20 focus:outline-none focus:border-white/60 transition-colors"
-                    placeholder="Your company"
+                    placeholder="Your restaurant or cafe"
                   />
                 </div>
                 <div>
@@ -92,21 +115,21 @@ export default function Contact() {
                     className="w-full bg-[#0a0a0a] border-b border-white/20 pb-3 text-white focus:outline-none focus:border-white/60 transition-colors"
                   >
                     <option value="">Select range</option>
+                    <option value="under-5k">Under $5k</option>
                     <option value="5k-15k">$5k – $15k</option>
-                    <option value="15k-50k">$15k – $50k</option>
-                    <option value="50k-100k">$50k – $100k</option>
-                    <option value="100k+">$100k+</option>
+                    <option value="15k-30k">$15k – $30k</option>
+                    <option value="30k+">$30k+</option>
                   </select>
                 </div>
                 <div>
-                  <label className="text-xs tracking-widest uppercase text-white/30 block mb-2">Message *</label>
+                  <label className="text-xs tracking-widest uppercase text-white/30 block mb-2">Tell Us About Your Project *</label>
                   <textarea
                     required
                     rows={4}
                     value={form.message}
                     onChange={(e) => setForm({ ...form, message: e.target.value })}
                     className="w-full bg-transparent border-b border-white/20 pb-3 text-white placeholder-white/20 focus:outline-none focus:border-white/60 transition-colors resize-none"
-                    placeholder="Tell us about your project..."
+                    placeholder="What are you working on? Opening a new venue, refreshing an existing brand, need social content..."
                   />
                 </div>
                 <button

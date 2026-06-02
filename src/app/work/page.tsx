@@ -2,18 +2,21 @@
 
 import { useState } from "react";
 
-const categories = ["All", "Branding", "Art Direction", "Digital", "Print", "Motion"];
+const categories = ["All", "Branding", "Social", "Visual Production", "Experience"];
 
 const projects = [
-  { id: 1, title: "Void Brand Identity", client: "Void Co.", category: "Branding", year: "2024", color: "linear-gradient(135deg, #6366f1, #1a1a2e)" },
-  { id: 2, title: "Echo Campaign", client: "Echo Labs", category: "Art Direction", year: "2024", color: "linear-gradient(135deg, #ec4899, #1a1a2e)" },
-  { id: 3, title: "Phantom Digital", client: "Phantom", category: "Digital", year: "2024", color: "linear-gradient(135deg, #14b8a6, #1a1a2e)" },
-  { id: 4, title: "Signal Print Series", client: "Signal Mag", category: "Print", year: "2023", color: "linear-gradient(135deg, #f59e0b, #1a1a2e)" },
-  { id: 5, title: "Fracture Motion Reel", client: "Fracture", category: "Motion", year: "2023", color: "linear-gradient(135deg, #8b5cf6, #1a1a2e)" },
-  { id: 6, title: "Onyx Rebrand", client: "Onyx Studio", category: "Branding", year: "2023", color: "linear-gradient(135deg, #06b6d4, #1a1a2e)" },
-  { id: 7, title: "Apex Digital Platform", client: "Apex", category: "Digital", year: "2023", color: "linear-gradient(135deg, #f43f5e, #1a1a2e)" },
-  { id: 8, title: "Drift Art Direction", client: "Drift Magazine", category: "Art Direction", year: "2022", color: "linear-gradient(135deg, #84cc16, #1a1a2e)" },
-  { id: 9, title: "Neon Brand System", client: "Neon Inc.", category: "Branding", year: "2022", color: "linear-gradient(135deg, #fb923c, #1a1a2e)" },
+  { id: 1, title: "Kinoya", type: "Japanese Restaurant · Surry Hills", category: "Branding", color: "linear-gradient(135deg, #1a1a2e, #2d2d44)" },
+  { id: 2, title: "Tony's Woodfire", type: "Italian Restaurant · Sydney", category: "Branding", color: "linear-gradient(135deg, #2e1a1a, #442d2d)" },
+  { id: 3, title: "Tonton Bakes", type: "Patisserie · Sydney", category: "Visual Production", color: "linear-gradient(135deg, #2e2a1a, #443d2d)" },
+  { id: 4, title: "PieHaus", type: "Pie Bar · Sydney", category: "Social", color: "linear-gradient(135deg, #1a2e1a, #2d442d)" },
+  { id: 5, title: "Mimi Kakushi", type: "Japanese Izakaya · Dubai", category: "Branding", color: "linear-gradient(135deg, #1a1a2e, #3d2d44)" },
+  { id: 6, title: "Atlantis", type: "Hospitality Group · Dubai", category: "Experience", color: "linear-gradient(135deg, #1a2a2e, #2d3d44)" },
+  { id: 7, title: "Shanghai Me", type: "Chinese Restaurant · Dubai", category: "Branding", color: "linear-gradient(135deg, #2e1a1a, #44302d)" },
+  { id: 8, title: "Genesis Coffee Co.", type: "Specialty Coffee · Sydney", category: "Visual Production", color: "linear-gradient(135deg, #1e1a14, #362e20)" },
+  { id: 9, title: "Yava", type: "Café · Sydney", category: "Social", color: "linear-gradient(135deg, #1a1e14, #2e3620)" },
+  { id: 10, title: "Lucky's", type: "Bar & Dining · Sydney", category: "Branding", color: "linear-gradient(135deg, #2e1e1a, #443020)" },
+  { id: 11, title: "Sirene", type: "Seafood Restaurant · Beirut", category: "Experience", color: "linear-gradient(135deg, #1a242e, #2d3844)" },
+  { id: 12, title: "By Moudz", type: "Private Dining · Beirut", category: "Social", color: "linear-gradient(135deg, #2a1a2e, #402d44)" },
 ];
 
 export default function Work() {
@@ -26,7 +29,7 @@ export default function Work() {
       <div className="mb-12">
         <p className="text-xs tracking-[0.3em] uppercase text-white/40 mb-6">Work</p>
         <h1 className="text-[clamp(2.5rem,8vw,7rem)] font-bold leading-none tracking-tight">
-          Our Projects
+          Our Clients
         </h1>
       </div>
 
@@ -57,15 +60,9 @@ export default function Work() {
             >
               <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300" />
             </div>
-            <div className="flex items-start justify-between">
-              <div>
-                <h3 className="font-bold text-lg leading-tight">{project.title}</h3>
-                <p className="text-sm text-white/40 mt-1">{project.client}</p>
-              </div>
-              <div className="text-right shrink-0 ml-4">
-                <p className="text-xs tracking-widest uppercase text-white/30">{project.category}</p>
-                <p className="text-xs text-white/20 mt-1">{project.year}</p>
-              </div>
+            <div>
+              <h3 className="font-bold text-lg leading-tight">{project.title}</h3>
+              <p className="text-sm text-white/40 mt-1">{project.type}</p>
             </div>
           </div>
         ))}

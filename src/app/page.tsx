@@ -4,15 +4,15 @@ import Link from "next/link";
 import { useEffect, useRef } from "react";
 
 const marqueeItems = [
-  "Design", "Art Direction", "Brand Identity", "Motion", "Strategy",
-  "Campaigns", "Digital", "Print", "Experience", "Culture",
+  "Branding", "Identity", "Social", "Storytelling", "Experience",
+  "Menu R&D", "Visual Production", "Campaigns", "Strategy", "Soul",
 ];
 
-const featuredWork = [
-  { id: 1, title: "Void Brand Identity", category: "Branding", color: "linear-gradient(135deg, #6366f1, #8b5cf6)" },
-  { id: 2, title: "Echo Campaign", category: "Art Direction", color: "linear-gradient(135deg, #ec4899, #f43f5e)" },
-  { id: 3, title: "Phantom Digital", category: "Digital", color: "linear-gradient(135deg, #14b8a6, #06b6d4)" },
-  { id: 4, title: "Signal Print Series", category: "Print", color: "linear-gradient(135deg, #f59e0b, #ef4444)" },
+const featuredClients = [
+  { name: "Kinoya", type: "Japanese Restaurant", color: "linear-gradient(135deg, #1a1a2e, #2d2d44)" },
+  { name: "Tony's Woodfire", type: "Italian Restaurant", color: "linear-gradient(135deg, #2e1a1a, #442d2d)" },
+  { name: "Tonton Bakes", type: "Patisserie", color: "linear-gradient(135deg, #1a2e1a, #2d442d)" },
+  { name: "Mimi Kakushi", type: "Japanese Izakaya", color: "linear-gradient(135deg, #1a1a2e, #44332d)" },
 ];
 
 export default function Home() {
@@ -39,27 +39,29 @@ export default function Home() {
       {/* Hero */}
       <section className="flex-1 flex flex-col items-start justify-end px-6 md:px-12 pb-16 pt-32">
         <p className="text-xs tracking-[0.3em] uppercase text-white/40 mb-6">
-          Creative Studio — Est. 2024
+          Hospitality Branding — Sydney · Dubai · Beirut
         </p>
         <h1 className="text-[clamp(3rem,12vw,10rem)] font-bold leading-none tracking-tight">
-          Not<br />Normal.
+          Nobody<br />Remembers<br />Normal.
         </h1>
-        <p className="mt-8 text-base md:text-lg text-white/50 max-w-md leading-relaxed">
-          We build brands, campaigns, and experiences that refuse to fit in.
+        <p className="mt-8 text-base md:text-lg text-white/50 max-w-xl leading-relaxed">
+          Strategy and soul for the restaurants in Sydney people can&apos;t stop talking about.
         </p>
         <div className="flex items-center gap-6 mt-10">
           <Link
             href="/work"
             className="text-xs tracking-widest uppercase border border-white/20 px-6 py-3 hover:bg-white hover:text-[#0a0a0a] transition-colors"
           >
-            View Work
+            Our Work
           </Link>
-          <Link
-            href="/contact"
+          <a
+            href="https://calendly.com/notnormal/30min"
+            target="_blank"
+            rel="noopener noreferrer"
             className="text-xs tracking-widest uppercase text-white/50 hover:text-white transition-colors"
           >
-            Get in Touch →
-          </Link>
+            Book a Call →
+          </a>
         </div>
       </section>
 
@@ -74,7 +76,39 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Selected work preview */}
+      {/* Services intro */}
+      <section className="px-6 md:px-12 py-24 border-t border-white/10">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-start">
+          <h2 className="text-3xl md:text-5xl font-bold tracking-tight leading-tight">
+            We build bold brands for the edible & drinkable.
+          </h2>
+          <div className="space-y-6 text-white/50 leading-relaxed">
+            <p>
+              From branding & storytelling to stuff you can hold — we cover every touchpoint that shapes how guests feel about your restaurant before, during, and after they eat.
+            </p>
+            <p>
+              We&apos;re specialists. Hospitality only. That means we understand your world, your margins, and what actually drives bookings.
+            </p>
+            <Link href="/services" className="inline-block text-xs tracking-widest uppercase text-white hover:text-white/60 transition-colors mt-2">
+              What We Do →
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Client logos */}
+      <section className="px-6 md:px-12 py-24 border-t border-white/10">
+        <p className="text-xs tracking-[0.3em] uppercase text-white/30 mb-12">Brands We&apos;ve Built</p>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-white/10">
+          {allClients.map((client) => (
+            <div key={client} className="bg-[#0a0a0a] flex items-center justify-center py-8 px-6">
+              <span className="text-sm font-medium text-white/50 tracking-wide text-center">{client}</span>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Featured work */}
       <section className="px-6 md:px-12 py-24 border-t border-white/10">
         <div className="flex items-end justify-between mb-12">
           <h2 className="text-3xl md:text-5xl font-bold tracking-tight">Selected Work</h2>
@@ -83,20 +117,28 @@ export default function Home() {
           </Link>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {featuredWork.map((item) => (
-            <Link key={item.id} href="/work" className="group relative overflow-hidden aspect-[4/3] bg-white/5 block">
-              <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent" />
-              <div
-                className="absolute inset-0 opacity-20 group-hover:opacity-30 transition-opacity duration-700"
-                style={{ background: item.color }}
-              />
+          {featuredClients.map((item) => (
+            <Link key={item.name} href="/work" className="group relative overflow-hidden aspect-[4/3] block" style={{ background: item.color }}>
+              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-500" />
               <div className="absolute bottom-0 left-0 right-0 p-6">
-                <p className="text-xs tracking-widest uppercase text-white/40 mb-1">{item.category}</p>
-                <h3 className="text-xl font-bold">{item.title}</h3>
+                <p className="text-xs tracking-widest uppercase text-white/40 mb-1">{item.type}</p>
+                <h3 className="text-2xl font-bold">{item.name}</h3>
               </div>
             </Link>
           ))}
         </div>
+      </section>
+
+      {/* Testimonial */}
+      <section className="px-6 md:px-12 py-24 border-t border-white/10">
+        <blockquote className="max-w-3xl">
+          <p className="text-2xl md:text-4xl font-medium leading-snug text-white/80 mb-8">
+            &ldquo;Every single touchpoint felt considered and cohesive.&rdquo;
+          </p>
+          <cite className="text-sm text-white/40 not-italic tracking-widest uppercase">
+            Zara — Tony&apos;s Woodfire
+          </cite>
+        </blockquote>
       </section>
 
       {/* CTA */}
@@ -105,14 +147,31 @@ export default function Home() {
           <h2 className="text-3xl md:text-5xl font-bold tracking-tight max-w-sm">
             Ready to be<br />Not Normal?
           </h2>
-          <Link
-            href="/contact"
-            className="self-start md:self-auto text-xs tracking-widest uppercase bg-white text-[#0a0a0a] px-8 py-4 hover:bg-white/80 transition-colors"
-          >
-            Start a Project
-          </Link>
+          <div className="flex flex-col sm:flex-row gap-4">
+            <a
+              href="https://calendly.com/notnormal/30min"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-xs tracking-widest uppercase bg-white text-[#0a0a0a] px-8 py-4 hover:bg-white/80 transition-colors text-center"
+            >
+              Book a Free Call
+            </a>
+            <Link
+              href="/contact"
+              className="text-xs tracking-widest uppercase border border-white/20 px-8 py-4 hover:bg-white/5 transition-colors text-center"
+            >
+              Send a Message
+            </Link>
+          </div>
         </div>
       </section>
     </div>
   );
 }
+
+const allClients = [
+  "Lucky's", "Tony's Woodfire", "Kinoya", "Tonton Bakes",
+  "PieHaus", "Yava", "Genesis Coffee Co.", "Voyage Concierge",
+  "Matter Nutrition", "Xu", "Mimi Kakushi", "Atlantis",
+  "Chez Wamogo", "Sirene", "Shanghai Me", "By Moudz",
+];
