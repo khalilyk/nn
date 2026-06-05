@@ -228,13 +228,14 @@ export default function Terminal() {
   ];
   const [prompts, setPrompts] = useState<string[]>(promptPool.slice(0, 5));
   useEffect(() => {
+    let timer: ReturnType<typeof setTimeout>;
     const shuffle = () => {
-      const pickN = [...promptPool].sort(() => Math.random() - 0.5).slice(0, 5);
-      setPrompts(pickN);
+      setPrompts([...promptPool].sort(() => Math.random() - 0.5).slice(0, 5));
+      // next change in 30–45s
+      timer = setTimeout(shuffle, 30000 + Math.random() * 15000);
     };
     shuffle();
-    const id = setInterval(shuffle, 5000);
-    return () => clearInterval(id);
+    return () => clearTimeout(timer);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
