@@ -5,6 +5,7 @@ import Lenis from "lenis";
 import Reveal from "./Reveal";
 import Parallax from "./Parallax";
 import FeaturedCarousel from "./FeaturedCarousel";
+import RotatingWord from "./RotatingWord";
 
 /* ───────────────── IMAGERY ───────────────── */
 const IMG = {
@@ -248,7 +249,7 @@ export default function Publication() {
             </Reveal>
             <Reveal delay={0.1}>
               <p className="font-editorial text-right md:text-left" style={{ fontSize: "clamp(1.8rem, 3.5vw, 3rem)" }}>
-                Loyalty<br />is <span className="italic">designed.</span>
+                Let them savour, sip<br />and <span className="italic">live your story.</span>
               </p>
             </Reveal>
           </div>
@@ -279,8 +280,8 @@ export default function Publication() {
         <footer id="footer" className="px-8 md:px-16 pt-24 pb-10 md:pb-14">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12 items-start mb-20">
             <Reveal>
-              <h2 className="font-editorial leading-[1.1]" style={{ fontSize: "clamp(1.8rem, 3.2vw, 2.8rem)" }}>
-                Let&apos;s build something<br /><span className="italic">not normal.</span>
+              <h2 className="font-editorial leading-[1.2]" style={{ fontSize: "clamp(1.8rem, 3.2vw, 2.8rem)" }}>
+                to be not normal<br />is to be <RotatingWord />
               </h2>
             </Reveal>
             <Reveal delay={0.08}>
