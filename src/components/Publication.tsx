@@ -300,7 +300,7 @@ export default function Publication() {
                 >
                   <span className="absolute inset-0 bg-[#0A0A0A] translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)]" />
                   <span className="relative z-10 text-[10px] tracking-[0.28em] uppercase text-[#0A0A0A] group-hover:text-[#F3F1EC] transition-colors duration-500">
-                    Let&apos;s Get Started
+                    Are You Ready?
                   </span>
                   <span className="relative z-10 w-7 h-7 rounded-full border border-[#0A0A0A] group-hover:border-[#F3F1EC] flex items-center justify-center overflow-hidden">
                     <span className="text-[#0A0A0A] group-hover:text-[#F3F1EC] transition-all duration-500 group-hover:translate-x-5">→</span>
@@ -348,7 +348,7 @@ export default function Publication() {
           </Reveal>
           <Reveal delay={0.06}>
             <h2 className="font-editorial text-center mb-12" style={{ fontSize: "clamp(1.6rem, 3.2vw, 2.6rem)" }}>
-              We never stop <span className="italic">thinking</span> about it.
+              Meet <span className="italic">NORM</span> — here to chat about all things food &amp; marketing.
             </h2>
           </Reveal>
           <Reveal delay={0.12} className="w-full">

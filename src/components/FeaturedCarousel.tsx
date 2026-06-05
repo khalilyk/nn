@@ -62,7 +62,7 @@ function useTyping(text: string, active: boolean) {
 }
 
 /* Image that drifts toward the cursor */
-function CursorImage({ src, label }: { src: string; label: string }) {
+function CursorImage({ src }: { src: string }) {
   const wrap = useRef<HTMLDivElement>(null);
   const img = useRef<HTMLDivElement>(null);
 
@@ -97,12 +97,6 @@ function CursorImage({ src, label }: { src: string; label: string }) {
           willChange: "transform",
         }}
       />
-      <span
-        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 font-display text-[#F3F1EC] tracking-wide pointer-events-none drop-shadow-lg"
-        style={{ fontSize: "clamp(1.5rem, 3vw, 2.6rem)" }}
-      >
-        {label}
-      </span>
     </div>
   );
 }
@@ -260,7 +254,7 @@ function Slide({
 
       {/* Image */}
       <div className="md:col-span-8">
-        <CursorImage src={project.img} label={project.name} />
+        <CursorImage src={project.img} />
       </div>
     </div>
   );
