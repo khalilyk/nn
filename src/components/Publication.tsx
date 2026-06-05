@@ -278,7 +278,7 @@ export default function Publication() {
       {/* ═══ FOOTER — THE INVITATION ═══ */}
       <Panel index={8} bg="ivory" minH="auto">
         <footer id="footer" className="px-8 md:px-16 pt-24 pb-10 md:pb-14">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 items-start mb-20">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start mb-20">
             <Reveal>
               <h2 className="font-editorial leading-[1.2]" style={{ fontSize: "clamp(1.8rem, 3.2vw, 2.8rem)" }}>
                 to be not normal<br />is to be <RotatingWord />
@@ -292,18 +292,6 @@ export default function Publication() {
                   <a href="#" className="block text-[11px] tracking-[0.1em] uppercase hover:opacity-60 transition-opacity">Instagram</a>
                   <a href="#" className="block text-[11px] tracking-[0.1em] uppercase hover:opacity-60 transition-opacity">LinkedIn</a>
                 </div>
-              </div>
-            </Reveal>
-            <Reveal delay={0.16}>
-              <div className="flex md:justify-end">
-                <a href="mailto:hello@thisisnn.com" aria-label="Let's talk" className="group inline-flex flex-col items-start gap-2">
-                  <span className="font-display text-[#0A0A0A] leading-none tracking-tight" style={{ fontSize: "clamp(1.6rem, 3vw, 2.4rem)" }}>
-                    NOT NORMAL<sup className="text-[10px] ml-1 align-super">™</sup>
-                  </span>
-                  <span className="text-[9px] tracking-[0.3em] uppercase text-[#0A0A0A]/60 inline-flex items-center gap-2 group-hover:gap-3 transition-all">
-                    Let&apos;s Talk <span>→</span>
-                  </span>
-                </a>
               </div>
             </Reveal>
           </div>
