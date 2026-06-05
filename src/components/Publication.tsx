@@ -20,6 +20,7 @@ import ThreeCities from "./ThreeCities";
 import HoverWord from "./HoverWord";
 import OverlapImages from "./OverlapImages";
 import MenuLink from "./MenuLink";
+import MenuPanels from "./MenuPanels";
 
 /* ───────────────── IMAGERY ───────────────── */
 const IMG = {
@@ -186,12 +187,12 @@ export default function Publication() {
             </p>
           </div>
 
-          {/* Giant title */}
-          <div className="relative z-10 md:pl-16">
-            <h1 className="font-display leading-[0.82] tracking-tight opacity-[0.28]" style={{ fontSize: "clamp(3rem, 13vw, 12rem)" }}>
-              <span className="block overflow-hidden"><Reveal as="span" className="block">NOBODY</Reveal></span>
-              <span className="block overflow-hidden"><Reveal as="span" delay={0.08} className="block">REMEMBERS</Reveal></span>
-              <span className="block overflow-hidden"><Reveal as="span" delay={0.16} className="block">NORMAL</Reveal></span>
+          {/* Giant title — centred, justified */}
+          <div className="relative z-10 w-full flex justify-center">
+            <h1 className="font-display leading-[0.95] tracking-tight text-[#F3F1EC] w-full max-w-4xl" style={{ fontSize: "clamp(2rem, 6vw, 5.5rem)" }}>
+              <span className="block overflow-hidden"><Reveal as="span" className="block text-justify [text-align-last:justify]">A Hospitality Brand</Reveal></span>
+              <span className="block overflow-hidden"><Reveal as="span" delay={0.08} className="block text-justify [text-align-last:justify]">Advisory For Those</Reveal></span>
+              <span className="block overflow-hidden"><Reveal as="span" delay={0.16} className="block text-justify [text-align-last:justify]">That Refuse to Blend In</Reveal></span>
             </h1>
           </div>
 
@@ -241,36 +242,9 @@ export default function Publication() {
                 We help hospitality brands stand out through strategy, design, content and guest experience. From branding to campaigns, every detail is crafted to connect and be remembered.
               </p>
             </Reveal>
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-5 mb-14">
-              {[
-                { course: "Amuse Bouché", title: "Branding & Identity", body: "A brand isn't just a name or a logo — it's the foundation of everything. We craft distinct identities that connect, from mission and values to visual and verbal worlds.", img: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=900&q=80", dark: true },
-                { course: "Appetizers", title: "Social & Storytelling", body: "Great hospitality brands don't just sell — they tell stories. We create content from stunning visuals to scroll-stopping social and dynamic campaigns.", img: "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&w=900&q=80", dark: false },
-                { course: "Mains", title: "Experience & Innovation", body: "Beyond branding, we perfect the experience. From menu R&D to staff training, we shape every touchpoint of the guest journey.", img: "https://images.unsplash.com/photo-1577219491135-ce391730fb2c?auto=format&fit=crop&w=900&q=80", dark: true },
-                { course: "Desserts", title: "Visual Production", body: "A brand needs to be seen, felt and experienced. We translate strategy into reality with striking design, print and digital execution.", img: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=900&q=80", dark: false },
-              ].map((c, i) => (
-                <Reveal key={c.course} delay={i * 0.08}>
-                  <div className="group h-full rounded-2xl overflow-hidden flex flex-col">
-                    {/* image half */}
-                    <div className="relative aspect-[16/11] overflow-hidden">
-                      <div
-                        className="absolute inset-0 bg-cover bg-center grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
-                        style={{ backgroundImage: `url('${c.img}')` }}
-                      />
-                    </div>
-                    {/* colour half */}
-                    <div
-                      className={`flex-1 p-6 ${c.dark ? "bg-[#0A0A0A] text-[#F3F1EC]" : "bg-[#1a1a1a] text-[#F3F1EC]"}`}
-                    >
-                      <p className="text-[9px] tracking-[0.25em] uppercase text-[#B9B5AE]/60 mb-3">{c.course}</p>
-                      <h3 className="font-editorial leading-[1.1] mb-3" style={{ fontSize: "clamp(1.2rem, 1.6vw, 1.6rem)" }}>
-                        {c.title}
-                      </h3>
-                      <p className="text-[12px] text-[#B9B5AE] leading-relaxed">{c.body}</p>
-                    </div>
-                  </div>
-                </Reveal>
-              ))}
-            </div>
+            <Reveal delay={0.1} className="mb-14">
+              <MenuPanels />
+            </Reveal>
             <Reveal delay={0.2}>
               <div className="flex justify-center">
                 <MenuLink />
