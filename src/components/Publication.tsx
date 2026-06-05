@@ -243,18 +243,30 @@ export default function Publication() {
             </Reveal>
             <div className="grid grid-cols-1 md:grid-cols-4 gap-5 mb-14">
               {[
-                { course: "Amuse Bouché", title: "Branding & Identity", body: "A brand isn't just a name or a logo — it's the foundation of everything. We craft distinct identities that connect, from mission and values to visual and verbal worlds." },
-                { course: "Appetizers", title: "Social & Storytelling", body: "Great hospitality brands don't just sell — they tell stories. We create content from stunning visuals to scroll-stopping social and dynamic campaigns." },
-                { course: "Mains", title: "Experience & Innovation", body: "Beyond branding, we perfect the experience. From menu R&D to staff training, we shape every touchpoint of the guest journey." },
-                { course: "Desserts", title: "Visual Production", body: "A brand needs to be seen, felt and experienced. We translate strategy into reality with striking design, print and digital execution." },
+                { course: "Amuse Bouché", title: "Branding & Identity", body: "A brand isn't just a name or a logo — it's the foundation of everything. We craft distinct identities that connect, from mission and values to visual and verbal worlds.", img: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=900&q=80", dark: true },
+                { course: "Appetizers", title: "Social & Storytelling", body: "Great hospitality brands don't just sell — they tell stories. We create content from stunning visuals to scroll-stopping social and dynamic campaigns.", img: "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&w=900&q=80", dark: false },
+                { course: "Mains", title: "Experience & Innovation", body: "Beyond branding, we perfect the experience. From menu R&D to staff training, we shape every touchpoint of the guest journey.", img: "https://images.unsplash.com/photo-1577219491135-ce391730fb2c?auto=format&fit=crop&w=900&q=80", dark: true },
+                { course: "Desserts", title: "Visual Production", body: "A brand needs to be seen, felt and experienced. We translate strategy into reality with striking design, print and digital execution.", img: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=900&q=80", dark: false },
               ].map((c, i) => (
                 <Reveal key={c.course} delay={i * 0.08}>
-                  <div className="h-full rounded-2xl border border-[#0A0A0A]/15 p-7 text-center hover:border-[#0A0A0A]/40 transition-colors duration-500" style={{ borderWidth: "1px" }}>
-                    <p className="text-[9px] tracking-[0.25em] uppercase text-[#0A0A0A]/40 mb-8">{c.course}</p>
-                    <h3 className="font-editorial leading-[1.15] mb-5 text-[#0A0A0A]" style={{ fontSize: "clamp(1.4rem, 1.8vw, 1.9rem)" }}>
-                      {c.title}
-                    </h3>
-                    <p className="text-sm text-[#0A0A0A]/60 leading-relaxed">{c.body}</p>
+                  <div className="group h-full rounded-2xl overflow-hidden flex flex-col">
+                    {/* image half */}
+                    <div className="relative aspect-[16/11] overflow-hidden">
+                      <div
+                        className="absolute inset-0 bg-cover bg-center grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
+                        style={{ backgroundImage: `url('${c.img}')` }}
+                      />
+                    </div>
+                    {/* colour half */}
+                    <div
+                      className={`flex-1 p-6 ${c.dark ? "bg-[#0A0A0A] text-[#F3F1EC]" : "bg-[#1a1a1a] text-[#F3F1EC]"}`}
+                    >
+                      <p className="text-[9px] tracking-[0.25em] uppercase text-[#B9B5AE]/60 mb-3">{c.course}</p>
+                      <h3 className="font-editorial leading-[1.1] mb-3" style={{ fontSize: "clamp(1.2rem, 1.6vw, 1.6rem)" }}>
+                        {c.title}
+                      </h3>
+                      <p className="text-[12px] text-[#B9B5AE] leading-relaxed">{c.body}</p>
+                    </div>
                   </div>
                 </Reveal>
               ))}
