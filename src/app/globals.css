@@ -1,1 +1,27 @@
 @import "tailwindcss";
+
+:root {
+  --gold: #C9A032;
+  --gold-light: #E8C84A;
+  --deep: #060409;
+  --ivory: #F2ECD8;
+  --umber: #2C1B0E;
+  --shadow: rgba(6,4,9,0.9);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: auto; }
+
+body {
+  background: var(--deep);
+  color: var(--ivory);
+  overflow-x: hidden;
+}
+
+::-webkit-scrollbar { width: 0; }
+
+.font-serif { font-family: var(--font-playfair); }
+.font-sans  { font-family: var(--font-grotesk); }
+
+::selection { background: var(--gold); color: var(--deep); }
