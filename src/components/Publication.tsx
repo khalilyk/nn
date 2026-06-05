@@ -134,9 +134,20 @@ export default function Publication() {
           NOT NORMAL<sup className="text-[8px] ml-0.5">™</sup>
         </a>
         <div className="hidden md:flex items-center gap-12 absolute left-1/2 -translate-x-1/2">
-          {["Work", "About", "Journal"].map((l) => (
-            <a key={l} href="#s04" className="text-[10px] tracking-[0.22em] uppercase hover:opacity-60 transition-opacity">
-              {l}
+          {[
+            { l: "Work", href: "#s04", tip: "Selected proof" },
+            { l: "About", href: "#footer", tip: "Who we are" },
+            { l: "Journal", href: "#s08", tip: "Thinking & insights" },
+          ].map(({ l, href, tip }) => (
+            <a key={l} href={href} className="group relative text-[10px] tracking-[0.22em] uppercase">
+              <span className="transition-opacity group-hover:opacity-60">{l}</span>
+              {/* Tooltip */}
+              <span
+                className="pointer-events-none absolute left-1/2 top-full mt-3 -translate-x-1/2 whitespace-nowrap rounded-full bg-[#F3F1EC] px-3 py-1.5 text-[8px] tracking-[0.18em] text-[#0A0A0A] opacity-0 translate-y-1 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0"
+              >
+                {tip}
+                <span className="absolute left-1/2 -top-1 -translate-x-1/2 w-2 h-2 rotate-45 bg-[#F3F1EC]" />
+              </span>
             </a>
           ))}
         </div>
