@@ -278,8 +278,45 @@ export default function Publication() {
         </div>
       </Panel>
 
-      {/* ═══ 06 — CTA: START FROM SCRATCH (centered) ═══ */}
-      <Panel index={6} bg="ivory" minH="62vh">
+      {/* ═══ 06 — PEOPLE DON'T SHARE AVERAGE ═══ */}
+      <Panel index={6} bg="black" minH="42vh">
+        <div className="relative min-h-[42vh] flex items-center overflow-hidden">
+          <div className="absolute top-0 right-0 bottom-0 w-[58%]">
+            <Parallax src={IMG.crowd} amount={40} scale={1.15} position="center 55%" className="w-full h-full" />
+            <div className="absolute inset-0 bg-gradient-to-r from-[#0A0A0A] via-[#0A0A0A]/40 to-transparent" />
+          </div>
+          <div className="relative z-10 px-8 md:px-16 py-16">
+            <Reveal>
+              <p className="font-editorial leading-[1.1]" style={{ fontSize: "clamp(1.8rem, 3.5vw, 3rem)" }}>
+                People don&apos;t<br />share average.
+              </p>
+            </Reveal>
+          </div>
+          <SectionNo n="06" dark />
+        </div>
+      </Panel>
+
+      {/* ═══ 07 — NORM ═══ */}
+      <Panel index={7} bg="ivory" minH="auto">
+        <div id="s08" className="relative px-8 md:px-16 py-24 md:py-32 flex flex-col items-center">
+          <Reveal>
+            <p className="text-[9px] tracking-[0.3em] uppercase text-[#0A0A0A]/40 mb-3 text-center">07 — Not a Therapist</p>
+          </Reveal>
+          <Reveal delay={0.06}>
+            <h2 className="font-editorial text-center mb-12 leading-[1.2]" style={{ fontSize: "clamp(1.6rem, 3.2vw, 2.6rem)" }}>
+              Meet <span className="italic">NORM</span>.<br />
+              Here to chat about all things food &amp; marketing.
+            </h2>
+          </Reveal>
+          <Reveal delay={0.12} className="w-full">
+            <Terminal />
+          </Reveal>
+          <SectionNo n="07" />
+        </div>
+      </Panel>
+
+      {/* ═══ 08 — CTA: START FROM SCRATCH (centered, above footer) ═══ */}
+      <Panel index={8} bg="ivory" minH="62vh">
         <div className="relative min-h-[62vh] flex flex-col items-center justify-center text-center px-8 md:px-16 py-24">
           <Reveal>
             <p className="text-[9px] tracking-[0.3em] uppercase text-[#0A0A0A]/40 mb-6">Starting from scratch?</p>
@@ -307,43 +344,6 @@ export default function Publication() {
                 </span>
               </a>
             </Magnetic>
-          </Reveal>
-          <SectionNo n="06" />
-        </div>
-      </Panel>
-
-      {/* ═══ 07 — PEOPLE DON'T SHARE AVERAGE ═══ */}
-      <Panel index={7} bg="black" minH="42vh">
-        <div className="relative min-h-[42vh] flex items-center overflow-hidden">
-          <div className="absolute top-0 right-0 bottom-0 w-[58%]">
-            <Parallax src={IMG.crowd} amount={40} scale={1.15} position="center 55%" className="w-full h-full" />
-            <div className="absolute inset-0 bg-gradient-to-r from-[#0A0A0A] via-[#0A0A0A]/40 to-transparent" />
-          </div>
-          <div className="relative z-10 px-8 md:px-16 py-16">
-            <Reveal>
-              <p className="font-editorial leading-[1.1]" style={{ fontSize: "clamp(1.8rem, 3.5vw, 3rem)" }}>
-                People don&apos;t<br />share average.
-              </p>
-            </Reveal>
-          </div>
-          <SectionNo n="07" dark />
-        </div>
-      </Panel>
-
-      {/* ═══ 08 — NORM ═══ */}
-      <Panel index={8} bg="ivory" minH="auto">
-        <div id="s08" className="relative px-8 md:px-16 py-24 md:py-32 flex flex-col items-center">
-          <Reveal>
-            <p className="text-[9px] tracking-[0.3em] uppercase text-[#0A0A0A]/40 mb-3 text-center">08 — Not a Therapist</p>
-          </Reveal>
-          <Reveal delay={0.06}>
-            <h2 className="font-editorial text-center mb-12 leading-[1.2]" style={{ fontSize: "clamp(1.6rem, 3.2vw, 2.6rem)" }}>
-              Meet <span className="italic">NORM</span>.<br />
-              Here to chat about all things food &amp; marketing.
-            </h2>
-          </Reveal>
-          <Reveal delay={0.12} className="w-full">
-            <Terminal />
           </Reveal>
           <SectionNo n="08" />
         </div>
