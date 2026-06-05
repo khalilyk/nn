@@ -215,17 +215,15 @@ export default function Publication() {
 
       {/* ═══ 02 — NOBODY REMEMBERS NORMAL ═══ */}
       <Panel index={2} bg="ivory" minH="62vh">
-        <div id="s02" className="relative min-h-[62vh] flex items-center px-8 md:px-16 py-20">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 items-center w-full">
-            <Reveal>
-              <h2 className="font-editorial leading-[1.15]" style={{ fontSize: "clamp(1.8rem, 3.6vw, 3rem)" }}>
-                We build bold brands<br />for the edible &amp; drinkable,<br />from branding &amp; storytelling to<br />stuff you can hold.
-              </h2>
-            </Reveal>
-            <Reveal delay={0.1}>
-              <Parallax src={IMG.dinner} amount={40} className="aspect-[16/9] w-full grayscale" position="center" />
-            </Reveal>
-          </div>
+        <div id="s02" className="relative min-h-[62vh] flex flex-col items-center justify-center text-center px-8 md:px-16 py-20">
+          <Reveal>
+            <h2 className="font-editorial leading-[1.15] mb-12 max-w-2xl mx-auto" style={{ fontSize: "clamp(1.8rem, 3.6vw, 3rem)" }}>
+              We build bold brands<br />for the edible &amp; drinkable,<br />from branding &amp; storytelling to<br />stuff you can hold.
+            </h2>
+          </Reveal>
+          <Reveal delay={0.1} className="w-full max-w-3xl mx-auto">
+            <Parallax src={IMG.dinner} amount={40} className="aspect-[16/9] w-full grayscale" position="center" />
+          </Reveal>
           <SectionNo n="02" />
         </div>
       </Panel>

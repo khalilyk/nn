@@ -70,6 +70,18 @@ function route(input: string, name: string, seed: number, headlines: string[]): 
       "ME market: F&B is fiercely competitive and design-led. Concept clarity and a defensible point of view win the long game.",
     ], seed);
 
+  if (/\b(colour|color|palette|colours|colors)\b/.test(t))
+    return pick([
+      "Colour is shorthand for feeling. Warm earth tones read 'crafted & generous'; stark mono reads 'confident & editorial'. Pick the emotion first, the swatch second.",
+      `${you}, never choose colour by taste — choose by the memory you want to own. A brand that owns one colour owns a slice of the guest's mind.`,
+    ], seed);
+
+  if (/\b(merch|merchandise|cap|hat|tee|t-shirt|tote|hoodie|swag)\b/.test(t))
+    return pick([
+      "Merch is a wearable billboard people pay you for. Done right it turns guests into a walking media network — but only if it's good enough to wear unbranded.",
+      `Power of merch, ${you}: it extends the experience past the table and signals belonging. Make it desirable first, promotional never.`,
+    ], seed);
+
   if (/\b(brand|branding|logo|identity|name|naming)\b/.test(t))
     return pick([
       "A logo is 1% of a brand; the other 99% is 10,000 consistent experiences. Build the system, then defend it.",
@@ -153,8 +165,8 @@ export default function Terminal() {
     }, delay);
   };
 
-  const submit = () => {
-    const raw = value.trim();
+  const submit = (preset?: string) => {
+    const raw = (preset ?? value).trim();
     if (!raw || thinking || typingLine) return;
     setValue("");
     setMsgs((m) => [...m, { who: "you", text: raw }]);
@@ -189,6 +201,24 @@ export default function Terminal() {
 
     sayNorm(route(raw, name, s, headlines.current));
   };
+
+  // Quick-prompt pills bypass the wake gate and ask NORM directly
+  const ask = (q: string) => {
+    if (thinking || typingLine) return;
+    setMsgs((m) => [...m, { who: "you", text: q }]);
+    seed.current += 1;
+    if (phase !== "chatting") setPhase("chatting");
+    sayNorm(route(q, name, seed.current, headlines.current));
+  };
+
+  const prompts = [
+    "How do I build a menu that sells?",
+    "What brand strategy fits a new venue?",
+    "What do colours mean for a brand?",
+    "Is merch actually worth it?",
+    "How do I grow on social in Dubai?",
+    "What makes guests come back?",
+  ];
 
   return (
     <div className="w-full max-w-4xl mx-auto rounded-xl overflow-hidden shadow-2xl" style={{ background: "#0A0A0A", border: "1px solid rgba(255,255,255,0.08)" }}>
@@ -237,8 +267,21 @@ export default function Terminal() {
         )}
       </div>
 
+      {/* Quick-prompt pills */}
+      <div className="flex flex-wrap gap-2 px-5 pt-4 pb-1 border-t border-white/8" style={{ background: "#0C0C0C" }}>
+        {prompts.map((q) => (
+          <button
+            key={q}
+            onClick={() => ask(q)}
+            className="text-[9px] tracking-[0.08em] font-mono text-white/45 border border-white/12 rounded-full px-3 py-1.5 hover:text-[#9FE6B0] hover:border-[#9FE6B0]/40 transition-colors"
+          >
+            {q}
+          </button>
+        ))}
+      </div>
+
       {/* Input */}
-      <div className="flex items-center gap-2 px-5 py-3 border-t border-white/8 font-mono text-[12px] md:text-[13px]" style={{ background: "#0C0C0C" }}>
+      <div className="flex items-center gap-2 px-5 py-3 font-mono text-[12px] md:text-[13px]" style={{ background: "#0C0C0C" }}>
         <span style={{ color: "#E8E2C0" }} className="opacity-60 select-none">{(name || "you").toLowerCase()}@studio:~$</span>
         <input
           ref={inputRef}
