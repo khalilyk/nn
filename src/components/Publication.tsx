@@ -12,6 +12,7 @@ import Grain from "./Grain";
 import Preloader from "./Preloader";
 import ScrollProgress from "./ScrollProgress";
 import Magnetic from "./Magnetic";
+import NavPill from "./NavPill";
 
 /* ───────────────── IMAGERY ───────────────── */
 const IMG = {
@@ -126,6 +127,7 @@ export default function Publication() {
       <Cursor />
       <Grain />
       <ScrollProgress total={9} />
+      <NavPill />
       {/* ─── NAV ─── */}
       <nav className="fixed top-0 left-0 right-0 z-[100] flex items-center justify-between px-8 md:px-16 py-6 md:py-8 mix-blend-difference text-[#F3F1EC]">
         <a href="#top" className="font-display text-sm tracking-tight leading-none">
@@ -139,12 +141,13 @@ export default function Publication() {
           ))}
         </div>
         <Magnetic strength={0.5}>
-          <a href="#footer" data-cursor="Talk" className="flex items-center gap-3">
+          <a href="#footer" data-cursor="Chat" className="flex items-center gap-3">
             <span className="text-[10px] tracking-[0.22em] uppercase hover:opacity-60 transition-opacity">
-              Let&apos;s Talk
+              Let&apos;s Chat
             </span>
-            <span className="w-3.5 h-3.5 rounded-full border border-current flex items-center justify-center">
-              <span className="w-1 h-1 rounded-full bg-current" />
+            <span className="relative w-3.5 h-3.5 rounded-full border border-current flex items-center justify-center">
+              <span className="w-1 h-1 rounded-full bg-current animate-pulse" />
+              <span className="absolute inset-0 rounded-full border border-current animate-ping opacity-60" />
             </span>
           </a>
         </Magnetic>
@@ -262,20 +265,38 @@ export default function Publication() {
         </div>
       </Panel>
 
-      {/* ═══ 06 — LOYALTY IS DESIGNED ═══ */}
-      <Panel index={6} bg="ivory" minH="50vh">
-        <div className="relative min-h-[50vh] flex items-center px-8 md:px-16 py-16">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 items-center w-full">
-            <Reveal>
-              <Parallax src={IMG.chef} amount={35} className="aspect-[16/9] w-full grayscale" position="center" />
-            </Reveal>
-            <Reveal delay={0.1}>
-              <p className="font-editorial text-right md:text-left" style={{ fontSize: "clamp(1.8rem, 3.5vw, 3rem)" }}>
-                Let them savour, sip<br />and <span className="italic">live your story.</span>
-              </p>
-            </Reveal>
-          </div>
-          <SectionNo n="06" side="right" />
+      {/* ═══ 06 — CTA: START FROM SCRATCH ═══ */}
+      <Panel index={6} bg="ivory" minH="62vh">
+        <div className="relative min-h-[62vh] flex flex-col items-center justify-center text-center px-8 md:px-16 py-24">
+          <Reveal>
+            <p className="text-[9px] tracking-[0.3em] uppercase text-[#0A0A0A]/40 mb-6">Starting from scratch?</p>
+          </Reveal>
+          <Reveal delay={0.06}>
+            <h2 className="font-editorial leading-[1.1] max-w-2xl mb-10" style={{ fontSize: "clamp(1.8rem, 3.8vw, 3.2rem)" }}>
+              We&apos;ll build your brand from the ground up.<br className="hidden md:block" />
+              <span className="italic">Identity, strategy, story</span> — the whole thing.
+            </h2>
+          </Reveal>
+          <Reveal delay={0.14}>
+            <Magnetic strength={0.35}>
+              <a
+                href="#footer"
+                data-cursor="Go"
+                className="group relative inline-flex items-center gap-4 overflow-hidden rounded-full border border-[#0A0A0A] px-9 py-4"
+              >
+                {/* fill sweep */}
+                <span className="absolute inset-0 bg-[#0A0A0A] translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)]" />
+                <span className="relative z-10 text-[10px] tracking-[0.28em] uppercase text-[#0A0A0A] group-hover:text-[#F3F1EC] transition-colors duration-500">
+                  Let&apos;s Get Started
+                </span>
+                <span className="relative z-10 w-7 h-7 rounded-full border border-[#0A0A0A] group-hover:border-[#F3F1EC] flex items-center justify-center overflow-hidden">
+                  <span className="text-[#0A0A0A] group-hover:text-[#F3F1EC] transition-all duration-500 group-hover:translate-x-5">→</span>
+                  <span className="absolute text-[#F3F1EC] -translate-x-5 group-hover:translate-x-0 transition-transform duration-500">→</span>
+                </span>
+              </a>
+            </Magnetic>
+          </Reveal>
+          <SectionNo n="06" />
         </div>
       </Panel>
 
