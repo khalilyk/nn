@@ -107,7 +107,8 @@ export default function FeaturedCarousel() {
   const drag = useRef({ startX: 0, active: false });
   const trackRef = useRef<HTMLDivElement>(null);
 
-  const clamp = (n: number) => Math.max(0, Math.min(projects.length - 1, n));
+  // endless wrap
+  const clamp = (n: number) => (n + projects.length) % projects.length;
 
   const onDown = (e: React.PointerEvent) => {
     drag.current = { startX: e.clientX, active: true };
@@ -159,16 +160,14 @@ export default function FeaturedCarousel() {
           <div className="flex gap-3">
             <button
               onClick={() => setIndex((i) => clamp(i - 1))}
-              disabled={index === 0}
-              className="w-9 h-9 rounded-full border border-[#0A0A0A]/30 flex items-center justify-center text-sm disabled:opacity-20 hover:bg-[#0A0A0A] hover:text-[#F3F1EC] transition-colors"
+              className="w-9 h-9 rounded-full border border-[#0A0A0A]/30 flex items-center justify-center text-sm hover:bg-[#0A0A0A] hover:text-[#F3F1EC] transition-colors"
               aria-label="Previous"
             >
               ←
             </button>
             <button
               onClick={() => setIndex((i) => clamp(i + 1))}
-              disabled={index === projects.length - 1}
-              className="w-9 h-9 rounded-full border border-[#0A0A0A]/30 flex items-center justify-center text-sm disabled:opacity-20 hover:bg-[#0A0A0A] hover:text-[#F3F1EC] transition-colors"
+              className="w-9 h-9 rounded-full border border-[#0A0A0A]/30 flex items-center justify-center text-sm hover:bg-[#0A0A0A] hover:text-[#F3F1EC] transition-colors"
               aria-label="Next"
             >
               →

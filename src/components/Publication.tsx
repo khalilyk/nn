@@ -36,16 +36,19 @@ function Panel({
   bg,
   index,
   minH = "100vh",
+  pin = true,
 }: {
   children: ReactNode;
   bg: "black" | "ivory";
   index: number;
   minH?: string;
+  pin?: boolean;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const inner = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    if (!pin) return;
     let raf = 0;
     const onScroll = () => {
       cancelAnimationFrame(raf);
@@ -68,10 +71,10 @@ function Panel({
       window.removeEventListener("scroll", onScroll);
       cancelAnimationFrame(raf);
     };
-  }, []);
+  }, [pin]);
 
   return (
-    <section ref={ref} className="panel" style={{ zIndex: index }}>
+    <section ref={ref} className={pin ? "panel" : "relative"} style={{ zIndex: index }}>
       <div
         ref={inner}
         className={`origin-top ${bg === "black" ? "bg-[#0A0A0A] text-[#F3F1EC]" : "bg-[#F3F1EC] text-[#0A0A0A]"}`}
@@ -209,13 +212,13 @@ export default function Publication() {
       </Panel>
 
       {/* ═══ 02 — NOBODY REMEMBERS NORMAL + THE MENU ═══ */}
-      <Panel index={2} bg="ivory" minH="auto">
+      <Panel index={2} bg="ivory" minH="auto" pin={false}>
         <div id="s02" className="relative">
           {/* Top — statement + image */}
           <div className="flex flex-col items-center justify-center text-center px-8 md:px-16 pt-28 pb-16">
             <Reveal>
               <h2 className="font-editorial leading-[1.15] mb-12 max-w-3xl mx-auto" style={{ fontSize: "clamp(1.8rem, 3.6vw, 3rem)" }}>
-                We build bold brands<br />for the edible &amp; drinkable,<br />from branding &amp; storytelling<br />to stuff you can hold.
+                We build bold brands<br />for the edible and drinkable,<br />from branding &amp; storytelling to<br />stuff you can hold.
               </h2>
             </Reveal>
             <Reveal delay={0.1} className="w-full max-w-3xl mx-auto">
@@ -402,6 +405,7 @@ export default function Publication() {
             <div className="flex gap-6">
               <a href="#" className="hover:text-[#0A0A0A] transition-colors">Privacy</a>
               <a href="#" className="hover:text-[#0A0A0A] transition-colors">Terms</a>
+              <a href="/the-inside" className="hover:text-[#0A0A0A] transition-colors">The Inside</a>
             </div>
           </div>
 
