@@ -11,13 +11,13 @@ const projects = [
   },
   {
     name: "REVOLVER",
-    city: "Milan",
+    city: "Sydney",
     desc: "A neighbourhood bar reimagined as a cultural anchor. Quiet rebellion, designed into every detail.",
     img: "https://images.unsplash.com/photo-1470337458703-46ad1756a187?auto=format&fit=crop&w=1600&q=80",
   },
   {
     name: "MAISON DALI",
-    city: "Paris",
+    city: "Beirut",
     desc: "Surrealism on a plate. A world, not a logo — each touchpoint a different act in the same play.",
     img: "https://images.unsplash.com/photo-1424847651672-bf20a4b0982b?auto=format&fit=crop&w=1600&q=80",
   },
@@ -29,13 +29,13 @@ const projects = [
   },
   {
     name: "BENNY'S",
-    city: "Milan",
+    city: "Sydney",
     desc: "Concept, identity and energy for a room people don't want to leave. Built to be remembered.",
     img: "https://images.unsplash.com/photo-1551218808-94e220e084d2?auto=format&fit=crop&w=1600&q=80",
   },
   {
     name: "PRINT PARADISE",
-    city: "Paris",
+    city: "Beirut",
     desc: "Where editorial meets hospitality. A brand that reads like a magazine and tastes like a memory.",
     img: "https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&w=1600&q=80",
   },

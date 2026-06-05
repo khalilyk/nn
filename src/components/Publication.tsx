@@ -285,7 +285,7 @@ export default function Publication() {
             </Reveal>
             <Reveal delay={0.08}>
               <div className="space-y-1.5 md:pt-2">
-                <a href="mailto:hello@notnormal.studio" className="block text-[11px] tracking-[0.1em] uppercase hover:opacity-60 transition-opacity">hello@notnormal.studio</a>
+                <a href="mailto:hello@thisisnn.com" className="block text-[11px] tracking-[0.1em] uppercase hover:opacity-60 transition-opacity">hello@thisisnn.com</a>
                 <a href="tel:+971501234567" className="block text-[11px] tracking-[0.1em] hover:opacity-60 transition-opacity">+971 50 123 4567</a>
                 <div className="pt-4 space-y-1.5">
                   <a href="#" className="block text-[11px] tracking-[0.1em] uppercase hover:opacity-60 transition-opacity">Instagram</a>
@@ -295,7 +295,7 @@ export default function Publication() {
             </Reveal>
             <Reveal delay={0.16}>
               <div className="flex md:justify-end">
-                <a href="mailto:hello@notnormal.studio" className="group w-28 h-28 rounded-full border border-[#0A0A0A] flex flex-col items-center justify-center gap-2 hover:bg-[#0A0A0A] hover:text-[#F3F1EC] transition-colors duration-500">
+                <a href="mailto:hello@thisisnn.com" className="group w-28 h-28 rounded-full border border-[#0A0A0A] flex flex-col items-center justify-center gap-2 hover:bg-[#0A0A0A] hover:text-[#F3F1EC] transition-colors duration-500">
                   <span className="text-[9px] tracking-[0.25em] uppercase">Let&apos;s Talk</span>
                   <span className="text-base">→</span>
                 </a>
@@ -305,7 +305,7 @@ export default function Publication() {
 
           <div className="border-t border-[#0A0A0A]/15 pt-6 flex flex-col md:flex-row items-center justify-between gap-4 text-[9px] tracking-[0.2em] uppercase text-[#0A0A0A]/50">
             <span>© Not Normal Studio</span>
-            <span>Dubai — Milan — Paris</span>
+            <span>Sydney — Dubai — Beirut</span>
             <div className="flex gap-6">
               <a href="#" className="hover:text-[#0A0A0A] transition-colors">Privacy</a>
               <a href="#" className="hover:text-[#0A0A0A] transition-colors">Terms</a>

@@ -24,7 +24,7 @@ const anton = Anton({
 export const metadata: Metadata = {
   title: "Not Normal — Nobody Remembers Normal",
   description:
-    "A hospitality branding and marketing studio for brands that refuse to blend in. Dubai — Milan — Paris.",
+    "A hospitality branding and marketing studio for brands that refuse to blend in. Sydney — Dubai — Beirut.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
