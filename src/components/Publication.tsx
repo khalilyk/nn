@@ -105,7 +105,7 @@ export default function Publication() {
   return (
     <div className="relative">
       {/* ─── NAV ─── */}
-      <nav className="fixed top-0 left-0 right-0 z-[100] flex items-center justify-between px-8 md:px-16 py-5 mix-blend-difference text-[#F3F1EC]">
+      <nav className="fixed top-0 left-0 right-0 z-[100] flex items-center justify-between px-8 md:px-16 py-6 md:py-8 mix-blend-difference text-[#F3F1EC]">
         <a href="#top" className="font-display text-sm tracking-tight leading-none">
           NOT NORMAL<sup className="text-[8px] ml-0.5">™</sup>
         </a>
@@ -312,7 +312,7 @@ export default function Publication() {
 
       {/* ═══ FOOTER — THE INVITATION ═══ */}
       <Panel index={8} bg="ivory" minH="auto">
-        <footer id="footer" className="px-8 md:px-16 pt-20 pb-6">
+        <footer id="footer" className="px-8 md:px-16 pt-24 pb-10 md:pb-14">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12 items-start mb-20">
             <Reveal>
               <h2 className="font-editorial leading-[1.1]" style={{ fontSize: "clamp(1.8rem, 3.2vw, 2.8rem)" }}>
