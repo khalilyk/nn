@@ -19,6 +19,7 @@ import ChatLink from "./ChatLink";
 import ThreeCities from "./ThreeCities";
 import HoverWord from "./HoverWord";
 import OverlapImages from "./OverlapImages";
+import MenuLink from "./MenuLink";
 
 /* ───────────────── IMAGERY ───────────────── */
 const IMG = {
@@ -260,16 +261,7 @@ export default function Publication() {
             </div>
             <Reveal delay={0.2}>
               <div className="flex justify-center">
-                <a href="#s04" className="group inline-flex items-center gap-3 rounded-full border border-[#0A0A0A] px-6 py-3 hover:bg-[#0A0A0A]/5 transition-colors" style={{ borderWidth: "1px" }}>
-                  <span className="relative grid text-[10px] tracking-[0.22em] uppercase">
-                    <span className="col-start-1 row-start-1 transition-opacity duration-300 group-hover:opacity-0">The Full Menu</span>
-                    <span className="col-start-1 row-start-1 opacity-0 transition-opacity duration-300 group-hover:opacity-100">What We Do</span>
-                  </span>
-                  <span className="relative w-3.5 h-3.5 rounded-full border border-current flex items-center justify-center">
-                    <span className="w-1 h-1 rounded-full bg-current animate-pulse" />
-                    <span className="absolute inset-0 rounded-full border border-current animate-ping opacity-60" />
-                  </span>
-                </a>
+                <MenuLink />
               </div>
             </Reveal>
           </div>
