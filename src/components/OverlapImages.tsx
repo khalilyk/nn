@@ -58,9 +58,6 @@ export default function OverlapImages() {
 
   return (
     <div className="relative w-full mx-auto" style={{ maxWidth: 760, height: "clamp(260px, 38vw, 440px)" }}>
-      <p className="absolute -top-8 left-1/2 -translate-x-1/2 text-[9px] tracking-[0.3em] uppercase text-[#0A0A0A]/40">
-        {sets[si].label}
-      </p>
       {pos.map((p, i) => (
         <div
           key={i}

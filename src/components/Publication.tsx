@@ -233,7 +233,12 @@ export default function Publication() {
           {/* The Menu — four courses (part of the ivory section above) */}
           <div className="px-8 md:px-16 pb-24 md:pb-28">
             <Reveal>
-              <p className="text-[9px] tracking-[0.3em] uppercase text-[#0A0A0A]/40 mb-14 text-center">The Menu — What We Do</p>
+              <p className="text-[9px] tracking-[0.3em] uppercase text-[#0A0A0A]/40 mb-6 text-center">The Menu — What We Do</p>
+            </Reveal>
+            <Reveal delay={0.05}>
+              <p className="font-editorial text-center max-w-2xl mx-auto mb-14 leading-relaxed text-[#0A0A0A]/80" style={{ fontSize: "clamp(1.1rem, 1.8vw, 1.5rem)" }}>
+                We help hospitality brands stand out through strategy, design, content and guest experience. From branding to campaigns, every detail is crafted to connect and be remembered.
+              </p>
             </Reveal>
             <div className="grid grid-cols-1 md:grid-cols-4 gap-5 mb-14">
               {[
@@ -256,7 +261,10 @@ export default function Publication() {
             <Reveal delay={0.2}>
               <div className="flex justify-center">
                 <a href="#s04" className="group inline-flex items-center gap-3 rounded-full border border-[#0A0A0A] px-6 py-3 hover:bg-[#0A0A0A]/5 transition-colors" style={{ borderWidth: "1px" }}>
-                  <span className="text-[10px] tracking-[0.22em] uppercase">The Full Menu</span>
+                  <span className="relative grid text-[10px] tracking-[0.22em] uppercase">
+                    <span className="col-start-1 row-start-1 transition-opacity duration-300 group-hover:opacity-0">The Full Menu</span>
+                    <span className="col-start-1 row-start-1 opacity-0 transition-opacity duration-300 group-hover:opacity-100">What We Do</span>
+                  </span>
                   <span className="relative w-3.5 h-3.5 rounded-full border border-current flex items-center justify-center">
                     <span className="w-1 h-1 rounded-full bg-current animate-pulse" />
                     <span className="absolute inset-0 rounded-full border border-current animate-ping opacity-60" />
