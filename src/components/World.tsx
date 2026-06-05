@@ -82,19 +82,19 @@ export default function World() {
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: card,
-          start: "top 75%",
-          end: "top 25%",
-          toggleActions: "play reverse play reverse",
+          start: "top 80%",
+          toggleActions: "play none none reverse",
         },
       });
 
-      tl.from(roman, { y: 60, opacity: 0, duration: 1.0, ease: "power3.out" })
-        .from(eyebrow, { y: 20, opacity: 0, duration: 0.7, ease: "power2.out" }, "-=0.7")
-        .from(lines, { y: 100, opacity: 0, duration: 1.1, ease: "power3.out", stagger: 0.12 }, "-=0.6")
-        .from(sub, { y: 30, opacity: 0, duration: 0.8, ease: "power2.out" }, "-=0.6");
-
-      if (cta) tl.from(cta, { y: 20, opacity: 0, duration: 0.7 }, "-=0.4");
+      if (roman) tl.fromTo(roman, { y: 60, opacity: 0 }, { y: 0, opacity: 0.18, duration: 1.0, ease: "power3.out" });
+      if (eyebrow) tl.fromTo(eyebrow, { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7, ease: "power2.out" }, "-=0.7");
+      if (lines.length) tl.fromTo(lines, { y: 100, opacity: 0 }, { y: 0, opacity: 1, duration: 1.1, ease: "power3.out", stagger: 0.12 }, "-=0.6");
+      if (sub) tl.fromTo(sub, { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, ease: "power2.out" }, "-=0.6");
+      if (cta) tl.fromTo(cta, { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7 }, "-=0.4");
     });
+
+    ScrollTrigger.refresh();
 
     return () => {
       lenis.destroy();
