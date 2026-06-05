@@ -234,6 +234,19 @@ export default function Terminal() {
         </span>
       </div>
 
+      {/* Quick-prompt pills — directly under the title for visibility */}
+      <div className="flex flex-wrap gap-2 px-5 pt-4 pb-3 border-b border-white/8" style={{ background: "#0C0C0C" }}>
+        {prompts.map((q) => (
+          <button
+            key={q}
+            onClick={() => ask(q)}
+            className="text-[9px] tracking-[0.08em] font-mono text-white/45 border border-white/12 rounded-full px-3 py-1.5 hover:text-[#9FE6B0] hover:border-[#9FE6B0]/40 transition-colors"
+          >
+            {q}
+          </button>
+        ))}
+      </div>
+
       {/* Body */}
       <div
         ref={bodyRef}
@@ -267,21 +280,8 @@ export default function Terminal() {
         )}
       </div>
 
-      {/* Quick-prompt pills */}
-      <div className="flex flex-wrap gap-2 px-5 pt-4 pb-1 border-t border-white/8" style={{ background: "#0C0C0C" }}>
-        {prompts.map((q) => (
-          <button
-            key={q}
-            onClick={() => ask(q)}
-            className="text-[9px] tracking-[0.08em] font-mono text-white/45 border border-white/12 rounded-full px-3 py-1.5 hover:text-[#9FE6B0] hover:border-[#9FE6B0]/40 transition-colors"
-          >
-            {q}
-          </button>
-        ))}
-      </div>
-
       {/* Input */}
-      <div className="flex items-center gap-2 px-5 py-3 font-mono text-[12px] md:text-[13px]" style={{ background: "#0C0C0C" }}>
+      <div className="flex items-center gap-2 px-5 py-3 border-t border-white/8 font-mono text-[12px] md:text-[13px]" style={{ background: "#0C0C0C" }}>
         <span style={{ color: "#E8E2C0" }} className="opacity-60 select-none">{(name || "you").toLowerCase()}@studio:~$</span>
         <input
           ref={inputRef}

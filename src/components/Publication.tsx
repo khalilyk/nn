@@ -13,7 +13,6 @@ import Preloader from "./Preloader";
 import ScrollProgress from "./ScrollProgress";
 import Magnetic from "./Magnetic";
 import NavPill from "./NavPill";
-import AsciiBuilder from "./AsciiBuilder";
 import HeroMedia from "./HeroMedia";
 
 /* ───────────────── IMAGERY ───────────────── */
@@ -128,7 +127,7 @@ export default function Publication() {
       <Preloader onDone={() => setLoading(false)} />
       <Cursor />
       <Grain />
-      <ScrollProgress total={9} />
+      <ScrollProgress total={8} />
       <NavPill />
       {/* ─── NAV ─── */}
       <nav className="fixed top-0 left-0 right-0 z-[100] flex items-center justify-between px-8 md:px-16 py-6 md:py-8 mix-blend-difference text-[#F3F1EC]">
@@ -281,16 +280,15 @@ export default function Publication() {
 
       {/* ═══ 06 — CTA: START FROM SCRATCH (split screen) ═══ */}
       <Panel index={6} bg="ivory" minH="70vh">
-        <div className="relative min-h-[70vh] grid grid-cols-1 md:grid-cols-2 items-center gap-12 md:gap-20 px-8 md:px-16 py-24">
+        <div id="s08" className="relative min-h-[70vh] grid grid-cols-1 md:grid-cols-2 items-center gap-12 md:gap-20 px-8 md:px-16 py-24">
           {/* Left — copy */}
           <div>
             <Reveal>
-              <p className="text-[9px] tracking-[0.3em] uppercase text-[#0A0A0A]/40 mb-6">Starting from scratch?</p>
+              <p className="text-[9px] tracking-[0.3em] uppercase text-[#0A0A0A]/40 mb-6">Not a therapist</p>
             </Reveal>
             <Reveal delay={0.06}>
               <h2 className="font-editorial leading-[1.1] mb-10" style={{ fontSize: "clamp(1.8rem, 3.8vw, 3.4rem)" }}>
-                We&apos;ll build your brand from the ground up.
-                <span className="italic"> Identity, strategy, story</span> — the whole thing.
+                Meet <span className="italic">NORM</span> — here to chat about all things food, marketing &amp; building something worth remembering.
               </h2>
             </Reveal>
             <Reveal delay={0.14}>
@@ -313,11 +311,9 @@ export default function Publication() {
             </Reveal>
           </div>
 
-          {/* Right — ASCII builder */}
+          {/* Right — NORM chat */}
           <Reveal delay={0.1} className="w-full">
-            <div className="border border-[#0A0A0A]/15 rounded-lg p-6 md:p-8 bg-[#EDEAE2]">
-              <AsciiBuilder interval={30000} />
-            </div>
+            <Terminal />
           </Reveal>
 
           <SectionNo n="06" />
@@ -342,27 +338,8 @@ export default function Publication() {
         </div>
       </Panel>
 
-      {/* ═══ 08 — THE INTELLIGENCE TERMINAL ═══ */}
-      <Panel index={8} bg="ivory" minH="auto">
-        <div className="relative px-8 md:px-16 py-24 md:py-32 flex flex-col items-center">
-          <Reveal>
-            <p className="text-[9px] tracking-[0.3em] uppercase text-[#0A0A0A]/40 mb-3 text-center">08 — Not a Therapist</p>
-          </Reveal>
-          <Reveal delay={0.06}>
-            <h2 className="font-editorial text-center mb-12 leading-[1.2]" style={{ fontSize: "clamp(1.6rem, 3.2vw, 2.6rem)" }}>
-              Meet <span className="italic">NORM</span>.<br />
-              Here to chat about all things food &amp; marketing.
-            </h2>
-          </Reveal>
-          <Reveal delay={0.12} className="w-full">
-            <Terminal />
-          </Reveal>
-          <SectionNo n="08" />
-        </div>
-      </Panel>
-
       {/* ═══ FOOTER — THE INVITATION ═══ */}
-      <Panel index={9} bg="ivory" minH="auto">
+      <Panel index={8} bg="ivory" minH="auto">
         <footer id="footer" className="px-8 md:px-16 pt-24 pb-10 md:pb-14">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start mb-20">
             <Reveal>
