@@ -13,6 +13,8 @@ import Preloader from "./Preloader";
 import ScrollProgress from "./ScrollProgress";
 import Magnetic from "./Magnetic";
 import HeroMedia from "./HeroMedia";
+import ScrambleStat from "./ScrambleStat";
+import ZoomOnScroll from "./ZoomOnScroll";
 
 /* ───────────────── IMAGERY ───────────────── */
 const IMG = {
@@ -219,7 +221,7 @@ export default function Publication() {
             </h2>
           </Reveal>
           <Reveal delay={0.1} className="w-full max-w-3xl mx-auto">
-            <Parallax src={IMG.dinner} amount={40} className="aspect-[16/9] w-full grayscale" position="center" />
+            <ZoomOnScroll src={IMG.dinner} className="aspect-[16/9] w-full grayscale" position="center" from={1} to={1.7} />
           </Reveal>
           <SectionNo n="02" />
         </div>
@@ -242,7 +244,11 @@ export default function Publication() {
               </h2>
             </Reveal>
             <Reveal delay={0.2}>
-              <span className="inline-block mt-10 text-[#F3F1EC]/70 text-xl">→</span>
+              <div className="mt-12 grid grid-cols-3 gap-6 md:gap-10 max-w-xl">
+                <ScrambleStat value={20} suffix="+" label="Years in hospitality" />
+                <ScrambleStat value={50} suffix="+" label="Award-winning brands" />
+                <ScrambleStat value={10} label="Hungry team members" />
+              </div>
             </Reveal>
           </div>
           <SectionNo n="03" dark />
