@@ -245,8 +245,8 @@ export default function Publication() {
                 <Reveal key={c.course} delay={i * 0.08}>
                   <div className="h-full rounded-2xl border border-[#0A0A0A]/15 p-7 text-center hover:border-[#0A0A0A]/40 transition-colors duration-500" style={{ borderWidth: "1px" }}>
                     <p className="text-[9px] tracking-[0.25em] uppercase text-[#0A0A0A]/40 mb-8">{c.course}</p>
-                    <h3 className="font-display text-xl md:text-[1.5rem] leading-tight mb-5 text-[#0A0A0A]">
-                      {c.title.toUpperCase()}
+                    <h3 className="font-editorial leading-[1.15] mb-5 text-[#0A0A0A]" style={{ fontSize: "clamp(1.4rem, 1.8vw, 1.9rem)" }}>
+                      {c.title}
                     </h3>
                     <p className="text-sm text-[#0A0A0A]/60 leading-relaxed">{c.body}</p>
                   </div>
@@ -255,9 +255,12 @@ export default function Publication() {
             </div>
             <Reveal delay={0.2}>
               <div className="flex justify-center">
-                <a href="#s04" className="group inline-flex items-center gap-3 rounded-full border border-[#0A0A0A] px-8 py-4 hover:bg-[#0A0A0A] hover:text-[#F3F1EC] transition-colors duration-500">
-                  <span className="text-[10px] tracking-[0.25em] uppercase">The Full Menu</span>
-                  <span className="text-sm">↗</span>
+                <a href="#s04" className="group inline-flex items-center gap-3 rounded-full border border-[#0A0A0A] px-6 py-3 hover:bg-[#0A0A0A]/5 transition-colors" style={{ borderWidth: "1px" }}>
+                  <span className="text-[10px] tracking-[0.22em] uppercase">The Full Menu</span>
+                  <span className="relative w-3.5 h-3.5 rounded-full border border-current flex items-center justify-center">
+                    <span className="w-1 h-1 rounded-full bg-current animate-pulse" />
+                    <span className="absolute inset-0 rounded-full border border-current animate-ping opacity-60" />
+                  </span>
                 </a>
               </div>
             </Reveal>
@@ -404,7 +407,7 @@ Meet <span className="italic">NORM</span>, our marketing exec.<br />
           </div>
 
           <div className="border-t border-[#0A0A0A]/15 pt-6 flex flex-col md:flex-row items-center justify-between gap-4 text-[9px] tracking-[0.2em] uppercase text-[#0A0A0A]/50">
-            <span>© Not Normal</span>
+            <span>© {new Date().getFullYear()} Not Normal</span>
             <span>Sydney — Dubai — Beirut</span>
             <div className="flex gap-6">
               <a href="#" className="hover:text-[#0A0A0A] transition-colors">Privacy</a>
