@@ -15,6 +15,7 @@ import Magnetic from "./Magnetic";
 import HeroMedia from "./HeroMedia";
 import ScrambleStat from "./ScrambleStat";
 import ZoomOnScroll from "./ZoomOnScroll";
+import ScrollDriftX from "./ScrollDriftX";
 
 /* ───────────────── IMAGERY ───────────────── */
 const IMG = {
@@ -155,7 +156,7 @@ export default function Publication() {
           ))}
         </div>
         <Magnetic strength={0.5}>
-          <a href="#footer" data-cursor="Chat" className="flex items-center gap-3">
+          <a href="#footer" data-cursor="Chat" className="flex items-center gap-3 border border-current rounded-full px-4 py-2 hover:bg-current/5 transition-colors" style={{ borderWidth: "1px" }}>
             <span className="text-[10px] tracking-[0.22em] uppercase hover:opacity-60 transition-opacity">
               Let&apos;s Chat
             </span>
@@ -257,8 +258,10 @@ export default function Publication() {
 
       {/* ═══ 04 — FEATURED PROJECTS (draggable carousel) ═══ */}
       <Panel index={4} bg="ivory" minH="80vh">
-        <div id="s04" className="relative min-h-[80vh] flex items-center px-8 md:px-16 py-20">
-          <FeaturedCarousel />
+        <div id="s04" className="relative min-h-[80vh] flex items-center px-8 md:px-16 py-20 overflow-hidden">
+          <ScrollDriftX range={0.07} className="w-full">
+            <FeaturedCarousel />
+          </ScrollDriftX>
           <SectionNo n="04" />
         </div>
       </Panel>
