@@ -107,7 +107,7 @@ const colour: Record<Msg["who"], string> = {
 
 export default function Terminal() {
   const [msgs, setMsgs] = useState<Msg[]>([
-    { who: "sys", text: "NORM is asleep. Say hi and introduce yourself to wake it. (e.g. \"hi, I'm Sam\")" },
+    { who: "sys", text: "Ask NORM anything — food, marketing & hospitality, Sydney to Dubai." },
   ]);
   const [phase, setPhase] = useState<"asleep" | "awaitingName" | "chatting">("asleep");
   const [name, setName] = useState("");
@@ -115,6 +115,7 @@ export default function Terminal() {
   const [thinking, setThinking] = useState(false);
   const [typingLine, setTypingLine] = useState("");
   const seed = useRef(0);
+  const introduced = useRef(false);
   const headlines = useRef<string[]>([]);
   const bodyRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -165,50 +166,43 @@ export default function Terminal() {
     }, delay);
   };
 
+  const respond = (raw: string) => {
+    seed.current += 1;
+    const s = seed.current;
+    // capture a name if they happen to share one
+    const n = extractName(raw);
+    const who = n || name;
+    if (n && !name) setName(n);
+    if (phase !== "chatting") setPhase("chatting");
+
+    const answer = route(raw, who, s, headlines.current);
+    // NORM introduces himself on the very first exchange
+    if (!introduced.current) {
+      introduced.current = true;
+      const hi = isGreeting(raw) && !n
+        ? "Hey — I'm NORM, Not Normal's intelligence. Food, marketing & hospitality from Sydney to Dubai. "
+        : n
+        ? `Good to meet you, ${n}. I'm NORM — Not Normal's intelligence. `
+        : "I'm NORM, by the way — Not Normal's intelligence. ";
+      sayNorm(hi + answer);
+    } else {
+      sayNorm(answer);
+    }
+  };
+
   const submit = (preset?: string) => {
     const raw = (preset ?? value).trim();
     if (!raw || thinking || typingLine) return;
     setValue("");
     setMsgs((m) => [...m, { who: "you", text: raw }]);
-    seed.current += 1;
-    const s = seed.current;
-
-    if (phase === "asleep") {
-      if (isGreeting(raw)) {
-        const n = extractName(raw);
-        if (n) {
-          setName(n);
-          setPhase("chatting");
-          sayNorm(`Well, hello ${n}. NORM here — Not Normal's intelligence. I live for hospitality, marketing, food and social across Australia and the Middle East. What's on your mind?`);
-        } else {
-          setPhase("awaitingName");
-          sayNorm("Ah, a voice. I'm NORM. And you are…?");
-        }
-      } else {
-        setMsgs((m) => [...m, { who: "sys", text: "…NORM is still asleep. Say hi to begin." }]);
-      }
-      return;
-    }
-
-    if (phase === "awaitingName") {
-      const n = extractName(raw) || raw.split(/\s+/)[0].replace(/[^a-zA-Z]/g, "");
-      const clean = n ? n[0].toUpperCase() + n.slice(1).toLowerCase() : "friend";
-      setName(clean);
-      setPhase("chatting");
-      sayNorm(`Good to meet you, ${clean}. Ask me anything about marketing, hospitality, food or social — Sydney to Dubai. Or say 'topics'.`);
-      return;
-    }
-
-    sayNorm(route(raw, name, s, headlines.current));
+    respond(raw);
   };
 
-  // Quick-prompt pills bypass the wake gate and ask NORM directly
+  // Quick-prompt pills ask NORM directly
   const ask = (q: string) => {
     if (thinking || typingLine) return;
     setMsgs((m) => [...m, { who: "you", text: q }]);
-    seed.current += 1;
-    if (phase !== "chatting") setPhase("chatting");
-    sayNorm(route(q, name, seed.current, headlines.current));
+    respond(q);
   };
 
   // Larger pool; a random subset is shown and reshuffles every few seconds
@@ -307,7 +301,7 @@ export default function Terminal() {
           value={value}
           onChange={(e) => setValue(e.target.value)}
           onKeyDown={(e) => { if (e.key === "Enter") submit(); }}
-          placeholder={phase === "asleep" ? "say hi to begin…" : "type a message…"}
+          placeholder="ask me anything…"
           className="flex-1 bg-transparent outline-none text-[#F3F1EC] placeholder-white/20"
           autoComplete="off"
           spellCheck={false}

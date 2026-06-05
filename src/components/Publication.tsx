@@ -17,6 +17,7 @@ import ZoomOnScroll from "./ZoomOnScroll";
 import ScrollDriftX from "./ScrollDriftX";
 import Testimonials from "./Testimonials";
 import ChatLink from "./ChatLink";
+import ThreeCities from "./ThreeCities";
 
 /* ───────────────── IMAGERY ───────────────── */
 const IMG = {
@@ -207,18 +208,55 @@ export default function Publication() {
         </div>
       </Panel>
 
-      {/* ═══ 02 — NOBODY REMEMBERS NORMAL ═══ */}
-      <Panel index={2} bg="ivory" minH="62vh">
-        <div id="s02" className="relative min-h-[62vh] flex flex-col items-center justify-center text-center px-8 md:px-16 py-20">
-          <Reveal>
-            <h2 className="font-editorial leading-[1.15] mb-12 max-w-3xl mx-auto" style={{ fontSize: "clamp(1.8rem, 3.6vw, 3rem)" }}>
-              We build bold brands<br />for the edible &amp; drinkable,<br />from branding &amp; storytelling<br />to stuff you can hold.
-            </h2>
-          </Reveal>
-          <Reveal delay={0.1} className="w-full max-w-3xl mx-auto">
-            <ZoomOnScroll src={IMG.dinner} className="aspect-[16/9] w-full grayscale" position="center" from={1} to={1.7} />
-          </Reveal>
-          <SectionNo n="02" />
+      {/* ═══ 02 — NOBODY REMEMBERS NORMAL + THE MENU ═══ */}
+      <Panel index={2} bg="ivory" minH="auto">
+        <div id="s02" className="relative">
+          {/* Top — statement + image */}
+          <div className="flex flex-col items-center justify-center text-center px-8 md:px-16 pt-28 pb-16">
+            <Reveal>
+              <h2 className="font-editorial leading-[1.15] mb-12 max-w-3xl mx-auto" style={{ fontSize: "clamp(1.8rem, 3.6vw, 3rem)" }}>
+                We build bold brands<br />for the edible &amp; drinkable,<br />from branding &amp; storytelling<br />to stuff you can hold.
+              </h2>
+            </Reveal>
+            <Reveal delay={0.1} className="w-full max-w-3xl mx-auto">
+              <ZoomOnScroll src={IMG.dinner} className="aspect-[16/9] w-full grayscale" position="center" from={1} to={1.7} />
+            </Reveal>
+          </div>
+
+          {/* The Menu — four courses */}
+          <div className="bg-[#0A0A0A] text-[#F3F1EC] px-8 md:px-16 py-20 md:py-28">
+            <Reveal>
+              <p className="text-[9px] tracking-[0.3em] uppercase text-[#B9B5AE]/60 mb-14">The Menu — What We Do</p>
+            </Reveal>
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-10 md:gap-8 mb-16">
+              {[
+                { course: "Amuse Bouché", title: "Branding & Identity", body: "A brand isn't just a name or a logo — it's the foundation of everything. We craft distinct identities that connect, from mission and values to visual and verbal worlds." },
+                { course: "Appetizers", title: "Social & Storytelling", body: "Great hospitality brands don't just sell — they tell stories. We create content from stunning visuals to scroll-stopping social and dynamic campaigns." },
+                { course: "Mains", title: "Experience & Innovation", body: "Beyond branding, we perfect the experience. From menu R&D to staff training, we shape every touchpoint of the guest journey." },
+                { course: "Desserts", title: "Visual Production", body: "A brand needs to be seen, felt and experienced. We translate strategy into reality with striking design, print and digital execution." },
+              ].map((c, i) => (
+                <Reveal key={c.course} delay={i * 0.08}>
+                  <div>
+                    <p className="text-[9px] tracking-[0.25em] uppercase text-[#B9B5AE]/50 mb-8">{c.course}</p>
+                    <h3 className="font-display text-2xl md:text-[1.7rem] leading-tight mb-6" style={{ color: "#FF2EC4" }}>
+                      {c.title.toUpperCase()}
+                    </h3>
+                    <p className="text-sm text-[#B9B5AE] leading-relaxed">{c.body}</p>
+                  </div>
+                </Reveal>
+              ))}
+            </div>
+            <Reveal delay={0.2}>
+              <div className="flex justify-end">
+                <a href="#s04" data-cursor="Menu" className="group inline-flex items-center gap-3 rounded-full border border-[#F3F1EC]/30 px-7 py-3.5 hover:bg-[#F3F1EC] hover:text-[#0A0A0A] transition-colors duration-500">
+                  <span className="text-[10px] tracking-[0.25em] uppercase">The Full Menu</span>
+                  <span className="text-sm">↗</span>
+                </a>
+              </div>
+            </Reveal>
+          </div>
+
+          <SectionNo n="02" dark />
         </div>
       </Panel>
 
@@ -253,16 +291,7 @@ export default function Publication() {
       {/* ═══ 05 — TESTIMONIALS ═══ */}
       <Panel index={5} bg="black" minH="85vh">
         <div className="relative min-h-[85vh] flex items-center overflow-hidden">
-          <div className="absolute inset-0">
-            <Parallax src={IMG.cocktail} amount={50} scale={1.18} position="center 45%" className="w-full h-full opacity-30" />
-            <div className="absolute inset-0 bg-[#0A0A0A]/75" />
-            <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse 70% 90% at 50% 50%, transparent 30%, #0A0A0A 100%)" }} />
-          </div>
-          <div className="relative z-10 w-full px-8 md:px-16 py-20">
-            <Reveal>
-              <Testimonials />
-            </Reveal>
-          </div>
+          <Testimonials />
           <SectionNo n="05" dark />
         </div>
       </Panel>
@@ -338,21 +367,11 @@ export default function Publication() {
         </div>
       </Panel>
 
-      {/* ═══ 09 — PEOPLE DON'T SHARE AVERAGE (reprise, above footer) ═══ */}
-      <Panel index={9} bg="black" minH="42vh">
-        <div className="relative min-h-[42vh] flex items-center overflow-hidden">
-          <div className="absolute top-0 left-0 bottom-0 w-[58%]">
-            <Parallax src={IMG.crowd} amount={40} scale={1.15} position="center 55%" className="w-full h-full" />
-            <div className="absolute inset-0 bg-gradient-to-l from-[#0A0A0A] via-[#0A0A0A]/40 to-transparent" />
-          </div>
-          <div className="relative z-10 ml-auto px-8 md:px-16 py-16 text-right">
-            <Reveal>
-              <p className="font-editorial leading-[1.1]" style={{ fontSize: "clamp(1.8rem, 3.5vw, 3rem)" }}>
-                People don&apos;t<br />share average.
-              </p>
-            </Reveal>
-          </div>
-          <SectionNo n="09" side="right" dark />
+      {/* ═══ 09 — THREE CITIES ═══ */}
+      <Panel index={9} bg="black" minH="90vh">
+        <div className="relative min-h-[90vh] flex items-center px-8 md:px-16 py-24">
+          <ThreeCities />
+          <SectionNo n="09" dark />
         </div>
       </Panel>
 
