@@ -176,8 +176,8 @@ export default function Publication() {
         <div className="relative min-h-[62vh] flex items-center px-8 md:px-16 py-20">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 items-center w-full">
             <Reveal>
-              <h2 className="font-editorial leading-[1.02]" style={{ fontSize: "clamp(2.2rem, 4.5vw, 3.6rem)" }}>
-                Nobody<br />remembers<br />normal.
+              <h2 className="font-editorial leading-[1.15]" style={{ fontSize: "clamp(1.8rem, 3.6vw, 3rem)" }}>
+                We build bold brands<br />for the edible &amp; drinkable,<br />from branding &amp; storytelling to<br />stuff you can hold.
               </h2>
             </Reveal>
             <Reveal delay={0.1}>
@@ -304,13 +304,18 @@ export default function Publication() {
           </div>
 
           <div className="border-t border-[#0A0A0A]/15 pt-6 flex flex-col md:flex-row items-center justify-between gap-4 text-[9px] tracking-[0.2em] uppercase text-[#0A0A0A]/50">
-            <span>© Not Normal Studio</span>
+            <span>© Not Normal</span>
             <span>Sydney — Dubai — Beirut</span>
             <div className="flex gap-6">
               <a href="#" className="hover:text-[#0A0A0A] transition-colors">Privacy</a>
               <a href="#" className="hover:text-[#0A0A0A] transition-colors">Terms</a>
             </div>
           </div>
+
+          {/* Acknowledgement of Country */}
+          <p className="mt-10 text-center text-[9px] leading-relaxed tracking-[0.12em] uppercase text-[#0A0A0A]/35 max-w-xl mx-auto">
+            We acknowledge the Gadigal, the traditional custodians of the Country on which Not Normal and its brands stands.
+          </p>
         </footer>
       </Panel>
     </div>
