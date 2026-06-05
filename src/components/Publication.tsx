@@ -236,19 +236,15 @@ export default function Publication() {
             <Parallax src={IMG.interior} amount={50} scale={1.15} position="center 40%" className="w-full h-full" />
             <div className="absolute inset-0 bg-gradient-to-r from-[#0A0A0A] via-[#0A0A0A]/30 to-transparent" />
           </div>
-          <div className="relative z-10 px-8 md:px-16 py-20">
+          <div className="relative z-10 px-8 md:px-16 py-20 w-full">
             <Reveal>
-              <h2 className="font-editorial leading-[1.05]" style={{ fontSize: "clamp(2.2rem, 4.5vw, 3.6rem)" }}>
-                Some brands<br />serve food.<br />
-                <span className="block mt-2">Some become</span>
-                <span className="italic">culture.</span>
-              </h2>
+              <p className="text-[9px] tracking-[0.3em] uppercase text-[#B9B5AE]/60 mb-12">By the numbers</p>
             </Reveal>
-            <Reveal delay={0.2}>
-              <div className="mt-12 grid grid-cols-3 gap-6 md:gap-10 max-w-xl">
-                <ScrambleStat value={20} suffix="+" label="Years in hospitality" />
-                <ScrambleStat value={50} suffix="+" label="Award-winning brands" />
-                <ScrambleStat value={10} label="Hungry team members" />
+            <Reveal delay={0.1}>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-16 max-w-4xl">
+                <ScrambleStat value={20} suffix="+" label="Years in hospitality" big />
+                <ScrambleStat value={50} suffix="+" label="Award-winning brands" big />
+                <ScrambleStat value={10} label="Hungry team members" big />
               </div>
             </Reveal>
           </div>

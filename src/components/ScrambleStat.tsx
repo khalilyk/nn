@@ -8,11 +8,13 @@ export default function ScrambleStat({
   prefix = "",
   suffix = "",
   label,
+  big = false,
 }: {
   value: number;
   prefix?: string;
   suffix?: string;
   label: string;
+  big?: boolean;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const [display, setDisplay] = useState(0);
@@ -54,12 +56,15 @@ export default function ScrambleStat({
 
   return (
     <div ref={ref}>
-      <div className="font-display leading-none tabular-nums" style={{ fontSize: "clamp(2.5rem, 5vw, 4.5rem)" }}>
+      <div
+        className="font-display leading-none tabular-nums"
+        style={{ fontSize: big ? "clamp(4rem, 11vw, 9rem)" : "clamp(2.5rem, 5vw, 4.5rem)" }}
+      >
         {prefix}
         {display}
         {suffix}
       </div>
-      <p className="text-[9px] tracking-[0.25em] uppercase text-[#B9B5AE]/70 mt-3">{label}</p>
+      <p className="text-[10px] tracking-[0.25em] uppercase text-[#B9B5AE]/70 mt-4">{label}</p>
     </div>
   );
 }
