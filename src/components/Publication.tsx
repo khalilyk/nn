@@ -16,6 +16,7 @@ import HeroMedia from "./HeroMedia";
 import ScrambleStat from "./ScrambleStat";
 import ZoomOnScroll from "./ZoomOnScroll";
 import ScrollDriftX from "./ScrollDriftX";
+import Testimonials from "./Testimonials";
 
 /* ───────────────── IMAGERY ───────────────── */
 const IMG = {
@@ -241,10 +242,11 @@ export default function Publication() {
               <p className="text-[9px] tracking-[0.3em] uppercase text-[#B9B5AE]/60 mb-12">By the numbers</p>
             </Reveal>
             <Reveal delay={0.1}>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-16 max-w-4xl">
-                <ScrambleStat value={20} suffix="+" label="Years in hospitality" big />
-                <ScrambleStat value={50} suffix="+" label="Award-winning brands" big />
-                <ScrambleStat value={10} label="Hungry team members" big />
+              <div className="grid grid-cols-2 gap-x-16 gap-y-16 md:gap-x-24 md:gap-y-20 max-w-3xl">
+                <ScrambleStat value={20} suffix="+" label="Years in hospitality" big note="& still hungry" noteRotate={-7} notePos="tr" />
+                <ScrambleStat value={50} suffix="+" label="Award-winning brands" big note="and counting" noteRotate={6} notePos="tr" />
+                <ScrambleStat value={10} label="Hungry team members" big note="no dead weight" noteRotate={-5} notePos="tl" />
+                <ScrambleStat value={100} suffix="%" label="Obsessed" big note="non-negotiable" noteRotate={7} notePos="tr" />
               </div>
             </Reveal>
           </ScrollDriftX>
@@ -262,19 +264,17 @@ export default function Publication() {
         </div>
       </Panel>
 
-      {/* ═══ 05 — ATTENTION IS EARNED ═══ */}
-      <Panel index={5} bg="black" minH="46vh">
-        <div className="relative min-h-[46vh] flex items-center overflow-hidden">
+      {/* ═══ 05 — TESTIMONIALS ═══ */}
+      <Panel index={5} bg="black" minH="60vh">
+        <div className="relative min-h-[60vh] flex items-center overflow-hidden">
           <div className="absolute inset-0">
-            <Parallax src={IMG.cocktail} amount={50} scale={1.18} position="center 45%" className="w-full h-full" />
-            <div className="absolute inset-0 bg-[#0A0A0A]/55" />
-            <div className="absolute inset-0 bg-gradient-to-r from-[#0A0A0A] via-transparent to-[#0A0A0A]/40" />
+            <Parallax src={IMG.cocktail} amount={50} scale={1.18} position="center 45%" className="w-full h-full opacity-30" />
+            <div className="absolute inset-0 bg-[#0A0A0A]/75" />
+            <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse 70% 90% at 50% 50%, transparent 30%, #0A0A0A 100%)" }} />
           </div>
-          <div className="relative z-10 w-full px-8 md:px-20">
+          <div className="relative z-10 w-full px-8 md:px-16 py-20">
             <Reveal>
-              <p className="font-editorial" style={{ fontSize: "clamp(1.8rem, 3.5vw, 3rem)" }}>
-                Attention is <span className="italic">earned.</span>
-              </p>
+              <Testimonials />
             </Reveal>
           </div>
           <SectionNo n="05" dark />

@@ -300,7 +300,7 @@ export default function Terminal() {
 
       {/* Input */}
       <div className="flex items-center gap-2 px-5 py-3 border-t border-white/8 font-mono text-[12px] md:text-[13px]" style={{ background: "#0C0C0C" }}>
-        <span style={{ color: "#E8E2C0" }} className="opacity-60 select-none">{(name || "you").toLowerCase()}@studio:~$</span>
+        <span style={{ color: "#E8E2C0" }} className="opacity-60 select-none">{(name || "you").toLowerCase()}:~$</span>
         <input
           ref={inputRef}
           value={value}
