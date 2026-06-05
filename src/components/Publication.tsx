@@ -13,7 +13,6 @@ import Preloader from "./Preloader";
 import ScrollProgress from "./ScrollProgress";
 import Magnetic from "./Magnetic";
 import HeroMedia from "./HeroMedia";
-import ScrambleStat from "./ScrambleStat";
 import ZoomOnScroll from "./ZoomOnScroll";
 import ScrollDriftX from "./ScrollDriftX";
 import Testimonials from "./Testimonials";
@@ -130,7 +129,7 @@ export default function Publication() {
       <Preloader onDone={() => setLoading(false)} />
       <Cursor />
       <Grain />
-      <ScrollProgress total={10} />
+      <ScrollProgress total={8} />
       {/* ─── NAV ─── */}
       <nav className="fixed top-0 left-0 right-0 z-[100] flex items-center justify-between px-8 md:px-16 py-6 md:py-8 mix-blend-difference text-[#F3F1EC]">
         <a href="#top" className="font-display text-sm tracking-tight leading-none">
@@ -138,7 +137,7 @@ export default function Publication() {
         </a>
         <div className="hidden md:flex items-center gap-12 absolute left-1/2 -translate-x-1/2">
           {[
-            { l: "About", href: "#s03", tip: "Who we are", shape: "rounded-full" },
+            { l: "About", href: "#s02", tip: "Who we are", shape: "rounded-full" },
             { l: "The Menu", href: "#s02", tip: "What we do", shape: "rounded-none" },
             { l: "Projects", href: "#s04", tip: "Selected proof", shape: "rounded-tl-xl rounded-br-xl" },
             { l: "Journal", href: "#s08", tip: "Thinking & insights", shape: "rounded-lg" },
@@ -229,44 +228,19 @@ export default function Publication() {
         </div>
       </Panel>
 
-      {/* ═══ 03 — SOME BRANDS SERVE FOOD ═══ */}
-      <Panel index={3} bg="black" minH="66vh">
-        <div id="s03" className="relative min-h-[66vh] flex items-center overflow-hidden">
-          {/* Right photo full bleed */}
-          <div className="absolute top-0 right-0 bottom-0 w-[58%]">
-            <Parallax src={IMG.interior} amount={50} scale={1.15} position="center 40%" className="w-full h-full" />
-            <div className="absolute inset-0 bg-gradient-to-r from-[#0A0A0A] via-[#0A0A0A]/30 to-transparent" />
-          </div>
-          <ScrollDriftX mode="exitRight" className="relative z-10 px-8 md:px-16 py-20 w-full">
-            <Reveal>
-              <p className="text-[9px] tracking-[0.3em] uppercase text-[#B9B5AE]/60 mb-12">By the numbers</p>
-            </Reveal>
-            <Reveal delay={0.1}>
-              <div className="grid grid-cols-2 gap-x-16 gap-y-16 md:gap-x-24 md:gap-y-20 max-w-3xl">
-                <ScrambleStat value={20} suffix="+" label="Years in hospitality" big note="& still hungry" noteRotate={-7} notePos="tr" />
-                <ScrambleStat value={50} suffix="+" label="Award-winning brands" big note="and counting" noteRotate={6} notePos="tr" />
-                <ScrambleStat value={10} label="Hungry team members" big note="no dead weight" noteRotate={-5} notePos="tl" />
-                <ScrambleStat value={100} suffix="%" label="Obsessed" big note="non-negotiable" noteRotate={7} notePos="tr" />
-              </div>
-            </Reveal>
-          </ScrollDriftX>
-          <SectionNo n="03" dark />
-        </div>
-      </Panel>
-
-      {/* ═══ 04 — FEATURED PROJECTS (draggable carousel) ═══ */}
+      {/* ═══ FEATURED PROJECTS (draggable carousel) ═══ */}
       <Panel index={4} bg="ivory" minH="80vh">
         <div id="s04" className="relative min-h-[80vh] flex items-center px-8 md:px-16 py-20 overflow-hidden">
           <ScrollDriftX range={0.07} className="w-full">
             <FeaturedCarousel />
           </ScrollDriftX>
-          <SectionNo n="04" />
+          <SectionNo n="03" />
         </div>
       </Panel>
 
       {/* ═══ 05 — TESTIMONIALS ═══ */}
-      <Panel index={5} bg="black" minH="60vh">
-        <div className="relative min-h-[60vh] flex items-center overflow-hidden">
+      <Panel index={5} bg="black" minH="85vh">
+        <div className="relative min-h-[85vh] flex items-center overflow-hidden">
           <div className="absolute inset-0">
             <Parallax src={IMG.cocktail} amount={50} scale={1.18} position="center 45%" className="w-full h-full opacity-30" />
             <div className="absolute inset-0 bg-[#0A0A0A]/75" />
@@ -277,7 +251,7 @@ export default function Publication() {
               <Testimonials />
             </Reveal>
           </div>
-          <SectionNo n="05" dark />
+          <SectionNo n="04" dark />
         </div>
       </Panel>
 
@@ -285,7 +259,7 @@ export default function Publication() {
       <Panel index={6} bg="ivory" minH="auto">
         <div id="s08" className="relative px-8 md:px-16 py-24 md:py-32 flex flex-col items-center">
           <Reveal>
-            <p className="text-[9px] tracking-[0.3em] uppercase text-[#0A0A0A]/40 mb-3 text-center">06 — Not a Therapist</p>
+            <p className="text-[9px] tracking-[0.3em] uppercase text-[#0A0A0A]/40 mb-3 text-center">05 — Not a Therapist</p>
           </Reveal>
           <Reveal delay={0.06}>
             <h2 className="font-editorial text-center mb-12 leading-[1.2]" style={{ fontSize: "clamp(1.6rem, 3.2vw, 2.6rem)" }}>
@@ -296,7 +270,7 @@ export default function Publication() {
           <Reveal delay={0.12} className="w-full">
             <Terminal />
           </Reveal>
-          <SectionNo n="06" />
+          <SectionNo n="05" />
         </div>
       </Panel>
 
@@ -314,7 +288,7 @@ export default function Publication() {
               </p>
             </Reveal>
           </div>
-          <SectionNo n="07" dark />
+          <SectionNo n="06" dark />
         </div>
       </Panel>
 
@@ -348,7 +322,7 @@ export default function Publication() {
               </a>
             </Magnetic>
           </Reveal>
-          <SectionNo n="08" />
+          <SectionNo n="07" />
         </div>
       </Panel>
 
@@ -366,7 +340,7 @@ export default function Publication() {
               </p>
             </Reveal>
           </div>
-          <SectionNo n="09" side="right" dark />
+          <SectionNo n="08" side="right" dark />
         </div>
       </Panel>
 

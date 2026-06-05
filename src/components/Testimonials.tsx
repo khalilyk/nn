@@ -19,8 +19,8 @@ export default function Testimonials() {
       setTimeout(() => {
         setI((p) => (p + 1) % quotes.length);
         setShow(true);
-      }, 500);
-    }, 5500);
+      }, 900);
+    }, 9000);
     return () => clearInterval(id);
   }, []);
 
@@ -32,7 +32,7 @@ export default function Testimonials() {
 
       <div className="min-h-[7em] flex flex-col items-center justify-center max-w-3xl">
         <blockquote
-          className="font-editorial italic leading-[1.25] transition-all duration-500"
+          className="font-editorial italic leading-[1.25] transition-all duration-[900ms] ease-[cubic-bezier(0.16,1,0.3,1)]"
           style={{
             fontSize: "clamp(1.5rem, 3.4vw, 2.8rem)",
             opacity: show ? 1 : 0,
@@ -42,11 +42,11 @@ export default function Testimonials() {
           &ldquo;{t.q}&rdquo;
         </blockquote>
         <div
-          className="mt-8 transition-all duration-500"
+          className="mt-10 transition-all duration-[900ms]"
           style={{ opacity: show ? 1 : 0 }}
         >
-          <p className="text-[10px] tracking-[0.3em] uppercase text-[#F3F1EC]">{t.name}</p>
-          <p className="text-[9px] tracking-[0.25em] uppercase text-[#B9B5AE]/50 mt-1">{t.venue}</p>
+          <p className="font-display tracking-[0.15em] uppercase text-[#F3F1EC]" style={{ fontSize: "clamp(1rem, 1.6vw, 1.35rem)" }}>{t.name}</p>
+          <p className="text-[10px] tracking-[0.3em] uppercase text-[#B9B5AE] mt-2">{t.venue}</p>
         </div>
       </div>
 
