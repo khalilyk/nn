@@ -127,7 +127,7 @@ export default function Publication() {
       <Preloader onDone={() => setLoading(false)} />
       <Cursor />
       <Grain />
-      <ScrollProgress total={9} />
+      <ScrollProgress total={10} />
       <NavPill />
       {/* ─── NAV ─── */}
       <nav className="fixed top-0 left-0 right-0 z-[100] flex items-center justify-between px-8 md:px-16 py-6 md:py-8 mix-blend-difference text-[#F3F1EC]">
@@ -349,8 +349,26 @@ export default function Publication() {
         </div>
       </Panel>
 
+      {/* ═══ 09 — PEOPLE DON'T SHARE AVERAGE (reprise, above footer) ═══ */}
+      <Panel index={9} bg="black" minH="42vh">
+        <div className="relative min-h-[42vh] flex items-center overflow-hidden">
+          <div className="absolute top-0 left-0 bottom-0 w-[58%]">
+            <Parallax src={IMG.crowd} amount={40} scale={1.15} position="center 55%" className="w-full h-full" />
+            <div className="absolute inset-0 bg-gradient-to-l from-[#0A0A0A] via-[#0A0A0A]/40 to-transparent" />
+          </div>
+          <div className="relative z-10 ml-auto px-8 md:px-16 py-16 text-right">
+            <Reveal>
+              <p className="font-editorial leading-[1.1]" style={{ fontSize: "clamp(1.8rem, 3.5vw, 3rem)" }}>
+                People don&apos;t<br />share average.
+              </p>
+            </Reveal>
+          </div>
+          <SectionNo n="09" side="right" dark />
+        </div>
+      </Panel>
+
       {/* ═══ FOOTER — THE INVITATION ═══ */}
-      <Panel index={9} bg="ivory" minH="auto">
+      <Panel index={10} bg="ivory" minH="auto">
         <footer id="footer" className="px-8 md:px-16 pt-24 pb-10 md:pb-14">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start mb-20">
             <Reveal>
