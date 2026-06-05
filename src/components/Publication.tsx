@@ -233,9 +233,9 @@ export default function Publication() {
           {/* The Menu — four courses */}
           <div className="bg-[#0A0A0A] text-[#F3F1EC] px-8 md:px-16 py-20 md:py-28">
             <Reveal>
-              <p className="text-[9px] tracking-[0.3em] uppercase text-[#B9B5AE]/60 mb-14">The Menu — What We Do</p>
+              <p className="text-[9px] tracking-[0.3em] uppercase text-[#B9B5AE]/60 mb-14 text-center">The Menu — What We Do</p>
             </Reveal>
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-5 mb-12">
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-5 mb-14">
               {[
                 { course: "Amuse Bouché", title: "Branding & Identity", body: "A brand isn't just a name or a logo — it's the foundation of everything. We craft distinct identities that connect, from mission and values to visual and verbal worlds." },
                 { course: "Appetizers", title: "Social & Storytelling", body: "Great hospitality brands don't just sell — they tell stories. We create content from stunning visuals to scroll-stopping social and dynamic campaigns." },
@@ -243,9 +243,9 @@ export default function Publication() {
                 { course: "Desserts", title: "Visual Production", body: "A brand needs to be seen, felt and experienced. We translate strategy into reality with striking design, print and digital execution." },
               ].map((c, i) => (
                 <Reveal key={c.course} delay={i * 0.08}>
-                  <div className="h-full rounded-2xl border border-[#F3F1EC]/15 p-7 hover:border-[#FF2EC4]/40 transition-colors duration-500" style={{ borderWidth: "1px" }}>
+                  <div className="h-full rounded-2xl border border-[#F3F1EC]/15 p-7 text-center hover:border-[#F3F1EC]/40 transition-colors duration-500" style={{ borderWidth: "1px" }}>
                     <p className="text-[9px] tracking-[0.25em] uppercase text-[#B9B5AE]/50 mb-8">{c.course}</p>
-                    <h3 className="font-display text-xl md:text-[1.5rem] leading-tight mb-5" style={{ color: "#FF2EC4" }}>
+                    <h3 className="font-display text-xl md:text-[1.5rem] leading-tight mb-5 text-[#F3F1EC]">
                       {c.title.toUpperCase()}
                     </h3>
                     <p className="text-sm text-[#B9B5AE] leading-relaxed">{c.body}</p>
@@ -254,8 +254,8 @@ export default function Publication() {
               ))}
             </div>
             <Reveal delay={0.2}>
-              <div className="flex justify-end">
-                <a href="#s04" data-cursor="Menu" className="group inline-flex items-center gap-3 rounded-full border border-[#F3F1EC]/30 px-7 py-3.5 hover:bg-[#F3F1EC] hover:text-[#0A0A0A] transition-colors duration-500">
+              <div className="flex justify-center">
+                <a href="#s04" className="group inline-flex items-center gap-3 rounded-full border border-[#F3F1EC]/40 px-8 py-4 hover:bg-[#F3F1EC] hover:text-[#0A0A0A] transition-colors duration-500">
                   <span className="text-[10px] tracking-[0.25em] uppercase">The Full Menu</span>
                   <span className="text-sm">↗</span>
                 </a>
@@ -311,8 +311,8 @@ export default function Publication() {
           </Reveal>
           <Reveal delay={0.06}>
             <h2 className="font-editorial text-center mb-12 leading-[1.2]" style={{ fontSize: "clamp(1.6rem, 3.2vw, 2.6rem)" }}>
-              Meet <span className="italic">NORM</span>.<br />
-              Here to chat about all things food &amp; marketing.
+Meet <span className="italic">NORM</span>, our marketing exec.<br />
+              Here for a chat about all things food &amp; marketing.
             </h2>
           </Reveal>
           <Reveal delay={0.12} className="w-full">
@@ -375,8 +375,8 @@ export default function Publication() {
       </Panel>
 
       {/* ═══ 09 — THREE CITIES ═══ */}
-      <Panel index={9} bg="black" minH="90vh">
-        <div className="relative min-h-[90vh] flex items-center px-8 md:px-16 py-24">
+      <Panel index={9} bg="black" minH="60vh">
+        <div className="relative min-h-[60vh] flex items-center px-8 md:px-16 py-20">
           <ThreeCities />
           <SectionNo n="09" dark />
         </div>

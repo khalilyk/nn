@@ -89,7 +89,7 @@ function route(input: string, name: string, seed: number, headlines: string[]): 
     ], seed);
 
   if (/\b(who are you|what are you|your name|norm)\b/.test(t))
-    return "I'm NORM — Not Normal's in-house intelligence. I obsess over hospitality brands across Australia and the Middle East so you don't have to.";
+    return "I'm NORM — the marketing exec at Not Normal. Basically I obsess over hospitality brands across Oz and the Middle East so you don't have to. Ask me anything.";
 
   // default — steer back, stay in character
   return pick([
@@ -180,10 +180,10 @@ export default function Terminal() {
     if (!introduced.current) {
       introduced.current = true;
       const hi = isGreeting(raw) && !n
-        ? "Hey — I'm NORM, Not Normal's intelligence. Food, marketing & hospitality from Sydney to Dubai. "
+        ? "Heyy! NORM here — I run marketing at Not Normal. Food, brand, social, the lot. "
         : n
-        ? `Good to meet you, ${n}. I'm NORM — Not Normal's intelligence. `
-        : "I'm NORM, by the way — Not Normal's intelligence. ";
+        ? `Oh nice, hey ${n}! I'm NORM, the marketing exec round here. `
+        : "I'm NORM btw — marketing exec at Not Normal. ";
       sayNorm(hi + answer);
     } else {
       sayNorm(answer);
@@ -240,7 +240,7 @@ export default function Terminal() {
         <span className="w-3 h-3 rounded-full" style={{ background: "#FF5F57" }} />
         <span className="w-3 h-3 rounded-full" style={{ background: "#FEBC2E" }} />
         <span className="w-3 h-3 rounded-full" style={{ background: "#28C840" }} />
-        <span className="ml-3 text-[10px] tracking-[0.2em] uppercase text-white/30 font-mono">norm — not-normal intelligence</span>
+        <span className="ml-3 text-[10px] tracking-[0.2em] uppercase text-white/30 font-mono">norm · marketing exec @ not normal</span>
         <span className="ml-auto flex items-center gap-1.5">
           <span className={`w-1.5 h-1.5 rounded-full ${phase === "chatting" ? "bg-[#28C840]" : "bg-white/20"}`} />
           <span className="text-[9px] tracking-[0.2em] uppercase text-white/30 font-mono">{phase === "chatting" ? "online" : "idle"}</span>
