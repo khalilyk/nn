@@ -237,9 +237,21 @@ export default function Terminal() {
     <div className="w-full max-w-4xl mx-auto rounded-xl overflow-hidden shadow-2xl" style={{ background: "#0A0A0A", border: "1px solid rgba(255,255,255,0.08)" }}>
       {/* Title bar */}
       <div className="flex items-center gap-2 px-4 py-3 border-b border-white/8" style={{ background: "#111" }}>
-        <span className="w-3 h-3 rounded-full" style={{ background: "#FF5F57" }} />
-        <span className="w-3 h-3 rounded-full" style={{ background: "#FEBC2E" }} />
-        <span className="w-3 h-3 rounded-full" style={{ background: "#28C840" }} />
+        <div className="group/dots flex items-center gap-2">
+          {[
+            { c: "#FF5F57", s: "×" },
+            { c: "#FEBC2E", s: "–" },
+            { c: "#28C840", s: "+" },
+          ].map((d) => (
+            <span
+              key={d.c}
+              className="w-3 h-3 rounded-full flex items-center justify-center text-[8px] leading-none text-black/60 cursor-pointer transition-transform duration-200 hover:scale-125"
+              style={{ background: d.c }}
+            >
+              <span className="opacity-0 group-hover/dots:opacity-100 transition-opacity">{d.s}</span>
+            </span>
+          ))}
+        </div>
         <span className="ml-3 text-[10px] tracking-[0.2em] uppercase text-white/30 font-mono">norm · marketing exec @ not normal</span>
         <span className="ml-auto flex items-center gap-1.5">
           <span className={`w-1.5 h-1.5 rounded-full ${phase === "chatting" ? "bg-[#28C840]" : "bg-white/20"}`} />
