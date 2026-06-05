@@ -127,7 +127,7 @@ export default function Publication() {
       <Preloader onDone={() => setLoading(false)} />
       <Cursor />
       <Grain />
-      <ScrollProgress total={8} />
+      <ScrollProgress total={9} />
       <NavPill />
       {/* ─── NAV ─── */}
       <nav className="fixed top-0 left-0 right-0 z-[100] flex items-center justify-between px-8 md:px-16 py-6 md:py-8 mix-blend-difference text-[#F3F1EC]">
@@ -216,8 +216,8 @@ export default function Publication() {
       <Panel index={2} bg="ivory" minH="62vh">
         <div id="s02" className="relative min-h-[62vh] flex flex-col items-center justify-center text-center px-8 md:px-16 py-20">
           <Reveal>
-            <h2 className="font-editorial leading-[1.15] mb-12 max-w-2xl mx-auto" style={{ fontSize: "clamp(1.8rem, 3.6vw, 3rem)" }}>
-              We build bold brands<br />for the edible &amp; drinkable,<br />from branding &amp; storytelling to<br />stuff you can hold.
+            <h2 className="font-editorial leading-[1.15] mb-12 max-w-3xl mx-auto" style={{ fontSize: "clamp(1.8rem, 3.6vw, 3rem)" }}>
+              We build bold brands<br />for the edible &amp; drinkable,<br />from branding &amp; storytelling<br />to stuff you can hold.
             </h2>
           </Reveal>
           <Reveal delay={0.1} className="w-full max-w-3xl mx-auto">
@@ -278,44 +278,36 @@ export default function Publication() {
         </div>
       </Panel>
 
-      {/* ═══ 06 — CTA: START FROM SCRATCH (split screen) ═══ */}
-      <Panel index={6} bg="ivory" minH="70vh">
-        <div id="s08" className="relative min-h-[70vh] grid grid-cols-1 md:grid-cols-2 items-center gap-12 md:gap-20 px-8 md:px-16 py-24">
-          {/* Left — copy */}
-          <div>
-            <Reveal>
-              <p className="text-[9px] tracking-[0.3em] uppercase text-[#0A0A0A]/40 mb-6">Not a therapist</p>
-            </Reveal>
-            <Reveal delay={0.06}>
-              <h2 className="font-editorial leading-[1.1] mb-10" style={{ fontSize: "clamp(1.8rem, 3.8vw, 3.4rem)" }}>
-                Meet <span className="italic">NORM</span> — here to chat about all things food, marketing &amp; building something worth remembering.
-              </h2>
-            </Reveal>
-            <Reveal delay={0.14}>
-              <Magnetic strength={0.35}>
-                <a
-                  href="#footer"
-                  data-cursor="Go"
-                  className="group relative inline-flex items-center gap-4 overflow-hidden rounded-full border border-[#0A0A0A] px-9 py-4"
-                >
-                  <span className="absolute inset-0 bg-[#0A0A0A] translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)]" />
-                  <span className="relative z-10 text-[10px] tracking-[0.28em] uppercase text-[#0A0A0A] group-hover:text-[#F3F1EC] transition-colors duration-500">
-                    Are You Ready?
-                  </span>
-                  <span className="relative z-10 w-7 h-7 rounded-full border border-[#0A0A0A] group-hover:border-[#F3F1EC] flex items-center justify-center overflow-hidden">
-                    <span className="text-[#0A0A0A] group-hover:text-[#F3F1EC] transition-all duration-500 group-hover:translate-x-5">→</span>
-                    <span className="absolute text-[#F3F1EC] -translate-x-5 group-hover:translate-x-0 transition-transform duration-500">→</span>
-                  </span>
-                </a>
-              </Magnetic>
-            </Reveal>
-          </div>
-
-          {/* Right — NORM chat */}
-          <Reveal delay={0.1} className="w-full">
-            <Terminal />
+      {/* ═══ 06 — CTA: START FROM SCRATCH (centered) ═══ */}
+      <Panel index={6} bg="ivory" minH="62vh">
+        <div className="relative min-h-[62vh] flex flex-col items-center justify-center text-center px-8 md:px-16 py-24">
+          <Reveal>
+            <p className="text-[9px] tracking-[0.3em] uppercase text-[#0A0A0A]/40 mb-6">Starting from scratch?</p>
           </Reveal>
-
+          <Reveal delay={0.06}>
+            <h2 className="font-editorial leading-[1.1] mb-10 max-w-2xl mx-auto" style={{ fontSize: "clamp(1.8rem, 3.8vw, 3.4rem)" }}>
+              We&apos;ll build your brand from the ground up.
+              <span className="italic"> Identity, strategy, story</span> — the whole thing.
+            </h2>
+          </Reveal>
+          <Reveal delay={0.14}>
+            <Magnetic strength={0.35}>
+              <a
+                href="#footer"
+                data-cursor="Go"
+                className="group relative inline-flex items-center gap-4 overflow-hidden rounded-full border border-[#0A0A0A] px-9 py-4"
+              >
+                <span className="absolute inset-0 bg-[#0A0A0A] translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)]" />
+                <span className="relative z-10 text-[10px] tracking-[0.28em] uppercase text-[#0A0A0A] group-hover:text-[#F3F1EC] transition-colors duration-500">
+                  Are You Ready?
+                </span>
+                <span className="relative z-10 w-7 h-7 rounded-full border border-[#0A0A0A] group-hover:border-[#F3F1EC] flex items-center justify-center overflow-hidden">
+                  <span className="text-[#0A0A0A] group-hover:text-[#F3F1EC] transition-all duration-500 group-hover:translate-x-5">→</span>
+                  <span className="absolute text-[#F3F1EC] -translate-x-5 group-hover:translate-x-0 transition-transform duration-500">→</span>
+                </span>
+              </a>
+            </Magnetic>
+          </Reveal>
           <SectionNo n="06" />
         </div>
       </Panel>
@@ -338,8 +330,27 @@ export default function Publication() {
         </div>
       </Panel>
 
-      {/* ═══ FOOTER — THE INVITATION ═══ */}
+      {/* ═══ 08 — NORM ═══ */}
       <Panel index={8} bg="ivory" minH="auto">
+        <div id="s08" className="relative px-8 md:px-16 py-24 md:py-32 flex flex-col items-center">
+          <Reveal>
+            <p className="text-[9px] tracking-[0.3em] uppercase text-[#0A0A0A]/40 mb-3 text-center">08 — Not a Therapist</p>
+          </Reveal>
+          <Reveal delay={0.06}>
+            <h2 className="font-editorial text-center mb-12 leading-[1.2]" style={{ fontSize: "clamp(1.6rem, 3.2vw, 2.6rem)" }}>
+              Meet <span className="italic">NORM</span>.<br />
+              Here to chat about all things food &amp; marketing.
+            </h2>
+          </Reveal>
+          <Reveal delay={0.12} className="w-full">
+            <Terminal />
+          </Reveal>
+          <SectionNo n="08" />
+        </div>
+      </Panel>
+
+      {/* ═══ FOOTER — THE INVITATION ═══ */}
+      <Panel index={9} bg="ivory" minH="auto">
         <footer id="footer" className="px-8 md:px-16 pt-24 pb-10 md:pb-14">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start mb-20">
             <Reveal>
