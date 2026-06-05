@@ -88,7 +88,7 @@ export default function AsciiBuilder({ interval = 30000 }: { interval?: number }
       i += 1;
       setShown(i);
       if (i >= total) clearInterval(id);
-    }, 260);
+    }, 195);
     return () => clearInterval(id);
   }, [frame]);
 

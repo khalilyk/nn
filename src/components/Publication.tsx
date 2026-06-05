@@ -136,15 +136,17 @@ export default function Publication() {
         </a>
         <div className="hidden md:flex items-center gap-12 absolute left-1/2 -translate-x-1/2">
           {[
-            { l: "Work", href: "#s04", tip: "Selected proof" },
-            { l: "About", href: "#footer", tip: "Who we are" },
-            { l: "Journal", href: "#s08", tip: "Thinking & insights" },
-          ].map(({ l, href, tip }) => (
+            { l: "About", href: "#s03", tip: "Who we are", shape: "rounded-full" },
+            { l: "The Menu", href: "#s02", tip: "What we do", shape: "rounded-none" },
+            { l: "Projects", href: "#s04", tip: "Selected proof", shape: "rounded-tl-xl rounded-br-xl" },
+            { l: "Journal", href: "#s08", tip: "Thinking & insights", shape: "rounded-lg" },
+            { l: "Contact", href: "#footer", tip: "Let's chat", shape: "rounded-tr-xl rounded-bl-xl" },
+          ].map(({ l, href, tip, shape }) => (
             <a key={l} href={href} className="group relative text-[10px] tracking-[0.22em] uppercase">
               <span className="transition-opacity group-hover:opacity-60">{l}</span>
-              {/* Tooltip */}
+              {/* Tooltip — unique shape per item */}
               <span
-                className="pointer-events-none absolute left-1/2 top-full mt-3 -translate-x-1/2 whitespace-nowrap rounded-full bg-[#F3F1EC] px-3 py-1.5 text-[8px] tracking-[0.18em] text-[#0A0A0A] opacity-0 translate-y-1 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0"
+                className={`pointer-events-none absolute left-1/2 top-full mt-3 -translate-x-1/2 whitespace-nowrap bg-[#F3F1EC] px-3 py-1.5 text-[8px] tracking-[0.18em] text-[#0A0A0A] opacity-0 translate-y-1 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 ${shape}`}
               >
                 {tip}
                 <span className="absolute left-1/2 -top-1 -translate-x-1/2 w-2 h-2 rotate-45 bg-[#F3F1EC]" />
@@ -211,7 +213,7 @@ export default function Publication() {
 
       {/* ═══ 02 — NOBODY REMEMBERS NORMAL ═══ */}
       <Panel index={2} bg="ivory" minH="62vh">
-        <div className="relative min-h-[62vh] flex items-center px-8 md:px-16 py-20">
+        <div id="s02" className="relative min-h-[62vh] flex items-center px-8 md:px-16 py-20">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 items-center w-full">
             <Reveal>
               <h2 className="font-editorial leading-[1.15]" style={{ fontSize: "clamp(1.8rem, 3.6vw, 3rem)" }}>
@@ -228,7 +230,7 @@ export default function Publication() {
 
       {/* ═══ 03 — SOME BRANDS SERVE FOOD ═══ */}
       <Panel index={3} bg="black" minH="66vh">
-        <div className="relative min-h-[66vh] flex items-center overflow-hidden">
+        <div id="s03" className="relative min-h-[66vh] flex items-center overflow-hidden">
           {/* Right photo full bleed */}
           <div className="absolute top-0 right-0 bottom-0 w-[58%]">
             <Parallax src={IMG.interior} amount={50} scale={1.15} position="center 40%" className="w-full h-full" />
@@ -347,8 +349,9 @@ export default function Publication() {
             <p className="text-[9px] tracking-[0.3em] uppercase text-[#0A0A0A]/40 mb-3 text-center">08 — Always Listening</p>
           </Reveal>
           <Reveal delay={0.06}>
-            <h2 className="font-editorial text-center mb-12" style={{ fontSize: "clamp(1.6rem, 3.2vw, 2.6rem)" }}>
-              Meet <span className="italic">NORM</span> — here to chat about all things food &amp; marketing.
+            <h2 className="font-editorial text-center mb-12 leading-[1.2]" style={{ fontSize: "clamp(1.6rem, 3.2vw, 2.6rem)" }}>
+              Meet <span className="italic">NORM</span>.<br />
+              Here to chat about all things food &amp; marketing.
             </h2>
           </Reveal>
           <Reveal delay={0.12} className="w-full">
