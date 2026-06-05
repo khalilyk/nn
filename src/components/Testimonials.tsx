@@ -67,9 +67,7 @@ export default function Testimonials() {
           </blockquote>
           <div className="mt-10 transition-all duration-[900ms]" style={{ opacity: show ? 1 : 0 }}>
             <p className="font-display tracking-[0.15em] uppercase text-[#F3F1EC] group-hover:text-[#FF2EC4] transition-colors" style={{ fontSize: "clamp(1rem, 1.6vw, 1.35rem)" }}>{t.name}</p>
-            <p className="text-[10px] tracking-[0.3em] uppercase text-[#B9B5AE] mt-2 inline-flex items-center gap-2">
-              {t.venue} <span className="opacity-0 group-hover:opacity-100 transition-opacity">— view project →</span>
-            </p>
+            <p className="text-[10px] tracking-[0.3em] uppercase text-[#B9B5AE] mt-2">{t.venue}</p>
           </div>
         </a>
 

@@ -18,6 +18,7 @@ import ScrollDriftX from "./ScrollDriftX";
 import Testimonials from "./Testimonials";
 import ChatLink from "./ChatLink";
 import ThreeCities from "./ThreeCities";
+import HoverWord from "./HoverWord";
 
 /* ───────────────── IMAGERY ───────────────── */
 const IMG = {
@@ -218,7 +219,10 @@ export default function Publication() {
           <div className="flex flex-col items-center justify-center text-center px-8 md:px-16 pt-28 pb-16">
             <Reveal>
               <h2 className="font-editorial leading-[1.15] mb-12 max-w-3xl mx-auto" style={{ fontSize: "clamp(1.8rem, 3.6vw, 3rem)" }}>
-                We build bold brands<br />for the edible and drinkable,<br />from branding &amp; storytelling to<br />stuff you can hold.
+                We build <HoverWord mode="bold">bold</HoverWord> brands<br />
+                for the <HoverWord>edible</HoverWord> and <HoverWord>drinkable</HoverWord>,<br />
+                from <HoverWord>branding</HoverWord> &amp; <HoverWord>storytelling</HoverWord> to<br />
+                <HoverWord>stuff</HoverWord> you can <HoverWord>hold</HoverWord>.
               </h2>
             </Reveal>
             <Reveal delay={0.1} className="w-full max-w-3xl mx-auto">
@@ -231,7 +235,7 @@ export default function Publication() {
             <Reveal>
               <p className="text-[9px] tracking-[0.3em] uppercase text-[#B9B5AE]/60 mb-14">The Menu — What We Do</p>
             </Reveal>
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-10 md:gap-8 mb-16">
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-5 mb-12">
               {[
                 { course: "Amuse Bouché", title: "Branding & Identity", body: "A brand isn't just a name or a logo — it's the foundation of everything. We craft distinct identities that connect, from mission and values to visual and verbal worlds." },
                 { course: "Appetizers", title: "Social & Storytelling", body: "Great hospitality brands don't just sell — they tell stories. We create content from stunning visuals to scroll-stopping social and dynamic campaigns." },
@@ -239,9 +243,9 @@ export default function Publication() {
                 { course: "Desserts", title: "Visual Production", body: "A brand needs to be seen, felt and experienced. We translate strategy into reality with striking design, print and digital execution." },
               ].map((c, i) => (
                 <Reveal key={c.course} delay={i * 0.08}>
-                  <div>
+                  <div className="h-full rounded-2xl border border-[#F3F1EC]/15 p-7 hover:border-[#FF2EC4]/40 transition-colors duration-500" style={{ borderWidth: "1px" }}>
                     <p className="text-[9px] tracking-[0.25em] uppercase text-[#B9B5AE]/50 mb-8">{c.course}</p>
-                    <h3 className="font-display text-2xl md:text-[1.7rem] leading-tight mb-6" style={{ color: "#FF2EC4" }}>
+                    <h3 className="font-display text-xl md:text-[1.5rem] leading-tight mb-5" style={{ color: "#FF2EC4" }}>
                       {c.title.toUpperCase()}
                     </h3>
                     <p className="text-sm text-[#B9B5AE] leading-relaxed">{c.body}</p>
