@@ -16,6 +16,7 @@ import HeroMedia from "./HeroMedia";
 import ZoomOnScroll from "./ZoomOnScroll";
 import ScrollDriftX from "./ScrollDriftX";
 import Testimonials from "./Testimonials";
+import ChatLink from "./ChatLink";
 
 /* ───────────────── IMAGERY ───────────────── */
 const IMG = {
@@ -129,7 +130,7 @@ export default function Publication() {
       <Preloader onDone={() => setLoading(false)} />
       <Cursor />
       <Grain />
-      <ScrollProgress total={8} />
+      <ScrollProgress total={9} />
       {/* ─── NAV ─── */}
       <nav className="fixed top-0 left-0 right-0 z-[100] flex items-center justify-between px-8 md:px-16 py-6 md:py-8 mix-blend-difference text-[#F3F1EC]">
         <a href="#top" className="font-display text-sm tracking-tight leading-none">
@@ -156,26 +157,19 @@ export default function Publication() {
           ))}
         </div>
         <Magnetic strength={0.5}>
-          <a href="#footer" data-cursor="Chat" className="flex items-center gap-3 border border-current rounded-full px-4 py-2 hover:bg-current/5 transition-colors" style={{ borderWidth: "1px" }}>
-            <span className="text-[10px] tracking-[0.22em] uppercase hover:opacity-60 transition-opacity">
-              Let&apos;s Chat
-            </span>
-            <span className="relative w-3.5 h-3.5 rounded-full border border-current flex items-center justify-center">
-              <span className="w-1 h-1 rounded-full bg-current animate-pulse" />
-              <span className="absolute inset-0 rounded-full border border-current animate-ping opacity-60" />
-            </span>
-          </a>
+          <ChatLink />
         </Magnetic>
       </nav>
 
       {/* ═══ 01 — HERO ═══ */}
       <Panel index={1} bg="black">
         <div id="top" className="relative min-h-screen flex flex-col justify-center px-8 md:px-16 pt-20 pb-16 overflow-hidden">
-          {/* Hero crossfading media top-right */}
-          <div className="absolute top-0 right-0 w-[52%] h-[78%]">
+          {/* Hero crossfading media — full-bleed, centred */}
+          <div className="absolute inset-0">
             <HeroMedia className="w-full h-full" />
-            <div className="absolute inset-0 bg-gradient-to-l from-transparent via-[#0A0A0A]/20 to-[#0A0A0A]" />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-transparent to-transparent" />
+            <div className="absolute inset-0 bg-[#0A0A0A]/55" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-transparent to-[#0A0A0A]/30" />
+            <div className="absolute inset-0 bg-gradient-to-r from-[#0A0A0A]/70 via-transparent to-transparent" />
           </div>
 
           {/* Vertical label + line, left edge */}
@@ -188,7 +182,7 @@ export default function Publication() {
 
           {/* Giant title */}
           <div className="relative z-10 md:pl-16">
-            <h1 className="font-display leading-[0.82] tracking-tight opacity-20" style={{ fontSize: "clamp(3rem, 13vw, 12rem)" }}>
+            <h1 className="font-display leading-[0.82] tracking-tight opacity-[0.28]" style={{ fontSize: "clamp(3rem, 13vw, 12rem)" }}>
               <span className="block overflow-hidden"><Reveal as="span" className="block">NOBODY</Reveal></span>
               <span className="block overflow-hidden"><Reveal as="span" delay={0.08} className="block">REMEMBERS</Reveal></span>
               <span className="block overflow-hidden"><Reveal as="span" delay={0.16} className="block">NORMAL</Reveal></span>
@@ -228,13 +222,31 @@ export default function Publication() {
         </div>
       </Panel>
 
-      {/* ═══ FEATURED PROJECTS (draggable carousel) ═══ */}
+      {/* ═══ 03 — PEOPLE DON'T SHARE AVERAGE ═══ */}
+      <Panel index={3} bg="black" minH="42vh">
+        <div className="relative min-h-[42vh] flex items-center overflow-hidden">
+          <div className="absolute top-0 right-0 bottom-0 w-[58%]">
+            <Parallax src={IMG.crowd} amount={40} scale={1.15} position="center 55%" className="w-full h-full" />
+            <div className="absolute inset-0 bg-gradient-to-r from-[#0A0A0A] via-[#0A0A0A]/40 to-transparent" />
+          </div>
+          <div className="relative z-10 px-8 md:px-16 py-16">
+            <Reveal>
+              <p className="font-editorial leading-[1.1]" style={{ fontSize: "clamp(1.8rem, 3.5vw, 3rem)" }}>
+                People don&apos;t<br />share average.
+              </p>
+            </Reveal>
+          </div>
+          <SectionNo n="03" dark />
+        </div>
+      </Panel>
+
+      {/* ═══ 04 — FEATURED PROJECTS (draggable carousel) ═══ */}
       <Panel index={4} bg="ivory" minH="80vh">
         <div id="s04" className="relative min-h-[80vh] flex items-center px-8 md:px-16 py-20 overflow-hidden">
           <ScrollDriftX range={0.07} className="w-full">
             <FeaturedCarousel />
           </ScrollDriftX>
-          <SectionNo n="03" />
+          <SectionNo n="04" />
         </div>
       </Panel>
 
@@ -251,7 +263,7 @@ export default function Publication() {
               <Testimonials />
             </Reveal>
           </div>
-          <SectionNo n="04" dark />
+          <SectionNo n="05" dark />
         </div>
       </Panel>
 
@@ -259,7 +271,7 @@ export default function Publication() {
       <Panel index={6} bg="ivory" minH="auto">
         <div id="s08" className="relative px-8 md:px-16 py-24 md:py-32 flex flex-col items-center">
           <Reveal>
-            <p className="text-[9px] tracking-[0.3em] uppercase text-[#0A0A0A]/40 mb-3 text-center">05 — Not a Therapist</p>
+            <p className="text-[9px] tracking-[0.3em] uppercase text-[#0A0A0A]/40 mb-3 text-center">06 — Not a Therapist</p>
           </Reveal>
           <Reveal delay={0.06}>
             <h2 className="font-editorial text-center mb-12 leading-[1.2]" style={{ fontSize: "clamp(1.6rem, 3.2vw, 2.6rem)" }}>
@@ -270,7 +282,7 @@ export default function Publication() {
           <Reveal delay={0.12} className="w-full">
             <Terminal />
           </Reveal>
-          <SectionNo n="05" />
+          <SectionNo n="06" />
         </div>
       </Panel>
 
@@ -288,7 +300,7 @@ export default function Publication() {
               </p>
             </Reveal>
           </div>
-          <SectionNo n="06" dark />
+          <SectionNo n="07" dark />
         </div>
       </Panel>
 
@@ -322,7 +334,7 @@ export default function Publication() {
               </a>
             </Magnetic>
           </Reveal>
-          <SectionNo n="07" />
+          <SectionNo n="08" />
         </div>
       </Panel>
 
@@ -340,7 +352,7 @@ export default function Publication() {
               </p>
             </Reveal>
           </div>
-          <SectionNo n="08" side="right" dark />
+          <SectionNo n="09" side="right" dark />
         </div>
       </Panel>
 
