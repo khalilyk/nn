@@ -4,6 +4,7 @@ import { useEffect, useRef, ReactNode } from "react";
 import Lenis from "lenis";
 import Reveal from "./Reveal";
 import Parallax from "./Parallax";
+import FeaturedCarousel from "./FeaturedCarousel";
 
 /* ───────────────── IMAGERY ───────────────── */
 const IMG = {
@@ -211,47 +212,10 @@ export default function Publication() {
         </div>
       </Panel>
 
-      {/* ═══ 04 — FEATURED PROJECT 3FILS ═══ */}
-      <Panel index={4} bg="ivory" minH="70vh">
-        <div id="s04" className="relative min-h-[70vh] flex items-center px-8 md:px-16 py-20">
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-14 items-center w-full">
-            <div className="md:col-span-4">
-              <Reveal>
-                <div className="flex items-center gap-6 mb-8">
-                  <span className="text-[9px] tracking-[0.3em] uppercase text-[#0A0A0A]/50">Featured Project</span>
-                  <span className="text-[9px] tracking-[0.3em] text-[#0A0A0A]/30">01</span>
-                </div>
-              </Reveal>
-              <Reveal delay={0.06}>
-                <h3 className="font-display leading-none mb-5" style={{ fontSize: "clamp(3rem, 7vw, 5.5rem)" }}>3FILS</h3>
-              </Reveal>
-              <Reveal delay={0.12}>
-                <p className="text-[10px] tracking-[0.25em] uppercase text-[#0A0A0A]/60 mb-6 flex items-center gap-3">
-                  Dubai <span>→</span>
-                </p>
-              </Reveal>
-              <Reveal delay={0.18}>
-                <p className="text-sm text-[#0A0A0A]/55 leading-relaxed max-w-xs mb-8">
-                  From a bold idea to a dining experience that redefined a category. We built more than a brand, we built obsession.
-                </p>
-              </Reveal>
-              <Reveal delay={0.24}>
-                <a href="#footer" className="text-[10px] tracking-[0.25em] uppercase border-b border-[#0A0A0A] pb-1 inline-flex items-center gap-3 hover:opacity-60 transition-opacity">
-                  View Project <span>→</span>
-                </a>
-              </Reveal>
-            </div>
-            <div className="md:col-span-8">
-              <Reveal delay={0.1}>
-                <div className="relative aspect-[16/8] w-full overflow-hidden">
-                  <Parallax src={IMG.fils} amount={35} scale={1.12} className="w-full h-full" position="center" />
-                  <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 font-display text-[#F3F1EC] tracking-wide" style={{ fontSize: "clamp(1.5rem, 3vw, 2.5rem)" }}>
-                    3FILS
-                  </span>
-                </div>
-              </Reveal>
-            </div>
-          </div>
+      {/* ═══ 04 — FEATURED PROJECTS (draggable carousel) ═══ */}
+      <Panel index={4} bg="ivory" minH="80vh">
+        <div id="s04" className="relative min-h-[80vh] flex items-center px-8 md:px-16 py-20">
+          <FeaturedCarousel />
           <SectionNo n="04" />
         </div>
       </Panel>
