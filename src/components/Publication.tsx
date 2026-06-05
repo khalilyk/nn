@@ -296,9 +296,9 @@ export default function Publication() {
             </Reveal>
             <Reveal delay={0.16}>
               <div className="flex md:justify-end">
-                <a href="mailto:hello@thisisnn.com" className="group w-28 h-28 rounded-full border border-[#0A0A0A] flex flex-col items-center justify-center gap-2 hover:bg-[#0A0A0A] hover:text-[#F3F1EC] transition-colors duration-500">
-                  <span className="text-[9px] tracking-[0.25em] uppercase">Let&apos;s Talk</span>
-                  <span className="text-base">→</span>
+                <a href="mailto:hello@thisisnn.com" aria-label="Let's talk" className="group w-28 h-28 rounded-full bg-[#0A0A0A] text-[#F3F1EC] flex flex-col items-center justify-center gap-1.5 hover:bg-[#0A0A0A]/85 transition-colors duration-500">
+                  <span className="font-display text-2xl leading-none tracking-tight">NN<sup className="text-[9px] ml-0.5 align-super">™</sup></span>
+                  <span className="text-[8px] tracking-[0.25em] uppercase opacity-70">Let&apos;s Talk →</span>
                 </a>
               </div>
             </Reveal>
