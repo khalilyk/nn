@@ -14,6 +14,7 @@ import ScrollProgress from "./ScrollProgress";
 import Magnetic from "./Magnetic";
 import NavPill from "./NavPill";
 import AsciiBuilder from "./AsciiBuilder";
+import HeroMedia from "./HeroMedia";
 
 /* ───────────────── IMAGERY ───────────────── */
 const IMG = {
@@ -170,9 +171,9 @@ export default function Publication() {
       {/* ═══ 01 — HERO ═══ */}
       <Panel index={1} bg="black">
         <div id="top" className="relative min-h-screen flex flex-col justify-center px-8 md:px-16 pt-20 pb-16 overflow-hidden">
-          {/* Hero photo top-right */}
+          {/* Hero crossfading media top-right */}
           <div className="absolute top-0 right-0 w-[52%] h-[78%]">
-            <Parallax src={IMG.hero} amount={35} scale={1.12} position="center 35%" className="w-full h-full" />
+            <HeroMedia className="w-full h-full" />
             <div className="absolute inset-0 bg-gradient-to-l from-transparent via-[#0A0A0A]/20 to-[#0A0A0A]" />
             <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-transparent to-transparent" />
           </div>
@@ -187,9 +188,10 @@ export default function Publication() {
 
           {/* Giant title */}
           <div className="relative z-10 md:pl-16">
-            <h1 className="font-display leading-[0.82] tracking-tight" style={{ fontSize: "clamp(4.5rem, 18vw, 17rem)" }}>
-              <span className="block overflow-hidden"><Reveal as="span" className="block">NOT</Reveal></span>
-              <span className="block overflow-hidden"><Reveal as="span" delay={0.08} className="block">NORMAL</Reveal></span>
+            <h1 className="font-display leading-[0.82] tracking-tight opacity-20" style={{ fontSize: "clamp(3rem, 13vw, 12rem)" }}>
+              <span className="block overflow-hidden"><Reveal as="span" className="block">NOBODY</Reveal></span>
+              <span className="block overflow-hidden"><Reveal as="span" delay={0.08} className="block">REMEMBERS</Reveal></span>
+              <span className="block overflow-hidden"><Reveal as="span" delay={0.16} className="block">NORMAL</Reveal></span>
             </h1>
           </div>
 
@@ -346,7 +348,7 @@ export default function Publication() {
       <Panel index={8} bg="ivory" minH="auto">
         <div className="relative px-8 md:px-16 py-24 md:py-32 flex flex-col items-center">
           <Reveal>
-            <p className="text-[9px] tracking-[0.3em] uppercase text-[#0A0A0A]/40 mb-3 text-center">08 — Always Listening</p>
+            <p className="text-[9px] tracking-[0.3em] uppercase text-[#0A0A0A]/40 mb-3 text-center">08 — Not a Therapist</p>
           </Reveal>
           <Reveal delay={0.06}>
             <h2 className="font-editorial text-center mb-12 leading-[1.2]" style={{ fontSize: "clamp(1.6rem, 3.2vw, 2.6rem)" }}>
