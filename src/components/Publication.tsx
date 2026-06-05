@@ -73,7 +73,7 @@ function Panel({
 function SectionNo({ n, side = "left", dark }: { n: string; side?: "left" | "right"; dark?: boolean }) {
   return (
     <span
-      className={`absolute bottom-5 ${side === "left" ? "left-6 md:left-10" : "right-6 md:right-10"} text-[10px] tracking-[0.2em] ${
+      className={`absolute bottom-7 ${side === "left" ? "left-8 md:left-16" : "right-8 md:right-16"} text-[10px] tracking-[0.2em] ${
         dark ? "text-[#B9B5AE]/70" : "text-[#0A0A0A]/40"
       }`}
     >
@@ -105,7 +105,7 @@ export default function Publication() {
   return (
     <div className="relative">
       {/* ─── NAV ─── */}
-      <nav className="fixed top-0 left-0 right-0 z-[100] flex items-center justify-between px-6 md:px-10 py-5 mix-blend-difference text-[#F3F1EC]">
+      <nav className="fixed top-0 left-0 right-0 z-[100] flex items-center justify-between px-8 md:px-16 py-5 mix-blend-difference text-[#F3F1EC]">
         <a href="#top" className="font-display text-sm tracking-tight leading-none">
           NOT NORMAL<sup className="text-[8px] ml-0.5">™</sup>
         </a>
@@ -128,7 +128,7 @@ export default function Publication() {
 
       {/* ═══ 01 — HERO ═══ */}
       <Panel index={1} bg="black">
-        <div id="top" className="relative min-h-screen flex flex-col justify-center px-6 md:px-10 pt-20 pb-16 overflow-hidden">
+        <div id="top" className="relative min-h-screen flex flex-col justify-center px-8 md:px-16 pt-20 pb-16 overflow-hidden">
           {/* Hero photo top-right */}
           <div className="absolute top-0 right-0 w-[52%] h-[78%]">
             <Parallax src={IMG.hero} amount={35} scale={1.12} position="center 35%" className="w-full h-full" />
@@ -137,7 +137,7 @@ export default function Publication() {
           </div>
 
           {/* Vertical label + line, left edge */}
-          <div className="absolute left-6 md:left-10 top-[18%] bottom-[30%] hidden md:flex flex-col items-center gap-4">
+          <div className="absolute left-8 md:left-16 top-[18%] bottom-[30%] hidden md:flex flex-col items-center gap-4">
             <span className="w-px flex-1 bg-[#B9B5AE]/30" />
             <p className="text-[8px] tracking-[0.3em] uppercase text-[#B9B5AE]/60" style={{ writingMode: "vertical-rl", transform: "rotate(180deg)" }}>
               Branding — Marketing — Experience
@@ -153,7 +153,7 @@ export default function Publication() {
           </div>
 
           {/* Supporting copy bottom-right */}
-          <div className="absolute bottom-20 right-6 md:right-10 max-w-[170px] text-left">
+          <div className="absolute bottom-24 right-8 md:right-16 max-w-[170px] text-left">
             <Reveal delay={0.3}>
               <p className="text-[11px] leading-relaxed text-[#B9B5AE]">
                 A hospitality branding and marketing studio for brands that refuse to blend in.
@@ -163,7 +163,7 @@ export default function Publication() {
 
           {/* Bottom row */}
           <SectionNo n="01" dark />
-          <div className="absolute bottom-5 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5">
+          <div className="absolute bottom-7 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5">
             <span className="text-[9px] tracking-[0.3em] uppercase text-[#B9B5AE]/60">Scroll</span>
             <span className="w-px h-5 bg-[#B9B5AE]/30" />
           </div>
@@ -172,7 +172,7 @@ export default function Publication() {
 
       {/* ═══ 02 — NOBODY REMEMBERS NORMAL ═══ */}
       <Panel index={2} bg="ivory" minH="62vh">
-        <div className="relative min-h-[62vh] flex items-center px-6 md:px-10 py-20">
+        <div className="relative min-h-[62vh] flex items-center px-8 md:px-16 py-20">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 items-center w-full">
             <Reveal>
               <h2 className="font-editorial leading-[1.02]" style={{ fontSize: "clamp(2.2rem, 4.5vw, 3.6rem)" }}>
@@ -195,7 +195,7 @@ export default function Publication() {
             <Parallax src={IMG.interior} amount={50} scale={1.15} position="center 40%" className="w-full h-full" />
             <div className="absolute inset-0 bg-gradient-to-r from-[#0A0A0A] via-[#0A0A0A]/30 to-transparent" />
           </div>
-          <div className="relative z-10 px-6 md:px-10 py-20">
+          <div className="relative z-10 px-8 md:px-16 py-20">
             <Reveal>
               <h2 className="font-editorial leading-[1.05]" style={{ fontSize: "clamp(2.2rem, 4.5vw, 3.6rem)" }}>
                 Some brands<br />serve food.<br />
@@ -213,7 +213,7 @@ export default function Publication() {
 
       {/* ═══ 04 — FEATURED PROJECT 3FILS ═══ */}
       <Panel index={4} bg="ivory" minH="70vh">
-        <div id="s04" className="relative min-h-[70vh] flex items-center px-6 md:px-10 py-20">
+        <div id="s04" className="relative min-h-[70vh] flex items-center px-8 md:px-16 py-20">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-14 items-center w-full">
             <div className="md:col-span-4">
               <Reveal>
@@ -264,7 +264,7 @@ export default function Publication() {
             <div className="absolute inset-0 bg-[#0A0A0A]/55" />
             <div className="absolute inset-0 bg-gradient-to-r from-[#0A0A0A] via-transparent to-[#0A0A0A]/40" />
           </div>
-          <div className="relative z-10 w-full px-6 md:px-20">
+          <div className="relative z-10 w-full px-8 md:px-20">
             <Reveal>
               <p className="font-editorial" style={{ fontSize: "clamp(1.8rem, 3.5vw, 3rem)" }}>
                 Attention is <span className="italic">earned.</span>
@@ -277,7 +277,7 @@ export default function Publication() {
 
       {/* ═══ 06 — LOYALTY IS DESIGNED ═══ */}
       <Panel index={6} bg="ivory" minH="50vh">
-        <div className="relative min-h-[50vh] flex items-center px-6 md:px-10 py-16">
+        <div className="relative min-h-[50vh] flex items-center px-8 md:px-16 py-16">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 items-center w-full">
             <Reveal>
               <Parallax src={IMG.chef} amount={35} className="aspect-[16/9] w-full grayscale" position="center" />
@@ -299,7 +299,7 @@ export default function Publication() {
             <Parallax src={IMG.crowd} amount={40} scale={1.15} position="center 55%" className="w-full h-full" />
             <div className="absolute inset-0 bg-gradient-to-r from-[#0A0A0A] via-[#0A0A0A]/40 to-transparent" />
           </div>
-          <div className="relative z-10 px-6 md:px-10 py-16">
+          <div className="relative z-10 px-8 md:px-16 py-16">
             <Reveal>
               <p className="font-editorial leading-[1.1]" style={{ fontSize: "clamp(1.8rem, 3.5vw, 3rem)" }}>
                 People don&apos;t<br />share average.
@@ -312,7 +312,7 @@ export default function Publication() {
 
       {/* ═══ FOOTER — THE INVITATION ═══ */}
       <Panel index={8} bg="ivory" minH="auto">
-        <footer id="footer" className="px-6 md:px-10 pt-20 pb-6">
+        <footer id="footer" className="px-8 md:px-16 pt-20 pb-6">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12 items-start mb-20">
             <Reveal>
               <h2 className="font-editorial leading-[1.1]" style={{ fontSize: "clamp(1.8rem, 3.2vw, 2.8rem)" }}>
