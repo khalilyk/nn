@@ -296,9 +296,13 @@ export default function Publication() {
             </Reveal>
             <Reveal delay={0.16}>
               <div className="flex md:justify-end">
-                <a href="mailto:hello@thisisnn.com" aria-label="Let's talk" className="group w-28 h-28 rounded-full bg-[#0A0A0A] text-[#F3F1EC] flex flex-col items-center justify-center gap-1.5 hover:bg-[#0A0A0A]/85 transition-colors duration-500">
-                  <span className="font-display text-2xl leading-none tracking-tight">NN<sup className="text-[9px] ml-0.5 align-super">™</sup></span>
-                  <span className="text-[8px] tracking-[0.25em] uppercase opacity-70">Let&apos;s Talk →</span>
+                <a href="mailto:hello@thisisnn.com" aria-label="Let's talk" className="group inline-flex flex-col items-start gap-2">
+                  <span className="font-display text-[#0A0A0A] leading-none tracking-tight" style={{ fontSize: "clamp(1.6rem, 3vw, 2.4rem)" }}>
+                    NOT NORMAL<sup className="text-[10px] ml-1 align-super">™</sup>
+                  </span>
+                  <span className="text-[9px] tracking-[0.3em] uppercase text-[#0A0A0A]/60 inline-flex items-center gap-2 group-hover:gap-3 transition-all">
+                    Let&apos;s Talk <span>→</span>
+                  </span>
                 </a>
               </div>
             </Reveal>
