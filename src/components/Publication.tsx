@@ -1,12 +1,17 @@
 "use client";
 
-import { useEffect, useRef, ReactNode } from "react";
+import { useEffect, useRef, useState, ReactNode } from "react";
 import Lenis from "lenis";
 import Reveal from "./Reveal";
 import Parallax from "./Parallax";
 import FeaturedCarousel from "./FeaturedCarousel";
 import RotatingWord from "./RotatingWord";
 import Terminal from "./Terminal";
+import Cursor from "./Cursor";
+import Grain from "./Grain";
+import Preloader from "./Preloader";
+import ScrollProgress from "./ScrollProgress";
+import Magnetic from "./Magnetic";
 
 /* ───────────────── IMAGERY ───────────────── */
 const IMG = {
@@ -87,12 +92,16 @@ function SectionNo({ n, side = "left", dark }: { n: string; side?: "left" | "rig
 
 /* ───────────────── PUBLICATION ───────────────── */
 export default function Publication() {
+  const [loading, setLoading] = useState(true);
+  const lenisRef = useRef<Lenis | null>(null);
+
   useEffect(() => {
     const lenis = new Lenis({
       duration: 1.4,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smoothWheel: true,
     });
+    lenisRef.current = lenis;
     let raf = 0;
     const loop = (time: number) => {
       lenis.raf(time);
@@ -105,8 +114,18 @@ export default function Publication() {
     };
   }, []);
 
+  // Lock scroll while preloader is up
+  useEffect(() => {
+    if (loading) lenisRef.current?.stop();
+    else lenisRef.current?.start();
+  }, [loading]);
+
   return (
     <div className="relative">
+      <Preloader onDone={() => setLoading(false)} />
+      <Cursor />
+      <Grain />
+      <ScrollProgress total={9} />
       {/* ─── NAV ─── */}
       <nav className="fixed top-0 left-0 right-0 z-[100] flex items-center justify-between px-8 md:px-16 py-6 md:py-8 mix-blend-difference text-[#F3F1EC]">
         <a href="#top" className="font-display text-sm tracking-tight leading-none">
@@ -119,14 +138,16 @@ export default function Publication() {
             </a>
           ))}
         </div>
-        <div className="flex items-center gap-3">
-          <a href="#footer" className="text-[10px] tracking-[0.22em] uppercase hover:opacity-60 transition-opacity">
-            Let&apos;s Talk
+        <Magnetic strength={0.5}>
+          <a href="#footer" data-cursor="Talk" className="flex items-center gap-3">
+            <span className="text-[10px] tracking-[0.22em] uppercase hover:opacity-60 transition-opacity">
+              Let&apos;s Talk
+            </span>
+            <span className="w-3.5 h-3.5 rounded-full border border-current flex items-center justify-center">
+              <span className="w-1 h-1 rounded-full bg-current" />
+            </span>
           </a>
-          <span className="w-3.5 h-3.5 rounded-full border border-current flex items-center justify-center">
-            <span className="w-1 h-1 rounded-full bg-current" />
-          </span>
-        </div>
+        </Magnetic>
       </nav>
 
       {/* ═══ 01 — HERO ═══ */}

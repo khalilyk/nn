@@ -68,6 +68,28 @@ export default function Terminal() {
   const [typing, setTyping] = useState("");
   const counter = useRef(0);
   const bodyRef = useRef<HTMLDivElement>(null);
+  const headlines = useRef<string[]>([]);
+  const hIdx = useRef(0);
+
+  // Best-effort: pull genuine latest hospitality / marketing headlines (silent fallback)
+  useEffect(() => {
+    const feeds = [
+      "https://www.hospitalitynet.org/rss/4.rss",
+      "https://www.thedrum.com/rss.xml",
+    ];
+    feeds.forEach((feed) => {
+      fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feed)}&count=8`)
+        .then((r) => (r.ok ? r.json() : null))
+        .then((d) => {
+          const items: string[] = (d?.items || [])
+            .map((it: { title?: string }) => (it.title || "").trim())
+            .filter(Boolean);
+          if (items.length) headlines.current.push(...items);
+        })
+        .catch(() => {});
+    });
+  }, []);
+
   useEffect(() => {
     let cancelled = false;
     let charTimer: ReturnType<typeof setTimeout>;
@@ -75,7 +97,13 @@ export default function Terminal() {
 
     const typeNext = () => {
       if (cancelled) return;
-      const line = buildLine(counter.current);
+      let line = buildLine(counter.current);
+      // Every 5th insight slot, surface a real headline if we have one
+      if (line.kind === "insight" && headlines.current.length) {
+        const h = headlines.current[hIdx.current % headlines.current.length];
+        hIdx.current += 1;
+        line = { kind: "insight", text: `◆ latest: ${h}` };
+      }
       counter.current += 1;
 
       if (line.kind === "blank") {

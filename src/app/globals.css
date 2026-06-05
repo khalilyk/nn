@@ -31,3 +31,12 @@ body {
 }
 
 img { user-select: none; -webkit-user-drag: none; }
+
+/* Hide native cursor on fine-pointer devices (custom cursor takes over) */
+@media (pointer: fine) {
+  * { cursor: none !important; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition-duration: 0.01ms !important; }
+}

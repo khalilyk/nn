@@ -84,6 +84,7 @@ function CursorImage({ src, label }: { src: string; label: string }) {
       ref={wrap}
       onMouseMove={onMove}
       onMouseLeave={onLeave}
+      data-cursor="Drag"
       className="relative aspect-[16/10] w-full overflow-hidden bg-[#0A0A0A]"
     >
       <div
