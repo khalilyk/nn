@@ -211,14 +211,32 @@ export default function Terminal() {
     sayNorm(route(q, name, seed.current, headlines.current));
   };
 
-  const prompts = [
+  // Larger pool; a random subset is shown and reshuffles every few seconds
+  const promptPool = [
     "How do I build a menu that sells?",
     "What brand strategy fits a new venue?",
     "What do colours mean for a brand?",
     "Is merch actually worth it?",
     "How do I grow on social in Dubai?",
     "What makes guests come back?",
+    "How do I name a restaurant?",
+    "What's the secret to repeat guests?",
+    "Should I rebrand or refresh?",
+    "How do I stand out in Sydney?",
+    "What makes hospitality memorable?",
+    "Is my menu a marketing tool?",
   ];
+  const [prompts, setPrompts] = useState<string[]>(promptPool.slice(0, 5));
+  useEffect(() => {
+    const shuffle = () => {
+      const pickN = [...promptPool].sort(() => Math.random() - 0.5).slice(0, 5);
+      setPrompts(pickN);
+    };
+    shuffle();
+    const id = setInterval(shuffle, 5000);
+    return () => clearInterval(id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className="w-full max-w-4xl mx-auto rounded-xl overflow-hidden shadow-2xl" style={{ background: "#0A0A0A", border: "1px solid rgba(255,255,255,0.08)" }}>
@@ -240,7 +258,7 @@ export default function Terminal() {
           <button
             key={q}
             onClick={() => ask(q)}
-            className="text-[9px] tracking-[0.08em] font-mono text-white/45 border border-white/12 rounded-full px-3 py-1.5 hover:text-[#9FE6B0] hover:border-[#9FE6B0]/40 transition-colors"
+            className="text-[9px] tracking-[0.08em] font-mono text-white border border-white/25 rounded-full px-3 py-1.5 hover:text-[#9FE6B0] hover:border-[#9FE6B0]/50 transition-colors"
           >
             {q}
           </button>

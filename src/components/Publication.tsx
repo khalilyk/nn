@@ -236,7 +236,7 @@ export default function Publication() {
             <Parallax src={IMG.interior} amount={50} scale={1.15} position="center 40%" className="w-full h-full" />
             <div className="absolute inset-0 bg-gradient-to-r from-[#0A0A0A] via-[#0A0A0A]/30 to-transparent" />
           </div>
-          <div className="relative z-10 px-8 md:px-16 py-20 w-full">
+          <ScrollDriftX mode="exitRight" className="relative z-10 px-8 md:px-16 py-20 w-full">
             <Reveal>
               <p className="text-[9px] tracking-[0.3em] uppercase text-[#B9B5AE]/60 mb-12">By the numbers</p>
             </Reveal>
@@ -247,7 +247,7 @@ export default function Publication() {
                 <ScrambleStat value={10} label="Hungry team members" big />
               </div>
             </Reveal>
-          </div>
+          </ScrollDriftX>
           <SectionNo n="03" dark />
         </div>
       </Panel>
@@ -400,13 +400,13 @@ export default function Publication() {
             </div>
           </div>
 
-          <p className="mt-6 text-center text-[9px] tracking-[0.25em] uppercase text-[#0A0A0A]/35">
-            Nobody Remembers Normal.™
-          </p>
-
           {/* Acknowledgement of Country */}
           <p className="mt-10 text-center text-[9px] leading-relaxed tracking-[0.12em] uppercase text-[#0A0A0A]/35 max-w-xl mx-auto">
             We acknowledge the Gadigal, the traditional custodians of the Country on which Not Normal and its brands stands.
+          </p>
+
+          <p className="mt-10 text-center text-[9px] tracking-[0.25em] uppercase text-[#0A0A0A]/35">
+            Nobody Remembers Normal.™
           </p>
         </footer>
       </Panel>
