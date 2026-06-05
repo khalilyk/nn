@@ -13,12 +13,12 @@ import Preloader from "./Preloader";
 import ScrollProgress from "./ScrollProgress";
 import Magnetic from "./Magnetic";
 import HeroMedia from "./HeroMedia";
-import ZoomOnScroll from "./ZoomOnScroll";
 import ScrollDriftX from "./ScrollDriftX";
 import Testimonials from "./Testimonials";
 import ChatLink from "./ChatLink";
 import ThreeCities from "./ThreeCities";
 import HoverWord from "./HoverWord";
+import OverlapImages from "./OverlapImages";
 
 /* ───────────────── IMAGERY ───────────────── */
 const IMG = {
@@ -225,15 +225,15 @@ export default function Publication() {
                 <HoverWord>stuff</HoverWord> you can <HoverWord>hold</HoverWord>.
               </h2>
             </Reveal>
-            <Reveal delay={0.1} className="w-full max-w-3xl mx-auto">
-              <ZoomOnScroll src={IMG.dinner} className="aspect-[16/9] w-full grayscale" position="center" from={1} to={1.7} />
+            <Reveal delay={0.1} className="w-full">
+              <OverlapImages />
             </Reveal>
           </div>
 
-          {/* The Menu — four courses */}
-          <div className="bg-[#0A0A0A] text-[#F3F1EC] px-8 md:px-16 py-20 md:py-28">
+          {/* The Menu — four courses (part of the ivory section above) */}
+          <div className="px-8 md:px-16 pb-24 md:pb-28">
             <Reveal>
-              <p className="text-[9px] tracking-[0.3em] uppercase text-[#B9B5AE]/60 mb-14 text-center">The Menu — What We Do</p>
+              <p className="text-[9px] tracking-[0.3em] uppercase text-[#0A0A0A]/40 mb-14 text-center">The Menu — What We Do</p>
             </Reveal>
             <div className="grid grid-cols-1 md:grid-cols-4 gap-5 mb-14">
               {[
@@ -243,19 +243,19 @@ export default function Publication() {
                 { course: "Desserts", title: "Visual Production", body: "A brand needs to be seen, felt and experienced. We translate strategy into reality with striking design, print and digital execution." },
               ].map((c, i) => (
                 <Reveal key={c.course} delay={i * 0.08}>
-                  <div className="h-full rounded-2xl border border-[#F3F1EC]/15 p-7 text-center hover:border-[#F3F1EC]/40 transition-colors duration-500" style={{ borderWidth: "1px" }}>
-                    <p className="text-[9px] tracking-[0.25em] uppercase text-[#B9B5AE]/50 mb-8">{c.course}</p>
-                    <h3 className="font-display text-xl md:text-[1.5rem] leading-tight mb-5 text-[#F3F1EC]">
+                  <div className="h-full rounded-2xl border border-[#0A0A0A]/15 p-7 text-center hover:border-[#0A0A0A]/40 transition-colors duration-500" style={{ borderWidth: "1px" }}>
+                    <p className="text-[9px] tracking-[0.25em] uppercase text-[#0A0A0A]/40 mb-8">{c.course}</p>
+                    <h3 className="font-display text-xl md:text-[1.5rem] leading-tight mb-5 text-[#0A0A0A]">
                       {c.title.toUpperCase()}
                     </h3>
-                    <p className="text-sm text-[#B9B5AE] leading-relaxed">{c.body}</p>
+                    <p className="text-sm text-[#0A0A0A]/60 leading-relaxed">{c.body}</p>
                   </div>
                 </Reveal>
               ))}
             </div>
             <Reveal delay={0.2}>
               <div className="flex justify-center">
-                <a href="#s04" className="group inline-flex items-center gap-3 rounded-full border border-[#F3F1EC]/40 px-8 py-4 hover:bg-[#F3F1EC] hover:text-[#0A0A0A] transition-colors duration-500">
+                <a href="#s04" className="group inline-flex items-center gap-3 rounded-full border border-[#0A0A0A] px-8 py-4 hover:bg-[#0A0A0A] hover:text-[#F3F1EC] transition-colors duration-500">
                   <span className="text-[10px] tracking-[0.25em] uppercase">The Full Menu</span>
                   <span className="text-sm">↗</span>
                 </a>
@@ -263,7 +263,7 @@ export default function Publication() {
             </Reveal>
           </div>
 
-          <SectionNo n="02" dark />
+          <SectionNo n="02" />
         </div>
       </Panel>
 
@@ -414,9 +414,11 @@ Meet <span className="italic">NORM</span>, our marketing exec.<br />
           </div>
 
           {/* Acknowledgement of Country */}
-          <p className="mt-10 text-center text-[9px] leading-relaxed tracking-[0.12em] uppercase text-[#0A0A0A]/35 max-w-xl mx-auto">
-            We acknowledge the Gadigal, the traditional custodians of the Country on which Not Normal and its brands stands.
-          </p>
+          <div className="mt-10 mx-auto max-w-xl rounded-xl border border-[#0A0A0A]/15 px-6 py-5">
+            <p className="text-center text-[9px] leading-relaxed tracking-[0.12em] uppercase text-[#0A0A0A]/40">
+              We acknowledge the Gadigal, the traditional custodians of the Country on which Not Normal and its brands stands.
+            </p>
+          </div>
 
           <p className="mt-10 text-center text-[9px] tracking-[0.25em] uppercase text-[#0A0A0A]/35">
             Nobody Remembers Normal.™
