@@ -12,7 +12,6 @@ import Grain from "./Grain";
 import Preloader from "./Preloader";
 import ScrollProgress from "./ScrollProgress";
 import Magnetic from "./Magnetic";
-import NavPill from "./NavPill";
 import HeroMedia from "./HeroMedia";
 
 /* ───────────────── IMAGERY ───────────────── */
@@ -128,7 +127,6 @@ export default function Publication() {
       <Cursor />
       <Grain />
       <ScrollProgress total={10} />
-      <NavPill />
       {/* ─── NAV ─── */}
       <nav className="fixed top-0 left-0 right-0 z-[100] flex items-center justify-between px-8 md:px-16 py-6 md:py-8 mix-blend-difference text-[#F3F1EC]">
         <a href="#top" className="font-display text-sm tracking-tight leading-none">
