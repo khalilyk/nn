@@ -269,7 +269,7 @@ export default function Publication() {
               key={l}
               href={href}
               onClick={() => setMenuOpen(false)}
-              className="font-sans font-medium text-[#0A0A0A] leading-[1.15] transition-opacity duration-300 hover:opacity-50"
+              className="font-sans text-[#0A0A0A] leading-[1.15] transition-opacity duration-300 hover:opacity-50"
               style={{
                 fontSize: "clamp(1.9rem, 8.5vw, 2.6rem)",
                 opacity: menuOpen ? 1 : 0,
@@ -296,7 +296,7 @@ export default function Publication() {
             transition: `opacity 0.55s cubic-bezier(0.16,1,0.3,1) ${menuOpen ? 0.5 : 0}s, transform 0.55s cubic-bezier(0.16,1,0.3,1) ${menuOpen ? 0.5 : 0}s`,
           }}
         >
-          <a href="/the-inside" onClick={() => setMenuOpen(false)} className="font-sans font-medium text-[17px] text-[#0A0A0A] transition-opacity duration-300 hover:opacity-50">
+          <a href="/the-inside" onClick={() => setMenuOpen(false)} className="font-sans text-[17px] text-[#0A0A0A] transition-opacity duration-300 hover:opacity-50">
             The Inside
           </a>
 
@@ -506,17 +506,17 @@ Meet <span className="italic">NORM</span>, our marketing exec.<br />
       {/* ═══ FOOTER — THE INVITATION ═══ */}
       <Panel index={10} bg="ivory" minH="auto" slideFrom="up">
         <footer id="footer" className="px-8 md:px-16 pt-24 pb-10 md:pb-14">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start mb-20">
+          <div className="flex flex-col items-center text-center gap-10 mb-20">
             <Reveal>
               <h2 className="font-editorial leading-[1.2]" style={{ fontSize: "clamp(1.8rem, 3.2vw, 2.8rem)" }}>
                 to be not normal<br />is to be <RotatingWord />
               </h2>
             </Reveal>
             <Reveal delay={0.08}>
-              <div className="space-y-1.5 md:pt-2">
+              <div className="space-y-1.5">
                 <a href="mailto:hello@thisisnn.com" className="block text-[11px] tracking-[0.1em] uppercase hover:opacity-60 transition-opacity">hello@thisisnn.com</a>
                 <a href="tel:+971501234567" className="block text-[11px] tracking-[0.1em] hover:opacity-60 transition-opacity">+971 50 123 4567</a>
-                <div className="pt-4 space-y-1.5">
+                <div className="pt-4 flex items-center justify-center gap-6">
                   <a href="#" className="block text-[11px] tracking-[0.1em] uppercase hover:opacity-60 transition-opacity">Instagram</a>
                   <a href="#" className="block text-[11px] tracking-[0.1em] uppercase hover:opacity-60 transition-opacity">LinkedIn</a>
                 </div>
@@ -524,7 +524,7 @@ Meet <span className="italic">NORM</span>, our marketing exec.<br />
             </Reveal>
           </div>
 
-          <div className="border-t border-[#0A0A0A]/15 pt-6 flex flex-col md:flex-row items-center justify-between gap-4 text-[9px] tracking-[0.2em] uppercase text-[#0A0A0A]/50">
+          <div className="border-t border-[#0A0A0A]/15 pt-6 flex flex-col items-center justify-center gap-4 text-[9px] tracking-[0.2em] uppercase text-[#0A0A0A]/50">
             <span>© {new Date().getFullYear()} Not Normal</span>
             <span>Sydney — Dubai — Beirut</span>
             <div className="flex gap-6">
