@@ -20,8 +20,7 @@ import ThreeCities from "./ThreeCities";
 import HoverWord from "./HoverWord";
 import Greeting from "./Greeting";
 import OverlapImages from "./OverlapImages";
-import MenuLink from "./MenuLink";
-import MenuPanels from "./MenuPanels";
+import MenuSplit from "./MenuSplit";
 import PacMan from "./PacMan";
 import ClientLogos from "./ClientLogos";
 
@@ -51,6 +50,7 @@ function Panel({
   minH = "100vh",
   pin = true,
   slideFrom,
+  clip = true,
 }: {
   children: ReactNode;
   bg: "black" | "ivory";
@@ -58,6 +58,7 @@ function Panel({
   minH?: string;
   pin?: boolean;
   slideFrom?: "left" | "right" | "up" | "down";
+  clip?: boolean;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const inner = useRef<HTMLDivElement>(null);
@@ -126,7 +127,7 @@ function Panel({
     >
       <div
         ref={inner}
-        className={`origin-top overflow-hidden ${bg === "black" ? "bg-[#0A0A0A] text-[#F3F1EC]" : "bg-[#F3F1EC] text-[#0A0A0A]"}`}
+        className={`origin-top ${clip ? "overflow-hidden" : ""} ${bg === "black" ? "bg-[#0A0A0A] text-[#F3F1EC]" : "bg-[#F3F1EC] text-[#0A0A0A]"}`}
         style={{ minHeight: minH, boxShadow: "0 -30px 60px -25px rgba(0,0,0,0.5)", willChange: "transform, filter" }}
       >
         {children}
@@ -317,7 +318,7 @@ export default function Publication() {
       </Panel>
 
       {/* ═══ 02 — NOBODY REMEMBERS NORMAL + THE MENU ═══ */}
-      <Panel index={2} bg="ivory" minH="auto" pin={false} slideFrom="left">
+      <Panel index={2} bg="ivory" minH="auto" pin={false} slideFrom="left" clip={false}>
         <div id="s02" className="relative">
           {/* Top — statement + image */}
           <div className="flex flex-col items-center justify-center text-center px-8 md:px-16 pt-28 pb-16">
@@ -335,23 +336,10 @@ export default function Publication() {
             </Reveal>
           </div>
 
-          {/* The Menu — four courses (part of the ivory section above) */}
+          {/* The Menu — split screen, sticky left + scrolling services */}
           <div className="px-8 md:px-16 pb-24 md:pb-28">
             <Reveal>
-              <p className="text-[9px] tracking-[0.3em] uppercase text-[#0A0A0A]/40 mb-6 text-center">The Menu — What We Do</p>
-            </Reveal>
-            <Reveal delay={0.05}>
-              <p className="font-editorial text-center max-w-2xl mx-auto mb-14 leading-relaxed text-[#0A0A0A]/80" style={{ fontSize: "clamp(1.1rem, 1.8vw, 1.5rem)" }}>
-                We help hospitality brands stand out through strategy, design, content and guest experience. From branding to campaigns, every detail is crafted to connect and be remembered.
-              </p>
-            </Reveal>
-            <Reveal delay={0.1} className="mb-14">
-              <MenuPanels />
-            </Reveal>
-            <Reveal delay={0.2}>
-              <div className="flex justify-center">
-                <MenuLink />
-              </div>
+              <MenuSplit />
             </Reveal>
           </div>
 
