@@ -17,7 +17,7 @@ export default function Greeting() {
       style={{ fontSize: "clamp(1.1rem, 2vw, 1.6rem)", minHeight: "1.2em" }}
     >
       {greeting}
-      {greeting && ", friend,"}
+      {greeting && ", friend."}
     </p>
   );
 }
