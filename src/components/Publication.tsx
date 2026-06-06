@@ -265,9 +265,9 @@ export default function Publication() {
             <Reveal>
               <h2 className="font-editorial leading-[1.15] mb-12 max-w-3xl mx-auto" style={{ fontSize: "clamp(1.8rem, 3.6vw, 3rem)" }}>
                 We build <HoverWord mode="bold">bold</HoverWord> brands<br />
-                for the <HoverWord>edible</HoverWord> and <HoverWord>drinkable</HoverWord>,<br />
-                from <HoverWord>branding</HoverWord> &amp; <HoverWord>storytelling</HoverWord> to<br />
-                <HoverWord>stuff</HoverWord> you can <HoverWord>hold</HoverWord>.
+                for the <HoverWord variant={0}>edible</HoverWord> and <HoverWord variant={1}>drinkable</HoverWord>,<br />
+                from <HoverWord variant={2}>branding</HoverWord> &amp; <HoverWord variant={3}>storytelling</HoverWord> to<br />
+                <HoverWord variant={4}>stuff</HoverWord> you can <HoverWord variant={5}>hold</HoverWord>.
               </h2>
             </Reveal>
             <Reveal delay={0.1} className="w-full">
