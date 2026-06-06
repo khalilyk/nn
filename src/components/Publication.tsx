@@ -228,7 +228,7 @@ export default function Publication() {
           <button
             aria-label="Menu"
             onClick={() => setMenuOpen(true)}
-            className={`md:hidden relative flex flex-col items-center justify-center gap-[6px] w-8 h-8 -mr-1 transition-opacity duration-200 ${menuOpen ? "opacity-0 pointer-events-none" : "opacity-100"}`}
+            className={`md:hidden relative flex flex-col items-end justify-center gap-[6px] w-8 h-8 transition-opacity duration-200 ${menuOpen ? "opacity-0 pointer-events-none" : "opacity-100"}`}
           >
             <span className="block h-[2px] w-7 rounded-full bg-[#F3F1EC]" />
             <span className="block h-[2px] w-7 rounded-full bg-[#F3F1EC]" />
