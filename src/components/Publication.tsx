@@ -85,7 +85,7 @@ function Panel({
     };
   }, [pin]);
 
-  // Directional slide-in entrance — moves the whole panel
+  // Directional slide — plays in on enter, reverses out on leave (both scroll directions)
   useEffect(() => {
     const el = ref.current;
     if (!el || !slideFrom) return;
@@ -94,7 +94,9 @@ function Panel({
         if (e.isIntersecting) {
           el.style.transform = "translate(0, 0)";
           el.style.opacity = "1";
-          obs.unobserve(el);
+        } else {
+          el.style.transform = SLIDE_OFFSET[slideFrom];
+          el.style.opacity = "0";
         }
       },
       { threshold: 0.15 }
