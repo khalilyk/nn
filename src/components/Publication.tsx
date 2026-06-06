@@ -58,7 +58,6 @@ function Panel({
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const inner = useRef<HTMLDivElement>(null);
-  const slider = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!pin) return;
@@ -86,9 +85,9 @@ function Panel({
     };
   }, [pin]);
 
-  // Directional slide-in entrance
+  // Directional slide-in entrance — moves the whole panel
   useEffect(() => {
-    const el = slider.current;
+    const el = ref.current;
     if (!el || !slideFrom) return;
     const obs = new IntersectionObserver(
       ([e]) => {
@@ -105,27 +104,27 @@ function Panel({
   }, [slideFrom]);
 
   return (
-    <section ref={ref} className={pin ? "panel" : "relative"} style={{ zIndex: index }}>
+    <section
+      ref={ref}
+      className={pin ? "panel" : "relative"}
+      style={
+        slideFrom
+          ? {
+              zIndex: index,
+              transform: SLIDE_OFFSET[slideFrom],
+              opacity: 0,
+              transition: "transform 1s cubic-bezier(0.16,1,0.3,1), opacity 1s cubic-bezier(0.16,1,0.3,1)",
+              willChange: "transform, opacity",
+            }
+          : { zIndex: index }
+      }
+    >
       <div
         ref={inner}
         className={`origin-top overflow-hidden ${bg === "black" ? "bg-[#0A0A0A] text-[#F3F1EC]" : "bg-[#F3F1EC] text-[#0A0A0A]"}`}
         style={{ minHeight: minH, boxShadow: "0 -30px 60px -25px rgba(0,0,0,0.5)", willChange: "transform, filter" }}
       >
-        <div
-          ref={slider}
-          style={
-            slideFrom
-              ? {
-                  transform: SLIDE_OFFSET[slideFrom],
-                  opacity: 0,
-                  transition: "transform 1s cubic-bezier(0.16,1,0.3,1), opacity 1s cubic-bezier(0.16,1,0.3,1)",
-                  willChange: "transform, opacity",
-                }
-              : undefined
-          }
-        >
-          {children}
-        </div>
+        {children}
       </div>
     </section>
   );
