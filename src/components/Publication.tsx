@@ -18,6 +18,7 @@ import Testimonials from "./Testimonials";
 import ChatLink from "./ChatLink";
 import ThreeCities from "./ThreeCities";
 import HoverWord from "./HoverWord";
+import Greeting from "./Greeting";
 import OverlapImages from "./OverlapImages";
 import MenuLink from "./MenuLink";
 import MenuPanels from "./MenuPanels";
@@ -270,6 +271,7 @@ export default function Publication() {
           {/* Top — statement + image */}
           <div className="flex flex-col items-center justify-center text-center px-8 md:px-16 pt-28 pb-16">
             <Reveal>
+              <Greeting />
               <h2 className="font-editorial leading-[1.15] mb-12 max-w-3xl mx-auto" style={{ fontSize: "clamp(1.8rem, 3.6vw, 3rem)" }}>
                 We build <HoverWord mode="bold">bold</HoverWord> brands<br />
                 for the <HoverWord variant={0}>edible</HoverWord> and <HoverWord variant={1}>drinkable</HoverWord>,<br />
