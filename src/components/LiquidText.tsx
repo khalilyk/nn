@@ -3,10 +3,10 @@
 import { useEffect, useRef, useState } from "react";
 
 /**
- * Wraps content in an SVG turbulence + displacement filter.
- * Moving the cursor over it "liquifies" the text like a hand through water —
- * the displacement ramps up with pointer speed and decays back to calm,
- * regardless of direction.
+ * Localized water-ripple distortion that follows the cursor.
+ * A soft "wet" patch tracks the pointer (with a fading wake); only the text
+ * under that patch is displaced by animated turbulence, so dragging the cursor
+ * across the words feels like running your finger through water.
  */
 export default function LiquidText({
   children,
@@ -16,48 +16,62 @@ export default function LiquidText({
   className?: string;
 }) {
   const wrap = useRef<HTMLDivElement>(null);
-  const disp = useRef<SVGFEDisplacementMapElement>(null);
   const turb = useRef<SVGFETurbulenceElement>(null);
+  const feImg = useRef<SVGFEImageElement>(null);
   const [id] = useState(() => "liquid-" + Math.random().toString(36).slice(2, 9));
-
-  const scale = useRef(0);     // current displacement scale
-  const target = useRef(0);    // target driven by pointer speed
-  const seed = useRef(0);      // drifting turbulence phase
-  const last = useRef<{ x: number; y: number } | null>(null);
 
   useEffect(() => {
     const el = wrap.current;
     if (!el) return;
 
+    // Off-screen canvas that holds the ripple mask (white = distort here).
+    const W = 320, H = 180;
+    const canvas = document.createElement("canvas");
+    canvas.width = W;
+    canvas.height = H;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    let px = -1, py = -1;     // cursor pos in canvas space
+    let active = false;
+    let seed = 0;
+
     const onMove = (e: PointerEvent) => {
-      const p = last.current;
-      if (p) {
-        const d = Math.hypot(e.clientX - p.x, e.clientY - p.y);
-        // pointer speed feeds the ripple; cap so fast flicks don't explode
-        target.current = Math.min(40, target.current + d * 0.9);
-      }
-      last.current = { x: e.clientX, y: e.clientY };
+      const r = el.getBoundingClientRect();
+      px = ((e.clientX - r.left) / r.width) * W;
+      py = ((e.clientY - r.top) / r.height) * H;
+      active = true;
     };
-    const onLeave = () => { last.current = null; };
+    const onLeave = () => { active = false; };
 
     el.addEventListener("pointermove", onMove);
     el.addEventListener("pointerleave", onLeave);
 
     let raf = 0;
     const tick = () => {
-      // decay the target, ease current toward it
-      target.current *= 0.86;
-      scale.current += (target.current - scale.current) * 0.18;
-      seed.current += 0.012;
+      // Fade the existing mask (leaves a dissolving wake behind the cursor).
+      ctx.globalCompositeOperation = "destination-out";
+      ctx.fillStyle = "rgba(0,0,0,0.07)";
+      ctx.fillRect(0, 0, W, H);
 
-      const s = scale.current;
-      if (disp.current) disp.current.setAttribute("scale", s.toFixed(2));
-      if (turb.current) {
-        // subtle baseFrequency wobble for a watery shimmer while disturbed
-        const bf = 0.008 + Math.min(s, 30) * 0.0009;
-        turb.current.setAttribute("baseFrequency", `${bf.toFixed(4)} ${(bf * 1.3).toFixed(4)}`);
-        turb.current.setAttribute("seed", String(Math.floor(seed.current) % 100));
+      // Stamp a soft blob where the cursor is.
+      if (active && px >= 0) {
+        ctx.globalCompositeOperation = "source-over";
+        const rad = 70;
+        const g = ctx.createRadialGradient(px, py, 0, px, py, rad);
+        g.addColorStop(0, "rgba(255,255,255,0.95)");
+        g.addColorStop(1, "rgba(255,255,255,0)");
+        ctx.fillStyle = g;
+        ctx.beginPath();
+        ctx.arc(px, py, rad, 0, Math.PI * 2);
+        ctx.fill();
       }
+
+      // Push the mask into the filter + keep the water "moving".
+      if (feImg.current) feImg.current.setAttribute("href", canvas.toDataURL());
+      seed += 0.5;
+      if (turb.current) turb.current.setAttribute("seed", String(Math.floor(seed) % 256));
+
       raf = requestAnimationFrame(tick);
     };
     raf = requestAnimationFrame(tick);
@@ -74,22 +88,41 @@ export default function LiquidText({
       <svg width="0" height="0" aria-hidden style={{ position: "absolute" }}>
         <defs>
           <filter id={id} x="-20%" y="-20%" width="140%" height="140%">
+            {/* Watery noise */}
             <feTurbulence
               ref={turb}
               type="fractalNoise"
-              baseFrequency="0.008 0.0104"
+              baseFrequency="0.018 0.022"
               numOctaves={2}
               seed={0}
               result="noise"
             />
+            {/* Fully-distorted version of the text */}
             <feDisplacementMap
-              ref={disp}
               in="SourceGraphic"
               in2="noise"
-              scale={0}
+              scale={28}
               xChannelSelector="R"
               yChannelSelector="G"
+              result="wavy"
             />
+            {/* Ripple mask following the cursor (white = show distortion) */}
+            <feImage
+              ref={feImg}
+              x="0"
+              y="0"
+              width="100%"
+              height="100%"
+              preserveAspectRatio="none"
+              result="mask"
+            />
+            {/* Keep distortion only where the mask is */}
+            <feComposite in="wavy" in2="mask" operator="in" result="wavyPatch" />
+            {/* Lay the wet patch over the crisp text */}
+            <feMerge>
+              <feMergeNode in="SourceGraphic" />
+              <feMergeNode in="wavyPatch" />
+            </feMerge>
           </filter>
         </defs>
       </svg>
