@@ -227,21 +227,37 @@ export default function Publication() {
           {/* Mobile hamburger */}
           <button
             aria-label="Menu"
-            onClick={() => setMenuOpen((o) => !o)}
-            className="md:hidden relative flex flex-col items-center justify-center gap-[6px] w-8 h-8 -mr-1"
+            onClick={() => setMenuOpen(true)}
+            className={`md:hidden relative flex flex-col items-center justify-center gap-[6px] w-8 h-8 -mr-1 transition-opacity duration-200 ${menuOpen ? "opacity-0 pointer-events-none" : "opacity-100"}`}
           >
-            <span className={`block h-[2px] w-7 rounded-full bg-[#F3F1EC] transition-all duration-300 ${menuOpen ? "translate-y-[4px] rotate-45" : ""}`} />
-            <span className={`block h-[2px] w-7 rounded-full bg-[#F3F1EC] transition-all duration-300 ${menuOpen ? "-translate-y-[4px] -rotate-45" : ""}`} />
+            <span className="block h-[2px] w-7 rounded-full bg-[#F3F1EC]" />
+            <span className="block h-[2px] w-7 rounded-full bg-[#F3F1EC]" />
           </button>
         </div>
       </nav>
 
       {/* ─── MOBILE MENU OVERLAY ─── */}
       <div
-        className={`fixed inset-0 z-[99] md:hidden bg-[#0A0A0A] flex flex-col px-8 pt-24 pb-10 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${menuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}
+        className={`fixed inset-0 z-[99] md:hidden bg-[#F3F1EC] text-[#0A0A0A] flex flex-col overflow-hidden px-8 pt-24 pb-10 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${menuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}
       >
+        {/* Circular close button */}
+        <button
+          aria-label="Close menu"
+          onClick={() => setMenuOpen(false)}
+          className="absolute top-6 right-8 w-10 h-10 rounded-full border border-[#0A0A0A]/20 flex items-center justify-center text-[#0A0A0A] transition-colors hover:bg-[#0A0A0A] hover:text-[#F3F1EC]"
+          style={{ opacity: menuOpen ? 1 : 0, transition: "opacity 0.5s ease 0.1s, background-color 0.3s, color 0.3s" }}
+        >
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.4"><path d="M1 1l12 12M13 1L1 13" /></svg>
+        </button>
+
+        {/* top divider */}
+        <div
+          className="h-px bg-[#0A0A0A]/15 mb-8"
+          style={{ opacity: menuOpen ? 1 : 0, transform: menuOpen ? "scaleX(1)" : "scaleX(0)", transformOrigin: "left", transition: "opacity 0.5s ease 0.05s, transform 0.7s cubic-bezier(0.16,1,0.3,1) 0.05s" }}
+        />
+
         {/* Links */}
-        <nav className="flex flex-col mt-auto">
+        <nav className="flex flex-col gap-1">
           {[
             { l: "About", href: "#s02" },
             { l: "The Menu", href: "#s02" },
@@ -253,51 +269,60 @@ export default function Publication() {
               key={l}
               href={href}
               onClick={() => setMenuOpen(false)}
-              className="group flex items-baseline gap-4 border-b border-[#F3F1EC]/10 py-4"
+              className="font-sans text-[#0A0A0A] leading-[1.15]"
               style={{
+                fontSize: "clamp(1.9rem, 8.5vw, 2.6rem)",
                 opacity: menuOpen ? 1 : 0,
-                transform: menuOpen ? "translateY(0)" : "translateY(16px)",
-                transition: `opacity 0.6s cubic-bezier(0.16,1,0.3,1) ${menuOpen ? 0.1 + i * 0.07 : 0}s, transform 0.6s cubic-bezier(0.16,1,0.3,1) ${menuOpen ? 0.1 + i * 0.07 : 0}s`,
+                transform: menuOpen ? "translateY(0)" : "translateY(14px)",
+                transition: `opacity 0.55s cubic-bezier(0.16,1,0.3,1) ${menuOpen ? 0.12 + i * 0.06 : 0}s, transform 0.55s cubic-bezier(0.16,1,0.3,1) ${menuOpen ? 0.12 + i * 0.06 : 0}s`,
               }}
             >
-              <span className="font-mono text-[10px] text-[#B9B5AE]/50 tabular-nums">{String(i + 1).padStart(2, "0")}</span>
-              <span className="font-display uppercase text-[#F3F1EC] leading-none" style={{ fontSize: "clamp(2.2rem, 11vw, 3.5rem)" }}>
-                {l}
-              </span>
-              <span className="ml-auto self-center text-[#F3F1EC]/30 group-hover:text-[#F3F1EC] transition-colors">→</span>
+              {l}
             </a>
           ))}
         </nav>
 
-        {/* Footer block */}
+        {/* bottom divider */}
         <div
-          className="mt-10"
+          className="h-px bg-[#0A0A0A]/15 mt-8 mb-7"
+          style={{ opacity: menuOpen ? 1 : 0, transform: menuOpen ? "scaleX(1)" : "scaleX(0)", transformOrigin: "left", transition: "opacity 0.5s ease 0.45s, transform 0.7s cubic-bezier(0.16,1,0.3,1) 0.45s" }}
+        />
+
+        {/* Secondary + social */}
+        <div
           style={{
             opacity: menuOpen ? 1 : 0,
-            transform: menuOpen ? "translateY(0)" : "translateY(16px)",
-            transition: `opacity 0.6s cubic-bezier(0.16,1,0.3,1) ${menuOpen ? 0.55 : 0}s, transform 0.6s cubic-bezier(0.16,1,0.3,1) ${menuOpen ? 0.55 : 0}s`,
+            transform: menuOpen ? "translateY(0)" : "translateY(14px)",
+            transition: `opacity 0.55s cubic-bezier(0.16,1,0.3,1) ${menuOpen ? 0.5 : 0}s, transform 0.55s cubic-bezier(0.16,1,0.3,1) ${menuOpen ? 0.5 : 0}s`,
           }}
         >
-          <div className="flex items-center justify-between gap-4 mb-6">
-            <span className="flex items-center gap-2">
-              <span className="relative flex h-2 w-2">
-                <span className="absolute inline-flex h-full w-full rounded-full bg-[#4ADE80] opacity-75 animate-ping" />
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-[#4ADE80] shadow-[0_0_8px_2px_rgba(74,222,128,0.7)]" />
-              </span>
-              <span className="text-[10px] tracking-[0.18em] uppercase text-[#4ADE80]">2 spots this month</span>
-            </span>
-            <a
-              href="#footer"
-              onClick={() => setMenuOpen(false)}
-              className="border border-[#F3F1EC]/40 rounded-full px-5 py-2.5 text-[10px] tracking-[0.2em] uppercase text-[#F3F1EC]"
-            >
-              Let&apos;s Chat
-            </a>
+          <a href="/the-inside" onClick={() => setMenuOpen(false)} className="font-sans text-lg text-[#0A0A0A]">
+            The Inside
+          </a>
+
+          <p className="text-[10px] tracking-[0.25em] uppercase text-[#0A0A0A]/40 mt-9 mb-4">Social</p>
+          <div className="flex flex-col gap-2">
+            {[
+              { l: "Instagram", href: "https://instagram.com" },
+              { l: "LinkedIn", href: "https://linkedin.com" },
+            ].map((s) => (
+              <a key={s.l} href={s.href} target="_blank" rel="noreferrer" className="font-sans text-[#0A0A0A]/80 hover:text-[#0A0A0A] transition-colors">
+                {s.l}
+              </a>
+            ))}
           </div>
-          <div className="flex items-center justify-between text-[10px] tracking-[0.15em] uppercase text-[#B9B5AE]/60">
-            <a href="mailto:hello@thisisnn.com" className="hover:text-[#F3F1EC] transition-colors">hello@thisisnn.com</a>
-            <span>Sydney · Dubai · Beirut</span>
-          </div>
+        </div>
+
+        {/* availability — pinned to bottom */}
+        <div
+          className="mt-auto flex items-center gap-2"
+          style={{ opacity: menuOpen ? 1 : 0, transition: `opacity 0.6s ease ${menuOpen ? 0.6 : 0}s` }}
+        >
+          <span className="relative flex h-2 w-2">
+            <span className="absolute inline-flex h-full w-full rounded-full bg-[#16a34a] opacity-60 animate-ping" />
+            <span className="relative inline-flex h-2 w-2 rounded-full bg-[#16a34a]" />
+          </span>
+          <span className="text-[10px] tracking-[0.18em] uppercase text-[#16a34a]">2 spots this month</span>
         </div>
       </div>
 
