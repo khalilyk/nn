@@ -41,6 +41,16 @@ img { user-select: none; -webkit-user-drag: none; }
   from { transform: translateX(-160px); }
   to   { transform: translateX(100vw); }
 }
+/* ghost pulls ahead / falls back so the gap varies like a real chase */
+@keyframes ghost-gap {
+  0%   { transform: translateX(0); }
+  18%  { transform: translateX(38px); }
+  33%  { transform: translateX(6px); }
+  52%  { transform: translateX(52px); }
+  70%  { transform: translateX(14px); }
+  86%  { transform: translateX(30px); }
+  100% { transform: translateX(0); }
+}
 
 /* Hide native cursor on fine-pointer devices (custom cursor takes over) */
 @media (pointer: fine) {

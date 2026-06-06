@@ -16,8 +16,8 @@ export default function PacMan() {
             animation: "pac-chomp 0.35s linear infinite",
           }}
         />
-        {/* Ghost */}
-        <svg width="24" height="26" viewBox="0 0 24 26" aria-hidden>
+        {/* Ghost — gap to Pac-Man varies for a real-chase feel */}
+        <svg width="24" height="26" viewBox="0 0 24 26" aria-hidden style={{ animation: "ghost-gap 3.7s ease-in-out infinite" }}>
           <path
             d="M2 13a10 10 0 0 1 20 0v11l-3.3-2.2L15.3 24 12 21.8 8.7 24 5.3 21.8 2 24V13Z"
             fill="#0A0A0A"
