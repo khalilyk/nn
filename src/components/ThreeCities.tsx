@@ -96,8 +96,8 @@ export default function ThreeCities() {
         <img
           src="/dotted-sphere.svg"
           alt=""
-          className="animate-[spin-slow_45s_linear_infinite]"
-          style={{ width: "clamp(360px, 50vw, 680px)", opacity: 0.25 }}
+          className="animate-[spin-slow_90s_linear_infinite]"
+          style={{ width: "clamp(414px, 57.5vw, 782px)", opacity: 0.15 }}
         />
       </div>
 
