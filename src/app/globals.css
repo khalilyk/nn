@@ -38,11 +38,8 @@ img { user-select: none; -webkit-user-drag: none; }
   50%      { clip-path: polygon(100% 48%, 45% 50%, 100% 52%, 100% 100%, 0 100%, 0 0, 100% 0); }
 }
 @keyframes pac-run {
-  0%   { transform: translateX(0) scaleX(1); }
-  47%  { transform: translateX(calc(100vw - 170px)) scaleX(1); }
-  50%  { transform: translateX(calc(100vw - 170px)) scaleX(-1); }
-  97%  { transform: translateX(0) scaleX(-1); }
-  100% { transform: translateX(0) scaleX(1); }
+  from { transform: translateX(-160px); }
+  to   { transform: translateX(100vw); }
 }
 
 /* Hide native cursor on fine-pointer devices (custom cursor takes over) */
