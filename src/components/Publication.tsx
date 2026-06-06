@@ -21,6 +21,7 @@ import HoverWord from "./HoverWord";
 import OverlapImages from "./OverlapImages";
 import MenuLink from "./MenuLink";
 import MenuPanels from "./MenuPanels";
+import PacMan from "./PacMan";
 
 /* ───────────────── IMAGERY ───────────────── */
 const IMG = {
@@ -455,6 +456,8 @@ Meet <span className="italic">NORM</span>, our marketing exec.<br />
           <p className="mt-10 text-center text-[9px] tracking-[0.25em] uppercase text-[#0A0A0A]/35">
             Nobody Remembers Normal.™
           </p>
+
+          <PacMan />
         </footer>
       </Panel>
     </div>

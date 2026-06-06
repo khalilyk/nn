@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 
 export default function Cursor() {
   const dot = useRef<HTMLDivElement>(null);
+  const spin = useRef<HTMLSpanElement>(null);
   const [label, setLabel] = useState("");
   const [hovering, setHovering] = useState(false);
   const [emoji, setEmoji] = useState<"grab" | "tap" | null>(null);
@@ -36,10 +37,20 @@ export default function Cursor() {
     const onDown = () => setPressed(true);
     const onUp = () => setPressed(false);
 
+    let angle = 0;
+    let disp = 0;
     const loop = () => {
-      pos.x += (target.x - pos.x) * 0.18;
-      pos.y += (target.y - pos.y) * 0.18;
+      const dx = target.x - pos.x;
+      const dy = target.y - pos.y;
+      if (Math.hypot(dx, dy) > 0.6) angle = (Math.atan2(dy, dx) * 180) / Math.PI;
+      // shortest-path smoothing
+      let diff = ((angle - disp + 540) % 360) - 180;
+      disp += diff * 0.15;
+      pos.x += dx * 0.18;
+      pos.y += dy * 0.18;
       if (dot.current) dot.current.style.transform = `translate(${pos.x}px, ${pos.y}px) translate(-50%, -50%)`;
+      // rotate the emoji toward the direction of travel (up-pointing baseline → +90)
+      if (spin.current) spin.current.style.transform = `rotate(${disp + 90}deg)`;
       raf = requestAnimationFrame(loop);
     };
     raf = requestAnimationFrame(loop);
@@ -63,8 +74,11 @@ export default function Cursor() {
         className="fixed top-0 left-0 z-[200] pointer-events-none hidden md:flex items-center justify-center"
         style={{ fontSize: grab ? (pressed ? 52 : 60) : pressed ? 40 : 48, transition: "font-size 0.12s ease", filter: "drop-shadow(0 2px 4px rgba(0,0,0,0.4))" }}
       >
-        <span style={{ transform: grab ? (pressed ? "rotate(-12deg)" : "rotate(0deg)") : pressed ? "translateY(3px)" : "translateY(0)", transition: "transform 0.12s ease" }}>
-          {grab ? (pressed ? "✊" : "🖐️") : "👆"}
+        {/* outer span rotates toward movement direction (set in rAF loop) */}
+        <span ref={spin} className="inline-block">
+          <span className="inline-block" style={{ transform: pressed ? "scale(0.9)" : "scale(1)", transition: "transform 0.12s ease" }}>
+            {grab ? (pressed ? "✊" : "🖐️") : "👆"}
+          </span>
         </span>
       </div>
     );
