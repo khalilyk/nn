@@ -3,10 +3,56 @@
 import { useEffect, useRef, useState } from "react";
 
 const cities = [
-  { name: "Sydney", line: "Where we're based, and where we build." },
-  { name: "Dubai", line: "Where we cut our teeth on some of the region's most awarded concepts." },
-  { name: "Beirut", line: "Where hospitality isn't a business — it's a way of life." },
+  { code: "SYD", name: "SYDNEY", line: "Where we're based, and where we build." },
+  { code: "DXB", name: "DUBAI", line: "Where we cut our teeth on some of the region's most awarded concepts." },
+  { code: "BEY", name: "BEIRUT", line: "Where hospitality isn't a business — it's a way of life." },
 ];
+
+function CityButton({
+  code,
+  name,
+  active,
+  onEnter,
+  onLeave,
+}: {
+  code: string;
+  name: string;
+  active: boolean;
+  onEnter: () => void;
+  onLeave: () => void;
+}) {
+  const [text, setText] = useState(code);
+  const [hovered, setHovered] = useState(false);
+  const cur = useRef(code);
+
+  useEffect(() => {
+    const target = hovered ? name : code;
+    let cancelled = false;
+    let t: ReturnType<typeof setTimeout>;
+    const step = () => {
+      if (cancelled) return;
+      const c = cur.current;
+      if (c === target) return;
+      const next = !target.startsWith(c) ? c.slice(0, -1) : target.slice(0, c.length + 1);
+      cur.current = next;
+      setText(next || " ");
+      t = setTimeout(step, 55);
+    };
+    step();
+    return () => { cancelled = true; clearTimeout(t); };
+  }, [hovered, code, name]);
+
+  return (
+    <button
+      onMouseEnter={() => { setHovered(true); onEnter(); }}
+      onMouseLeave={() => { setHovered(false); onLeave(); }}
+      className="font-display leading-[0.95] transition-colors duration-500 whitespace-nowrap"
+      style={{ fontSize: "clamp(2.2rem, 6vw, 5.5rem)", color: active ? "#F3F1EC" : "rgba(243,241,236,0.28)" }}
+    >
+      {text}
+    </button>
+  );
+}
 
 export default function ThreeCities() {
   const ref = useRef<HTMLDivElement>(null);
@@ -33,26 +79,25 @@ export default function ThreeCities() {
         </h2>
       </div>
 
-      {/* Cities — one line */}
-      <div className="flex flex-wrap items-baseline justify-center gap-x-6 gap-y-2 w-full">
+      {/* Airport codes — type out full name on hover */}
+      <div className="flex flex-wrap items-baseline justify-center gap-x-10 gap-y-2 w-full">
         {cities.map((c, i) => (
-          <button
-            key={c.name}
-            onMouseEnter={() => setActive(i)}
-            className="font-display leading-[0.95] transition-colors duration-500"
-            style={{ fontSize: "clamp(2.2rem, 6vw, 5.5rem)", color: active === i ? "#F3F1EC" : "rgba(243,241,236,0.28)" }}
-          >
-            {c.name.toUpperCase()}
-            {i < cities.length - 1 && <span className="text-[#B9B5AE]/40 mx-2">·</span>}
-          </button>
+          <CityButton
+            key={c.code}
+            code={c.code}
+            name={c.name}
+            active={active === i}
+            onEnter={() => setActive(i)}
+            onLeave={() => {}}
+          />
         ))}
       </div>
 
       {/* Active city line */}
-      <div className="relative w-full max-w-2xl mx-auto h-12 mt-7">
+      <div className="relative w-full max-w-2xl mx-auto h-12 mt-8">
         {cities.map((c, i) => (
           <p
-            key={c.name}
+            key={c.code}
             className="absolute inset-x-0 top-0 text-[#B9B5AE] text-sm md:text-base leading-relaxed transition-all duration-500"
             style={{ opacity: active === i ? 1 : 0, transform: active === i ? "translateY(0)" : "translateY(8px)" }}
           >
@@ -61,7 +106,6 @@ export default function ThreeCities() {
         ))}
       </div>
 
-      {/* Closing */}
       <p
         className="font-editorial italic text-[#B9B5AE] mt-12 max-w-xl transition-all duration-1000"
         style={{ fontSize: "clamp(1.1rem, 2vw, 1.6rem)", opacity: seen ? 1 : 0, transform: seen ? "translateY(0)" : "translateY(20px)", transitionDelay: "0.4s" }}
