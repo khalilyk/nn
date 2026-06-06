@@ -374,8 +374,8 @@ export default function Publication() {
       </Panel>
 
       {/* ═══ 06 — NORM ═══ */}
-      <Panel index={6} bg="ivory" minH="auto" slideFrom="left">
-        <div id="s08" className="relative px-8 md:px-16 py-24 md:py-32 flex flex-col items-center">
+      <Panel index={6} bg="ivory" minH="auto" pin={false} slideFrom="left">
+        <div id="s08" className="relative px-8 md:px-16 py-20 md:py-32 flex flex-col items-center">
           <Reveal>
             <p className="text-[9px] tracking-[0.3em] uppercase text-[#0A0A0A]/40 mb-3 text-center">06 — Not a Therapist</p>
           </Reveal>
