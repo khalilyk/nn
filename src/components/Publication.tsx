@@ -245,17 +245,13 @@ export default function Publication() {
           <div className="absolute bottom-24 right-8 md:right-16 max-w-[170px] text-left">
             <Reveal delay={0.3}>
               <p className="text-[11px] leading-relaxed text-[#B9B5AE]">
-                A hospitality branding and marketing studio for brands that refuse to blend in.
+                A Hospitality Brand<br />Advisory For Those<br />That Refuse to Blend In
               </p>
             </Reveal>
           </div>
 
           {/* Bottom row */}
           <SectionNo n="01" dark />
-          <div className="absolute bottom-7 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5">
-            <span className="text-[9px] tracking-[0.3em] uppercase text-[#B9B5AE]/60">Scroll</span>
-            <span className="w-px h-5 bg-[#B9B5AE]/30" />
-          </div>
         </div>
       </Panel>
 
