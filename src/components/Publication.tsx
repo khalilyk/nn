@@ -269,7 +269,7 @@ export default function Publication() {
               key={l}
               href={href}
               onClick={() => setMenuOpen(false)}
-              className="font-sans text-[#0A0A0A] leading-[1.15]"
+              className="font-sans font-medium text-[#0A0A0A] leading-[1.15] transition-opacity duration-300 hover:opacity-50"
               style={{
                 fontSize: "clamp(1.9rem, 8.5vw, 2.6rem)",
                 opacity: menuOpen ? 1 : 0,
@@ -284,7 +284,7 @@ export default function Publication() {
 
         {/* bottom divider */}
         <div
-          className="h-px bg-[#0A0A0A]/15 mt-8 mb-7"
+          className="h-px bg-[#0A0A0A]/15 my-8"
           style={{ opacity: menuOpen ? 1 : 0, transform: menuOpen ? "scaleX(1)" : "scaleX(0)", transformOrigin: "left", transition: "opacity 0.5s ease 0.45s, transform 0.7s cubic-bezier(0.16,1,0.3,1) 0.45s" }}
         />
 
@@ -296,17 +296,17 @@ export default function Publication() {
             transition: `opacity 0.55s cubic-bezier(0.16,1,0.3,1) ${menuOpen ? 0.5 : 0}s, transform 0.55s cubic-bezier(0.16,1,0.3,1) ${menuOpen ? 0.5 : 0}s`,
           }}
         >
-          <a href="/the-inside" onClick={() => setMenuOpen(false)} className="font-sans text-lg text-[#0A0A0A]">
+          <a href="/the-inside" onClick={() => setMenuOpen(false)} className="font-sans font-medium text-[17px] text-[#0A0A0A] transition-opacity duration-300 hover:opacity-50">
             The Inside
           </a>
 
-          <p className="text-[10px] tracking-[0.25em] uppercase text-[#0A0A0A]/40 mt-9 mb-4">Social</p>
-          <div className="flex flex-col gap-2">
+          <p className="text-[10px] tracking-[0.25em] uppercase text-[#0A0A0A]/40 mt-8 mb-4">Social</p>
+          <div className="flex flex-col gap-2.5">
             {[
               { l: "Instagram", href: "https://instagram.com" },
               { l: "LinkedIn", href: "https://linkedin.com" },
             ].map((s) => (
-              <a key={s.l} href={s.href} target="_blank" rel="noreferrer" className="font-sans text-[#0A0A0A]/80 hover:text-[#0A0A0A] transition-colors">
+              <a key={s.l} href={s.href} target="_blank" rel="noreferrer" className="font-sans text-[17px] text-[#0A0A0A] transition-opacity duration-300 hover:opacity-50">
                 {s.l}
               </a>
             ))}
