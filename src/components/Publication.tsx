@@ -151,6 +151,7 @@ function SectionNo({ n, side = "left", dark }: { n: string; side?: "left" | "rig
 /* ───────────────── PUBLICATION ───────────────── */
 export default function Publication() {
   const [loading, setLoading] = useState(true);
+  const [menuOpen, setMenuOpen] = useState(false);
   const lenisRef = useRef<Lenis | null>(null);
 
   useEffect(() => {
@@ -217,11 +218,61 @@ export default function Publication() {
             </span>
             <span className="text-[9px] tracking-[0.18em] uppercase text-[#4ADE80]">2 spots this month</span>
           </span>
-          <Magnetic strength={0.5}>
-            <ChatLink />
-          </Magnetic>
+          <div className="hidden md:block">
+            <Magnetic strength={0.5}>
+              <ChatLink />
+            </Magnetic>
+          </div>
+          {/* Mobile hamburger */}
+          <button
+            aria-label="Menu"
+            onClick={() => setMenuOpen((o) => !o)}
+            className="md:hidden flex flex-col justify-center gap-[5px] w-7 h-7"
+          >
+            <span className={`block h-px bg-[#F3F1EC] transition-transform duration-300 ${menuOpen ? "translate-y-[3px] rotate-45" : ""}`} />
+            <span className={`block h-px bg-[#F3F1EC] transition-transform duration-300 ${menuOpen ? "-translate-y-[3px] -rotate-45" : ""}`} />
+          </button>
         </div>
       </nav>
+
+      {/* ─── MOBILE MENU OVERLAY ─── */}
+      <div
+        className={`fixed inset-0 z-[99] md:hidden bg-[#0A0A0A] flex flex-col justify-center px-10 transition-all duration-500 ${menuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}
+      >
+        <div className="flex flex-col gap-6">
+          {[
+            { l: "About", href: "#s02" },
+            { l: "The Menu", href: "#s02" },
+            { l: "Projects", href: "#s04" },
+            { l: "Journal", href: "#s08" },
+            { l: "Contact", href: "#footer" },
+          ].map(({ l, href }) => (
+            <a
+              key={l}
+              href={href}
+              onClick={() => setMenuOpen(false)}
+              className="font-display uppercase text-[#F3F1EC] leading-none"
+              style={{ fontSize: "clamp(2.2rem, 10vw, 3.5rem)" }}
+            >
+              {l}
+            </a>
+          ))}
+        </div>
+        <div className="mt-12 flex items-center gap-2">
+          <span className="relative flex h-2 w-2">
+            <span className="absolute inline-flex h-full w-full rounded-full bg-[#4ADE80] opacity-75 animate-ping" />
+            <span className="relative inline-flex h-2 w-2 rounded-full bg-[#4ADE80] shadow-[0_0_8px_2px_rgba(74,222,128,0.7)]" />
+          </span>
+          <span className="text-[10px] tracking-[0.18em] uppercase text-[#4ADE80]">2 spots this month</span>
+        </div>
+        <a
+          href="#footer"
+          onClick={() => setMenuOpen(false)}
+          className="mt-5 inline-block self-start border border-[#F3F1EC]/40 rounded-full px-6 py-3 text-[11px] tracking-[0.2em] uppercase text-[#F3F1EC]"
+        >
+          Let&apos;s Chat
+        </a>
+      </div>
 
       {/* ═══ 01 — HERO ═══ */}
       <Panel index={1} bg="black">
@@ -245,9 +296,9 @@ export default function Publication() {
           {/* Giant title — centred, justified */}
           <div className="relative z-10 w-full flex justify-center">
             <h1 className="font-display uppercase leading-[0.95] tracking-tight text-[#F3F1EC] w-full max-w-4xl" style={{ fontSize: "clamp(2rem, 6vw, 5.5rem)" }}>
-              <span className="block overflow-hidden"><Reveal as="span" className="block text-justify [text-align-last:justify]">Let Them Savour,</Reveal></span>
-              <span className="block overflow-hidden"><Reveal as="span" delay={0.08} className="block text-justify [text-align-last:justify]">Sip and Live</Reveal></span>
-              <span className="block overflow-hidden"><Reveal as="span" delay={0.16} className="block text-justify [text-align-last:justify]">Your Story.</Reveal></span>
+              <span className="block overflow-hidden"><Reveal as="span" className="block text-center [text-align-last:center] md:text-justify md:[text-align-last:justify]">Let Them Savour,</Reveal></span>
+              <span className="block overflow-hidden"><Reveal as="span" delay={0.08} className="block text-center [text-align-last:center] md:text-justify md:[text-align-last:justify]">Sip and Live</Reveal></span>
+              <span className="block overflow-hidden"><Reveal as="span" delay={0.16} className="block text-center [text-align-last:center] md:text-justify md:[text-align-last:justify]">Your Story.</Reveal></span>
             </h1>
           </div>
 

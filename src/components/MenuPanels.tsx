@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const items = [
   { course: "Amuse Bouché", title: "Branding & Identity", body: "A brand isn't just a name or a logo — it's the foundation of everything. We craft distinct identities that connect, from mission and values to visual and verbal worlds.", img: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1200&q=80" },
@@ -11,9 +11,38 @@ const items = [
 
 export default function MenuPanels() {
   const [active, setActive] = useState(0);
+  const [isDesktop, setIsDesktop] = useState(true);
 
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 768px)");
+    const update = () => setIsDesktop(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
+
+  // ── Mobile: simple stacked cards, all content visible ──
+  if (!isDesktop) {
+    return (
+      <div className="flex flex-col gap-3">
+        {items.map((it, i) => (
+          <div key={i} className="relative overflow-hidden rounded-2xl h-[260px]" style={{ background: "#141414" }}>
+            <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url('${it.img}')`, opacity: 0.5 }} />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-[#0A0A0A]/50 to-transparent" />
+            <div className="absolute inset-0 p-6 flex flex-col justify-end">
+              <p className="text-[9px] tracking-[0.25em] uppercase text-[#B9B5AE]/70 mb-2">{it.course}</p>
+              <h3 className="font-editorial text-[#F3F1EC] leading-[1.1] mb-2" style={{ fontSize: "1.5rem" }}>{it.title}</h3>
+              <p className="text-[12px] text-[#B9B5AE] leading-relaxed">{it.body}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    );
+  }
+
+  // ── Desktop: expanding hover panels ──
   return (
-    <div className="flex flex-col md:flex-row gap-2" style={{ height: "clamp(380px, 56vh, 560px)" }}>
+    <div className="flex flex-row gap-2" style={{ height: "clamp(380px, 56vh, 560px)" }}>
       {items.map((it, i) => {
         const on = active === i;
         return (
