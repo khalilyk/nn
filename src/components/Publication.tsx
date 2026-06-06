@@ -22,6 +22,7 @@ import OverlapImages from "./OverlapImages";
 import MenuLink from "./MenuLink";
 import MenuPanels from "./MenuPanels";
 import PacMan from "./PacMan";
+import ClientLogos from "./ClientLogos";
 
 /* ───────────────── IMAGERY ───────────────── */
 const IMG = {
@@ -303,22 +304,7 @@ export default function Publication() {
       {/* ═══ 03 — CLIENTS ═══ */}
       <Panel index={3} bg="black" minH="auto" slideFrom="up">
         <div className="relative px-8 md:px-16 py-28 md:py-36">
-          <div className="grid grid-cols-2 md:grid-cols-4 border-t border-l border-[#F3F1EC]/12">
-            <div className="border-r border-b border-[#F3F1EC]/12 p-8 flex items-center" style={{ minHeight: "clamp(170px, 26vh, 300px)" }}>
-              <p className="font-editorial leading-[1.2] text-[#F3F1EC]" style={{ fontSize: "clamp(1.2rem, 1.8vw, 1.7rem)" }}>
-                We work for a broad spectrum of clients.
-              </p>
-            </div>
-            {["3Fils", "Revolver", "Maison Dali", "Oakberry", "Kinoya", "Tony's Woodfire", "PieHaus"].map((name, i) => (
-              <Reveal key={name} delay={i * 0.05} className="border-r border-b border-[#F3F1EC]/12 flex items-center justify-center group" >
-                <div className="w-full h-full flex items-center justify-center" style={{ minHeight: "clamp(170px, 26vh, 300px)" }}>
-                  <span className="font-display text-[#F3F1EC]/35 group-hover:text-[#F3F1EC] transition-all duration-500 group-hover:scale-105" style={{ fontSize: "clamp(1.1rem, 1.6vw, 1.7rem)" }}>
-                    {name.toUpperCase()}
-                  </span>
-                </div>
-              </Reveal>
-            ))}
-          </div>
+          <ClientLogos />
           <SectionNo n="03" dark />
         </div>
       </Panel>
