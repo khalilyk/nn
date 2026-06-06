@@ -174,11 +174,11 @@ export default function Publication() {
     };
   }, []);
 
-  // Lock scroll while preloader is up
+  // Lock scroll while preloader is up or the mobile menu is open
   useEffect(() => {
-    if (loading) lenisRef.current?.stop();
+    if (loading || menuOpen) lenisRef.current?.stop();
     else lenisRef.current?.start();
-  }, [loading]);
+  }, [loading, menuOpen]);
 
   return (
     <div className="relative">
@@ -238,41 +238,67 @@ export default function Publication() {
 
       {/* ─── MOBILE MENU OVERLAY ─── */}
       <div
-        className={`fixed inset-0 z-[99] md:hidden bg-[#0A0A0A] flex flex-col justify-center px-10 transition-all duration-500 ${menuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}
+        className={`fixed inset-0 z-[99] md:hidden bg-[#0A0A0A] flex flex-col px-8 pt-24 pb-10 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${menuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}
       >
-        <div className="flex flex-col gap-6">
+        {/* Links */}
+        <nav className="flex flex-col mt-auto">
           {[
             { l: "About", href: "#s02" },
             { l: "The Menu", href: "#s02" },
             { l: "Projects", href: "#s04" },
             { l: "Journal", href: "#s08" },
             { l: "Contact", href: "#footer" },
-          ].map(({ l, href }) => (
+          ].map(({ l, href }, i) => (
             <a
               key={l}
               href={href}
               onClick={() => setMenuOpen(false)}
-              className="font-display uppercase text-[#F3F1EC] leading-none"
-              style={{ fontSize: "clamp(2.2rem, 10vw, 3.5rem)" }}
+              className="group flex items-baseline gap-4 border-b border-[#F3F1EC]/10 py-4"
+              style={{
+                opacity: menuOpen ? 1 : 0,
+                transform: menuOpen ? "translateY(0)" : "translateY(16px)",
+                transition: `opacity 0.6s cubic-bezier(0.16,1,0.3,1) ${menuOpen ? 0.1 + i * 0.07 : 0}s, transform 0.6s cubic-bezier(0.16,1,0.3,1) ${menuOpen ? 0.1 + i * 0.07 : 0}s`,
+              }}
             >
-              {l}
+              <span className="font-mono text-[10px] text-[#B9B5AE]/50 tabular-nums">{String(i + 1).padStart(2, "0")}</span>
+              <span className="font-display uppercase text-[#F3F1EC] leading-none" style={{ fontSize: "clamp(2.2rem, 11vw, 3.5rem)" }}>
+                {l}
+              </span>
+              <span className="ml-auto self-center text-[#F3F1EC]/30 group-hover:text-[#F3F1EC] transition-colors">→</span>
             </a>
           ))}
-        </div>
-        <div className="mt-12 flex items-center gap-2">
-          <span className="relative flex h-2 w-2">
-            <span className="absolute inline-flex h-full w-full rounded-full bg-[#4ADE80] opacity-75 animate-ping" />
-            <span className="relative inline-flex h-2 w-2 rounded-full bg-[#4ADE80] shadow-[0_0_8px_2px_rgba(74,222,128,0.7)]" />
-          </span>
-          <span className="text-[10px] tracking-[0.18em] uppercase text-[#4ADE80]">2 spots this month</span>
-        </div>
-        <a
-          href="#footer"
-          onClick={() => setMenuOpen(false)}
-          className="mt-5 inline-block self-start border border-[#F3F1EC]/40 rounded-full px-6 py-3 text-[11px] tracking-[0.2em] uppercase text-[#F3F1EC]"
+        </nav>
+
+        {/* Footer block */}
+        <div
+          className="mt-10"
+          style={{
+            opacity: menuOpen ? 1 : 0,
+            transform: menuOpen ? "translateY(0)" : "translateY(16px)",
+            transition: `opacity 0.6s cubic-bezier(0.16,1,0.3,1) ${menuOpen ? 0.55 : 0}s, transform 0.6s cubic-bezier(0.16,1,0.3,1) ${menuOpen ? 0.55 : 0}s`,
+          }}
         >
-          Let&apos;s Chat
-        </a>
+          <div className="flex items-center justify-between gap-4 mb-6">
+            <span className="flex items-center gap-2">
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full rounded-full bg-[#4ADE80] opacity-75 animate-ping" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-[#4ADE80] shadow-[0_0_8px_2px_rgba(74,222,128,0.7)]" />
+              </span>
+              <span className="text-[10px] tracking-[0.18em] uppercase text-[#4ADE80]">2 spots this month</span>
+            </span>
+            <a
+              href="#footer"
+              onClick={() => setMenuOpen(false)}
+              className="border border-[#F3F1EC]/40 rounded-full px-5 py-2.5 text-[10px] tracking-[0.2em] uppercase text-[#F3F1EC]"
+            >
+              Let&apos;s Chat
+            </a>
+          </div>
+          <div className="flex items-center justify-between text-[10px] tracking-[0.15em] uppercase text-[#B9B5AE]/60">
+            <a href="mailto:hello@thisisnn.com" className="hover:text-[#F3F1EC] transition-colors">hello@thisisnn.com</a>
+            <span>Sydney · Dubai · Beirut</span>
+          </div>
+        </div>
       </div>
 
       {/* ═══ 01 — HERO ═══ */}
