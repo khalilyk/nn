@@ -6,7 +6,7 @@ export default function Cursor() {
   const dot = useRef<HTMLDivElement>(null);
   const [label, setLabel] = useState("");
   const [hovering, setHovering] = useState(false);
-  const [grab, setGrab] = useState(false);
+  const [emoji, setEmoji] = useState<"grab" | "tap" | null>(null);
   const [pressed, setPressed] = useState(false);
 
   useEffect(() => {
@@ -23,16 +23,12 @@ export default function Cursor() {
       if (el) {
         const val = el.dataset.cursor || "";
         setHovering(true);
-        if (val === "grab") {
-          setGrab(true);
-          setLabel("");
-        } else {
-          setGrab(false);
-          setLabel(val);
-        }
+        if (val === "grab") { setEmoji("grab"); setLabel(""); }
+        else if (val === "tap") { setEmoji("tap"); setLabel(""); }
+        else { setEmoji(null); setLabel(val); }
       } else {
         setHovering(false);
-        setGrab(false);
+        setEmoji(null);
         setLabel("");
       }
     };
@@ -58,16 +54,17 @@ export default function Cursor() {
     };
   }, []);
 
-  // Comic hand mode over draggable areas
-  if (grab) {
+  // Comic hand / finger mode
+  if (emoji) {
+    const grab = emoji === "grab";
     return (
       <div
         ref={dot}
         className="fixed top-0 left-0 z-[200] pointer-events-none hidden md:flex items-center justify-center"
-        style={{ fontSize: pressed ? 52 : 60, transition: "font-size 0.12s ease", filter: "drop-shadow(0 2px 4px rgba(0,0,0,0.4))" }}
+        style={{ fontSize: grab ? (pressed ? 52 : 60) : pressed ? 40 : 48, transition: "font-size 0.12s ease", filter: "drop-shadow(0 2px 4px rgba(0,0,0,0.4))" }}
       >
-        <span style={{ transform: pressed ? "rotate(-12deg)" : "rotate(0deg)", transition: "transform 0.12s ease" }}>
-          {pressed ? "✊" : "🖐️"}
+        <span style={{ transform: grab ? (pressed ? "rotate(-12deg)" : "rotate(0deg)") : pressed ? "translateY(3px)" : "translateY(0)", transition: "transform 0.12s ease" }}>
+          {grab ? (pressed ? "✊" : "🖐️") : "👆"}
         </span>
       </div>
     );

@@ -244,6 +244,7 @@ function Slide({
         <p className="text-sm text-[#0A0A0A]/55 leading-relaxed max-w-xs mb-8">{project.desc}</p>
         <a
           href="#footer"
+          data-cursor="tap"
           className="text-[10px] tracking-[0.25em] uppercase border-b border-[#0A0A0A] pb-1 inline-flex items-center gap-3 hover:opacity-60 transition-opacity"
           onClick={(e) => e.stopPropagation()}
         >
