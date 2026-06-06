@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState, ReactNode } from "react";
 import Lenis from "lenis";
 import Reveal from "./Reveal";
+import LiquidText from "./LiquidText";
 import Parallax from "./Parallax";
 import FeaturedCarousel from "./FeaturedCarousel";
 import RotatingWord from "./RotatingWord";
@@ -233,13 +234,13 @@ export default function Publication() {
           </div>
 
           {/* Giant title — centred, justified */}
-          <div className="relative z-10 w-full flex justify-center">
+          <LiquidText className="relative z-10 w-full flex justify-center">
             <h1 className="font-display uppercase leading-[0.95] tracking-tight text-[#F3F1EC] w-full max-w-4xl" style={{ fontSize: "clamp(2rem, 6vw, 5.5rem)" }}>
               <span className="block overflow-hidden"><Reveal as="span" className="block text-justify [text-align-last:justify]">Let Them Savour,</Reveal></span>
               <span className="block overflow-hidden"><Reveal as="span" delay={0.08} className="block text-justify [text-align-last:justify]">Sip and Live</Reveal></span>
               <span className="block overflow-hidden"><Reveal as="span" delay={0.16} className="block text-justify [text-align-last:justify]">Your Story.</Reveal></span>
             </h1>
-          </div>
+          </LiquidText>
 
           {/* Supporting copy bottom-right */}
           <div className="absolute bottom-24 right-8 md:right-16 max-w-[170px] text-left">
