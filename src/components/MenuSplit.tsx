@@ -21,7 +21,7 @@ const services = [
   {
     title: "Visual Production",
     body: "Strategy translated into striking design, print and digital execution.",
-    tags: ["art direction", "print design", "motion", "3D & VFX", "web design", "signage"],
+    tags: ["print design", "web design", "signage"],
   },
 ];
 
@@ -50,16 +50,13 @@ export default function MenuSplit() {
             <h4 className="font-editorial leading-tight mb-5" style={{ fontSize: "clamp(1.6rem, 2.6vw, 2.4rem)" }}>
               {s.title}
             </h4>
-            <div className="flex flex-wrap gap-2 mb-6">
+            <ul className="flex flex-col gap-1.5 mb-6">
               {s.tags.map((t) => (
-                <span
-                  key={t}
-                  className="rounded-full border border-[#0A0A0A]/25 px-3.5 py-1.5 text-[12px] text-[#0A0A0A]/80 transition-colors duration-300 hover:bg-[#0A0A0A] hover:text-[#F3F1EC] hover:border-[#0A0A0A]"
-                >
+                <li key={t} className="text-[14px] text-[#0A0A0A]/75 transition-colors duration-300 hover:text-[#0A0A0A]">
                   {t}
-                </span>
+                </li>
               ))}
-            </div>
+            </ul>
             <p className="text-[#0A0A0A]/65 leading-relaxed max-w-md" style={{ fontSize: "clamp(0.95rem, 1.3vw, 1.05rem)" }}>
               {s.body}
             </p>
