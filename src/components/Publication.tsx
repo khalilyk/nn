@@ -300,21 +300,26 @@ export default function Publication() {
         </div>
       </Panel>
 
-      {/* ═══ 03 — PEOPLE DON'T SHARE AVERAGE ═══ */}
-      <Panel index={3} bg="black" minH="42vh" slideFrom="up">
-        <div className="relative min-h-[42vh] flex items-center overflow-hidden">
-          <div className="absolute top-0 right-0 bottom-0 w-[58%]">
-            <Parallax src={IMG.crowd} amount={40} scale={1.15} position="center 55%" className="w-full h-full" />
-            <div className="absolute inset-0 bg-gradient-to-r from-[#0A0A0A] via-[#0A0A0A]/40 to-transparent" />
-          </div>
-          <div className="relative z-10 px-8 md:px-16 py-16">
-            <Reveal>
-              <p className="font-editorial leading-[1.1]" style={{ fontSize: "clamp(1.8rem, 3.5vw, 3rem)" }}>
-                People don&apos;t<br />share average.
+      {/* ═══ 03 — CLIENTS ═══ */}
+      <Panel index={3} bg="ivory" minH="auto" slideFrom="up">
+        <div className="relative px-8 md:px-16 py-20 md:py-24">
+          <div className="grid grid-cols-2 md:grid-cols-4 border-t border-l border-[#0A0A0A]/10">
+            <div className="border-r border-b border-[#0A0A0A]/10 p-8 flex items-center" style={{ minHeight: "clamp(120px, 18vh, 200px)" }}>
+              <p className="font-editorial leading-[1.2] text-[#0A0A0A]" style={{ fontSize: "clamp(1.2rem, 1.8vw, 1.7rem)" }}>
+                We work for a broad spectrum of clients.
               </p>
-            </Reveal>
+            </div>
+            {["3Fils", "Revolver", "Maison Dali", "Oakberry", "Kinoya", "Tony's Woodfire", "PieHaus"].map((name, i) => (
+              <Reveal key={name} delay={i * 0.05} className="border-r border-b border-[#0A0A0A]/10 flex items-center justify-center group" >
+                <div className="w-full h-full flex items-center justify-center" style={{ minHeight: "clamp(120px, 18vh, 200px)" }}>
+                  <span className="font-display text-[#0A0A0A]/35 group-hover:text-[#0A0A0A] transition-all duration-500 group-hover:scale-105" style={{ fontSize: "clamp(1.1rem, 1.6vw, 1.7rem)" }}>
+                    {name.toUpperCase()}
+                  </span>
+                </div>
+              </Reveal>
+            ))}
           </div>
-          <SectionNo n="03" dark />
+          <SectionNo n="03" />
         </div>
       </Panel>
 
