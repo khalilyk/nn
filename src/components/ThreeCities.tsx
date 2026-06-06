@@ -56,6 +56,7 @@ function CityButton({
 
 export default function ThreeCities() {
   const ref = useRef<HTMLDivElement>(null);
+  const sphere = useRef<HTMLDivElement>(null);
   const [seen, setSeen] = useState(false);
   const [active, setActive] = useState(0);
 
@@ -67,10 +68,41 @@ export default function ThreeCities() {
     return () => obs.disconnect();
   }, []);
 
+  // Parallax on scroll
+  useEffect(() => {
+    let raf = 0;
+    const onScroll = () => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        const el = ref.current;
+        const sp = sphere.current;
+        if (!el || !sp) return;
+        const rect = el.getBoundingClientRect();
+        const vh = window.innerHeight;
+        const p = (rect.top + rect.height / 2 - vh / 2) / vh; // -1..1
+        sp.style.transform = `translateY(${p * 80}px)`;
+      });
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+    return () => { window.removeEventListener("scroll", onScroll); cancelAnimationFrame(raf); };
+  }, []);
+
   return (
     <div ref={ref} className="relative w-full flex flex-col items-center justify-center text-center">
+      {/* Rotating dotted-sphere background */}
+      <div ref={sphere} className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none" style={{ willChange: "transform" }}>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/dotted-sphere.svg"
+          alt=""
+          className="animate-[spin-slow_45s_linear_infinite]"
+          style={{ width: "clamp(360px, 50vw, 680px)", opacity: 0.25 }}
+        />
+      </div>
+
       <div
-        className="transition-all duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)]"
+        className="relative z-10 transition-all duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)]"
         style={{ opacity: seen ? 1 : 0, transform: seen ? "translateY(0)" : "translateY(30px)" }}
       >
         <p className="text-[9px] tracking-[0.3em] uppercase text-[#B9B5AE]/60 mb-5">The world is our oyster</p>
@@ -80,7 +112,7 @@ export default function ThreeCities() {
       </div>
 
       {/* Airport codes — type out full name on hover */}
-      <div className="flex flex-wrap items-baseline justify-center gap-x-10 gap-y-2 w-full">
+      <div className="relative z-10 flex flex-wrap items-baseline justify-center gap-x-10 gap-y-2 w-full">
         {cities.map((c, i) => (
           <CityButton
             key={c.code}
@@ -94,7 +126,7 @@ export default function ThreeCities() {
       </div>
 
       {/* Active city line */}
-      <div className="relative w-full max-w-2xl mx-auto h-12 mt-8">
+      <div className="relative z-10 w-full max-w-2xl mx-auto h-12 mt-8">
         {cities.map((c, i) => (
           <p
             key={c.code}
@@ -107,7 +139,7 @@ export default function ThreeCities() {
       </div>
 
       <p
-        className="font-editorial italic text-[#B9B5AE] mt-12 max-w-xl transition-all duration-1000"
+        className="relative z-10 font-editorial italic text-[#B9B5AE] mt-12 max-w-xl transition-all duration-1000"
         style={{ fontSize: "clamp(1.1rem, 2vw, 1.6rem)", opacity: seen ? 1 : 0, transform: seen ? "translateY(0)" : "translateY(20px)", transitionDelay: "0.4s" }}
       >
         Different markets. Same obsession with making brands impossible to forget.
