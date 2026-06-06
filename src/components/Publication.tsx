@@ -34,21 +34,31 @@ const IMG = {
 };
 
 /* ───────────────── STACKING PANEL ───────────────── */
+const SLIDE_OFFSET: Record<string, string> = {
+  left: "translateX(-12%)",
+  right: "translateX(12%)",
+  up: "translateY(-12%)",
+  down: "translateY(12%)",
+};
+
 function Panel({
   children,
   bg,
   index,
   minH = "100vh",
   pin = true,
+  slideFrom,
 }: {
   children: ReactNode;
   bg: "black" | "ivory";
   index: number;
   minH?: string;
   pin?: boolean;
+  slideFrom?: "left" | "right" | "up" | "down";
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const inner = useRef<HTMLDivElement>(null);
+  const slider = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!pin) return;
@@ -76,14 +86,46 @@ function Panel({
     };
   }, [pin]);
 
+  // Directional slide-in entrance
+  useEffect(() => {
+    const el = slider.current;
+    if (!el || !slideFrom) return;
+    const obs = new IntersectionObserver(
+      ([e]) => {
+        if (e.isIntersecting) {
+          el.style.transform = "translate(0, 0)";
+          el.style.opacity = "1";
+          obs.unobserve(el);
+        }
+      },
+      { threshold: 0.15 }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, [slideFrom]);
+
   return (
     <section ref={ref} className={pin ? "panel" : "relative"} style={{ zIndex: index }}>
       <div
         ref={inner}
-        className={`origin-top ${bg === "black" ? "bg-[#0A0A0A] text-[#F3F1EC]" : "bg-[#F3F1EC] text-[#0A0A0A]"}`}
+        className={`origin-top overflow-hidden ${bg === "black" ? "bg-[#0A0A0A] text-[#F3F1EC]" : "bg-[#F3F1EC] text-[#0A0A0A]"}`}
         style={{ minHeight: minH, boxShadow: "0 -30px 60px -25px rgba(0,0,0,0.5)", willChange: "transform, filter" }}
       >
-        {children}
+        <div
+          ref={slider}
+          style={
+            slideFrom
+              ? {
+                  transform: SLIDE_OFFSET[slideFrom],
+                  opacity: 0,
+                  transition: "transform 1s cubic-bezier(0.16,1,0.3,1), opacity 1s cubic-bezier(0.16,1,0.3,1)",
+                  willChange: "transform, opacity",
+                }
+              : undefined
+          }
+        >
+          {children}
+        </div>
       </div>
     </section>
   );
@@ -215,7 +257,7 @@ export default function Publication() {
       </Panel>
 
       {/* ═══ 02 — NOBODY REMEMBERS NORMAL + THE MENU ═══ */}
-      <Panel index={2} bg="ivory" minH="auto" pin={false}>
+      <Panel index={2} bg="ivory" minH="auto" pin={false} slideFrom="left">
         <div id="s02" className="relative">
           {/* Top — statement + image */}
           <div className="flex flex-col items-center justify-center text-center px-8 md:px-16 pt-28 pb-16">
@@ -257,7 +299,7 @@ export default function Publication() {
       </Panel>
 
       {/* ═══ 03 — PEOPLE DON'T SHARE AVERAGE ═══ */}
-      <Panel index={3} bg="black" minH="42vh">
+      <Panel index={3} bg="black" minH="42vh" slideFrom="up">
         <div className="relative min-h-[42vh] flex items-center overflow-hidden">
           <div className="absolute top-0 right-0 bottom-0 w-[58%]">
             <Parallax src={IMG.crowd} amount={40} scale={1.15} position="center 55%" className="w-full h-full" />
@@ -275,7 +317,7 @@ export default function Publication() {
       </Panel>
 
       {/* ═══ 04 — FEATURED PROJECTS (draggable carousel) ═══ */}
-      <Panel index={4} bg="ivory" minH="80vh">
+      <Panel index={4} bg="ivory" minH="80vh" slideFrom="right">
         <div id="s04" className="relative min-h-[80vh] flex items-center px-8 md:px-16 py-20 overflow-hidden">
           <ScrollDriftX range={0.07} className="w-full">
             <FeaturedCarousel />
@@ -285,7 +327,7 @@ export default function Publication() {
       </Panel>
 
       {/* ═══ 05 — TESTIMONIALS ═══ */}
-      <Panel index={5} bg="black" minH="85vh">
+      <Panel index={5} bg="black" minH="85vh" slideFrom="down">
         <div className="relative min-h-[85vh] flex items-center overflow-hidden">
           <Testimonials />
           <SectionNo n="05" dark />
@@ -293,7 +335,7 @@ export default function Publication() {
       </Panel>
 
       {/* ═══ 06 — NORM ═══ */}
-      <Panel index={6} bg="ivory" minH="auto">
+      <Panel index={6} bg="ivory" minH="auto" slideFrom="left">
         <div id="s08" className="relative px-8 md:px-16 py-24 md:py-32 flex flex-col items-center">
           <Reveal>
             <p className="text-[9px] tracking-[0.3em] uppercase text-[#0A0A0A]/40 mb-3 text-center">06 — Not a Therapist</p>
@@ -312,7 +354,7 @@ Meet <span className="italic">NORM</span>, our marketing exec.<br />
       </Panel>
 
       {/* ═══ 07 — PEOPLE DON'T SHARE AVERAGE ═══ */}
-      <Panel index={7} bg="black" minH="42vh">
+      <Panel index={7} bg="black" minH="42vh" slideFrom="down">
         <div className="relative min-h-[42vh] flex items-center overflow-hidden">
           <div className="absolute top-0 right-0 bottom-0 w-[58%]">
             <Parallax src={IMG.crowd} amount={40} scale={1.15} position="center 55%" className="w-full h-full" />
@@ -330,7 +372,7 @@ Meet <span className="italic">NORM</span>, our marketing exec.<br />
       </Panel>
 
       {/* ═══ 08 — CTA: START FROM SCRATCH (centered, above footer) ═══ */}
-      <Panel index={8} bg="ivory" minH="62vh">
+      <Panel index={8} bg="ivory" minH="62vh" slideFrom="up">
         <div className="relative min-h-[62vh] flex flex-col items-center justify-center text-center px-8 md:px-16 py-24">
           <Reveal>
             <p className="text-[9px] tracking-[0.3em] uppercase text-[#0A0A0A]/40 mb-6">Starting from scratch?</p>
@@ -364,7 +406,7 @@ Meet <span className="italic">NORM</span>, our marketing exec.<br />
       </Panel>
 
       {/* ═══ 09 — THREE CITIES ═══ */}
-      <Panel index={9} bg="black" minH="60vh">
+      <Panel index={9} bg="black" minH="60vh" slideFrom="left">
         <div className="relative min-h-[60vh] flex items-center px-8 md:px-16 py-20">
           <ThreeCities />
           <SectionNo n="09" dark />
@@ -372,7 +414,7 @@ Meet <span className="italic">NORM</span>, our marketing exec.<br />
       </Panel>
 
       {/* ═══ FOOTER — THE INVITATION ═══ */}
-      <Panel index={10} bg="ivory" minH="auto">
+      <Panel index={10} bg="ivory" minH="auto" slideFrom="up">
         <footer id="footer" className="px-8 md:px-16 pt-24 pb-10 md:pb-14">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start mb-20">
             <Reveal>
