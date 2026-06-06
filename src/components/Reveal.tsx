@@ -30,7 +30,9 @@ export default function Reveal({
         if (entry.isIntersecting) {
           el.style.opacity = "1";
           el.style.transform = "translateY(0)";
-          obs.unobserve(el);
+        } else {
+          el.style.opacity = "0";
+          el.style.transform = `translateY(${y}px)`;
         }
       },
       { threshold: 0.2, rootMargin: "0px 0px -8% 0px" }
