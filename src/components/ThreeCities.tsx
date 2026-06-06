@@ -142,7 +142,7 @@ export default function ThreeCities() {
         className="relative z-10 font-editorial italic text-[#B9B5AE] mt-12 max-w-xl transition-all duration-1000"
         style={{ fontSize: "clamp(1.1rem, 2vw, 1.6rem)", opacity: seen ? 1 : 0, transform: seen ? "translateY(0)" : "translateY(20px)", transitionDelay: "0.4s" }}
       >
-        Different markets. Same obsession with making brands impossible to forget.
+        No matter where you are, we'd love to work with you.
       </p>
     </div>
   );
