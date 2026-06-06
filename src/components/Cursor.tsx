@@ -6,9 +6,10 @@ export default function Cursor() {
   const dot = useRef<HTMLDivElement>(null);
   const [label, setLabel] = useState("");
   const [hovering, setHovering] = useState(false);
+  const [grab, setGrab] = useState(false);
+  const [pressed, setPressed] = useState(false);
 
   useEffect(() => {
-    // Skip on touch devices
     if (window.matchMedia("(pointer: coarse)").matches) return;
 
     const pos = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
@@ -20,13 +21,24 @@ export default function Cursor() {
       target.y = e.clientY;
       const el = (e.target as HTMLElement)?.closest<HTMLElement>("[data-cursor]");
       if (el) {
+        const val = el.dataset.cursor || "";
         setHovering(true);
-        setLabel(el.dataset.cursor || "");
+        if (val === "grab") {
+          setGrab(true);
+          setLabel("");
+        } else {
+          setGrab(false);
+          setLabel(val);
+        }
       } else {
         setHovering(false);
+        setGrab(false);
         setLabel("");
       }
     };
+
+    const onDown = () => setPressed(true);
+    const onUp = () => setPressed(false);
 
     const loop = () => {
       pos.x += (target.x - pos.x) * 0.18;
@@ -36,11 +48,30 @@ export default function Cursor() {
     };
     raf = requestAnimationFrame(loop);
     window.addEventListener("mousemove", onMove);
+    window.addEventListener("mousedown", onDown);
+    window.addEventListener("mouseup", onUp);
     return () => {
       cancelAnimationFrame(raf);
       window.removeEventListener("mousemove", onMove);
+      window.removeEventListener("mousedown", onDown);
+      window.removeEventListener("mouseup", onUp);
     };
   }, []);
+
+  // Comic hand mode over draggable areas
+  if (grab) {
+    return (
+      <div
+        ref={dot}
+        className="fixed top-0 left-0 z-[200] pointer-events-none hidden md:flex items-center justify-center"
+        style={{ fontSize: pressed ? 52 : 60, transition: "font-size 0.12s ease", filter: "drop-shadow(0 2px 4px rgba(0,0,0,0.4))" }}
+      >
+        <span style={{ transform: pressed ? "rotate(-12deg)" : "rotate(0deg)", transition: "transform 0.12s ease" }}>
+          {pressed ? "✊" : "🖐️"}
+        </span>
+      </div>
+    );
+  }
 
   return (
     <div
