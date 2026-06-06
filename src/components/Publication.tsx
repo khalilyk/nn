@@ -228,10 +228,10 @@ export default function Publication() {
           <button
             aria-label="Menu"
             onClick={() => setMenuOpen((o) => !o)}
-            className="md:hidden flex flex-col justify-center gap-[5px] w-7 h-7"
+            className="md:hidden relative flex flex-col items-center justify-center gap-[6px] w-8 h-8 -mr-1"
           >
-            <span className={`block h-px bg-[#F3F1EC] transition-transform duration-300 ${menuOpen ? "translate-y-[3px] rotate-45" : ""}`} />
-            <span className={`block h-px bg-[#F3F1EC] transition-transform duration-300 ${menuOpen ? "-translate-y-[3px] -rotate-45" : ""}`} />
+            <span className={`block h-[2px] w-7 rounded-full bg-[#F3F1EC] transition-all duration-300 ${menuOpen ? "translate-y-[4px] rotate-45" : ""}`} />
+            <span className={`block h-[2px] w-7 rounded-full bg-[#F3F1EC] transition-all duration-300 ${menuOpen ? "-translate-y-[4px] -rotate-45" : ""}`} />
           </button>
         </div>
       </nav>
