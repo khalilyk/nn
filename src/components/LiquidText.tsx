@@ -22,24 +22,34 @@ export default function LiquidText({
 
   useEffect(() => {
     const el = wrap.current;
-    if (!el) return;
+    const img = feImg.current;
+    if (!el || !img) return;
 
     // Off-screen canvas that holds the ripple mask (white = distort here).
-    const W = 320, H = 180;
     const canvas = document.createElement("canvas");
-    canvas.width = W;
-    canvas.height = H;
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    let px = -1, py = -1;     // cursor pos in canvas space
+    let elW = 1, elH = 1;
+    const resize = () => {
+      const r = el.getBoundingClientRect();
+      elW = Math.max(1, Math.round(r.width));
+      elH = Math.max(1, Math.round(r.height));
+      canvas.width = elW;
+      canvas.height = elH;
+    };
+    resize();
+    const ro = new ResizeObserver(resize);
+    ro.observe(el);
+
+    let px = -1, py = -1;
     let active = false;
     let seed = 0;
 
     const onMove = (e: PointerEvent) => {
       const r = el.getBoundingClientRect();
-      px = ((e.clientX - r.left) / r.width) * W;
-      py = ((e.clientY - r.top) / r.height) * H;
+      px = e.clientX - r.left;
+      py = e.clientY - r.top;
       active = true;
     };
     const onLeave = () => { active = false; };
@@ -51,15 +61,15 @@ export default function LiquidText({
     const tick = () => {
       // Fade the existing mask (leaves a dissolving wake behind the cursor).
       ctx.globalCompositeOperation = "destination-out";
-      ctx.fillStyle = "rgba(0,0,0,0.07)";
-      ctx.fillRect(0, 0, W, H);
+      ctx.fillStyle = "rgba(0,0,0,0.08)";
+      ctx.fillRect(0, 0, elW, elH);
 
       // Stamp a soft blob where the cursor is.
       if (active && px >= 0) {
         ctx.globalCompositeOperation = "source-over";
-        const rad = 70;
+        const rad = Math.max(60, elH * 0.5);
         const g = ctx.createRadialGradient(px, py, 0, px, py, rad);
-        g.addColorStop(0, "rgba(255,255,255,0.95)");
+        g.addColorStop(0, "rgba(255,255,255,1)");
         g.addColorStop(1, "rgba(255,255,255,0)");
         ctx.fillStyle = g;
         ctx.beginPath();
@@ -67,8 +77,13 @@ export default function LiquidText({
         ctx.fill();
       }
 
-      // Push the mask into the filter + keep the water "moving".
-      if (feImg.current) feImg.current.setAttribute("href", canvas.toDataURL());
+      // Re-assert every frame: React reconciliation can strip JS-set attrs
+      // that aren't in JSX, so keep the feImage mapped to the element box.
+      img.setAttribute("x", "0");
+      img.setAttribute("y", "0");
+      img.setAttribute("width", String(elW));
+      img.setAttribute("height", String(elH));
+      img.setAttribute("href", canvas.toDataURL());
       seed += 0.5;
       if (turb.current) turb.current.setAttribute("seed", String(Math.floor(seed) % 256));
 
@@ -77,6 +92,7 @@ export default function LiquidText({
     raf = requestAnimationFrame(tick);
 
     return () => {
+      ro.disconnect();
       el.removeEventListener("pointermove", onMove);
       el.removeEventListener("pointerleave", onLeave);
       cancelAnimationFrame(raf);
@@ -87,38 +103,25 @@ export default function LiquidText({
     <div ref={wrap} className={className} style={{ filter: `url(#${id})` }}>
       <svg width="0" height="0" aria-hidden style={{ position: "absolute" }}>
         <defs>
-          <filter id={id} x="-20%" y="-20%" width="140%" height="140%">
-            {/* Watery noise */}
+          <filter id={id} x="-20%" y="-20%" width="140%" height="140%" primitiveUnits="userSpaceOnUse">
             <feTurbulence
               ref={turb}
               type="fractalNoise"
-              baseFrequency="0.018 0.022"
+              baseFrequency="0.02 0.03"
               numOctaves={2}
               seed={0}
               result="noise"
             />
-            {/* Fully-distorted version of the text */}
             <feDisplacementMap
               in="SourceGraphic"
               in2="noise"
-              scale={28}
+              scale={30}
               xChannelSelector="R"
               yChannelSelector="G"
               result="wavy"
             />
-            {/* Ripple mask following the cursor (white = show distortion) */}
-            <feImage
-              ref={feImg}
-              x="0"
-              y="0"
-              width="100%"
-              height="100%"
-              preserveAspectRatio="none"
-              result="mask"
-            />
-            {/* Keep distortion only where the mask is */}
+            <feImage ref={feImg} preserveAspectRatio="none" result="mask" />
             <feComposite in="wavy" in2="mask" operator="in" result="wavyPatch" />
-            {/* Lay the wet patch over the crisp text */}
             <feMerge>
               <feMergeNode in="SourceGraphic" />
               <feMergeNode in="wavyPatch" />
