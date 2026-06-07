@@ -54,9 +54,9 @@ export default function ClientLogos() {
           <span className="text-[9px] tracking-[0.3em] uppercase text-[#0A0A0A]/40 hidden md:block">Drag</span>
           <div className="flex gap-3">
             <button onClick={() => setPage((p) => clamp(p - 1))} aria-label="Previous"
-              className="w-9 h-9 rounded-full border border-[#0A0A0A]/30 flex items-center justify-center text-sm text-[#0A0A0A] hover:bg-[#0A0A0A] hover:text-[#FF5C1A] transition-colors">←</button>
+              className="w-9 h-9 rounded-full border border-[#0A0A0A]/30 flex items-center justify-center text-sm text-[#0A0A0A] hover:bg-[#0A0A0A] hover:text-[#81D742] transition-colors">←</button>
             <button onClick={() => setPage((p) => clamp(p + 1))} aria-label="Next"
-              className="w-9 h-9 rounded-full border border-[#0A0A0A]/30 flex items-center justify-center text-sm text-[#0A0A0A] hover:bg-[#0A0A0A] hover:text-[#FF5C1A] transition-colors">→</button>
+              className="w-9 h-9 rounded-full border border-[#0A0A0A]/30 flex items-center justify-center text-sm text-[#0A0A0A] hover:bg-[#0A0A0A] hover:text-[#81D742] transition-colors">→</button>
           </div>
         </div>
       </div>

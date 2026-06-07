@@ -430,7 +430,7 @@ export default function Publication() {
 
       {/* ═══ 03 — CLIENTS ═══ */}
       <Panel index={3} bg="ivory" minH="auto" slideFrom="up">
-        <div className="relative px-8 md:px-16 py-28 md:py-36 bg-[#FF5C1A] text-[#0A0A0A]">
+        <div className="relative px-8 md:px-16 py-28 md:py-36 bg-[#81D742] text-[#0A0A0A]">
           <ClientLogos />
           <SectionNo n="03" />
         </div>
