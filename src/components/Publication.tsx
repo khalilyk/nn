@@ -213,13 +213,6 @@ export default function Publication() {
           ))}
         </div>
         <div className="flex items-center gap-4">
-          <span className="hidden md:flex items-center gap-2">
-            <span className="relative flex h-2 w-2">
-              <span className="absolute inline-flex h-full w-full rounded-full bg-[#4ADE80] opacity-75 animate-ping" />
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-[#4ADE80] shadow-[0_0_8px_2px_rgba(74,222,128,0.7)]" />
-            </span>
-            <span className="text-[9px] tracking-[0.18em] uppercase text-[#4ADE80]">2 spots this month</span>
-          </span>
           <div className="hidden md:block">
             <Magnetic strength={0.5}>
               <ChatLink />
@@ -361,6 +354,19 @@ export default function Publication() {
               <p className="text-[11px] leading-relaxed text-[#B9B5AE]">
                 A Hospitality Brand<br />Advisory For Those<br />That Refuse to Blend In
               </p>
+            </Reveal>
+          </div>
+
+          {/* Availability — bottom-left, opposite the supporting copy */}
+          <div className="absolute bottom-24 left-8 md:left-16">
+            <Reveal delay={0.3}>
+              <span className="flex items-center gap-2">
+                <span className="relative flex h-2 w-2">
+                  <span className="absolute inline-flex h-full w-full rounded-full bg-[#4ADE80] opacity-75 animate-ping" />
+                  <span className="relative inline-flex h-2 w-2 rounded-full bg-[#4ADE80] shadow-[0_0_8px_2px_rgba(74,222,128,0.7)]" />
+                </span>
+                <span className="text-[10px] tracking-[0.18em] uppercase text-[#4ADE80]">2 spots left this month</span>
+              </span>
             </Reveal>
           </div>
 
