@@ -44,7 +44,7 @@ export default function Cursor() {
       const dy = target.y - pos.y;
       if (Math.hypot(dx, dy) > 0.6) angle = (Math.atan2(dy, dx) * 180) / Math.PI;
       // shortest-path smoothing
-      let diff = ((angle - disp + 540) % 360) - 180;
+      const diff = ((angle - disp + 540) % 360) - 180;
       disp += diff * 0.15;
       pos.x += dx * 0.18;
       pos.y += dy * 0.18;

@@ -3,7 +3,6 @@
 import { useEffect, useRef, useState, ReactNode } from "react";
 import Lenis from "lenis";
 import Reveal from "./Reveal";
-import Parallax from "./Parallax";
 import FeaturedCarousel from "./FeaturedCarousel";
 import RotatingWord from "./RotatingWord";
 import Terminal from "./Terminal";
@@ -25,17 +24,6 @@ import MenuSplit from "./MenuSplit";
 import ScrollFrames from "./ScrollFrames";
 import PacMan from "./PacMan";
 import ClientLogos from "./ClientLogos";
-
-/* ───────────────── IMAGERY ───────────────── */
-const IMG = {
-  hero: "https://images.unsplash.com/photo-1556909211-36987daf7b4d?auto=format&fit=crop&w=1400&q=80", // chef seasoning / dark food
-  dinner: "https://images.unsplash.com/photo-1551218808-94e220e084d2?auto=format&fit=crop&w=1400&q=80", // dinner table wine
-  interior: "https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&w=1600&q=80", // dark restaurant interior
-  fils: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1600&q=80", // warm restaurant entrance
-  cocktail: "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&w=1600&q=80", // dark bar cocktail
-  chef: "https://images.unsplash.com/photo-1577219491135-ce391730fb2c?auto=format&fit=crop&w=1400&q=80", // chef plating
-  crowd: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1600&q=80", // crowded restaurant
-};
 
 /* ───────────────── STACKING PANEL ───────────────── */
 const SLIDE_OFFSET: Record<string, string> = {
