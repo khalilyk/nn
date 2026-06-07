@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const items = [
@@ -21,6 +21,17 @@ export default function Testimonials() {
   const paginate = (d: number) => setState([(index + d + items.length) % items.length, d]);
   const t = items[index];
 
+  // Swipe detection (no element follows the pointer)
+  const startX = useRef<number | null>(null);
+  const onDown = (e: React.PointerEvent) => { startX.current = e.clientX; };
+  const onUp = (e: React.PointerEvent) => {
+    if (startX.current === null) return;
+    const dx = e.clientX - startX.current;
+    startX.current = null;
+    if (dx < -60) paginate(1);
+    else if (dx > 60) paginate(-1);
+  };
+
   return (
     <div
       className="absolute inset-0 flex flex-col justify-between p-8 md:p-16 text-[#0A0A0A] select-none"
@@ -35,15 +46,10 @@ export default function Testimonials() {
       </div>
 
       {/* giant quote */}
-      <motion.div
+      <div
         className="flex-1 flex items-center"
-        drag="x"
-        dragConstraints={{ left: 0, right: 0 }}
-        dragElastic={0.4}
-        onDragEnd={(_, info) => {
-          if (info.offset.x < -80) paginate(1);
-          else if (info.offset.x > 80) paginate(-1);
-        }}
+        onPointerDown={onDown}
+        onPointerUp={onUp}
         data-cursor="grab"
       >
         <AnimatePresence custom={dir} mode="wait" initial={false}>
@@ -61,7 +67,7 @@ export default function Testimonials() {
             {t.q}
           </motion.blockquote>
         </AnimatePresence>
-      </motion.div>
+      </div>
 
       {/* bottom row */}
       <div className="flex items-end justify-between">
