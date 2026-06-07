@@ -22,6 +22,7 @@ import Greeting from "./Greeting";
 import ScrambleText from "./ScrambleText";
 import OverlapImages from "./OverlapImages";
 import MenuSplit from "./MenuSplit";
+import ScrollFrames from "./ScrollFrames";
 import PacMan from "./PacMan";
 import ClientLogos from "./ClientLogos";
 
@@ -446,30 +447,10 @@ export default function Publication() {
         </div>
       </Panel>
 
-      {/* ═══ 05 — WE GET HOSPITALITY ═══ */}
-      <Panel index={5} bg="black" minH="84vh" slideFrom="down">
-        <div className="relative min-h-[84vh] flex items-center overflow-hidden">
-          <div className="absolute top-0 right-0 bottom-0 w-[58%]">
-            <Parallax src={IMG.crowd} amount={40} scale={1.15} position="center 55%" className="w-full h-full" />
-            <div className="absolute inset-0 bg-gradient-to-r from-[#0A0A0A] via-[#0A0A0A]/40 to-transparent" />
-          </div>
-          <div className="relative z-10 px-8 md:px-16 py-16 max-w-2xl">
-            <Reveal>
-              <p className="font-editorial leading-[1.4]" style={{ fontSize: "clamp(1.15rem, 2vw, 1.7rem)" }}>
-                We get hospitality — not just the look, but the feeling. From branding and content to campaigns and guest experience, we create work that connects, not just performs.
-              </p>
-            </Reveal>
-            <Reveal delay={0.08}>
-              <p className="font-editorial leading-[1.4] mt-6" style={{ fontSize: "clamp(1.15rem, 2vw, 1.7rem)" }}>
-                Real strategy. Bold ideas. Memorable brands.
-              </p>
-            </Reveal>
-            <Reveal delay={0.16}>
-              <p className="font-editorial italic leading-[1.4] mt-6 text-[#F3F1EC]" style={{ fontSize: "clamp(1.15rem, 2vw, 1.7rem)" }}>
-                Because Nobody Remembers Normal.
-              </p>
-            </Reveal>
-          </div>
+      {/* ═══ 05 — SCROLLING FRAME SEQUENCE ═══ */}
+      <Panel index={5} bg="black" minH="84vh" pin={false}>
+        <div className="relative min-h-[84vh] overflow-hidden">
+          <ScrollFrames />
           <SectionNo n="05" dark />
         </div>
       </Panel>
