@@ -513,29 +513,30 @@ Meet <span className="italic">NORM</span>, our marketing exec.<br />
       {/* ═══ FOOTER — THE INVITATION ═══ */}
       <Panel index={10} bg="ivory" minH="auto" slideFrom="up">
         <footer id="footer" className="px-8 md:px-16 pt-24 pb-10 md:pb-14">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start mb-20 text-center md:text-left">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 items-center mb-20 text-center md:text-left">
             <Reveal>
               <h2 className="font-editorial leading-[1.2]" style={{ fontSize: "clamp(1.8rem, 3.2vw, 2.8rem)" }}>
                 to be not normal<br />is to be <RotatingWord />
               </h2>
             </Reveal>
-            <Reveal delay={0.08}>
-              <div className="flex flex-col items-center md:items-end gap-6">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="/notnormal-nn-white.png"
-                  alt="Not Normal"
-                  style={{ width: "clamp(96px, 12vw, 150px)", filter: "brightness(0)" }}
-                />
-                <div className="space-y-1.5 text-center md:text-right">
-                  <a href="mailto:hello@thisisnn.com" className="block text-[11px] tracking-[0.1em] uppercase hover:opacity-60 transition-opacity">hello@thisisnn.com</a>
-                  <a href="tel:+971501234567" className="block text-[11px] tracking-[0.1em] hover:opacity-60 transition-opacity">+971 50 123 4567</a>
-                  <div className="pt-4 flex items-center justify-center md:justify-end gap-6">
-                    <a href="#" className="block text-[11px] tracking-[0.1em] uppercase hover:opacity-60 transition-opacity">Instagram</a>
-                    <a href="#" className="block text-[11px] tracking-[0.1em] uppercase hover:opacity-60 transition-opacity">LinkedIn</a>
-                  </div>
+            <Reveal delay={0.06}>
+              <div className="space-y-1.5 text-center">
+                <a href="mailto:hello@thisisnn.com" className="block text-[11px] tracking-[0.1em] uppercase hover:opacity-60 transition-opacity">hello@thisisnn.com</a>
+                <a href="tel:+971501234567" className="block text-[11px] tracking-[0.1em] hover:opacity-60 transition-opacity">+971 50 123 4567</a>
+                <div className="pt-4 flex items-center justify-center gap-6">
+                  <a href="#" className="block text-[11px] tracking-[0.1em] uppercase hover:opacity-60 transition-opacity">Instagram</a>
+                  <a href="#" className="block text-[11px] tracking-[0.1em] uppercase hover:opacity-60 transition-opacity">LinkedIn</a>
                 </div>
               </div>
+            </Reveal>
+            <Reveal delay={0.12}>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/notnormal-nn-white.png"
+                alt="Not Normal"
+                className="mx-auto md:mr-0 md:ml-auto"
+                style={{ width: "clamp(96px, 12vw, 150px)", filter: "brightness(0)" }}
+              />
             </Reveal>
           </div>
 
