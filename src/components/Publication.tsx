@@ -447,10 +447,10 @@ export default function Publication() {
       </Panel>
 
       {/* ═══ 05 — TESTIMONIALS ═══ */}
-      <Panel index={5} bg="black" minH="85vh" slideFrom="down">
+      <Panel index={5} bg="ivory" minH="85vh" slideFrom="down">
         <div className="relative min-h-[85vh] flex items-center overflow-hidden">
           <Testimonials />
-          <SectionNo n="05" dark />
+          <SectionNo n="05" />
         </div>
       </Panel>
 
