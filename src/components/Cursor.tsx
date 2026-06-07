@@ -89,8 +89,7 @@ export default function Cursor() {
       ref={dot}
       className="fixed top-0 left-0 z-[200] pointer-events-none hidden md:flex items-center justify-center rounded-full"
       style={{
-        mixBlendMode: "difference",
-        background: "#F3F1EC",
+        background: "#81D742",
         width: hovering ? 64 : 10,
         height: hovering ? 64 : 10,
         transition: "width 0.35s cubic-bezier(0.16,1,0.3,1), height 0.35s cubic-bezier(0.16,1,0.3,1)",
