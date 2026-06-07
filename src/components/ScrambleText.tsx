@@ -1,13 +1,42 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { Fragment, useRef, useState } from "react";
 
 const CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ#%&*";
 
-/**
- * Scrambles its letters on hover, then resolves left-to-right back to the
- * real text. Length is preserved so justified/688 layouts don't shift.
- */
+/* A single word that scrambles on hover, resolving left-to-right. */
+function Word({ word }: { word: string }) {
+  const [display, setDisplay] = useState(word);
+  const timer = useRef<ReturnType<typeof setInterval> | undefined>(undefined);
+
+  const run = () => {
+    clearInterval(timer.current);
+    let step = 0;
+    timer.current = setInterval(() => {
+      step += 1;
+      const revealed = Math.floor(step / 5); // 5 ticks per resolved char (slow)
+      let out = "";
+      for (let i = 0; i < word.length; i++) {
+        const ch = word[i];
+        if (!/[a-zA-Z]/.test(ch)) { out += ch; continue; }
+        out += i < revealed ? ch : CHARS[Math.floor(Math.random() * CHARS.length)];
+      }
+      setDisplay(out);
+      if (revealed >= word.length) {
+        clearInterval(timer.current);
+        setDisplay(word);
+      }
+    }, 70); // 70ms per tick → unhurried flicker
+  };
+
+  return (
+    <span onMouseEnter={run} className="inline-block">
+      {display}
+    </span>
+  );
+}
+
+/* Splits text into words; each scrambles independently on hover. */
 export default function ScrambleText({
   text,
   className,
@@ -15,36 +44,15 @@ export default function ScrambleText({
   text: string;
   className?: string;
 }) {
-  const [display, setDisplay] = useState(text);
-  const raf = useRef<number | undefined>(undefined);
-  const frame = useRef(0);
-
-  const run = () => {
-    cancelAnimationFrame(raf.current ?? 0);
-    frame.current = 0;
-    const tick = () => {
-      frame.current += 1;
-      const revealed = frame.current / 3; // ~3 frames per resolved char
-      let out = "";
-      for (let i = 0; i < text.length; i++) {
-        const ch = text[i];
-        if (ch === " " || !/[a-zA-Z]/.test(ch)) { out += ch; continue; }
-        if (i < revealed) out += ch;
-        else out += CHARS[Math.floor(Math.random() * CHARS.length)];
-      }
-      setDisplay(out);
-      if (revealed < text.length) {
-        raf.current = requestAnimationFrame(tick);
-      } else {
-        setDisplay(text);
-      }
-    };
-    tick();
-  };
-
+  const words = text.split(" ");
   return (
-    <span onMouseEnter={run} className={className}>
-      {display}
+    <span className={className}>
+      {words.map((w, i) => (
+        <Fragment key={i}>
+          {i > 0 ? " " : ""}
+          <Word word={w} />
+        </Fragment>
+      ))}
     </span>
   );
 }
