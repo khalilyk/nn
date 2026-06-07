@@ -47,7 +47,7 @@ export default function ClientLogos() {
     <div className="w-full select-none">
       {/* Header */}
       <div className="flex items-end justify-between mb-10">
-        <p className="font-editorial text-[#0A0A0A] leading-[1.2] md:whitespace-nowrap" style={{ fontSize: "clamp(1.3rem, 2.2vw, 2rem)" }}>
+        <p className="font-display uppercase text-[#0A0A0A] leading-[0.95] tracking-tight max-w-3xl" style={{ fontSize: "clamp(2rem, 5vw, 4rem)" }}>
           Call them clients, call them friends, basically the same thing.
         </p>
         <div className="flex items-center gap-4 shrink-0">
