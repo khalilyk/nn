@@ -1,7 +1,5 @@
 "use client";
 
-import { useEffect, useState } from "react";
-
 const quotes = [
   {
     q: "Everything finally felt like it belonged together. Guests started commenting on the look the day we opened.",
@@ -26,63 +24,38 @@ const quotes = [
 ];
 
 export default function Testimonials() {
-  const [i, setI] = useState(0);
-  const [show, setShow] = useState(true);
-
-  useEffect(() => {
-    const id = setInterval(() => {
-      setShow(false);
-      setTimeout(() => {
-        setI((p) => (p + 1) % quotes.length);
-        setShow(true);
-      }, 900);
-    }, 9000);
-    return () => clearInterval(id);
-  }, []);
-
-  const t = quotes[i];
-
   return (
-    <>
-      {/* Background — the active project's main image */}
-      {quotes.map((qt, idx) => (
-        <div
-          key={idx}
-          className="absolute inset-0 bg-cover bg-center transition-opacity duration-[1200ms]"
-          style={{ backgroundImage: `url('${qt.img}')`, opacity: idx === i && show ? 0.32 : 0 }}
-        />
-      ))}
-      <div className="absolute inset-0 bg-[#0A0A0A]/70" />
-      <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse 70% 90% at 50% 50%, transparent 25%, #0A0A0A 100%)" }} />
+    <div className="relative z-10 w-full px-8 md:px-16 py-20">
+      <p className="text-[9px] tracking-[0.3em] uppercase text-[#B9B5AE]/60 mb-12 text-center">In their words</p>
 
-      <div className="relative z-10 w-full flex flex-col items-center text-center px-8 md:px-16">
-        <p className="text-[9px] tracking-[0.3em] uppercase text-[#B9B5AE]/60 mb-10">In their words</p>
-
-        <a href={t.href} className="group min-h-[7em] flex flex-col items-center justify-center max-w-3xl">
-          <blockquote
-            className="font-editorial italic leading-[1.25] transition-all duration-[900ms] ease-[cubic-bezier(0.16,1,0.3,1)]"
-            style={{ fontSize: "clamp(1.5rem, 3.4vw, 2.8rem)", opacity: show ? 1 : 0, transform: show ? "translateY(0)" : "translateY(10px)" }}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-7 max-w-5xl mx-auto">
+        {quotes.map((t, idx) => (
+          <a
+            key={idx}
+            href={t.href}
+            className="group flex flex-col rounded-2xl bg-[#F3F1EC] text-[#0A0A0A] p-8 md:p-10 shadow-[0_20px_50px_-20px_rgba(0,0,0,0.7)] transition-transform duration-500 hover:-translate-y-1.5"
           >
-            &ldquo;{t.q}&rdquo;
-          </blockquote>
-          <div className="mt-10 transition-all duration-[900ms]" style={{ opacity: show ? 1 : 0 }}>
-            <p className="font-display tracking-[0.15em] uppercase text-[#F3F1EC] group-hover:text-[#FF2EC4] transition-colors" style={{ fontSize: "clamp(1rem, 1.6vw, 1.35rem)" }}>{t.name}</p>
-            <p className="text-[10px] tracking-[0.3em] uppercase text-[#B9B5AE] mt-2">{t.venue}</p>
-          </div>
-        </a>
+            {/* project image */}
+            <div className="h-40 w-full overflow-hidden rounded-xl mb-7">
+              <div
+                className="h-full w-full bg-cover bg-center grayscale transition-all duration-700 group-hover:grayscale-0 group-hover:scale-105"
+                style={{ backgroundImage: `url('${t.img}')` }}
+              />
+            </div>
 
-        <div className="flex gap-2 mt-10">
-          {quotes.map((_, idx) => (
-            <button
-              key={idx}
-              onClick={() => { setShow(false); setTimeout(() => { setI(idx); setShow(true); }, 200); }}
-              className="h-1.5 rounded-full transition-all"
-              style={{ width: idx === i ? 24 : 6, background: idx === i ? "#F3F1EC" : "rgba(243,241,236,0.25)" }}
-              aria-label={`Testimonial ${idx + 1}`}
-            />
-          ))}
-        </div>
+            {/* quote */}
+            <blockquote className="font-editorial italic leading-[1.3] flex-1" style={{ fontSize: "clamp(1.15rem, 1.8vw, 1.55rem)" }}>
+              &ldquo;{t.q}&rdquo;
+            </blockquote>
+
+            {/* attribution */}
+            <div className="mt-8 pt-5 border-t border-[#0A0A0A]/12">
+              <p className="font-display tracking-[0.12em] uppercase group-hover:text-[#FF2EC4] transition-colors" style={{ fontSize: "clamp(0.95rem, 1.4vw, 1.2rem)" }}>{t.name}</p>
+              <p className="text-[10px] tracking-[0.3em] uppercase text-[#0A0A0A]/50 mt-1.5">{t.venue}</p>
+            </div>
+          </a>
+        ))}
       </div>
-    </>
+    </div>
   );
 }
