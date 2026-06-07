@@ -480,10 +480,20 @@ Meet <span className="italic">NORM</span>, our marketing exec.<br />
             <Parallax src={IMG.crowd} amount={40} scale={1.15} position="center 55%" className="w-full h-full" />
             <div className="absolute inset-0 bg-gradient-to-r from-[#0A0A0A] via-[#0A0A0A]/40 to-transparent" />
           </div>
-          <div className="relative z-10 px-8 md:px-16 py-16">
+          <div className="relative z-10 px-8 md:px-16 py-16 max-w-2xl">
             <Reveal>
-              <p className="font-editorial leading-[1.1]" style={{ fontSize: "clamp(1.8rem, 3.5vw, 3rem)" }}>
-                People don&apos;t<br />share average.
+              <p className="font-editorial leading-[1.4]" style={{ fontSize: "clamp(1.15rem, 2vw, 1.7rem)" }}>
+                We get hospitality — not just the look, but the feeling. From branding and content to campaigns and guest experience, we create work that connects, not just performs.
+              </p>
+            </Reveal>
+            <Reveal delay={0.08}>
+              <p className="font-editorial leading-[1.4] mt-6" style={{ fontSize: "clamp(1.15rem, 2vw, 1.7rem)" }}>
+                Real strategy. Bold ideas. Memorable brands.
+              </p>
+            </Reveal>
+            <Reveal delay={0.16}>
+              <p className="font-editorial italic leading-[1.4] mt-6 text-[#F3F1EC]" style={{ fontSize: "clamp(1.15rem, 2vw, 1.7rem)" }}>
+                Because Nobody Remembers Normal.
               </p>
             </Reveal>
           </div>
