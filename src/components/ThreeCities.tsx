@@ -36,7 +36,7 @@ function CityButton({
       const next = !target.startsWith(c) ? c.slice(0, -1) : target.slice(0, c.length + 1);
       cur.current = next;
       setText(next || " ");
-      t = setTimeout(step, 55);
+      t = setTimeout(step, 32);
     };
     step();
     return () => { cancelled = true; clearTimeout(t); };

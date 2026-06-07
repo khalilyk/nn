@@ -38,16 +38,17 @@ export default function Preloader({ onDone }: { onDone?: () => void }) {
       }}
     >
       <div className="overflow-hidden">
-        <div
-          className="font-display text-[#F3F1EC] leading-none tracking-tight"
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/notnormal-logoblack.png"
+          alt="Not Normal"
           style={{
-            fontSize: "clamp(2.5rem, 9vw, 7rem)",
+            width: "clamp(220px, 40vw, 560px)",
+            filter: "invert(1)",
             transform: leaving ? "translateY(-110%)" : "translateY(0)",
             transition: "transform 0.7s cubic-bezier(0.76,0,0.24,1)",
           }}
-        >
-          NOT NORMAL
-        </div>
+        />
       </div>
       <div className="absolute bottom-10 right-8 md:right-16">
         <span className="font-display text-[#F3F1EC]/70" style={{ fontSize: "clamp(2rem, 6vw, 4rem)" }}>
