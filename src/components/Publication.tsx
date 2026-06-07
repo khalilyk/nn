@@ -429,10 +429,10 @@ export default function Publication() {
       </Panel>
 
       {/* ═══ 03 — CLIENTS ═══ */}
-      <Panel index={3} bg="black" minH="auto" slideFrom="up">
-        <div className="relative px-8 md:px-16 py-28 md:py-36">
+      <Panel index={3} bg="ivory" minH="auto" slideFrom="up">
+        <div className="relative px-8 md:px-16 py-28 md:py-36 bg-[#F4C9A8] text-[#0A0A0A]">
           <ClientLogos />
-          <SectionNo n="03" dark />
+          <SectionNo n="03" />
         </div>
       </Panel>
 

@@ -47,23 +47,23 @@ export default function ClientLogos() {
     <div className="w-full select-none">
       {/* Header */}
       <div className="flex items-end justify-between mb-10">
-        <p className="font-editorial text-[#F3F1EC] leading-[1.2] md:whitespace-nowrap" style={{ fontSize: "clamp(1.3rem, 2.2vw, 2rem)" }}>
+        <p className="font-editorial text-[#0A0A0A] leading-[1.2] md:whitespace-nowrap" style={{ fontSize: "clamp(1.3rem, 2.2vw, 2rem)" }}>
           Call them clients, call them friends, basically the same thing.
         </p>
         <div className="flex items-center gap-4 shrink-0">
-          <span className="text-[9px] tracking-[0.3em] uppercase text-[#F3F1EC]/40 hidden md:block">Drag</span>
+          <span className="text-[9px] tracking-[0.3em] uppercase text-[#0A0A0A]/40 hidden md:block">Drag</span>
           <div className="flex gap-3">
             <button onClick={() => setPage((p) => clamp(p - 1))} aria-label="Previous"
-              className="w-9 h-9 rounded-full border border-[#F3F1EC]/30 flex items-center justify-center text-sm text-[#F3F1EC] hover:bg-[#F3F1EC] hover:text-[#0A0A0A] transition-colors">←</button>
+              className="w-9 h-9 rounded-full border border-[#0A0A0A]/30 flex items-center justify-center text-sm text-[#0A0A0A] hover:bg-[#0A0A0A] hover:text-[#F4C9A8] transition-colors">←</button>
             <button onClick={() => setPage((p) => clamp(p + 1))} aria-label="Next"
-              className="w-9 h-9 rounded-full border border-[#F3F1EC]/30 flex items-center justify-center text-sm text-[#F3F1EC] hover:bg-[#F3F1EC] hover:text-[#0A0A0A] transition-colors">→</button>
+              className="w-9 h-9 rounded-full border border-[#0A0A0A]/30 flex items-center justify-center text-sm text-[#0A0A0A] hover:bg-[#0A0A0A] hover:text-[#F4C9A8] transition-colors">→</button>
           </div>
         </div>
       </div>
 
       {/* Track */}
       <div
-        className="overflow-hidden cursor-grab active:cursor-grabbing border-t border-l border-[#F3F1EC]/12"
+        className="overflow-hidden cursor-grab active:cursor-grabbing border-t border-l border-[#0A0A0A]/15"
         onPointerDown={onDown}
         onPointerMove={onMove}
         data-cursor="grab"
@@ -79,10 +79,10 @@ export default function ClientLogos() {
           {clients.map((name) => (
             <div
               key={name}
-              className="shrink-0 basis-1/2 md:basis-1/4 border-r border-b border-[#F3F1EC]/12 flex items-center justify-center group"
+              className="shrink-0 basis-1/2 md:basis-1/4 border-r border-b border-[#0A0A0A]/15 flex items-center justify-center group"
               style={{ minHeight: "clamp(160px, 24vh, 280px)" }}
             >
-              <span className="font-display text-[#F3F1EC]/35 group-hover:text-[#F3F1EC] transition-all duration-500 group-hover:scale-105 text-center px-2" style={{ fontSize: "clamp(1rem, 1.5vw, 1.6rem)" }}>
+              <span className="font-display text-[#0A0A0A]/40 group-hover:text-[#0A0A0A] transition-all duration-500 group-hover:scale-105 text-center px-2" style={{ fontSize: "clamp(1rem, 1.5vw, 1.6rem)" }}>
                 {name.toUpperCase()}
               </span>
             </div>
@@ -98,7 +98,7 @@ export default function ClientLogos() {
             onClick={() => setPage(i)}
             aria-label={`Page ${i + 1}`}
             className="h-1 rounded-full transition-all"
-            style={{ width: i === page ? 28 : 8, background: i === page ? "#F3F1EC" : "rgba(243,241,236,0.25)" }}
+            style={{ width: i === page ? 28 : 8, background: i === page ? "#0A0A0A" : "rgba(10,10,10,0.25)" }}
           />
         ))}
       </div>
