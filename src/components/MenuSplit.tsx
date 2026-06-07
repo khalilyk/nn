@@ -35,7 +35,7 @@ export default function MenuSplit() {
           We add impact across the entire guest journey.
         </h3>
         <p className="text-[#0A0A0A]/70 leading-relaxed max-w-md mb-10" style={{ fontSize: "clamp(0.95rem, 1.3vw, 1.05rem)" }}>
-          From strategy and design to content and experience, every detail is crafted to connect and be remembered.
+          We help hospitality brands stand out through strategy, design, content and guest experience. From branding to campaigns, every detail is crafted to connect and be remembered.
         </p>
         <MenuLink />
       </div>
