@@ -449,6 +449,26 @@ export default function Publication() {
       {/* ═══ 05 — TESTIMONIALS ═══ */}
       <Panel index={5} bg="black" minH="85vh" slideFrom="down">
         <div className="relative min-h-[85vh] flex items-center overflow-hidden">
+          {/* Faint background card stacks so the space isn't empty */}
+          <div aria-hidden className="absolute inset-0 pointer-events-none overflow-hidden opacity-[0.1]">
+            {[
+              { top: "8%", left: "-4%", w: 300, h: 360, r: -10 },
+              { top: "2%", left: "1%", w: 300, h: 360, r: -4 },
+              { top: "52%", left: "6%", w: 260, h: 320, r: 7 },
+              { top: "60%", left: "10%", w: 260, h: 320, r: 2 },
+              { top: "10%", right: "-3%", w: 300, h: 360, r: 9 },
+              { top: "4%", right: "2%", w: 300, h: 360, r: 3 },
+              { top: "55%", right: "4%", w: 270, h: 330, r: -8 },
+              { top: "62%", right: "9%", w: 270, h: 330, r: -2 },
+            ].map((c, i) => (
+              <div
+                key={i}
+                className="absolute rounded-3xl border border-[#F3F1EC]/30 bg-[#F3F1EC]/10"
+                style={{ top: c.top, left: c.left, right: c.right, width: c.w, height: c.h, transform: `rotate(${c.r}deg)` }}
+              />
+            ))}
+          </div>
+
           <Testimonials />
           <SectionNo n="05" dark />
         </div>
