@@ -448,8 +448,11 @@ export default function Publication() {
       </Panel>
 
       {/* ═══ 05 — SCROLLING FRAME SEQUENCE ═══ */}
-      <Panel index={5} bg="black" minH="auto" pin={false} clip={false}>
-        <ScrollFrames />
+      <Panel index={5} bg="black" minH="90vh" pin={false}>
+        <div className="relative min-h-[90vh] overflow-hidden">
+          <ScrollFrames />
+          <SectionNo n="05" dark />
+        </div>
       </Panel>
 
       {/* ═══ 06 — NORM ═══ */}

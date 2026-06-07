@@ -3,14 +3,11 @@
 import { useEffect, useRef } from "react";
 
 const frames = ["/nn-f1.png", "/nn-f2.png", "/nn-f3.png", "/nn-f4.png", "/nn-f5.png", "/nn-f6.png"];
-// Scroll distance the sequence is scrubbed over (taller = slower, calmer).
-const SCROLL_HEIGHT = "260vh";
 
 /**
- * Pinned, scroll-scrubbed walk cycle. A tall spacer provides the scroll
- * distance; a sticky viewport holds the frames. Frames play in order
- * (nn-f1 → nn-f6) and crossfade by fractional progress, eased with a rAF
- * lerp, so the people walk slowly and smoothly as you scroll.
+ * Scroll-driven walk cycle (no pin). As the section passes through the
+ * viewport the frames play in order (nn-f1 → nn-f6) and crossfade by
+ * fractional progress, eased with a rAF lerp, so the people walk smoothly.
  */
 export default function ScrollFrames() {
   const ref = useRef<HTMLDivElement>(null);
@@ -27,13 +24,13 @@ export default function ScrollFrames() {
     const onScroll = () => {
       const rect = el.getBoundingClientRect();
       const vh = window.innerHeight;
-      const scrollable = rect.height - vh; // distance the sticky child is pinned
-      const p = Math.min(1, Math.max(0, -rect.top / scrollable));
-      target.v = p * (frames.length - 1); // single ordered pass f1 → f6
+      const total = rect.height + vh;
+      const p = Math.min(1, Math.max(0, (vh - rect.top) / total));
+      target.v = p * (frames.length - 1); // ordered f1 → f6 across the pass
     };
 
     const tick = () => {
-      current += (target.v - current) * 0.06; // gentle easing
+      current += (target.v - current) * 0.08;
       const base = Math.floor(current);
       const frac = current - base;
       const next = Math.min(frames.length - 1, base + 1);
@@ -54,21 +51,19 @@ export default function ScrollFrames() {
   }, []);
 
   return (
-    <div ref={ref} className="relative" style={{ height: SCROLL_HEIGHT }}>
-      <div className="sticky top-0 h-screen w-full overflow-hidden bg-[#0A0A0A]">
-        {frames.map((src, i) => (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
-            key={src}
-            ref={(node) => { imgs.current[i] = node; }}
-            src={src}
-            alt=""
-            draggable={false}
-            className="absolute inset-0 w-full h-full object-cover"
-            style={{ opacity: i === 0 ? 1 : 0, willChange: "opacity" }}
-          />
-        ))}
-      </div>
+    <div ref={ref} className="absolute inset-0 bg-[#0A0A0A]">
+      {frames.map((src, i) => (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+          key={src}
+          ref={(node) => { imgs.current[i] = node; }}
+          src={src}
+          alt=""
+          draggable={false}
+          className="absolute inset-0 w-full h-full object-cover"
+          style={{ opacity: i === 0 ? 1 : 0, willChange: "opacity" }}
+        />
+      ))}
     </div>
   );
 }
