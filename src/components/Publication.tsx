@@ -512,8 +512,19 @@ Meet <span className="italic">NORM</span>, our marketing exec.<br />
 
       {/* ═══ FOOTER — THE INVITATION ═══ */}
       <Panel index={10} bg="ivory" minH="auto" slideFrom="up">
-        <footer id="footer" className="px-8 md:px-16 pt-24 pb-10 md:pb-14">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start mb-20 text-center md:text-left">
+        <footer id="footer" className="relative overflow-hidden px-8 md:px-16 pt-24 pb-10 md:pb-14">
+          {/* Decorative globe — opposite the heading, in black */}
+          <div aria-hidden className="pointer-events-none absolute top-10 right-[-6%] md:right-[2%] z-0 flex items-center justify-center">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/dotted-sphere.svg"
+              alt=""
+              className="animate-[spin-slow_120s_linear_infinite]"
+              style={{ width: "clamp(260px, 32vw, 460px)", filter: "brightness(0)", opacity: 0.08 }}
+            />
+          </div>
+
+          <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-12 items-start mb-20 text-center md:text-left">
             <Reveal>
               <h2 className="font-editorial leading-[1.2]" style={{ fontSize: "clamp(1.8rem, 3.2vw, 2.8rem)" }}>
                 to be not normal<br />is to be <RotatingWord />
@@ -531,7 +542,7 @@ Meet <span className="italic">NORM</span>, our marketing exec.<br />
             </Reveal>
           </div>
 
-          <div className="border-t border-[#0A0A0A]/15 pt-6 flex flex-col md:flex-row items-center md:justify-between gap-4 text-[9px] tracking-[0.2em] uppercase text-[#0A0A0A]/50">
+          <div className="relative z-10 border-t border-[#0A0A0A]/15 pt-6 flex flex-col md:flex-row items-center md:justify-between gap-4 text-[9px] tracking-[0.2em] uppercase text-[#0A0A0A]/50">
             <span>© {new Date().getFullYear()} Not Normal</span>
             <span>Sydney — Dubai — Beirut</span>
             <div className="flex gap-6">
