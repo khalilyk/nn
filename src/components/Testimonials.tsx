@@ -27,18 +27,18 @@ export default function Testimonials() {
 
   return (
     <div className="relative z-10 w-full flex flex-col items-center px-8 md:px-16 py-20">
-      <p className="text-[9px] tracking-[0.3em] uppercase text-[#0A0A0A]/40 mb-14">In their words</p>
+      <p className="text-[9px] tracking-[0.3em] uppercase text-[#B9B5AE]/60 mb-14">In their words</p>
 
       {/* Card deck */}
       <div className="relative w-full max-w-md" style={{ height: "clamp(340px, 48vh, 440px)" }}>
         {/* static cards behind for the stacked-deck look */}
         <div
-          className="absolute inset-0 rounded-3xl bg-[#0A0A0A]"
-          style={{ transform: "translate(-22px, 18px) rotate(-7deg)", boxShadow: "0 10px 20px rgba(0,0,0,0.12), 0 30px 50px rgba(0,0,0,0.18)" }}
+          className="absolute inset-0 rounded-3xl bg-[#D8D4CC]"
+          style={{ transform: "translate(-22px, 18px) rotate(-7deg)", boxShadow: "0 10px 20px rgba(0,0,0,0.3), 0 30px 50px rgba(0,0,0,0.4)" }}
         />
         <div
-          className="absolute inset-0 rounded-3xl bg-[#0A0A0A]"
-          style={{ transform: "translate(14px, 10px) rotate(4deg)", boxShadow: "0 12px 24px rgba(0,0,0,0.14), 0 34px 56px rgba(0,0,0,0.2)" }}
+          className="absolute inset-0 rounded-3xl bg-[#E6E2DA]"
+          style={{ transform: "translate(14px, 10px) rotate(4deg)", boxShadow: "0 12px 24px rgba(0,0,0,0.3), 0 34px 56px rgba(0,0,0,0.4)" }}
         />
 
         {/* active card */}
@@ -60,18 +60,18 @@ export default function Testimonials() {
             }}
             style={{
               boxShadow:
-                "0 2px 6px rgba(0,0,0,0.18), 0 8px 18px rgba(0,0,0,0.20), 0 22px 40px rgba(0,0,0,0.26), 0 48px 80px rgba(0,0,0,0.30)",
+                "0 2px 6px rgba(0,0,0,0.35), 0 8px 18px rgba(0,0,0,0.4), 0 22px 40px rgba(0,0,0,0.45), 0 48px 80px rgba(0,0,0,0.5)",
             }}
-            className="absolute inset-0 rounded-3xl bg-[#0A0A0A] flex flex-col justify-between p-9 md:p-11 cursor-grab active:cursor-grabbing select-none"
+            className="absolute inset-0 rounded-3xl bg-[#F3F1EC] flex flex-col justify-between p-9 md:p-11 cursor-grab active:cursor-grabbing select-none"
             data-cursor="grab"
           >
-            <span className="font-display text-[#F3F1EC] text-2xl leading-none">&ldquo;</span>
-            <blockquote className="font-editorial italic text-[#F3F1EC] leading-[1.3]" style={{ fontSize: "clamp(1.3rem, 2.2vw, 1.8rem)" }}>
+            <span className="font-display text-[#0A0A0A] text-2xl leading-none">&ldquo;</span>
+            <blockquote className="font-editorial italic text-[#0A0A0A] leading-[1.3]" style={{ fontSize: "clamp(1.3rem, 2.2vw, 1.8rem)" }}>
               {t.q}
             </blockquote>
-            <div className="pt-5 border-t border-white/12">
-              <p className="font-display tracking-[0.12em] uppercase text-[#F3F1EC]" style={{ fontSize: "clamp(1rem, 1.5vw, 1.25rem)" }}>{t.name}</p>
-              <p className="text-[10px] tracking-[0.3em] uppercase text-[#B9B5AE] mt-1.5">{t.venue}</p>
+            <div className="pt-5 border-t border-[#0A0A0A]/12">
+              <p className="font-display tracking-[0.12em] uppercase text-[#0A0A0A]" style={{ fontSize: "clamp(1rem, 1.5vw, 1.25rem)" }}>{t.name}</p>
+              <p className="text-[10px] tracking-[0.3em] uppercase text-[#0A0A0A]/50 mt-1.5">{t.venue}</p>
             </div>
           </motion.div>
         </AnimatePresence>
@@ -83,18 +83,18 @@ export default function Testimonials() {
           onClick={() => paginate(-1)}
           aria-label="Previous"
           data-cursor="tap"
-          className="w-11 h-11 rounded-full border border-[#0A0A0A]/25 flex items-center justify-center text-[#0A0A0A] transition-colors hover:bg-[#0A0A0A] hover:text-[#F3F1EC]"
+          className="w-11 h-11 rounded-full border border-white/25 flex items-center justify-center text-[#F3F1EC] transition-colors hover:bg-[#F3F1EC] hover:text-[#0A0A0A]"
         >
           ←
         </button>
-        <span className="text-[10px] tracking-[0.3em] uppercase text-[#0A0A0A]/50 tabular-nums">
+        <span className="text-[10px] tracking-[0.3em] uppercase text-[#B9B5AE]/60 tabular-nums">
           {String(index + 1).padStart(2, "0")} / {String(quotes.length).padStart(2, "0")}
         </span>
         <button
           onClick={() => paginate(1)}
           aria-label="Next"
           data-cursor="tap"
-          className="w-11 h-11 rounded-full border border-[#0A0A0A]/25 flex items-center justify-center text-[#0A0A0A] transition-colors hover:bg-[#0A0A0A] hover:text-[#F3F1EC]"
+          className="w-11 h-11 rounded-full border border-white/25 flex items-center justify-center text-[#F3F1EC] transition-colors hover:bg-[#F3F1EC] hover:text-[#0A0A0A]"
         >
           →
         </button>
