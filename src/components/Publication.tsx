@@ -153,7 +153,16 @@ function SectionNo({ n, side = "left", dark }: { n: string; side?: "left" | "rig
 export default function Publication() {
   const [loading, setLoading] = useState(true);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const lenisRef = useRef<Lenis | null>(null);
+
+  // Swap nav logo (wordmark → icon) once past the hero
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > window.innerHeight * 0.7);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   useEffect(() => {
     const lenis = new Lenis({
@@ -189,12 +198,19 @@ export default function Publication() {
       <ScrollProgress total={9} />
       {/* ─── NAV ─── */}
       <nav className="fixed top-0 left-0 right-0 z-[100] flex items-center justify-between px-8 md:px-16 py-6 md:py-8 mix-blend-difference text-[#F3F1EC]">
-        <a href="#top" aria-label="Not Normal — home" className="block">
+        <a href="#top" aria-label="Not Normal — home" className="relative flex items-center h-7">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/notnormal-logoblack.png"
             alt="Not Normal"
-            className="h-3.5 md:h-4 w-auto"
+            className={`h-3.5 md:h-4 w-auto transition-opacity duration-300 ${scrolled ? "opacity-0" : "opacity-100"}`}
+            style={{ filter: "invert(1)" }}
+          />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/notnormal-iconoutline.png"
+            alt="Not Normal"
+            className={`absolute left-0 top-1/2 -translate-y-1/2 h-7 w-auto transition-opacity duration-300 ${scrolled ? "opacity-100" : "opacity-0 pointer-events-none"}`}
             style={{ filter: "invert(1)" }}
           />
         </a>
