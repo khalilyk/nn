@@ -534,7 +534,7 @@ Meet <span className="italic">NORM</span>, our marketing exec.<br />
               <img
                 src="/notnormal-nn-white.png"
                 alt="Not Normal"
-                className="mx-auto md:mr-0 md:ml-auto"
+                className="mx-auto"
                 style={{ width: "clamp(96px, 12vw, 150px)", filter: "brightness(0)" }}
               />
             </Reveal>
