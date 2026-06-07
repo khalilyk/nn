@@ -447,8 +447,8 @@ export default function Publication() {
       </Panel>
 
       {/* ═══ 05 — WE GET HOSPITALITY ═══ */}
-      <Panel index={5} bg="black" minH="42vh" slideFrom="down">
-        <div className="relative min-h-[42vh] flex items-center overflow-hidden">
+      <Panel index={5} bg="black" minH="84vh" slideFrom="down">
+        <div className="relative min-h-[84vh] flex items-center overflow-hidden">
           <div className="absolute top-0 right-0 bottom-0 w-[58%]">
             <Parallax src={IMG.crowd} amount={40} scale={1.15} position="center 55%" className="w-full h-full" />
             <div className="absolute inset-0 bg-gradient-to-r from-[#0A0A0A] via-[#0A0A0A]/40 to-transparent" />
@@ -501,7 +501,7 @@ Meet <span className="italic">NORM</span>, our marketing exec.<br />
       </Panel>
 
       {/* ═══ 08 — CTA: START FROM SCRATCH (centered, above footer) ═══ */}
-      <Panel index={8} bg="ivory" minH="62vh" slideFrom="up">
+      <Panel index={8} bg="ivory" minH="62vh">
         <div className="relative min-h-[62vh] flex flex-col items-center justify-center text-center px-8 md:px-16 py-24">
           <Reveal>
             <p className="text-[9px] tracking-[0.3em] uppercase text-[#0A0A0A]/40 mb-6">Starting from scratch?</p>
