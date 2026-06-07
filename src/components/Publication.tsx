@@ -520,12 +520,20 @@ Meet <span className="italic">NORM</span>, our marketing exec.<br />
               </h2>
             </Reveal>
             <Reveal delay={0.08}>
-              <div className="space-y-1.5 md:pt-2">
-                <a href="mailto:hello@thisisnn.com" className="block text-[11px] tracking-[0.1em] uppercase hover:opacity-60 transition-opacity">hello@thisisnn.com</a>
-                <a href="tel:+971501234567" className="block text-[11px] tracking-[0.1em] hover:opacity-60 transition-opacity">+971 50 123 4567</a>
-                <div className="pt-4 flex items-center justify-center md:justify-start gap-6">
-                  <a href="#" className="block text-[11px] tracking-[0.1em] uppercase hover:opacity-60 transition-opacity">Instagram</a>
-                  <a href="#" className="block text-[11px] tracking-[0.1em] uppercase hover:opacity-60 transition-opacity">LinkedIn</a>
+              <div className="flex flex-col items-center md:items-end gap-6">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/notnormal-nn-white.png"
+                  alt="Not Normal"
+                  style={{ width: "clamp(96px, 12vw, 150px)", filter: "brightness(0)" }}
+                />
+                <div className="space-y-1.5 text-center md:text-right">
+                  <a href="mailto:hello@thisisnn.com" className="block text-[11px] tracking-[0.1em] uppercase hover:opacity-60 transition-opacity">hello@thisisnn.com</a>
+                  <a href="tel:+971501234567" className="block text-[11px] tracking-[0.1em] hover:opacity-60 transition-opacity">+971 50 123 4567</a>
+                  <div className="pt-4 flex items-center justify-center md:justify-end gap-6">
+                    <a href="#" className="block text-[11px] tracking-[0.1em] uppercase hover:opacity-60 transition-opacity">Instagram</a>
+                    <a href="#" className="block text-[11px] tracking-[0.1em] uppercase hover:opacity-60 transition-opacity">LinkedIn</a>
+                  </div>
                 </div>
               </div>
             </Reveal>
