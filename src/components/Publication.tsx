@@ -448,7 +448,7 @@ export default function Publication() {
       </Panel>
 
       {/* ═══ 05 — SCROLLING FRAME SEQUENCE ═══ */}
-      <Panel index={5} bg="black" minH="auto" pin={false}>
+      <Panel index={5} bg="black" minH="auto" pin={false} clip={false}>
         <ScrollFrames />
       </Panel>
 
