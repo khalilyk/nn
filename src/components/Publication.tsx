@@ -578,7 +578,6 @@ Meet <span className="italic">NORM</span>, our marketing exec.<br />
             <div className="flex gap-6">
               <a href="#" className="hover:text-[#0A0A0A] transition-colors">Privacy</a>
               <a href="#" className="hover:text-[#0A0A0A] transition-colors">Terms</a>
-              <a href="/the-inside" className="hover:text-[#0A0A0A] transition-colors">The Inside</a>
             </div>
           </div>
 
