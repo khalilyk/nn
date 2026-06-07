@@ -446,34 +446,8 @@ export default function Publication() {
         </div>
       </Panel>
 
-      {/* ═══ 05 — TESTIMONIALS ═══ */}
-      <Panel index={5} bg="black" minH="85vh" slideFrom="down">
-        <div className="relative min-h-[85vh] overflow-hidden">
-          <Testimonials />
-        </div>
-      </Panel>
-
-      {/* ═══ 06 — NORM ═══ */}
-      <Panel index={6} bg="ivory" minH="auto" pin={false} slideFrom="left">
-        <div id="s08" className="relative px-8 md:px-16 py-20 md:py-32 flex flex-col items-center">
-          <Reveal>
-            <p className="text-[9px] tracking-[0.3em] uppercase text-[#0A0A0A]/40 mb-3 text-center">06 — Not a Therapist</p>
-          </Reveal>
-          <Reveal delay={0.06}>
-            <h2 className="font-editorial text-center mb-12 leading-[1.2]" style={{ fontSize: "clamp(1.6rem, 3.2vw, 2.6rem)" }}>
-Meet <span className="italic">NORM</span>, our marketing exec.<br />
-              Here for a chat about all things food &amp; marketing.
-            </h2>
-          </Reveal>
-          <Reveal delay={0.12} className="w-full">
-            <Terminal />
-          </Reveal>
-          <SectionNo n="06" />
-        </div>
-      </Panel>
-
-      {/* ═══ 07 — PEOPLE DON'T SHARE AVERAGE ═══ */}
-      <Panel index={7} bg="black" minH="42vh" slideFrom="down">
+      {/* ═══ 05 — WE GET HOSPITALITY ═══ */}
+      <Panel index={5} bg="black" minH="42vh" slideFrom="down">
         <div className="relative min-h-[42vh] flex items-center overflow-hidden">
           <div className="absolute top-0 right-0 bottom-0 w-[58%]">
             <Parallax src={IMG.crowd} amount={40} scale={1.15} position="center 55%" className="w-full h-full" />
@@ -496,7 +470,33 @@ Meet <span className="italic">NORM</span>, our marketing exec.<br />
               </p>
             </Reveal>
           </div>
-          <SectionNo n="07" dark />
+          <SectionNo n="05" dark />
+        </div>
+      </Panel>
+
+      {/* ═══ 06 — NORM ═══ */}
+      <Panel index={6} bg="ivory" minH="auto" pin={false} slideFrom="left">
+        <div id="s08" className="relative px-8 md:px-16 py-20 md:py-32 flex flex-col items-center">
+          <Reveal>
+            <p className="text-[9px] tracking-[0.3em] uppercase text-[#0A0A0A]/40 mb-3 text-center">06 — Not a Therapist</p>
+          </Reveal>
+          <Reveal delay={0.06}>
+            <h2 className="font-editorial text-center mb-12 leading-[1.2]" style={{ fontSize: "clamp(1.6rem, 3.2vw, 2.6rem)" }}>
+Meet <span className="italic">NORM</span>, our marketing exec.<br />
+              Here for a chat about all things food &amp; marketing.
+            </h2>
+          </Reveal>
+          <Reveal delay={0.12} className="w-full">
+            <Terminal />
+          </Reveal>
+          <SectionNo n="06" />
+        </div>
+      </Panel>
+
+      {/* ═══ 07 — TESTIMONIALS ═══ */}
+      <Panel index={7} bg="black" minH="85vh" slideFrom="down">
+        <div className="relative min-h-[85vh] overflow-hidden">
+          <Testimonials />
         </div>
       </Panel>
 
