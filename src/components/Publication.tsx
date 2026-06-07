@@ -450,7 +450,7 @@ export default function Publication() {
       <Panel index={5} bg="black" minH="85vh" slideFrom="down">
         <div className="relative min-h-[85vh] flex items-center overflow-hidden">
           {/* Faint background card stacks so the space isn't empty */}
-          <div aria-hidden className="absolute inset-0 pointer-events-none overflow-hidden">
+          <div aria-hidden className="absolute inset-0 pointer-events-none overflow-hidden opacity-[0.1]">
             {[
               { top: "8%", left: "-4%", w: 300, h: 360, r: -10 },
               { top: "2%", left: "1%", w: 300, h: 360, r: -4 },
@@ -463,7 +463,7 @@ export default function Publication() {
             ].map((c, i) => (
               <div
                 key={i}
-                className="absolute rounded-3xl border border-[#F3F1EC]/20 bg-[#F3F1EC]/10"
+                className="absolute rounded-3xl border border-[#F3F1EC]/30 bg-[#F3F1EC]/10"
                 style={{ top: c.top, left: c.left, right: c.right, width: c.w, height: c.h, transform: `rotate(${c.r}deg)` }}
               />
             ))}
