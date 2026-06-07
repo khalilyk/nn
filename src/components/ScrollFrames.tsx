@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
 
 const frames = ["/nn-f1.png", "/nn-f2.png", "/nn-f3.png", "/nn-f4.png", "/nn-f5.png", "/nn-f6.png"];
 // Replay the 6-frame walk cycle this many times across the section's scroll range.
-const LOOPS = 5;
+const LOOPS = 1.5;
 
 /**
  * Scroll-driven walk cycle. The frames (nn-f1 → nn-f6, in order) crossfade
@@ -33,7 +33,7 @@ export default function ScrollFrames() {
 
     const tick = () => {
       // ease toward the scroll target for buttery motion
-      current += (target.v - current) * 0.12;
+      current += (target.v - current) * 0.06;
       const fpos = ((current % frames.length) + frames.length) % frames.length;
       const base = Math.floor(fpos);
       const frac = fpos - base;
