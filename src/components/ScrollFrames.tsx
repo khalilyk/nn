@@ -3,13 +3,14 @@
 import { useEffect, useRef } from "react";
 
 const frames = ["/nn-f1.png", "/nn-f2.png", "/nn-f3.png", "/nn-f4.png", "/nn-f5.png", "/nn-f6.png"];
-// Replay the 6-frame walk cycle this many times across the section's scroll range.
-const LOOPS = 1.5;
+// Scroll distance the sequence is scrubbed over (taller = slower, calmer).
+const SCROLL_HEIGHT = "260vh";
 
 /**
- * Scroll-driven walk cycle. The frames (nn-f1 → nn-f6, in order) crossfade
- * into one another based on fractional scroll position, eased with a rAF lerp,
- * so the people appear to walk smoothly as you scroll up/down.
+ * Pinned, scroll-scrubbed walk cycle. A tall spacer provides the scroll
+ * distance; a sticky viewport holds the frames. Frames play in order
+ * (nn-f1 → nn-f6) and crossfade by fractional progress, eased with a rAF
+ * lerp, so the people walk slowly and smoothly as you scroll.
  */
 export default function ScrollFrames() {
   const ref = useRef<HTMLDivElement>(null);
@@ -26,18 +27,16 @@ export default function ScrollFrames() {
     const onScroll = () => {
       const rect = el.getBoundingClientRect();
       const vh = window.innerHeight;
-      const total = rect.height + vh;
-      const p = Math.min(1, Math.max(0, (vh - rect.top) / total));
-      target.v = p * frames.length * LOOPS; // continuous, monotonic
+      const scrollable = rect.height - vh; // distance the sticky child is pinned
+      const p = Math.min(1, Math.max(0, -rect.top / scrollable));
+      target.v = p * (frames.length - 1); // single ordered pass f1 → f6
     };
 
     const tick = () => {
-      // ease toward the scroll target for buttery motion
-      current += (target.v - current) * 0.06;
-      const fpos = ((current % frames.length) + frames.length) % frames.length;
-      const base = Math.floor(fpos);
-      const frac = fpos - base;
-      const next = (base + 1) % frames.length;
+      current += (target.v - current) * 0.06; // gentle easing
+      const base = Math.floor(current);
+      const frac = current - base;
+      const next = Math.min(frames.length - 1, base + 1);
       imgs.current.forEach((im, i) => {
         if (!im) return;
         im.style.opacity = i === base ? String(1 - frac) : i === next ? String(frac) : "0";
@@ -55,19 +54,21 @@ export default function ScrollFrames() {
   }, []);
 
   return (
-    <div ref={ref} className="absolute inset-0 bg-[#0A0A0A]">
-      {frames.map((src, i) => (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img
-          key={src}
-          ref={(el) => { imgs.current[i] = el; }}
-          src={src}
-          alt=""
-          draggable={false}
-          className="absolute inset-0 w-full h-full object-cover"
-          style={{ opacity: i === 0 ? 1 : 0, willChange: "opacity" }}
-        />
-      ))}
+    <div ref={ref} className="relative" style={{ height: SCROLL_HEIGHT }}>
+      <div className="sticky top-0 h-screen w-full overflow-hidden bg-[#0A0A0A]">
+        {frames.map((src, i) => (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            key={src}
+            ref={(node) => { imgs.current[i] = node; }}
+            src={src}
+            alt=""
+            draggable={false}
+            className="absolute inset-0 w-full h-full object-cover"
+            style={{ opacity: i === 0 ? 1 : 0, willChange: "opacity" }}
+          />
+        ))}
+      </div>
     </div>
   );
 }
