@@ -1,38 +1,81 @@
 "use client";
 
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+
 const items = [
-  { q: "Everything finally felt like it belonged together.", name: "Bassil", role: "Tonton Bakes", color: "#FF2EC4", r: -5, x: -60 },
-  { q: "The photos didn't just look good — they felt like us.", name: "Stasha", role: "PieHaus", color: "#C6FF4D", r: 4, x: 64 },
-  { q: "Every touchpoint felt considered and cohesive.", name: "Zara", role: "Tony's Woodfire", color: "#6AB7FF", r: -3, x: -44 },
-  { q: "Every frame was made to stop someone mid-scroll.", name: "Neha", role: "Kinoya", color: "#C9A7FF", r: 5, x: 50 },
+  { q: "Everything finally felt like it belonged together.", name: "Bassil", venue: "Tonton Bakes", color: "#C6FF4D" },
+  { q: "The photos didn't just look good — they felt like us.", name: "Stasha", venue: "PieHaus", color: "#FF2EC4" },
+  { q: "Every touchpoint felt considered and cohesive.", name: "Zara", venue: "Tony's Woodfire", color: "#6AB7FF" },
+  { q: "Every frame was made to stop someone mid-scroll.", name: "Neha", venue: "Kinoya", color: "#C9A7FF" },
 ];
 
-export default function Testimonials() {
-  return (
-    <div className="relative z-10 w-full flex flex-col items-center text-center px-8 md:px-16 py-24">
-      <p className="text-[9px] tracking-[0.3em] uppercase text-[#B9B5AE]/60 mb-16">In their words</p>
+const variants = {
+  enter: (dir: number) => ({ x: dir > 0 ? 120 : -120, opacity: 0 }),
+  center: { x: 0, opacity: 1 },
+  exit: (dir: number) => ({ x: dir > 0 ? -120 : 120, opacity: 0 }),
+};
 
-      <div className="flex flex-col items-center -space-y-5 md:-space-y-6 w-full max-w-2xl">
-        {items.map((it, i) => (
-          <div
-            key={i}
-            className="relative w-full max-w-md text-left text-[#0A0A0A] px-7 py-6 transition-transform duration-300 hover:-translate-y-1.5 hover:z-20"
-            style={{
-              background: it.color,
-              transform: `rotate(${it.r}deg) translateX(${it.x}px)`,
-              borderRadius: 6,
-              boxShadow: "0 14px 30px -10px rgba(0,0,0,0.7)",
-              zIndex: i + 1,
-            }}
+export default function Testimonials() {
+  const [[index, dir], setState] = useState<[number, number]>([0, 0]);
+  const paginate = (d: number) => setState([(index + d + items.length) % items.length, d]);
+  const t = items[index];
+
+  return (
+    <div
+      className="absolute inset-0 flex flex-col justify-between p-8 md:p-16 text-[#0A0A0A] select-none"
+      style={{ background: t.color, transition: "background 0.5s ease" }}
+    >
+      {/* top row */}
+      <div className="flex items-center justify-between">
+        <span className="font-sans font-bold text-[11px] md:text-[13px] tracking-[0.15em] uppercase">Hot Takes</span>
+        <span className="font-sans text-[11px] md:text-[13px] tracking-[0.15em] uppercase tabular-nums">
+          {String(index + 1).padStart(2, "0")} / {String(items.length).padStart(2, "0")}
+        </span>
+      </div>
+
+      {/* giant quote */}
+      <motion.div
+        className="flex-1 flex items-center"
+        drag="x"
+        dragConstraints={{ left: 0, right: 0 }}
+        dragElastic={0.4}
+        onDragEnd={(_, info) => {
+          if (info.offset.x < -80) paginate(1);
+          else if (info.offset.x > 80) paginate(-1);
+        }}
+        data-cursor="grab"
+      >
+        <AnimatePresence custom={dir} mode="wait" initial={false}>
+          <motion.blockquote
+            key={index}
+            custom={dir}
+            variants={variants}
+            initial="enter"
+            animate="center"
+            exit="exit"
+            transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+            className="font-sans font-bold uppercase leading-[0.92] tracking-[-0.02em]"
+            style={{ fontSize: "clamp(2.4rem, 8vw, 6.5rem)" }}
           >
-            <blockquote className="font-sans font-semibold leading-[1.2]" style={{ fontSize: "clamp(1.05rem, 1.9vw, 1.45rem)" }}>
-              {it.q}
-            </blockquote>
-            <p className="mt-3 text-[11px] tracking-[0.12em] uppercase font-medium text-[#0A0A0A]/70">
-              {it.name} — {it.role}
-            </p>
-          </div>
-        ))}
+            {t.q}
+          </motion.blockquote>
+        </AnimatePresence>
+      </motion.div>
+
+      {/* bottom row */}
+      <div className="flex items-end justify-between">
+        <span className="font-sans font-bold text-[11px] md:text-[13px] tracking-[0.15em] uppercase">
+          {t.name} — {t.venue}
+        </span>
+        <button
+          onClick={() => paginate(1)}
+          aria-label="Next"
+          data-cursor="tap"
+          className="font-sans font-bold text-[12px] md:text-[15px] tracking-[0.15em] uppercase flex items-center gap-2 hover:gap-3 transition-all"
+        >
+          Swipe <span aria-hidden>→</span>
+        </button>
       </div>
     </div>
   );
