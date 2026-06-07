@@ -3,6 +3,9 @@
 import { useEffect, useRef, useState } from "react";
 
 const frames = ["/nn-f1.png", "/nn-f2.png", "/nn-f3.png", "/nn-f4.png", "/nn-f5.png", "/nn-f6.png"];
+// Replay the 6-frame walk cycle this many times across the section's scroll
+// range so each small scroll steps through the cycle → continuous walking.
+const LOOPS = 5;
 
 /**
  * Scroll-driven image sequence. As the section moves through the viewport,
@@ -24,7 +27,8 @@ export default function ScrollFrames() {
         // progress 0 → 1 as the section travels through the viewport
         const total = rect.height + vh;
         const p = Math.min(1, Math.max(0, (vh - rect.top) / total));
-        setFrame(Math.min(frames.length - 1, Math.floor(p * frames.length)));
+        // cycle the walk loop multiple times across the scroll range
+        setFrame(Math.floor(p * frames.length * LOOPS) % frames.length);
       });
     };
     window.addEventListener("scroll", onScroll, { passive: true });
@@ -43,8 +47,9 @@ export default function ScrollFrames() {
           key={src}
           src={src}
           alt=""
-          className="absolute inset-0 w-full h-full object-cover transition-opacity duration-200"
+          className="absolute inset-0 w-full h-full object-cover"
           style={{ opacity: i === frame ? 1 : 0 }}
+          draggable={false}
         />
       ))}
     </div>
