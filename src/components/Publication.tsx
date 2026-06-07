@@ -494,7 +494,7 @@ Meet <span className="italic">NORM</span>, our marketing exec.<br />
       </Panel>
 
       {/* ═══ 07 — TESTIMONIALS ═══ */}
-      <Panel index={7} bg="black" minH="85vh" slideFrom="down">
+      <Panel index={7} bg="black" minH="85vh" pin={false}>
         <div className="relative min-h-[85vh] overflow-hidden">
           <Testimonials />
         </div>
