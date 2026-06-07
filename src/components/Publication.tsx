@@ -189,8 +189,14 @@ export default function Publication() {
       <ScrollProgress total={9} />
       {/* ─── NAV ─── */}
       <nav className="fixed top-0 left-0 right-0 z-[100] flex items-center justify-between px-8 md:px-16 py-6 md:py-8 mix-blend-difference text-[#F3F1EC]">
-        <a href="#top" className="font-display text-sm tracking-tight leading-none">
-          NOT NORMAL<sup className="text-[8px] ml-0.5">™</sup>
+        <a href="#top" aria-label="Not Normal — home" className="block">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/notnormal-logoblack.png"
+            alt="Not Normal"
+            className="h-3.5 md:h-4 w-auto"
+            style={{ filter: "invert(1)" }}
+          />
         </a>
         <div className="hidden md:flex items-center gap-12 absolute left-1/2 -translate-x-1/2">
           {[
