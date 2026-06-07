@@ -54,7 +54,7 @@ export default function MenuSplit() {
               {s.tags.map((t) => (
                 <span
                   key={t}
-                  className="rounded-full border border-[#0A0A0A]/25 px-3.5 py-1.5 text-[12px] text-[#0A0A0A]/80 transition-colors duration-300 hover:bg-[#0A0A0A] hover:text-[#F3F1EC] hover:border-[#0A0A0A]"
+                  className="rounded-md border border-[#0A0A0A]/25 px-3.5 py-1.5 text-[12px] text-[#0A0A0A]/80 transition-colors duration-300 hover:bg-[#0A0A0A] hover:text-[#F3F1EC] hover:border-[#0A0A0A]"
                 >
                   {t}
                 </span>
