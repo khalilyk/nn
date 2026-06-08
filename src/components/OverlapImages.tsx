@@ -12,7 +12,7 @@ const G = "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format
 const H = "https://images.unsplash.com/photo-1470337458703-46ad1756a187?auto=format&fit=crop&w=900&q=80";
 const I = "https://images.unsplash.com/photo-1577219491135-ce391730fb2c?auto=format&fit=crop&w=900&q=80";
 
-/* Overlapping work imagery — spills past both edges, rotates sets every 30s. */
+/* Overlapping work imagery, spills past both edges, rotates sets every 30s. */
 const sets: string[][] = [
   [A, B, E, D, G, H],
   [I, F, C, A, B, D],

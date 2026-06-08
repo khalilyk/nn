@@ -21,7 +21,7 @@ export default function Cursor() {
       if (el) {
         const val = el.dataset.cursor || "";
         setHovering(true);
-        // grab/tap no longer swap to an emoji — just the dot
+        // grab/tap no longer swap to an emoji, just the dot
         setLabel(val === "grab" || val === "tap" ? "" : val);
       } else {
         setHovering(false);

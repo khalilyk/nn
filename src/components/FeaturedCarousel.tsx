@@ -18,7 +18,7 @@ const projects = [
   {
     name: "MAISON DALI",
     city: "Beirut",
-    desc: "Surrealism on a plate. A world, not a logo — each touchpoint a different act in the same play.",
+    desc: "Surrealism on a plate. A world, not a logo, each touchpoint a different act in the same play.",
     img: "https://images.unsplash.com/photo-1424847651672-bf20a4b0982b?auto=format&fit=crop&w=1600&q=80",
   },
   {
@@ -41,7 +41,7 @@ const projects = [
   },
 ];
 
-/* Typing effect — types the title whenever `active` flips true */
+/* Typing effect, types the title whenever `active` flips true */
 function useTyping(text: string, active: boolean) {
   const [shown, setShown] = useState("");
   useEffect(() => {
@@ -152,7 +152,7 @@ export default function FeaturedCarousel() {
         <div className="flex items-center gap-6">
           <span className="text-[9px] tracking-[0.3em] uppercase text-[#0A0A0A]/50">Featured Projects</span>
           <span className="text-[9px] tracking-[0.3em] text-[#0A0A0A]/30">
-            {String(index + 1).padStart(2, "0")} — {String(projects.length).padStart(2, "0")}
+            {String(index + 1).padStart(2, "0")} / {String(projects.length).padStart(2, "0")}
           </span>
         </div>
         <div className="flex items-center gap-4">

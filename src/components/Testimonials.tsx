@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 
 const items = [
   { q: "Everything finally felt like it belonged together.", name: "Bassil", venue: "Tonton Bakes", color: "#FF5C1A" },
-  { q: "The photos didn't just look good — they felt like us.", name: "Stasha", venue: "PieHaus", color: "#FF2EC4" },
+  { q: "The photos didn't just look good, they felt like us.", name: "Stasha", venue: "PieHaus", color: "#FF2EC4" },
   { q: "Every touchpoint felt considered and cohesive.", name: "Zara", venue: "Tony's Woodfire", color: "#6AB7FF" },
   { q: "Every frame was made to stop someone mid-scroll.", name: "Neha", venue: "Kinoya", color: "#C9A7FF" },
 ];
@@ -72,7 +72,7 @@ export default function Testimonials() {
       {/* bottom row */}
       <div className="flex items-end justify-between">
         <span className="font-sans font-bold text-[11px] md:text-[13px] tracking-[0.15em] uppercase">
-          {t.name} — {t.venue}
+          {t.name}, {t.venue}
         </span>
         <button
           onClick={() => paginate(1)}

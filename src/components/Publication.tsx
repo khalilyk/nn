@@ -79,7 +79,7 @@ function Panel({
     };
   }, [pin]);
 
-  // Directional slide — plays in on enter, reverses out on leave (both scroll directions)
+  // Directional slide, plays in on enter, reverses out on leave (both scroll directions)
   useEffect(() => {
     const el = ref.current;
     if (!el || !slideFrom) return;
@@ -188,7 +188,7 @@ export default function Publication() {
       <ScrollProgress total={9} />
       {/* ─── NAV ─── */}
       <nav className="fixed top-0 left-0 right-0 z-[100] flex items-center justify-between px-8 md:px-16 py-6 md:py-8 mix-blend-difference text-[#F3F1EC]">
-        <a href="/" aria-label="Not Normal — home" className="relative flex items-center h-7">
+        <a href="/" aria-label="Not Normal, home" className="relative flex items-center h-7">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/notnormal-logoblack.png"
@@ -214,7 +214,7 @@ export default function Publication() {
           ].map(({ l, href, tip, shape }) => (
             <a key={l} href={href} className="group relative text-[10px] tracking-[0.22em] uppercase">
               <span className="transition-opacity group-hover:opacity-60">{l}</span>
-              {/* Tooltip — unique shape per item */}
+              {/* Tooltip, unique shape per item */}
               <span
                 className={`pointer-events-none absolute left-1/2 top-full mt-3 -translate-x-1/2 whitespace-nowrap bg-[#F3F1EC] px-3 py-1.5 text-[8px] tracking-[0.18em] text-[#0A0A0A] opacity-0 translate-y-1 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 ${shape}`}
               >
@@ -319,7 +319,7 @@ export default function Publication() {
           </div>
         </div>
 
-        {/* availability — pinned to bottom */}
+        {/* availability, pinned to bottom */}
         <div
           className="mt-auto flex items-center gap-2"
           style={{ opacity: menuOpen ? 1 : 0, transition: `opacity 0.6s ease ${menuOpen ? 0.6 : 0}s` }}
@@ -332,10 +332,10 @@ export default function Publication() {
         </div>
       </div>
 
-      {/* ═══ 01 — HERO ═══ */}
+      {/* ═══ 01, HERO ═══ */}
       <Panel index={1} bg="black">
         <div id="top" className="relative min-h-screen flex flex-col justify-center px-8 md:px-16 pt-20 pb-16 overflow-hidden">
-          {/* Hero crossfading media — full-bleed, centred */}
+          {/* Hero crossfading media, full-bleed, centred */}
           <div className="absolute inset-0">
             <HeroMedia className="w-full h-full" />
             <div className="absolute inset-0 bg-[#0A0A0A]/55" />
@@ -347,11 +347,11 @@ export default function Publication() {
           <div className="absolute left-8 md:left-16 top-[18%] bottom-[30%] hidden md:flex flex-col items-center gap-4">
             <span className="w-px flex-1 bg-[#B9B5AE]/30" />
             <p className="text-[8px] tracking-[0.3em] uppercase text-[#B9B5AE]/60" style={{ writingMode: "vertical-rl", transform: "rotate(180deg)" }}>
-              Branding — Marketing — Experience
+              Branding, Marketing, Experience
             </p>
           </div>
 
-          {/* Giant title — centred, justified */}
+          {/* Giant title, centred, justified */}
           <div className="relative z-10 w-full flex justify-center">
             <h1 className="font-display uppercase leading-[0.95] tracking-tight text-[#F3F1EC] w-full max-w-4xl" style={{ fontSize: "clamp(2rem, 6vw, 5.5rem)" }}>
               <span className="block overflow-hidden"><Reveal as="span" className="block text-justify [text-align-last:justify]"><ScrambleText text="Let Them Savour," /></Reveal></span>
@@ -369,7 +369,7 @@ export default function Publication() {
             </Reveal>
           </div>
 
-          {/* Availability — bottom-left, opposite the supporting copy */}
+          {/* Availability, bottom-left, opposite the supporting copy */}
           <div className="absolute bottom-24 left-8 md:left-16">
             <Reveal delay={0.3}>
               <span className="flex items-center gap-2">
@@ -387,10 +387,10 @@ export default function Publication() {
         </div>
       </Panel>
 
-      {/* ═══ 02 — NOBODY REMEMBERS NORMAL + THE MENU ═══ */}
+      {/* ═══ 02, NOBODY REMEMBERS NORMAL + THE MENU ═══ */}
       <Panel index={2} bg="ivory" minH="auto" pin={false} slideFrom="left" clip={false}>
         <div id="s02" className="relative">
-          {/* Top — statement + image */}
+          {/* Top, statement + image */}
           <div className="flex flex-col items-center justify-center text-center px-8 md:px-16 pt-28 pb-16">
             <Reveal>
               <Greeting />
@@ -406,7 +406,7 @@ export default function Publication() {
             </Reveal>
           </div>
 
-          {/* The Menu — split screen, sticky left + scrolling services */}
+          {/* The Menu, split screen, sticky left + scrolling services */}
           <div className="px-8 md:px-16 pb-24 md:pb-28">
             <Reveal>
               <MenuSplit />
@@ -417,7 +417,7 @@ export default function Publication() {
         </div>
       </Panel>
 
-      {/* ═══ 03 — CLIENTS ═══ */}
+      {/* ═══ 03, CLIENTS ═══ */}
       <Panel index={3} bg="ivory" minH="auto" slideFrom="up">
         <div className="relative px-8 md:px-16 py-28 md:py-36 bg-[#81D742] text-[#0A0A0A]">
           <ClientLogos />
@@ -425,7 +425,7 @@ export default function Publication() {
         </div>
       </Panel>
 
-      {/* ═══ 04 — FEATURED PROJECTS (draggable carousel) ═══ */}
+      {/* ═══ 04, FEATURED PROJECTS (draggable carousel) ═══ */}
       <Panel index={4} bg="ivory" minH="80vh" slideFrom="right">
         <div id="s04" className="relative min-h-[80vh] flex items-center px-8 md:px-16 py-20 overflow-hidden">
           <ScrollDriftX range={0.07} className="w-full">
@@ -435,7 +435,7 @@ export default function Publication() {
         </div>
       </Panel>
 
-      {/* ═══ 05 — POSTCARD ═══ */}
+      {/* ═══ 05, POSTCARD ═══ */}
       <Panel index={5} bg="ivory" minH="auto" pin={false} slideFrom="up">
         <div className="relative px-8 md:px-16 py-28 md:py-36 bg-[#C0392B]">
           <Postcard />
@@ -443,11 +443,11 @@ export default function Publication() {
         </div>
       </Panel>
 
-      {/* ═══ 06 — NORM ═══ */}
+      {/* ═══ 06, NORM ═══ */}
       <Panel index={6} bg="ivory" minH="auto" pin={false} slideFrom="left">
         <div id="s08" className="relative px-8 md:px-16 py-20 md:py-32 flex flex-col items-center">
           <Reveal>
-            <p className="text-[9px] tracking-[0.3em] uppercase text-[#0A0A0A]/40 mb-3 text-center">06 — Not a Therapist</p>
+            <p className="text-[9px] tracking-[0.3em] uppercase text-[#0A0A0A]/40 mb-3 text-center">06, Not a Therapist</p>
           </Reveal>
           <Reveal delay={0.06}>
             <h2 className="font-editorial text-center mb-12 leading-[1.2]" style={{ fontSize: "clamp(1.6rem, 3.2vw, 2.6rem)" }}>
@@ -462,14 +462,14 @@ Meet <span className="italic">NORM</span>, our marketing exec.<br />
         </div>
       </Panel>
 
-      {/* ═══ 07 — TESTIMONIALS ═══ */}
+      {/* ═══ 07, TESTIMONIALS ═══ */}
       <Panel index={7} bg="black" minH="85vh" pin={false}>
         <div className="relative min-h-[85vh] overflow-hidden">
           <Testimonials />
         </div>
       </Panel>
 
-      {/* ═══ 08 — CTA: START FROM SCRATCH (centered, above footer) ═══ */}
+      {/* ═══ 08, CTA: START FROM SCRATCH (centered, above footer) ═══ */}
       <Panel index={8} bg="ivory" minH="62vh">
         <div className="relative min-h-[62vh] flex flex-col items-center justify-center text-center px-8 md:px-16 py-24">
           <Reveal>
@@ -478,7 +478,7 @@ Meet <span className="italic">NORM</span>, our marketing exec.<br />
           <Reveal delay={0.06}>
             <h2 className="font-editorial leading-[1.1] mb-10 max-w-2xl mx-auto" style={{ fontSize: "clamp(1.8rem, 3.8vw, 3.4rem)" }}>
               We&apos;ll build your brand from the ground up.
-              <span className="italic"> Identity, strategy, story</span> — the whole thing.
+              <span className="italic"> Identity, strategy, story</span>, the whole thing.
             </h2>
           </Reveal>
           <Reveal delay={0.14}>
@@ -503,7 +503,7 @@ Meet <span className="italic">NORM</span>, our marketing exec.<br />
         </div>
       </Panel>
 
-      {/* ═══ 09 — THREE CITIES ═══ */}
+      {/* ═══ 09, THREE CITIES ═══ */}
       <Panel index={9} bg="black" minH="60vh" slideFrom="left">
         <div className="relative min-h-[60vh] flex items-center px-8 md:px-16 py-20">
           <ThreeCities />
@@ -511,7 +511,7 @@ Meet <span className="italic">NORM</span>, our marketing exec.<br />
         </div>
       </Panel>
 
-      {/* ═══ FOOTER — THE INVITATION ═══ */}
+      {/* ═══ FOOTER, THE INVITATION ═══ */}
       <Panel index={10} bg="ivory" minH="auto" slideFrom="up">
         <footer id="footer" className="px-8 md:px-16 pt-24 pb-10 md:pb-14">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12 items-center mb-20 text-center md:text-left">
@@ -543,7 +543,7 @@ Meet <span className="italic">NORM</span>, our marketing exec.<br />
 
           <div className="border-t border-[#0A0A0A]/15 pt-6 flex flex-col md:flex-row items-center md:justify-between gap-4 text-[9px] tracking-[0.2em] uppercase text-[#0A0A0A]/50">
             <span>© {new Date().getFullYear()} Not Normal</span>
-            <span>Sydney — Dubai — Beirut</span>
+            <span>Sydney, Dubai, Beirut</span>
             <div className="flex gap-6">
               <a href="#" className="hover:text-[#0A0A0A] transition-colors">Privacy</a>
               <a href="#" className="hover:text-[#0A0A0A] transition-colors">Terms</a>

@@ -28,7 +28,7 @@ export default function PacMan() {
           className="rounded-full shrink-0"
           style={{ width: 26, height: 26, background: "#0A0A0A", animation: "pac-chomp 0.35s linear infinite" }}
         />
-        {/* Ghost — random gap */}
+        {/* Ghost, random gap */}
         <svg
           width="24"
           height="26"

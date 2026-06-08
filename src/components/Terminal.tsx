@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 
-/* ───────────────── NORM — Not Normal Intelligence ─────────────────
+/* ───────────────── NORM, Not Normal Intelligence ─────────────────
    An interactive concierge. Stays asleep until the user says hi and
    introduces themselves, then chats about marketing, hospitality,
    food & social media across Australia and the Middle East. */
@@ -19,20 +19,20 @@ function route(input: string, name: string, seed: number, headlines: string[]): 
   if (/\b(bye|goodbye|cheers|thanks|thank you|ciao)\b/.test(t))
     return pick([
       `Anytime, ${you}. Go make something worth remembering.`,
-      `Pleasure, ${you}. Nobody remembers normal — so don't be.`,
+      `Pleasure, ${you}. Nobody remembers normal, so don't be.`,
     ], seed);
 
   if (/\b(help|topics?|what can you|options|menu)\b/.test(t))
-    return "I think in five lanes: marketing, hospitality, food, social media — across Australia and the Middle East. Ask me anything, or say 'latest' for fresh headlines.";
+    return "I think in five lanes: marketing, hospitality, food, social media, across Australia and the Middle East. Ask me anything, or say 'latest' for fresh headlines.";
 
   if (/\b(latest|news|trend|trending|headline)\b/.test(t)) {
     if (headlines.length) return `Hot off the wire: "${pick(headlines, seed)}"`;
-    return "Wire's quiet right now — but the signal is constant: experiences beat advertising. Build a room people can't stop describing.";
+    return "Wire's quiet right now, but the signal is constant: experiences beat advertising. Build a room people can't stop describing.";
   }
 
   if (/\b(social|instagram|tiktok|reel|reels|content|post|posting)\b/.test(t))
     return pick([
-      `Stop posting food, ${you} — post a world. The venues winning on socials in Sydney and Dubai sell a feeling people want to be seen inside.`,
+      `Stop posting food, ${you}, post a world. The venues winning on socials in Sydney and Dubai sell a feeling people want to be seen inside.`,
       "Short-form drives ~71% of new-guest discovery. One ownable ritual filmed well beats fifty plated close-ups.",
       "Algorithm tip: consistency of point-of-view > frequency. Pick a worldview and repeat it until people can finish your sentence.",
     ], seed);
@@ -46,7 +46,7 @@ function route(input: string, name: string, seed: number, headlines: string[]): 
 
   if (/\b(hospitalit|guest|service|experience|loyalty|repeat)\b/.test(t))
     return pick([
-      "Hospitality starts before hello — the DM, the confirmation, the door. By the time they sit, you've already won or lost.",
+      "Hospitality starts before hello, the DM, the confirmation, the door. By the time they sit, you've already won or lost.",
       "Loyalty that feels like belonging outperforms points 3:1. Design the goodbye as carefully as the welcome.",
       `Guests recall how you made them feel ~6× more than what they ate, ${you}. Engineer the peak and the ending.`,
     ], seed);
@@ -60,40 +60,40 @@ function route(input: string, name: string, seed: number, headlines: string[]): 
 
   if (/\b(australia|sydney|melbourne|aussie|oz|surry|bondi)\b/.test(t))
     return pick([
-      "Australia rewards understatement done immaculately — Sydney diners smell try-hard instantly. Earn the cool, never claim it.",
-      "AU market: cafe culture set the global bar. The edge now is narrative — why you exist, not just how good the coffee is.",
+      "Australia rewards understatement done immaculately, Sydney diners smell try-hard instantly. Earn the cool, never claim it.",
+      "AU market: cafe culture set the global bar. The edge now is narrative, why you exist, not just how good the coffee is.",
     ], seed);
 
   if (/\b(dubai|abu dhabi|middle east|uae|beirut|saudi|riyadh|qatar|doha|gcc)\b/.test(t))
     return pick([
-      "The Middle East rewards spectacle with substance. Dubai guests have seen everything — surprise them with meaning, not just marble.",
+      "The Middle East rewards spectacle with substance. Dubai guests have seen everything, surprise them with meaning, not just marble.",
       "ME market: F&B is fiercely competitive and design-led. Concept clarity and a defensible point of view win the long game.",
     ], seed);
 
   if (/\b(colour|color|palette|colours|colors)\b/.test(t))
     return pick([
       "Colour is shorthand for feeling. Warm earth tones read 'crafted & generous'; stark mono reads 'confident & editorial'. Pick the emotion first, the swatch second.",
-      `${you}, never choose colour by taste — choose by the memory you want to own. A brand that owns one colour owns a slice of the guest's mind.`,
+      `${you}, never choose colour by taste, choose by the memory you want to own. A brand that owns one colour owns a slice of the guest's mind.`,
     ], seed);
 
   if (/\b(merch|merchandise|cap|hat|tee|t-shirt|tote|hoodie|swag)\b/.test(t))
     return pick([
-      "Merch is a wearable billboard people pay you for. Done right it turns guests into a walking media network — but only if it's good enough to wear unbranded.",
+      "Merch is a wearable billboard people pay you for. Done right it turns guests into a walking media network, but only if it's good enough to wear unbranded.",
       `Power of merch, ${you}: it extends the experience past the table and signals belonging. Make it desirable first, promotional never.`,
     ], seed);
 
   if (/\b(brand|branding|logo|identity|name|naming)\b/.test(t))
     return pick([
       "A logo is 1% of a brand; the other 99% is 10,000 consistent experiences. Build the system, then defend it.",
-      `${you}, give the brand a worldview and a backbone. Specific is brave — and brave is memorable.`,
+      `${you}, give the brand a worldview and a backbone. Specific is brave, and brave is memorable.`,
     ], seed);
 
   if (/\b(who are you|what are you|your name|norm)\b/.test(t))
-    return "I'm NORM — the marketing exec at Not Normal. Basically I obsess over hospitality brands across Oz and the Middle East so you don't have to. Ask me anything.";
+    return "I'm NORM, the marketing exec at Not Normal. Basically I obsess over hospitality brands across Oz and the Middle East so you don't have to. Ask me anything.";
 
-  // default — steer back, stay in character
+  // default, steer back, stay in character
   return pick([
-    `Tell me more, ${you} — are we talking marketing, social, food, or a specific market like Sydney or Dubai?`,
+    `Tell me more, ${you}, are we talking marketing, social, food, or a specific market like Sydney or Dubai?`,
     "I can riff on that through a hospitality lens. Want the marketing angle, the guest-experience angle, or the social one?",
     "Interesting. Frame it for me as a venue problem and I'll get sharp.",
   ], seed);
@@ -107,7 +107,7 @@ const colour: Record<Msg["who"], string> = {
 
 export default function Terminal() {
   const [msgs, setMsgs] = useState<Msg[]>([
-    { who: "sys", text: "Ask NORM anything — food, marketing & hospitality, Sydney to Dubai." },
+    { who: "sys", text: "Ask NORM anything, food, marketing & hospitality, Sydney to Dubai." },
   ]);
   const [phase, setPhase] = useState<"asleep" | "awaitingName" | "chatting">("asleep");
   const [name, setName] = useState("");
@@ -180,10 +180,10 @@ export default function Terminal() {
     if (!introduced.current) {
       introduced.current = true;
       const hi = isGreeting(raw) && !n
-        ? "Heyy! NORM here — I run marketing at Not Normal. Food, brand, social, the lot. "
+        ? "Heyy! NORM here, I run marketing at Not Normal. Food, brand, social, the lot. "
         : n
         ? `Oh nice, hey ${n}! I'm NORM, the marketing exec round here. `
-        : "I'm NORM btw — marketing exec at Not Normal. ";
+        : "I'm NORM btw, marketing exec at Not Normal. ";
       sayNorm(hi + answer);
     } else {
       sayNorm(answer);
@@ -259,7 +259,7 @@ export default function Terminal() {
         </span>
       </div>
 
-      {/* Quick-prompt pills — directly under the title for visibility */}
+      {/* Quick-prompt pills, directly under the title for visibility */}
       <div className="flex flex-wrap gap-2 px-5 pt-4 pb-3 border-b border-white/8" style={{ background: "#0C0C0C" }}>
         {prompts.map((q) => (
           <button

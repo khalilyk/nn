@@ -41,7 +41,7 @@ export default function TheInside() {
           ))}
 
           {error && (
-            <p className="text-[10px] tracking-widest uppercase text-[#FF2EC4]">Access restricted — invite only.</p>
+            <p className="text-[10px] tracking-widest uppercase text-[#FF2EC4]">Access restricted, invite only.</p>
           )}
 
           <button

@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 const cities = [
   { code: "SYD", name: "SYDNEY", line: "Where we're based, and where we build." },
   { code: "DXB", name: "DUBAI", line: "Where we cut our teeth on some of the region's most awarded concepts." },
-  { code: "BEY", name: "BEIRUT", line: "Where hospitality isn't a business — it's a way of life." },
+  { code: "BEY", name: "BEIRUT", line: "Where hospitality isn't a business, it's a way of life." },
 ];
 
 function CityButton({
@@ -111,7 +111,7 @@ export default function ThreeCities() {
         </h2>
       </div>
 
-      {/* Airport codes — type out full name on hover */}
+      {/* Airport codes, type out full name on hover */}
       <div className="relative z-10 flex flex-wrap items-baseline justify-center gap-x-10 gap-y-2 w-full">
         {cities.map((c, i) => (
           <CityButton

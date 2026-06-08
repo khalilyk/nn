@@ -58,7 +58,7 @@ export default function Postcard() {
               {MESSAGE.map((p, i) => <p key={i}>{p}</p>)}
             </div>
             <p className="text-[10px] tracking-[0.12em] uppercase text-[#0A0A0A]/45 mt-2">
-              Abraham Welcoming the Three Angels — Francesco Guardi, 1750s
+              Abraham Welcoming the Three Angels, Francesco Guardi, 1750s
             </p>
           </div>
         )}

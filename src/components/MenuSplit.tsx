@@ -5,12 +5,12 @@ import MenuLink from "./MenuLink";
 const services = [
   {
     title: "Branding & Identity",
-    body: "A brand isn't just a name or a logo — it's the foundation of everything.",
+    body: "A brand isn't just a name or a logo, it's the foundation of everything.",
     tags: ["brand identity", "logo design", "brand book", "packaging", "naming & copy", "2D/3D illustration"],
   },
   {
     title: "Social & Storytelling",
-    body: "Great hospitality brands don't just sell — they tell stories worth sharing.",
+    body: "Great hospitality brands don't just sell, they tell stories worth sharing.",
     tags: ["social strategy", "content creation", "campaigns", "photography", "copywriting", "community"],
   },
   {
@@ -28,9 +28,9 @@ const services = [
 export default function MenuSplit() {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20">
-      {/* Left — sticky intro + CTA */}
+      {/* Left, sticky intro + CTA */}
       <div className="md:sticky md:top-[50vh] md:-translate-y-1/2 self-start h-fit">
-        <p className="text-[9px] tracking-[0.3em] uppercase text-[#0A0A0A]/40 mb-6">The Menu — What We Do</p>
+        <p className="text-[9px] tracking-[0.3em] uppercase text-[#0A0A0A]/40 mb-6">The Menu, What We Do</p>
         <h3 className="font-editorial leading-[1.1] mb-8" style={{ fontSize: "clamp(1.9rem, 3.4vw, 3rem)" }}>
           From concept to creation, this is what happens when strategy meets standout design.
         </h3>
@@ -40,7 +40,7 @@ export default function MenuSplit() {
         <MenuLink />
       </div>
 
-      {/* Right — scrolling services */}
+      {/* Right, scrolling services */}
       <div className="flex flex-col">
         {services.map((s, i) => (
           <div

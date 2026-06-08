@@ -3,8 +3,8 @@
 import { useEffect, useState } from "react";
 
 const items = [
-  { course: "Amuse Bouché", title: "Branding & Identity", body: "A brand isn't just a name or a logo — it's the foundation of everything. We craft distinct identities that connect, from mission and values to visual and verbal worlds.", img: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1200&q=80" },
-  { course: "Appetizers", title: "Social & Storytelling", body: "Great hospitality brands don't just sell — they tell stories. We create content from stunning visuals to scroll-stopping social and dynamic campaigns.", img: "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&w=1200&q=80" },
+  { course: "Amuse Bouché", title: "Branding & Identity", body: "A brand isn't just a name or a logo, it's the foundation of everything. We craft distinct identities that connect, from mission and values to visual and verbal worlds.", img: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1200&q=80" },
+  { course: "Appetizers", title: "Social & Storytelling", body: "Great hospitality brands don't just sell, they tell stories. We create content from stunning visuals to scroll-stopping social and dynamic campaigns.", img: "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&w=1200&q=80" },
   { course: "Mains", title: "Experience & Innovation", body: "Beyond branding, we perfect the experience. From menu R&D to staff training, we shape every touchpoint of the guest journey.", img: "https://images.unsplash.com/photo-1577219491135-ce391730fb2c?auto=format&fit=crop&w=1200&q=80" },
   { course: "Desserts", title: "Visual Production", body: "A brand needs to be seen, felt and experienced. We translate strategy into reality with striking design, print and digital execution.", img: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=1200&q=80" },
 ];
