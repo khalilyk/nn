@@ -70,7 +70,7 @@ export default function ContactPage() {
         {pills.map((p) => (
           <span
             key={p.t}
-            className="absolute z-20 font-sans font-bold uppercase text-[#0A0A0A] rounded-2xl px-4 py-2 text-[11px] md:text-[13px] tracking-[0.04em] whitespace-nowrap shadow-[0_6px_16px_-6px_rgba(0,0,0,0.4)] hover:animate-[pill-wobble_1.6s_ease-in-out_infinite]"
+            className="absolute z-20 font-sans font-bold uppercase text-[#0A0A0A] border-2 border-[#0A0A0A] rounded-2xl px-4 py-2 text-[11px] md:text-[13px] tracking-[0.04em] whitespace-nowrap shadow-[0_6px_16px_-6px_rgba(0,0,0,0.4)] hover:animate-[pill-wobble_1.6s_ease-in-out_infinite]"
             style={{ left: p.x, top: p.y, transform: `rotate(${p.r}deg)`, background: GREEN, ["--r" as string]: `${p.r}deg` } as React.CSSProperties}
           >
             {p.t}
@@ -86,6 +86,27 @@ export default function ContactPage() {
         <h1 className="relative z-10 text-center font-editorial leading-[0.92] pt-28 md:pt-36 px-6" style={{ fontSize: "clamp(2.6rem, 9vw, 7.5rem)" }}>
           Ready to create<br />something unforgettable?
         </h1>
+
+        {/* raised arm, behind the head on the left */}
+        <svg
+          className="absolute z-[14] pointer-events-none"
+          viewBox="0 0 100 170"
+          aria-hidden
+          style={{ left: "16%", top: "34%", width: "clamp(90px, 12vw, 170px)", transform: "rotate(-18deg)" }}
+          fill="#E0742E"
+        >
+          {/* forearm */}
+          <rect x="32" y="78" width="40" height="92" rx="20" />
+          {/* palm */}
+          <rect x="24" y="52" width="54" height="48" rx="22" />
+          {/* fingers */}
+          <rect x="27" y="18" width="12" height="48" rx="6" transform="rotate(-9 33 42)" />
+          <rect x="41" y="10" width="12" height="56" rx="6" transform="rotate(-2 47 38)" />
+          <rect x="55" y="12" width="12" height="54" rx="6" transform="rotate(5 61 39)" />
+          <rect x="68" y="20" width="12" height="46" rx="6" transform="rotate(12 74 43)" />
+          {/* thumb */}
+          <rect x="74" y="50" width="12" height="34" rx="6" transform="rotate(40 80 67)" />
+        </svg>
 
         {/* big creature */}
         <div
@@ -103,7 +124,7 @@ export default function ContactPage() {
       </section>
 
       {/* INVITE COPY */}
-      <section id="write" className="relative" style={{ background: GREEN }}>
+      <section id="write" className="relative bg-[#0A0A0A] text-[#EFEDE6]">
         <div className="px-8 md:px-16 py-20 md:py-28 flex justify-center">
           <p className="font-editorial leading-[1.3] text-center max-w-3xl mx-auto" style={{ fontSize: "clamp(0.95rem, 2vw, 1.5rem)" }}>
             Got an idea? A dream? A half-baked concept scribbled on a napkin? We&apos;re into that. Whether you&apos;re building from scratch or looking to shake things up, drop us a message. We&apos;re here for bold moves, real conversations, and doing things differently, one unforgettable brand at a time.
