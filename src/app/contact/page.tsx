@@ -74,7 +74,7 @@ export default function ContactPage() {
           {/* details */}
           <div className="flex flex-col gap-12">
             <div>
-              <p className="text-[9px] tracking-[0.25em] uppercase text-[#B9B5AE]/60 mb-4">Direct</p>
+              <p className="text-[9px] tracking-[0.25em] uppercase text-[#B9B5AE]/60 mb-4">[ Just don&apos;t leave a missed call ]</p>
               <a href="mailto:hello@thisisnn.com" className="block font-editorial hover:opacity-60 transition-opacity" style={{ fontSize: "clamp(1.3rem, 2.4vw, 2rem)" }}>hello@thisisnn.com</a>
               <a href="tel:+61433714701" className="block text-[#B9B5AE] mt-2 hover:text-[#F3F1EC] transition-colors">+61 433 714 701</a>
             </div>
