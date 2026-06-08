@@ -73,7 +73,7 @@ function Bear() {
         // bbox centre, nudged slightly left, the detected box skews right
         // from edge highlights so the iris would otherwise rest off-centre
         const w = (maxx - minx) / W;
-        setBox({ cx: (minx + maxx) / 2 / W - w * 0.18, cy: (miny + maxy) / 2 / H, w, h: (maxy - miny) / H });
+        setBox({ cx: (minx + maxx) / 2 / W - w * 0.28, cy: (miny + maxy) / 2 / H, w, h: (maxy - miny) / H });
       }
     };
   }, []);
