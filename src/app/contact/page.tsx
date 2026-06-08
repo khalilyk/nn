@@ -44,7 +44,7 @@ export default function ContactPage() {
           Let&apos;s make something nobody forgets.
         </h1>
         <p className="text-[#B9B5AE] leading-relaxed max-w-xl mb-16" style={{ fontSize: "clamp(1rem, 1.6vw, 1.2rem)" }}>
-          Tell us about your venue, your brand, or the idea keeping you up at night. We read every message, and reply to the ones we can help.
+          Got an idea? A dream? A half-baked concept scribbled on a napkin? We&apos;re into that. Whether you&apos;re building from scratch or looking to shake things up, drop us a message. We&apos;re here for bold moves, real conversations, and doing things differently, one unforgettable brand at a time.
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-24">
@@ -89,7 +89,9 @@ export default function ContactPage() {
 
             <div>
               <p className="text-[9px] tracking-[0.25em] uppercase text-[#B9B5AE]/60 mb-4">Studios</p>
-              <p className="font-editorial" style={{ fontSize: "clamp(1.1rem, 2vw, 1.5rem)" }}>Sydney · Dubai · Beirut</p>
+              <p className="font-display uppercase leading-[0.95] tracking-tight" style={{ fontSize: "clamp(1.4rem, 2.6vw, 2.1rem)" }}>
+                You&apos;ll find us<br />somewhere<br />between Sydney, Dubai &amp;<br />Beirut
+              </p>
             </div>
 
             <div className="flex items-center gap-2 mt-2">
