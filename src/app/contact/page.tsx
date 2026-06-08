@@ -30,7 +30,7 @@ function Bear() {
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img src="/bb-nn.png" alt="" draggable={false} className="absolute inset-0 w-full h-full object-contain" />
       {/* moving iris on the figure's own eye (no white circle) */}
-      <div ref={eye} className="absolute" style={{ left: "40%", top: "24%", width: "15.5%", aspectRatio: "0.88" }}>
+      <div ref={eye} className="absolute" style={{ left: "calc(40% + 2px)", top: "24%", width: "15.5%", aspectRatio: "0.88" }}>
         <div ref={pupil} className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#0A0A0A]" style={{ width: "34%", height: "34%", transition: "transform 0.08s linear" }} />
       </div>
     </div>
@@ -63,7 +63,7 @@ export default function ContactPage() {
       {/* HERO */}
       <section className="relative overflow-hidden">
         {/* giant faint background word */}
-        <div aria-hidden className="absolute inset-x-0 top-[10%] flex justify-center pointer-events-none select-none">
+        <div aria-hidden className="absolute inset-x-0 top-[10%] z-[2] flex justify-center pointer-events-none select-none">
           <span className="font-display uppercase leading-none whitespace-nowrap text-[#0A0A0A]/[0.045]" style={{ fontSize: "clamp(5rem, 23vw, 22rem)" }}>
             Say Hello
           </span>
@@ -78,7 +78,7 @@ export default function ContactPage() {
         </div>
 
         {/* peeking one-eyed bear */}
-        <div className="relative z-10 flex justify-center mt-6">
+        <div className="relative z-[1] flex justify-center mt-6">
           <Bear />
         </div>
 
