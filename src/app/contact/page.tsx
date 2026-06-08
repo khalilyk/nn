@@ -92,27 +92,6 @@ export default function ContactPage() {
           Ready to create<br />something unforgettable?
         </h1>
 
-        {/* raised arm, behind the head on the left */}
-        <svg
-          className="absolute z-[14] pointer-events-none"
-          viewBox="0 0 100 170"
-          aria-hidden
-          style={{ left: "15%", top: "30%", width: "clamp(90px, 12vw, 170px)", transform: "rotate(-18deg)" }}
-          fill="#0A0A0A"
-        >
-          {/* forearm */}
-          <rect x="32" y="78" width="40" height="92" rx="20" />
-          {/* palm */}
-          <rect x="24" y="52" width="54" height="48" rx="22" />
-          {/* fingers */}
-          <rect x="27" y="18" width="12" height="48" rx="6" transform="rotate(-9 33 42)" />
-          <rect x="41" y="10" width="12" height="56" rx="6" transform="rotate(-2 47 38)" />
-          <rect x="55" y="12" width="12" height="54" rx="6" transform="rotate(5 61 39)" />
-          <rect x="68" y="20" width="12" height="46" rx="6" transform="rotate(12 74 43)" />
-          {/* thumb */}
-          <rect x="74" y="50" width="12" height="34" rx="6" transform="rotate(40 80 67)" />
-        </svg>
-
         {/* big creature, rounded square at 75% width */}
         <div
           className="absolute left-1/2 -translate-x-1/2 z-[15]"
