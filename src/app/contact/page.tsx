@@ -1,10 +1,58 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Cursor from "@/components/Cursor";
 import Grain from "@/components/Grain";
 import SiteNav from "@/components/SiteNav";
 import SiteFooter from "@/components/SiteFooter";
+
+const BODY = "#2a2a2a";
+
+/* One-eyed bear (BE@RBRICK-style), single eye follows the cursor. */
+function Bear() {
+  const eye = useRef<HTMLDivElement>(null);
+  const pupil = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const move = (e: MouseEvent) => {
+      const el = eye.current, p = pupil.current;
+      if (!el || !p) return;
+      const r = el.getBoundingClientRect();
+      const cx = r.left + r.width / 2, cy = r.top + r.height / 2;
+      const ang = Math.atan2(e.clientY - cy, e.clientX - cx);
+      const max = r.width * 0.2;
+      p.style.transform = `translate(${Math.cos(ang) * max}px, ${Math.sin(ang) * max}px)`;
+    };
+    window.addEventListener("mousemove", move);
+    return () => window.removeEventListener("mousemove", move);
+  }, []);
+
+  const piece = "absolute rounded-full";
+  return (
+    <div className="relative" style={{ width: "clamp(220px, 30vw, 360px)", aspectRatio: "1 / 1.5" }}>
+      {/* ears */}
+      <div className={piece} style={{ left: "6%", top: "2%", width: "30%", height: "20%", background: BODY }} />
+      <div className={piece} style={{ left: "64%", top: "2%", width: "30%", height: "20%", background: BODY }} />
+      {/* head */}
+      <div className="absolute" style={{ left: "13%", top: "5%", width: "74%", height: "42%", background: BODY, borderRadius: "44% 44% 46% 46% / 48% 48% 52% 52%" }} />
+      {/* snout */}
+      <div className={piece} style={{ left: "45%", top: "33%", width: "10%", height: "7%", background: "#1e1e1e" }} />
+      {/* neck */}
+      <div className="absolute" style={{ left: "38%", top: "44%", width: "24%", height: "8%", background: BODY, borderRadius: "12px" }} />
+      {/* body */}
+      <div className="absolute" style={{ left: "22%", top: "49%", width: "56%", height: "33%", background: BODY, borderRadius: "26px" }} />
+      {/* arms */}
+      <div className="absolute" style={{ left: "9%", top: "50%", width: "16%", height: "30%", background: BODY, borderRadius: "999px", transform: "rotate(8deg)" }} />
+      <div className="absolute" style={{ left: "75%", top: "50%", width: "16%", height: "30%", background: BODY, borderRadius: "999px", transform: "rotate(-8deg)" }} />
+      {/* legs */}
+      <div className="absolute" style={{ left: "26%", top: "80%", width: "22%", height: "20%", background: BODY, borderRadius: "16px 16px 8px 8px" }} />
+      <div className="absolute" style={{ left: "52%", top: "80%", width: "22%", height: "20%", background: BODY, borderRadius: "16px 16px 8px 8px" }} />
+      {/* the one eye */}
+      <div ref={eye} className="absolute bg-white rounded-full shadow-inner" style={{ left: "37%", top: "15%", width: "26%", aspectRatio: "1 / 1" }}>
+        <div ref={pupil} className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#0A0A0A]" style={{ width: "52%", height: "52%", transition: "transform 0.08s linear" }} />
+      </div>
+    </div>
+  );
+}
 
 export default function ContactPage() {
   const [name, setName] = useState("");
@@ -40,7 +88,6 @@ export default function ContactPage() {
 
         {/* centered intro */}
         <div className="relative z-10 flex flex-col items-center text-center px-6 pt-28 md:pt-36">
-          <p className="font-editorial tracking-[0.12em] uppercase mb-2" style={{ fontSize: "clamp(1.3rem, 3vw, 2.4rem)" }}>Contact Us</p>
           <h1 className="font-display uppercase leading-[0.95] tracking-tight" style={{ fontSize: "clamp(2.2rem, 6.5vw, 4.6rem)" }}>How can we help you?</h1>
           <p className="text-center text-[11px] md:text-[13px] tracking-[0.1em] text-[#0A0A0A]/65 mt-6 max-w-2xl leading-relaxed normal-case">
             Got an idea? A dream? A half-baked concept scribbled on a napkin? We&apos;re into that. Whether you&apos;re building from scratch or looking to shake things up, drop us a message. We&apos;re here for bold moves, real conversations, and doing things differently, one unforgettable brand at a time.
@@ -51,10 +98,9 @@ export default function ContactPage() {
           </div>
         </div>
 
-        {/* peeking character */}
+        {/* peeking one-eyed bear */}
         <div className="relative z-10 flex justify-center mt-6">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/notnormal-iconoutline.png" alt="" className="w-[clamp(150px,26vw,320px)]" draggable={false} />
+          <Bear />
         </div>
 
         {/* two black panels (peek over the character) */}
