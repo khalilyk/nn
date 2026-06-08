@@ -159,27 +159,24 @@ export default function ContactPage() {
         </div>
 
         {/* two black panels (peek over the character) */}
-        <div className="relative z-20 -mt-[clamp(40px,7vw,90px)] bg-[#0A0A0A] text-[#F3F1EC] px-10 md:px-16 py-14 md:py-20">
+        <div className="relative z-20 -mt-[clamp(40px,7vw,90px)] bg-[#0A0A0A] text-[#F3F1EC] px-10 md:px-16 py-14 md:py-20 flex flex-col items-center text-center">
           <p className="text-[10px] tracking-[0.25em] uppercase text-[#F3F1EC]/60 mb-8 flex items-center gap-3">
-            <span className="w-8 h-px bg-[#F3F1EC]/40" /> Contact Us
+            <span className="w-8 h-px bg-[#F3F1EC]/40" /> Contact Us <span className="w-8 h-px bg-[#F3F1EC]/40" />
           </p>
-          <h2 className="font-display uppercase leading-[0.95] tracking-tight mb-5 max-w-3xl" style={{ fontSize: "clamp(1.9rem, 3.4vw, 3rem)" }}>
-            Do you have<br />something to tell us?
+          <h2 className="font-display uppercase leading-[0.95] tracking-tight" style={{ fontSize: "clamp(1.9rem, 3.4vw, 3rem)" }}>
+            You&apos;ll find us<br />somewhere<br />between Sydney, Dubai &amp;<br />Beirut
           </h2>
-          <p className="text-[13px] md:text-[14px] text-[#B9B5AE] leading-relaxed max-w-xl">
-            Leave your message and we&apos;ll get in touch. Whether you&apos;ve got a project, a half-baked idea, or want to join the family, we&apos;re listening.
-          </p>
 
-          {/* contact details, the fun way */}
-          <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-8 max-w-3xl">
-            <div>
+          {/* contact details, the fun way — email left, number right */}
+          <div className="mt-14 grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-8 w-full max-w-3xl">
+            <div className="text-center md:text-left">
               <p className="text-[9px] tracking-[0.3em] uppercase text-[#F3F1EC]/40 mb-3">Slide into our inbox</p>
               <a href="mailto:hello@thisisnn.com" data-cursor="Say hi" className="group font-editorial italic inline-flex items-center gap-2 hover:opacity-70 transition-opacity" style={{ fontSize: "clamp(1.3rem, 2.4vw, 2rem)" }}>
                 hello@thisisnn.com
                 <span aria-hidden className="text-[#FF2EC4] group-hover:translate-x-1 transition-transform">↗</span>
               </a>
             </div>
-            <div>
+            <div className="text-center md:text-right">
               <p className="text-[9px] tracking-[0.3em] uppercase text-[#FF2EC4] mb-3">[ Just don&apos;t leave a missed call ]</p>
               <a href="tel:+610433714701" data-cursor="Ring ring" className="font-editorial italic inline-block hover:opacity-70 transition-opacity" style={{ fontSize: "clamp(1.3rem, 2.4vw, 2rem)" }}>
                 +61 0433 714 701
@@ -187,7 +184,7 @@ export default function ContactPage() {
             </div>
           </div>
 
-          <a href="#form" className="group inline-flex items-center gap-2 mt-12 text-[10px] tracking-[0.22em] uppercase text-[#F3F1EC] hover:gap-3 transition-all">
+          <a href="#form" className="group inline-flex items-center gap-2 mt-14 text-[10px] tracking-[0.22em] uppercase text-[#F3F1EC] hover:gap-3 transition-all">
             Or fill the form <span aria-hidden>→</span>
           </a>
         </div>
