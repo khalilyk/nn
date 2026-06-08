@@ -436,8 +436,8 @@ export default function Publication() {
       </Panel>
 
       {/* ═══ 05 — POSTCARD ═══ */}
-      <Panel index={5} bg="black" minH="auto" pin={false} slideFrom="up">
-        <div className="relative px-8 md:px-16 py-28 md:py-36">
+      <Panel index={5} bg="ivory" minH="auto" pin={false} slideFrom="up">
+        <div className="relative px-8 md:px-16 py-28 md:py-36 bg-[#C0392B]">
           <Postcard />
           <SectionNo n="05" dark />
         </div>
