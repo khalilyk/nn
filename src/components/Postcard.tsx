@@ -13,8 +13,7 @@ export default function Postcard() {
 
   return (
     <div className="w-full flex flex-col items-center">
-      <p className="text-[9px] tracking-[0.3em] uppercase text-[#F3EDE0]/80 mb-3">A little note</p>
-      <p className="text-[10px] tracking-[0.15em] uppercase text-[#F3EDE0]/45 mb-12">Drag it around · click to flip</p>
+      <p className="text-[9px] tracking-[0.3em] uppercase text-[#F3EDE0]/80 mb-12">A little note</p>
 
       {/* drag board */}
       <div ref={board} className="relative w-full" style={{ height: "clamp(420px, 62vh, 620px)" }}>
@@ -29,7 +28,7 @@ export default function Postcard() {
           onClick={() => { if (!dragging.current) setFlipped((f) => !f); }}
           data-cursor="grab"
           className="absolute left-1/2 top-1/2 w-full max-w-2xl -translate-x-1/2 -translate-y-1/2 cursor-grab active:cursor-grabbing"
-          style={{ perspective: "1600px", aspectRatio: "3 / 2" }}
+          style={{ perspective: "1600px", aspectRatio: "1599 / 1127" }}
         >
           <div
             className="relative w-full h-full transition-transform duration-[900ms] ease-[cubic-bezier(0.16,1,0.3,1)]"
@@ -50,7 +49,7 @@ export default function Postcard() {
               style={{ backfaceVisibility: "hidden", WebkitBackfaceVisibility: "hidden", transform: "rotateY(180deg)", boxShadow: CARD_SHADOW }}
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/postcard-art-2.png" alt="" draggable={false} className="absolute inset-0 w-full h-full object-contain pointer-events-none" />
+              <img src="/postcard-art-2.png" alt="" draggable={false} className="absolute inset-0 w-full h-full object-cover pointer-events-none" />
             </div>
           </div>
         </motion.div>
