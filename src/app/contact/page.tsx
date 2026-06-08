@@ -184,8 +184,9 @@ export default function ContactPage() {
             </div>
           </div>
 
-          <a href="#form" className="group inline-flex items-center gap-2 mt-14 text-[10px] tracking-[0.22em] uppercase text-[#F3F1EC] hover:gap-3 transition-all">
-            Or fill the form <span aria-hidden>→</span>
+          <a href="#form" className="group flex flex-col items-center gap-3 mt-14 text-[10px] tracking-[0.22em] uppercase text-[#F3F1EC]">
+            Or fill the form
+            <span aria-hidden className="text-3xl md:text-4xl leading-none animate-bounce group-hover:text-[#FF2EC4] transition-colors">↓</span>
           </a>
         </div>
       </section>
