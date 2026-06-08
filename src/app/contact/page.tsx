@@ -9,12 +9,13 @@ import SiteFooter from "@/components/SiteFooter";
 const GREEN = "#C7F000";
 
 const pills = [
-  { t: "Say hi", x: "16%", y: "20%", r: -8 },
-  { t: "Reach out", x: "70%", y: "13%", r: 7 },
-  { t: "Let's talk", x: "12%", y: "44%", r: 5 },
-  { t: "No brief too big", x: "74%", y: "34%", r: -6 },
-  { t: "Quack", x: "52%", y: "22%", r: -4 },
-  { t: "Hello", x: "82%", y: "50%", r: 9 },
+  { t: "Say hi", x: "24%", y: "13%", r: 6 },
+  { t: "Let's chat", x: "64%", y: "9%", r: -7 },
+  { t: "Bold moves only", x: "9%", y: "37%", r: -4 },
+  { t: "No brief too weird", x: "69%", y: "41%", r: 8 },
+  { t: "G'day", x: "47%", y: "27%", r: 5 },
+  { t: "Pitch us", x: "84%", y: "20%", r: -10 },
+  { t: "Reach out", x: "31%", y: "48%", r: 7 },
 ];
 
 function Eye() {
