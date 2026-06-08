@@ -1,8 +1,43 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Cursor from "@/components/Cursor";
 import Grain from "@/components/Grain";
+
+const GREEN = "#C7F000";
+
+const pills = [
+  { t: "Say hi", x: "16%", y: "20%", r: -8 },
+  { t: "Reach out", x: "70%", y: "13%", r: 7 },
+  { t: "Let's talk", x: "12%", y: "44%", r: 5 },
+  { t: "No brief too big", x: "74%", y: "34%", r: -6 },
+  { t: "Quack", x: "52%", y: "22%", r: -4 },
+  { t: "Hello", x: "82%", y: "50%", r: 9 },
+];
+
+function Eye() {
+  const eye = useRef<HTMLDivElement>(null);
+  const pupil = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const move = (e: MouseEvent) => {
+      const el = eye.current, p = pupil.current;
+      if (!el || !p) return;
+      const r = el.getBoundingClientRect();
+      const cx = r.left + r.width / 2;
+      const cy = r.top + r.height / 2;
+      const ang = Math.atan2(e.clientY - cy, e.clientX - cx);
+      const max = r.width * 0.22;
+      p.style.transform = `translate(${Math.cos(ang) * max}px, ${Math.sin(ang) * max * 1.3}px)`;
+    };
+    window.addEventListener("mousemove", move);
+    return () => window.removeEventListener("mousemove", move);
+  }, []);
+  return (
+    <div ref={eye} className="relative bg-white rounded-[50%]" style={{ width: "clamp(90px, 13vw, 170px)", height: "clamp(150px, 22vw, 290px)" }}>
+      <div ref={pupil} className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#0A0A0A]" style={{ width: "38%", height: "23%", transition: "transform 0.08s linear" }} />
+    </div>
+  );
+}
 
 export default function ContactPage() {
   const [name, setName] = useState("");
@@ -13,99 +48,104 @@ export default function ContactPage() {
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
     const subject = `New enquiry from ${name || "the website"}`;
-    const body = `${message}\n\n— ${name}\n${email}`;
+    const body = `${message}\n\n${name}\n${email}`;
     window.location.href = `mailto:hello@thisisnn.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     setSent(true);
   };
 
   const field =
-    "w-full bg-transparent border-b border-[#F3F1EC]/20 py-3 text-[#F3F1EC] placeholder-[#F3F1EC]/30 outline-none focus:border-[#F3F1EC]/60 transition-colors";
+    "w-full bg-transparent border-b border-[#0A0A0A]/30 py-3 text-[#0A0A0A] placeholder-[#0A0A0A]/35 outline-none focus:border-[#0A0A0A] transition-colors";
 
   return (
-    <main className="relative min-h-screen bg-[#0A0A0A] text-[#F3F1EC] overflow-hidden">
+    <main className="relative bg-[#EFEDE6] text-[#0A0A0A] overflow-hidden">
       <Cursor />
       <Grain />
 
       {/* header */}
-      <header className="flex items-center justify-between px-8 md:px-16 py-6 md:py-8">
+      <header className="relative z-30 flex items-center justify-between px-8 md:px-16 py-6">
         <a href="/" aria-label="Not Normal, home" className="block">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/notnormal-logoblack.png" alt="Not Normal" className="h-3.5 md:h-4 w-auto" style={{ filter: "invert(1)" }} />
+          <img src="/notnormal-logoblack.png" alt="Not Normal" className="h-3.5 md:h-4 w-auto" />
         </a>
-        <a href="/" data-cursor="Back" className="text-[10px] tracking-[0.22em] uppercase text-[#F3F1EC]/70 hover:text-[#F3F1EC] transition-colors">
-          ← Home
-        </a>
+        <a href="/" data-cursor="Back" className="text-[10px] tracking-[0.22em] uppercase text-[#0A0A0A]/70 hover:text-[#0A0A0A] transition-colors">← Home</a>
       </header>
 
-      <div className="px-8 md:px-16 pt-16 md:pt-24 pb-24 max-w-6xl mx-auto">
-        {/* hero */}
-        <p className="text-[9px] tracking-[0.3em] uppercase text-[#B9B5AE]/60 mb-6">Contact</p>
-        <h1 className="font-editorial leading-[1.05] mb-6 max-w-3xl" style={{ fontSize: "clamp(2.2rem, 6vw, 4.5rem)" }}>
-          Let&apos;s make something nobody forgets.
-        </h1>
-        <p className="text-[#B9B5AE] leading-relaxed max-w-xl mb-16" style={{ fontSize: "clamp(1rem, 1.6vw, 1.2rem)" }}>
-          Got an idea? A dream? A half-baked concept scribbled on a napkin? We&apos;re into that. Whether you&apos;re building from scratch or looking to shake things up, drop us a message. We&apos;re here for bold moves, real conversations, and doing things differently, one unforgettable brand at a time.
-        </p>
+      {/* HERO */}
+      <section className="relative h-[100vh] min-h-[680px] overflow-hidden">
+        {/* scattered pills */}
+        {pills.map((p) => (
+          <span
+            key={p.t}
+            className="absolute z-20 font-sans font-bold uppercase text-[#0A0A0A] rounded-full px-4 py-2 text-[11px] md:text-[13px] tracking-[0.04em] whitespace-nowrap shadow-[0_6px_16px_-6px_rgba(0,0,0,0.4)]"
+            style={{ left: p.x, top: p.y, transform: `rotate(${p.r}deg)`, background: GREEN }}
+          >
+            {p.t}
+          </span>
+        ))}
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-24">
-          {/* form */}
-          <form onSubmit={submit} className="flex flex-col gap-8">
+        {/* headline */}
+        <h1 className="relative z-10 text-center font-editorial leading-[0.92] pt-10 md:pt-12 px-6" style={{ fontSize: "clamp(3rem, 11vw, 9rem)" }}>
+          Don&apos;t Hesitate<br />to Reach Out!
+        </h1>
+
+        {/* big creature */}
+        <div
+          className="absolute left-1/2 -translate-x-1/2 rounded-[50%] z-[15]"
+          style={{ width: "min(150vw, 1500px)", height: "min(150vw, 1500px)", top: "42%", background: GREEN }}
+        />
+        {/* eyes */}
+        <div className="absolute left-1/2 -translate-x-1/2 z-20 flex gap-[clamp(10px,2vw,28px)]" style={{ top: "52%" }}>
+          <Eye />
+          <Eye />
+        </div>
+
+        {/* scroll cue */}
+        <a href="#write" className="absolute bottom-7 left-8 md:left-16 z-20 w-10 h-10 rounded-full bg-[#0A0A0A] text-[#EFEDE6] flex items-center justify-center" data-cursor="tap">↓</a>
+      </section>
+
+      {/* WRITE TO US */}
+      <section id="write" className="relative" style={{ background: GREEN }}>
+        <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-10 md:gap-16 px-8 md:px-16 py-20 md:py-28">
+          <div>
+            <p className="text-[10px] tracking-[0.25em] uppercase mb-2 font-bold">Write to us</p>
+            <a href="mailto:hello@thisisnn.com" className="text-[13px] tracking-[0.08em] uppercase hover:opacity-60 transition-opacity">hello@thisisnn.com</a>
+          </div>
+          <p className="font-editorial leading-[1.15]" style={{ fontSize: "clamp(1.6rem, 4vw, 3rem)" }}>
+            We aren&apos;t a mass-market studio, so we don&apos;t always have slots available, but you can join the waiting list. Fill out the form and we&apos;ll be in touch when the time is right.
+          </p>
+        </div>
+      </section>
+
+      {/* FORM */}
+      <section className="px-8 md:px-16 py-20 md:py-28 max-w-3xl mx-auto">
+        <form onSubmit={submit} className="flex flex-col gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div>
-              <label className="block text-[9px] tracking-[0.25em] uppercase text-[#B9B5AE]/60 mb-2">Your name</label>
+              <label className="block text-[9px] tracking-[0.25em] uppercase text-[#0A0A0A]/50 mb-2">Your name</label>
               <input className={field} value={name} onChange={(e) => setName(e.target.value)} placeholder="Jane Appleseed" required />
             </div>
             <div>
-              <label className="block text-[9px] tracking-[0.25em] uppercase text-[#B9B5AE]/60 mb-2">Email</label>
+              <label className="block text-[9px] tracking-[0.25em] uppercase text-[#0A0A0A]/50 mb-2">Email</label>
               <input className={field} type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="you@venue.com" required />
             </div>
-            <div>
-              <label className="block text-[9px] tracking-[0.25em] uppercase text-[#B9B5AE]/60 mb-2">Message</label>
-              <textarea className={`${field} resize-none`} rows={4} value={message} onChange={(e) => setMessage(e.target.value)} placeholder="Tell us what you're building…" required />
-            </div>
-            <button
-              type="submit"
-              data-cursor="Send"
-              className="self-start mt-2 inline-flex items-center gap-3 rounded-full border border-[#F3F1EC]/40 px-8 py-3.5 text-[11px] tracking-[0.2em] uppercase hover:bg-[#F3F1EC] hover:text-[#0A0A0A] transition-colors"
-            >
-              {sent ? "Opening your mail…" : "Send it"}
-            </button>
-          </form>
-
-          {/* details */}
-          <div className="flex flex-col gap-12">
-            <div>
-              <p className="text-[9px] tracking-[0.25em] uppercase text-[#B9B5AE]/60 mb-4">[ Just don&apos;t leave a missed call ]</p>
-              <a href="mailto:hello@thisisnn.com" className="block font-editorial hover:opacity-60 transition-opacity" style={{ fontSize: "clamp(1.3rem, 2.4vw, 2rem)" }}>hello@thisisnn.com</a>
-              <a href="tel:+61433714701" className="block font-editorial text-[#B9B5AE] mt-2 hover:text-[#F3F1EC] transition-colors" style={{ fontSize: "clamp(1.3rem, 2.4vw, 2rem)" }}>+61 433 714 701</a>
-            </div>
-
-            <div>
-              <p className="text-[9px] tracking-[0.25em] uppercase text-[#B9B5AE]/60 mb-4">[ Follow us ]</p>
-              <div className="flex flex-col gap-2">
-                <a href="https://instagram.com" target="_blank" rel="noreferrer" className="hover:opacity-60 transition-opacity">Instagram</a>
-                <a href="https://linkedin.com" target="_blank" rel="noreferrer" className="hover:opacity-60 transition-opacity">LinkedIn</a>
-              </div>
-            </div>
-
-            <div>
-              <p className="font-display uppercase leading-[0.95] tracking-tight" style={{ fontSize: "clamp(1.4rem, 2.6vw, 2.1rem)" }}>
-                You&apos;ll find us<br />somewhere<br />between Sydney, Dubai &amp;<br />Beirut
-              </p>
-            </div>
-
-            <div className="flex items-center gap-2 mt-2">
-              <span className="relative flex h-2 w-2">
-                <span className="absolute inline-flex h-full w-full rounded-full bg-[#4ADE80] opacity-75 animate-ping" />
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-[#4ADE80] shadow-[0_0_8px_2px_rgba(74,222,128,0.7)]" />
-              </span>
-              <span className="text-[10px] tracking-[0.18em] uppercase text-[#4ADE80]">2 spots left this month</span>
-            </div>
           </div>
-        </div>
-      </div>
+          <div>
+            <label className="block text-[9px] tracking-[0.25em] uppercase text-[#0A0A0A]/50 mb-2">Message</label>
+            <textarea className={`${field} resize-none`} rows={4} value={message} onChange={(e) => setMessage(e.target.value)} placeholder="Tell us what you're building…" required />
+          </div>
+          <button
+            type="submit"
+            data-cursor="Send"
+            className="self-start mt-2 rounded-full px-9 py-4 text-[11px] tracking-[0.2em] uppercase font-bold text-[#0A0A0A] hover:scale-[1.04] transition-transform"
+            style={{ background: GREEN }}
+          >
+            {sent ? "Opening your mail…" : "Send it"}
+          </button>
+        </form>
+      </section>
 
-      <footer className="px-8 md:px-16 py-8 border-t border-[#F3F1EC]/10 text-[9px] tracking-[0.2em] uppercase text-[#F3F1EC]/40 text-center">
-        Nobody Remembers Normal.™
+      <footer className="px-8 md:px-16 py-8 border-t border-[#0A0A0A]/10 text-[9px] tracking-[0.2em] uppercase text-[#0A0A0A]/40 text-center">
+        Nobody Remembers Normal.™ · Sydney · Dubai · Beirut
       </footer>
     </main>
   );
