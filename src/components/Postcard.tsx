@@ -1,18 +1,83 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 
 const CARD_SHADOW =
   "0 8px 16px rgba(0,0,0,0.28), 0 24px 44px -12px rgba(0,0,0,0.45), 0 48px 90px -24px rgba(0,0,0,0.55)";
 
+const MESSAGE = [
+  "Hanging in our office and a favourite of ours, it shows Abraham, who didn't wait to know who was standing before him. He saw guests approaching and immediately focused on making them comfortable, welcome and cared for.",
+  "He offered shade, water, bread, and a feast prepared from the best he had. No shortcuts, no hesitation.",
+  "For us, that's hospitality. Not serving what's convenient, but giving your best to every person who walks through the door.",
+];
+
 export default function Postcard() {
   const board = useRef<HTMLDivElement>(null);
   const tilt = useRef<HTMLDivElement>(null);
   const [flipped, setFlipped] = useState(false);
+  const [expanded, setExpanded] = useState(false);
+  const [isDesktop, setIsDesktop] = useState(true);
   const dragging = useRef(false);
 
-  const MAX = 12; // degrees
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 768px)");
+    const update = () => setIsDesktop(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
+
+  // ── MOBILE: stacked fronts → tap → tall portrait back ──
+  if (!isDesktop) {
+    return (
+      <div className="w-full flex flex-col items-center">
+        {!expanded ? (
+          <div
+            className="relative w-full flex items-center justify-center"
+            style={{ height: "clamp(240px, 40vh, 360px)" }}
+            onClick={() => setExpanded(true)}
+            data-cursor="Flip"
+          >
+            {[2, 1, 0].map((i) => (
+              <div
+                key={i}
+                className="absolute left-1/2 top-1/2 w-[86%] rounded-[3px] overflow-hidden bg-[#0A0A0A]"
+                style={{
+                  aspectRatio: "1599 / 1127",
+                  transform: `translate(-50%, -50%) rotate(${i === 0 ? 0 : i === 1 ? 5 : -6}deg) translateY(${i * 6}px)`,
+                  zIndex: 3 - i,
+                  boxShadow: CARD_SHADOW,
+                }}
+              >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src="/postcard-art.png" alt="" draggable={false} className="absolute inset-0 w-full h-full object-cover pointer-events-none" />
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div
+            className="w-full max-w-sm mx-auto rounded-md bg-[#F3EDE0] text-[#0A0A0A] p-7 flex flex-col items-center text-center gap-6"
+            style={{ boxShadow: CARD_SHADOW }}
+            onClick={() => setExpanded(false)}
+            data-cursor="Close"
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/postcard-art.png" alt="" draggable={false} className="w-full rounded-[3px]" style={{ aspectRatio: "1599 / 1127", objectFit: "cover" }} />
+            <div className="font-editorial leading-relaxed space-y-4" style={{ fontSize: "clamp(1rem, 4.2vw, 1.2rem)" }}>
+              {MESSAGE.map((p, i) => <p key={i}>{p}</p>)}
+            </div>
+            <p className="text-[10px] tracking-[0.12em] uppercase text-[#0A0A0A]/45 mt-2">
+              Abraham Welcoming the Three Angels — Francesco Guardi, 1750s
+            </p>
+          </div>
+        )}
+      </div>
+    );
+  }
+
+  // ── DESKTOP: draggable + flip card ──
+  const MAX = 12;
   const onMove = (e: React.PointerEvent) => {
     const t = tilt.current;
     if (!t) return;
@@ -27,7 +92,6 @@ export default function Postcard() {
 
   return (
     <div className="w-full flex flex-col items-center">
-      {/* drag board */}
       <div ref={board} className="relative w-full" style={{ height: "clamp(420px, 62vh, 620px)" }}>
         <motion.div
           drag
@@ -44,41 +108,34 @@ export default function Postcard() {
           className="absolute left-1/2 top-1/2 w-full max-w-2xl -translate-x-1/2 -translate-y-1/2 cursor-grab active:cursor-grabbing"
           style={{ perspective: "1600px", aspectRatio: "1599 / 1127" }}
         >
-          {/* tilt layer (follows cursor) */}
-          <div
-            ref={tilt}
-            className="w-full h-full"
-            style={{ transformStyle: "preserve-3d", transition: "transform 0.2s ease-out" }}
-          >
-          <div
-            className="relative w-full h-full transition-transform duration-[900ms] ease-[cubic-bezier(0.16,1,0.3,1)]"
-            style={{ transformStyle: "preserve-3d", transform: flipped ? "rotateY(180deg)" : "rotateY(0deg)" }}
-          >
-            {/* FRONT — artwork, original colour */}
+          <div ref={tilt} className="w-full h-full" style={{ transformStyle: "preserve-3d", transition: "transform 0.2s ease-out" }}>
             <div
-              className="absolute inset-0 rounded-[3px] overflow-hidden bg-[#0A0A0A]"
-              style={{ backfaceVisibility: "hidden", WebkitBackfaceVisibility: "hidden", boxShadow: CARD_SHADOW }}
+              className="relative w-full h-full transition-transform duration-[900ms] ease-[cubic-bezier(0.16,1,0.3,1)]"
+              style={{ transformStyle: "preserve-3d", transform: flipped ? "rotateY(180deg)" : "rotateY(0deg)" }}
             >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/postcard-art.png" alt="" draggable={false} className="absolute inset-0 w-full h-full object-cover pointer-events-none" />
-            </div>
+              {/* FRONT */}
+              <div
+                className="absolute inset-0 rounded-[3px] overflow-hidden bg-[#0A0A0A]"
+                style={{ backfaceVisibility: "hidden", WebkitBackfaceVisibility: "hidden", boxShadow: CARD_SHADOW }}
+              >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src="/postcard-art.png" alt="" draggable={false} className="absolute inset-0 w-full h-full object-cover pointer-events-none" />
+              </div>
 
-            {/* BACK — page 2 of the PDF (caption) */}
-            <div
-              className="absolute inset-0 rounded-[3px] overflow-hidden bg-[#F3EDE0]"
-              style={{ backfaceVisibility: "hidden", WebkitBackfaceVisibility: "hidden", transform: "rotateY(180deg)", boxShadow: CARD_SHADOW }}
-            >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/postcard-art-2.png" alt="" draggable={false} className="absolute inset-0 w-full h-full object-cover pointer-events-none" />
-              <div className="absolute inset-0 flex items-start justify-center px-[8%] pt-[6%] pb-[20%] pointer-events-none">
-                <div className="font-editorial text-[#0A0A0A] leading-snug md:leading-relaxed space-y-1.5 md:space-y-2.5 max-w-md" style={{ fontSize: "clamp(0.5rem, 1.9vw, 0.85rem)" }}>
-                  <p>Hanging in our office and a favourite of ours, it shows Abraham, who didn&apos;t wait to know who was standing before him. He saw guests approaching and immediately focused on making them comfortable, welcome and cared for.</p>
-                  <p>He offered shade, water, bread, and a feast prepared from the best he had. No shortcuts, no hesitation.</p>
-                  <p>For us, that&apos;s hospitality. Not serving what&apos;s convenient, but giving your best to every person who walks through the door.</p>
+              {/* BACK */}
+              <div
+                className="absolute inset-0 rounded-[3px] overflow-hidden bg-[#F3EDE0]"
+                style={{ backfaceVisibility: "hidden", WebkitBackfaceVisibility: "hidden", transform: "rotateY(180deg)", boxShadow: CARD_SHADOW }}
+              >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src="/postcard-art-2.png" alt="" draggable={false} className="absolute inset-0 w-full h-full object-cover pointer-events-none" />
+                <div className="absolute inset-0 flex items-start justify-center px-[8%] pt-[6%] pb-[20%] pointer-events-none">
+                  <div className="font-editorial text-[#0A0A0A] leading-relaxed space-y-2.5 max-w-md" style={{ fontSize: "clamp(0.6rem, 1.15vw, 0.85rem)" }}>
+                    {MESSAGE.map((p, i) => <p key={i}>{p}</p>)}
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
           </div>
         </motion.div>
       </div>
