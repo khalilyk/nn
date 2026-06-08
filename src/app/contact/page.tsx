@@ -30,27 +30,62 @@ export default function ContactPage() {
       <SiteNav />
 
       {/* HERO */}
-      <section className="relative h-[100vh] min-h-[680px] overflow-hidden">
-        {/* headline */}
-        <h1 className="relative z-10 text-center font-editorial leading-[0.92] pt-28 md:pt-36 px-6" style={{ fontSize: "clamp(2.6rem, 9vw, 7.5rem)" }}>
-          Ready to create<br />something unforgettable?
-        </h1>
+      <section className="relative overflow-hidden">
+        {/* giant faint background word */}
+        <div aria-hidden className="absolute inset-x-0 top-[10%] flex justify-center pointer-events-none select-none">
+          <span className="font-display uppercase leading-none whitespace-nowrap text-[#0A0A0A]/[0.045]" style={{ fontSize: "clamp(5rem, 23vw, 22rem)" }}>
+            Say Hello
+          </span>
+        </div>
 
-        {/* scroll cue */}
-        <a href="#write" className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 w-10 h-10 rounded-full bg-white text-[#0A0A0A] flex items-center justify-center shadow-[0_6px_16px_-6px_rgba(0,0,0,0.5)]" data-cursor="tap">↓</a>
-      </section>
-
-      {/* INVITE COPY */}
-      <section id="write" className="relative bg-[#0A0A0A] text-[#EFEDE6]">
-        <div className="px-8 md:px-16 py-20 md:py-28 flex justify-center">
-          <p className="font-editorial leading-[1.3] text-center max-w-3xl mx-auto" style={{ fontSize: "clamp(0.95rem, 2vw, 1.5rem)" }}>
-            Got an idea? A dream? A half-baked concept scribbled on a napkin? We&apos;re into that. Whether you&apos;re building from scratch or looking to shake things up, drop us a message. We&apos;re here for bold moves, real conversations, and doing things differently, one unforgettable brand at a time.
+        {/* centered intro */}
+        <div className="relative z-10 flex flex-col items-center text-center px-6 pt-28 md:pt-36">
+          <p className="font-editorial tracking-[0.12em] uppercase mb-2" style={{ fontSize: "clamp(1.3rem, 3vw, 2.4rem)" }}>Contact Us</p>
+          <h1 className="font-display uppercase leading-[0.95] tracking-tight" style={{ fontSize: "clamp(2.2rem, 6.5vw, 4.6rem)" }}>How can we help you?</h1>
+          <p className="text-[10px] md:text-[12px] tracking-[0.22em] uppercase text-[#0A0A0A]/55 mt-6 max-w-md leading-relaxed">
+            Select your query, answer the form and we will get in touch with you shortly
           </p>
+          <div className="mt-9 flex flex-col items-center gap-3">
+            <span className="w-px h-12 bg-[#0A0A0A]/30" />
+            <span className="w-2 h-2 rounded-full bg-[#0A0A0A]" />
+          </div>
+        </div>
+
+        {/* peeking character */}
+        <div className="relative z-10 flex justify-center mt-6">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/notnormal-iconoutline.png" alt="" className="w-[clamp(150px,26vw,320px)]" draggable={false} />
+        </div>
+
+        {/* two black panels (peek over the character) */}
+        <div className="relative z-20 -mt-[clamp(40px,7vw,90px)] grid grid-cols-1 md:grid-cols-2 bg-[#0A0A0A] text-[#F3F1EC]">
+          <a href="#form" className="group p-10 md:p-16 md:border-r border-[#F3F1EC]/12">
+            <p className="text-[10px] tracking-[0.25em] uppercase text-[#F3F1EC]/60 mb-8 flex items-center gap-3">
+              <span className="w-8 h-px bg-[#F3F1EC]/40" /> Contact Us
+            </p>
+            <h2 className="font-display uppercase leading-[0.95] tracking-tight mb-5" style={{ fontSize: "clamp(1.8rem, 3vw, 2.6rem)" }}>
+              Do you have<br />something to tell us?
+            </h2>
+            <p className="text-[13px] text-[#B9B5AE] leading-relaxed max-w-sm">Leave your message and we will get in touch with you soon.</p>
+            <span className="inline-flex items-center gap-2 mt-8 text-[10px] tracking-[0.22em] uppercase text-[#F3F1EC] group-hover:gap-3 transition-all">Start <span aria-hidden>→</span></span>
+          </a>
+          <a href="#form" className="group p-10 md:p-16 border-t md:border-t-0 border-[#F3F1EC]/12">
+            <p className="text-[10px] tracking-[0.25em] uppercase text-[#F3F1EC]/60 mb-8 flex items-center gap-3">
+              <span className="w-8 h-px bg-[#F3F1EC]/40" /> Join Our Family
+            </p>
+            <h2 className="font-display uppercase leading-[0.95] tracking-tight mb-5" style={{ fontSize: "clamp(1.8rem, 3vw, 2.6rem)" }}>
+              Work<br />with us
+            </h2>
+            <p className="text-[13px] text-[#B9B5AE] leading-relaxed max-w-sm">We&apos;re looking for passionate, creative people who love what they do. If that&apos;s you, fill out the form and we&apos;ll be in touch.</p>
+            <span className="inline-flex items-center gap-2 mt-8 text-[10px] tracking-[0.22em] uppercase text-[#F3F1EC] group-hover:gap-3 transition-all">Apply <span aria-hidden>→</span></span>
+          </a>
         </div>
       </section>
 
       {/* FORM */}
-      <section className="px-8 md:px-16 py-20 md:py-28 max-w-3xl mx-auto">
+      <section id="form" className="px-8 md:px-16 py-20 md:py-28 max-w-3xl mx-auto">
+        <p className="text-[9px] tracking-[0.3em] uppercase text-[#0A0A0A]/40 mb-3">The Form</p>
+        <h2 className="font-display uppercase leading-[0.95] tracking-tight mb-12" style={{ fontSize: "clamp(1.8rem, 4vw, 3rem)" }}>Tell us everything</h2>
         <form onSubmit={submit} className="flex flex-col gap-8">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div>
