@@ -108,7 +108,7 @@ export default function ContactPage() {
       </section>
 
       {/* FORM */}
-      <section id="form" className="px-8 md:px-16 py-20 md:py-28 max-w-3xl mx-auto">
+      <section id="form" className="relative max-w-3xl mx-4 md:mx-auto my-12 md:my-20 px-8 md:px-14 py-14 md:py-16 rounded-3xl border border-[#0A0A0A]/15 bg-white shadow-[0_24px_60px_-24px_rgba(0,0,0,0.18)]">
         <p className="text-[9px] tracking-[0.3em] uppercase text-[#0A0A0A]/40 mb-3">The Form</p>
         <h2 className="font-display uppercase leading-[0.95] tracking-tight mb-12" style={{ fontSize: "clamp(1.8rem, 4vw, 3rem)" }}>Tell us everything</h2>
         <form onSubmit={submit} className="flex flex-col gap-8">
