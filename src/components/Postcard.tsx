@@ -70,8 +70,8 @@ export default function Postcard() {
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src="/postcard-art-2.png" alt="" draggable={false} className="absolute inset-0 w-full h-full object-cover pointer-events-none" />
-              <div className="absolute inset-0 flex items-center justify-center px-[9%] pointer-events-none">
-                <div className="font-editorial text-[#0A0A0A] leading-relaxed space-y-2.5 max-w-md" style={{ fontSize: "clamp(0.6rem, 1.15vw, 0.85rem)" }}>
+              <div className="absolute inset-0 flex items-start justify-center px-[8%] pt-[6%] pb-[20%] pointer-events-none">
+                <div className="font-editorial text-[#0A0A0A] leading-snug md:leading-relaxed space-y-1.5 md:space-y-2.5 max-w-md" style={{ fontSize: "clamp(0.5rem, 1.9vw, 0.85rem)" }}>
                   <p>Hanging in our office and a favourite of ours, it shows Abraham, who didn&apos;t wait to know who was standing before him. He saw guests approaching and immediately focused on making them comfortable, welcome and cared for.</p>
                   <p>He offered shade, water, bread, and a feast prepared from the best he had. No shortcuts, no hesitation.</p>
                   <p>For us, that&apos;s hospitality. Not serving what&apos;s convenient, but giving your best to every person who walks through the door.</p>
