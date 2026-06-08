@@ -88,7 +88,6 @@ export default function ContactPage() {
             </div>
 
             <div>
-              <p className="text-[9px] tracking-[0.25em] uppercase text-[#B9B5AE]/60 mb-4">Studios</p>
               <p className="font-display uppercase leading-[0.95] tracking-tight" style={{ fontSize: "clamp(1.4rem, 2.6vw, 2.1rem)" }}>
                 You&apos;ll find us<br />somewhere<br />between Sydney, Dubai &amp;<br />Beirut
               </p>
