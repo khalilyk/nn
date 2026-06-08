@@ -28,9 +28,9 @@ function Bear() {
     <div className="relative" style={{ width: "clamp(240px, 32vw, 400px)", aspectRatio: "1023 / 1537" }}>
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img src="/bb-nn.png" alt="" draggable={false} className="absolute inset-0 w-full h-full object-contain" />
-      {/* fresh white eye covering the figure's eye + moving pupil */}
-      <div ref={eye} className="absolute bg-white" style={{ left: "40%", top: "19%", width: "15.5%", aspectRatio: "0.88", borderRadius: "50%", transform: "rotate(8deg)", boxShadow: "inset 0 -3px 6px rgba(0,0,0,0.1)" }}>
-        <div ref={pupil} className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#0A0A0A]" style={{ width: "56%", height: "56%", transition: "transform 0.08s linear" }} />
+      {/* moving iris on the figure's own eye (no white circle) */}
+      <div ref={eye} className="absolute" style={{ left: "40%", top: "24%", width: "15.5%", aspectRatio: "0.88" }}>
+        <div ref={pupil} className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#0A0A0A]" style={{ width: "34%", height: "34%", transition: "transform 0.08s linear" }} />
       </div>
     </div>
   );
