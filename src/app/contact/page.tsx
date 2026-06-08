@@ -70,10 +70,15 @@ export default function ContactPage() {
         {pills.map((p) => (
           <span
             key={p.t}
-            className="absolute z-20 font-sans font-bold uppercase text-[#0A0A0A] rounded-full px-4 py-2 text-[11px] md:text-[13px] tracking-[0.04em] whitespace-nowrap shadow-[0_6px_16px_-6px_rgba(0,0,0,0.4)] hover:animate-[pill-wobble_1.6s_ease-in-out_infinite]"
+            className="absolute z-20 font-sans font-bold uppercase text-[#0A0A0A] rounded-2xl px-4 py-2 text-[11px] md:text-[13px] tracking-[0.04em] whitespace-nowrap shadow-[0_6px_16px_-6px_rgba(0,0,0,0.4)] hover:animate-[pill-wobble_1.6s_ease-in-out_infinite]"
             style={{ left: p.x, top: p.y, transform: `rotate(${p.r}deg)`, background: GREEN, ["--r" as string]: `${p.r}deg` } as React.CSSProperties}
           >
             {p.t}
+            {/* speech-bubble tail */}
+            <span
+              className="absolute top-full left-5 w-0 h-0"
+              style={{ borderLeft: "7px solid transparent", borderRight: "7px solid transparent", borderTop: `10px solid ${GREEN}`, marginTop: "-1px" }}
+            />
           </span>
         ))}
 
@@ -94,17 +99,13 @@ export default function ContactPage() {
         </div>
 
         {/* scroll cue */}
-        <a href="#write" className="absolute bottom-7 left-8 md:left-16 z-20 w-10 h-10 rounded-full bg-[#0A0A0A] text-[#EFEDE6] flex items-center justify-center" data-cursor="tap">↓</a>
+        <a href="#write" className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 w-10 h-10 rounded-full bg-white text-[#0A0A0A] flex items-center justify-center shadow-[0_6px_16px_-6px_rgba(0,0,0,0.5)]" data-cursor="tap">↓</a>
       </section>
 
-      {/* WRITE TO US */}
+      {/* INVITE COPY */}
       <section id="write" className="relative" style={{ background: GREEN }}>
-        <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-10 md:gap-16 px-8 md:px-16 py-20 md:py-28">
-          <div>
-            <p className="text-[10px] tracking-[0.25em] uppercase mb-2 font-bold">Write to us</p>
-            <a href="mailto:hello@thisisnn.com" className="text-[13px] tracking-[0.08em] uppercase hover:opacity-60 transition-opacity">hello@thisisnn.com</a>
-          </div>
-          <p className="font-editorial leading-[1.15]" style={{ fontSize: "clamp(1.6rem, 4vw, 3rem)" }}>
+        <div className="px-8 md:px-16 py-20 md:py-28 flex justify-center">
+          <p className="font-editorial leading-[1.3] text-center max-w-3xl mx-auto" style={{ fontSize: "clamp(0.95rem, 2vw, 1.5rem)" }}>
             Got an idea? A dream? A half-baked concept scribbled on a napkin? We&apos;re into that. Whether you&apos;re building from scratch or looking to shake things up, drop us a message. We&apos;re here for bold moves, real conversations, and doing things differently, one unforgettable brand at a time.
           </p>
         </div>
@@ -130,10 +131,12 @@ export default function ContactPage() {
           <button
             type="submit"
             data-cursor="Send"
-            className="self-start mt-2 rounded-full px-9 py-4 text-[11px] tracking-[0.2em] uppercase font-bold text-[#0A0A0A] hover:scale-[1.04] transition-transform"
-            style={{ background: GREEN }}
+            className="group relative w-full overflow-hidden rounded-full border border-[#0A0A0A] py-4 mt-2"
           >
-            {sent ? "Opening your mail…" : "Send it"}
+            <span className="absolute inset-0 bg-[#0A0A0A] -translate-x-full group-hover:translate-x-0 transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)]" />
+            <span className="relative z-10 text-[11px] tracking-[0.2em] uppercase font-bold text-[#0A0A0A] group-hover:text-[#EFEDE6] transition-colors duration-500">
+              {sent ? "Opening your mail…" : "Send it"}
+            </span>
           </button>
         </form>
       </section>
