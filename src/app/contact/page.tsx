@@ -74,10 +74,14 @@ export default function ContactPage() {
             style={{ left: p.x, top: p.y, transform: `rotate(${p.r}deg)`, background: GREEN, ["--r" as string]: `${p.r}deg` } as React.CSSProperties}
           >
             {p.t}
-            {/* speech-bubble tail */}
+            {/* speech-bubble tail, black border behind + green fill on top */}
             <span
               className="absolute top-full left-5 w-0 h-0"
-              style={{ borderLeft: "7px solid transparent", borderRight: "7px solid transparent", borderTop: `10px solid ${GREEN}`, marginTop: "-1px" }}
+              style={{ borderLeft: "9px solid transparent", borderRight: "9px solid transparent", borderTop: "13px solid #0A0A0A" }}
+            />
+            <span
+              className="absolute left-[23px] w-0 h-0"
+              style={{ top: "calc(100% - 3px)", borderLeft: "6px solid transparent", borderRight: "6px solid transparent", borderTop: `9px solid ${GREEN}` }}
             />
           </span>
         ))}
@@ -92,8 +96,8 @@ export default function ContactPage() {
           className="absolute z-[14] pointer-events-none"
           viewBox="0 0 100 170"
           aria-hidden
-          style={{ left: "16%", top: "34%", width: "clamp(90px, 12vw, 170px)", transform: "rotate(-18deg)" }}
-          fill="#E0742E"
+          style={{ left: "15%", top: "30%", width: "clamp(90px, 12vw, 170px)", transform: "rotate(-18deg)" }}
+          fill="#0A0A0A"
         >
           {/* forearm */}
           <rect x="32" y="78" width="40" height="92" rx="20" />
@@ -108,10 +112,10 @@ export default function ContactPage() {
           <rect x="74" y="50" width="12" height="34" rx="6" transform="rotate(40 80 67)" />
         </svg>
 
-        {/* big creature */}
+        {/* big creature, rounded square at 75% width */}
         <div
-          className="absolute left-1/2 -translate-x-1/2 rounded-[50%] z-[15]"
-          style={{ width: "min(150vw, 1500px)", height: "min(150vw, 1500px)", top: "46%", background: "#0A0A0A" }}
+          className="absolute left-1/2 -translate-x-1/2 z-[15]"
+          style={{ width: "75vw", height: "75vw", top: "40%", background: "#0A0A0A", borderRadius: "clamp(28px, 5vw, 70px)" }}
         />
         {/* eyes */}
         <div className="absolute left-1/2 -translate-x-1/2 z-20 flex gap-[clamp(10px,2vw,28px)]" style={{ top: "52%" }}>
