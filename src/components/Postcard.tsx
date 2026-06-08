@@ -24,7 +24,7 @@ export default function Postcard() {
           onDragEnd={() => { setTimeout(() => { dragging.current = false; }, 0); }}
           whileDrag={{ scale: 1.03 }}
           onClick={() => { if (!dragging.current) setFlipped((f) => !f); }}
-          data-cursor="grab"
+          data-cursor="Flip"
           className="absolute left-1/2 top-1/2 w-full max-w-2xl -translate-x-1/2 -translate-y-1/2 cursor-grab active:cursor-grabbing"
           style={{ perspective: "1600px", aspectRatio: "1599 / 1127" }}
         >
