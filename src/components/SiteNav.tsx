@@ -5,7 +5,7 @@ import Magnetic from "./Magnetic";
 import ChatLink from "./ChatLink";
 
 const LINKS = [
-  { l: "About", href: "/#s02", tip: "Who we are", shape: "rounded-full" },
+  { l: "About", href: "/about", tip: "Who we are", shape: "rounded-full" },
   { l: "The Menu", href: "/#s02", tip: "What we do", shape: "rounded-none" },
   { l: "Projects", href: "/#s04", tip: "Selected proof", shape: "rounded-tl-xl rounded-br-xl" },
   { l: "Journal", href: "/#s08", tip: "Thinking & insights", shape: "rounded-lg" },
