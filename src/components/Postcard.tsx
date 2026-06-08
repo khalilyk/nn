@@ -13,8 +13,6 @@ export default function Postcard() {
 
   return (
     <div className="w-full flex flex-col items-center">
-      <p className="text-[9px] tracking-[0.3em] uppercase text-[#F3EDE0]/80 mb-12">A little note</p>
-
       {/* drag board */}
       <div ref={board} className="relative w-full" style={{ height: "clamp(420px, 62vh, 620px)" }}>
         <motion.div
