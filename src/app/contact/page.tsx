@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import Cursor from "@/components/Cursor";
 import Grain from "@/components/Grain";
 import SiteNav from "@/components/SiteNav";
@@ -17,30 +17,6 @@ const pills = [
   { t: "Reach out", x: "56%", y: "46%", r: 7 },
   { t: "No brief too weird", x: "8%", y: "72%", r: 8 },
 ];
-
-function Eye() {
-  const eye = useRef<HTMLDivElement>(null);
-  const pupil = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    const move = (e: MouseEvent) => {
-      const el = eye.current, p = pupil.current;
-      if (!el || !p) return;
-      const r = el.getBoundingClientRect();
-      const cx = r.left + r.width / 2;
-      const cy = r.top + r.height / 2;
-      const ang = Math.atan2(e.clientY - cy, e.clientX - cx);
-      const max = r.width * 0.26;
-      p.style.transform = `translate(${Math.cos(ang) * max}px, ${Math.sin(ang) * max}px)`;
-    };
-    window.addEventListener("mousemove", move);
-    return () => window.removeEventListener("mousemove", move);
-  }, []);
-  return (
-    <div ref={eye} className="relative bg-white rounded-full" style={{ width: "clamp(110px, 15vw, 210px)", height: "clamp(110px, 15vw, 210px)" }}>
-      <div ref={pupil} className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#0A0A0A]" style={{ width: "38%", height: "38%", transition: "transform 0.08s linear" }} />
-    </div>
-  );
-}
 
 export default function ContactPage() {
   const [name, setName] = useState("");
@@ -91,17 +67,6 @@ export default function ContactPage() {
         <h1 className="relative z-10 text-center font-editorial leading-[0.92] pt-28 md:pt-36 px-6" style={{ fontSize: "clamp(2.6rem, 9vw, 7.5rem)" }}>
           Ready to create<br />something unforgettable?
         </h1>
-
-        {/* big creature, rounded square at 75% width */}
-        <div
-          className="absolute left-1/2 -translate-x-1/2 z-[15]"
-          style={{ width: "75vw", height: "75vw", top: "40%", background: "#0A0A0A", borderRadius: "clamp(28px, 5vw, 70px)" }}
-        />
-        {/* eyes */}
-        <div className="absolute left-1/2 -translate-x-1/2 z-20 flex gap-[clamp(10px,2vw,28px)]" style={{ top: "52%" }}>
-          <Eye />
-          <Eye />
-        </div>
 
         {/* scroll cue */}
         <a href="#write" className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 w-10 h-10 rounded-full bg-white text-[#0A0A0A] flex items-center justify-center shadow-[0_6px_16px_-6px_rgba(0,0,0,0.5)]" data-cursor="tap">↓</a>
