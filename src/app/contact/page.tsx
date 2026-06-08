@@ -171,14 +171,14 @@ export default function ContactPage() {
           <div className="mt-14 grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-8 w-full max-w-3xl">
             <div className="text-center md:text-left">
               <p className="text-[9px] tracking-[0.3em] uppercase text-[#F3F1EC]/40 mb-3">Slide into our inbox</p>
-              <a href="mailto:hello@thisisnn.com" data-cursor="Say hi" className="group font-editorial italic inline-flex items-center gap-2 hover:opacity-70 transition-opacity" style={{ fontSize: "clamp(1.3rem, 2.4vw, 2rem)" }}>
+              <a href="mailto:hello@thisisnn.com" data-cursor="Say hi" className="group font-editorial inline-flex items-center gap-2 hover:opacity-70 transition-opacity" style={{ fontSize: "clamp(1.3rem, 2.4vw, 2rem)" }}>
                 hello@thisisnn.com
                 <span aria-hidden className="text-[#FF2EC4] group-hover:translate-x-1 transition-transform">↗</span>
               </a>
             </div>
             <div className="text-center md:text-right">
               <p className="text-[9px] tracking-[0.3em] uppercase text-[#FF2EC4] mb-3">[ Just don&apos;t leave a missed call ]</p>
-              <a href="tel:+610433714701" data-cursor="Ring ring" className="font-editorial italic inline-block hover:opacity-70 transition-opacity" style={{ fontSize: "clamp(1.3rem, 2.4vw, 2rem)" }}>
+              <a href="tel:+610433714701" data-cursor="Ring ring" className="font-editorial inline-block hover:opacity-70 transition-opacity" style={{ fontSize: "clamp(1.3rem, 2.4vw, 2rem)" }}>
                 +61 0433 714 701
               </a>
             </div>
@@ -186,7 +186,7 @@ export default function ContactPage() {
 
           <a href="#form" className="group flex flex-col items-center gap-3 mt-14 text-[10px] tracking-[0.22em] uppercase text-[#F3F1EC]">
             Or fill the form
-            <span aria-hidden className="text-3xl md:text-4xl leading-none animate-bounce group-hover:text-[#FF2EC4] transition-colors">↓</span>
+            <span aria-hidden className="text-3xl md:text-4xl leading-none animate-squiggle group-hover:text-[#FF2EC4] transition-colors">↓</span>
           </a>
         </div>
       </section>
