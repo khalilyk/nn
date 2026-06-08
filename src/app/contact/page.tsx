@@ -221,7 +221,6 @@ export default function ContactPage() {
                   <button
                     key={c}
                     type="button"
-                    data-cursor="tap"
                     onClick={() => setCoffee(on ? "" : c)}
                     className={`rounded-full border px-4 py-2 text-[11px] tracking-[0.08em] transition-colors ${
                       on
