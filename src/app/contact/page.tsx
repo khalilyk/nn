@@ -6,10 +6,77 @@ import Grain from "@/components/Grain";
 import SiteNav from "@/components/SiteNav";
 import SiteFooter from "@/components/SiteFooter";
 
-/* BE@RBRICK figure (image) with a single eye that follows the cursor. */
+/* BE@RBRICK figure (image) with a single eye that follows the cursor.
+   The eye position/size is auto-detected from the image, so it stays
+   aligned no matter which bb-nn.png is used. */
 function Bear() {
   const eye = useRef<HTMLDivElement>(null);
   const pupil = useRef<HTMLDivElement>(null);
+  // detected eye box as fractions of the image: [cx, cy, w, h]
+  const [box, setBox] = useState({ cx: 0.537, cy: 0.291, w: 0.12, h: 0.07 });
+
+  // Detect the white eye (a white island surrounded by the dark head)
+  useEffect(() => {
+    const im = new Image();
+    im.crossOrigin = "anonymous";
+    im.src = "/bb-nn.png";
+    im.onload = () => {
+      const W = 220, H = Math.max(1, Math.round((220 * im.height) / im.width));
+      const cv = document.createElement("canvas");
+      cv.width = W; cv.height = H;
+      const ctx = cv.getContext("2d");
+      if (!ctx) return;
+      ctx.drawImage(im, 0, 0, W, H);
+      let data: Uint8ClampedArray;
+      try { data = ctx.getImageData(0, 0, W, H).data; } catch { return; }
+      const isW = (x: number, y: number) => {
+        const i = (y * W + x) * 4;
+        return data[i] > 220 && data[i + 1] > 220 && data[i + 2] > 220;
+      };
+      const bg = new Uint8Array(W * H);
+      const st: number[] = [];
+      const push = (x: number, y: number) => { if (isW(x, y) && !bg[y * W + x]) { bg[y * W + x] = 1; st.push(x, y); } };
+      for (let x = 0; x < W; x++) { push(x, 0); push(x, H - 1); }
+      for (let y = 0; y < H; y++) { push(0, y); push(W - 1, y); }
+      while (st.length) {
+        const y = st.pop()!, x = st.pop()!;
+        push(x + 1, y); push(x - 1, y); push(x, y + 1); push(x, y - 1);
+      }
+      // largest non-bg white island in the top 45%
+      const seen = new Uint8Array(W * H);
+      let best: number[] | null = null;
+      for (let y = 0; y < H * 0.45; y++) for (let x = 0; x < W; x++) {
+        const k = y * W + x;
+        if (isW(x, y) && !bg[k] && !seen[k]) {
+          const q = [x, y]; seen[k] = 1; const pts: number[] = [];
+          while (q.length) {
+            const b = q.pop()!, a = q.pop()!; pts.push(a, b);
+            const nb = [a + 1, b, a - 1, b, a, b + 1, a, b - 1];
+            for (let n = 0; n < 8; n += 2) {
+              const nx = nb[n], ny = nb[n + 1];
+              if (nx >= 0 && nx < W && ny >= 0 && ny < H) {
+                const kk = ny * W + nx;
+                if (!seen[kk] && isW(nx, ny) && !bg[kk]) { seen[kk] = 1; q.push(nx, ny); }
+              }
+            }
+          }
+          if (pts.length > 40 && (!best || pts.length > best.length)) best = pts;
+        }
+      }
+      if (best) {
+        let sx = 0, sy = 0, minx = W, maxx = 0, miny = H, maxy = 0;
+        for (let i = 0; i < best.length; i += 2) {
+          const a = best[i], b = best[i + 1];
+          sx += a; sy += b;
+          if (a < minx) minx = a; if (a > maxx) maxx = a;
+          if (b < miny) miny = b; if (b > maxy) maxy = b;
+        }
+        const n = best.length / 2;
+        setBox({ cx: sx / n / W, cy: sy / n / H, w: (maxx - minx) / W, h: (maxy - miny) / H });
+      }
+    };
+  }, []);
+
   useEffect(() => {
     const move = (e: MouseEvent) => {
       const el = eye.current, p = pupil.current;
@@ -17,8 +84,8 @@ function Bear() {
       const r = el.getBoundingClientRect();
       const cx = r.left + r.width / 2, cy = r.top + r.height / 2;
       const ang = Math.atan2(e.clientY - cy, e.clientX - cx);
-      const maxX = r.width * 0.22;
-      const maxY = r.height * 0.22;
+      const maxX = r.width * 0.3;
+      const maxY = r.height * 0.2;
       p.style.transform = `translate(${Math.cos(ang) * maxX}px, ${Math.sin(ang) * maxY}px)`;
     };
     window.addEventListener("mousemove", move);
@@ -29,9 +96,13 @@ function Bear() {
     <div className="relative" style={{ width: "clamp(240px, 32vw, 400px)", aspectRatio: "1023 / 1537" }}>
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img src="/bb-nn.png" alt="" draggable={false} className="absolute inset-0 w-full h-full object-contain" />
-      {/* moving iris on the figure's own (almond) eye */}
-      <div ref={eye} className="absolute" style={{ left: "46.7%", top: "26%", width: "14%", aspectRatio: "1.5" }}>
-        <div ref={pupil} className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#0A0A0A]" style={{ width: "32%", aspectRatio: "1", transition: "transform 0.08s linear" }} />
+      {/* moving iris, centred on the detected eye */}
+      <div
+        ref={eye}
+        className="absolute"
+        style={{ left: `${box.cx * 100}%`, top: `${box.cy * 100}%`, width: `${box.w * 100}%`, height: `${box.h * 100}%`, transform: "translate(-50%, -50%)" }}
+      >
+        <div ref={pupil} className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#0A0A0A]" style={{ height: "58%", aspectRatio: "1", transition: "transform 0.08s linear" }} />
       </div>
     </div>
   );
