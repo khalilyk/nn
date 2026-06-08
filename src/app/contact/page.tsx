@@ -74,10 +74,6 @@ export default function ContactPage() {
           <p className="text-center text-[11px] md:text-[13px] tracking-[0.1em] text-[#0A0A0A]/65 mt-6 max-w-2xl leading-relaxed normal-case">
             Got an idea? A dream? A half-baked concept scribbled on a napkin? We&apos;re into that. Whether you&apos;re building from scratch or looking to shake things up, drop us a message. We&apos;re here for bold moves, real conversations, and doing things differently, one unforgettable brand at a time.
           </p>
-          <div className="mt-9 flex flex-col items-center gap-3">
-            <span className="w-px h-12 bg-[#0A0A0A]/30" />
-            <span className="w-2 h-2 rounded-full bg-[#0A0A0A]" />
-          </div>
         </div>
 
         {/* peeking one-eyed bear */}
