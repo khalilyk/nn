@@ -4,7 +4,8 @@ import { useEffect, useRef, useState, ReactNode } from "react";
 import Lenis from "lenis";
 import Reveal from "./Reveal";
 import FeaturedCarousel from "./FeaturedCarousel";
-import RotatingWord from "./RotatingWord";
+import SiteNav from "./SiteNav";
+import SiteFooter from "./SiteFooter";
 import Terminal from "./Terminal";
 import Cursor from "./Cursor";
 import Grain from "./Grain";
@@ -14,7 +15,6 @@ import Magnetic from "./Magnetic";
 import HeroMedia from "./HeroMedia";
 import ScrollDriftX from "./ScrollDriftX";
 import Testimonials from "./Testimonials";
-import ChatLink from "./ChatLink";
 import ThreeCities from "./ThreeCities";
 import HoverWord from "./HoverWord";
 import Greeting from "./Greeting";
@@ -22,7 +22,6 @@ import ScrambleText from "./ScrambleText";
 import OverlapImages from "./OverlapImages";
 import MenuSplit from "./MenuSplit";
 import Postcard from "./Postcard";
-import PacMan from "./PacMan";
 import ClientLogos from "./ClientLogos";
 
 /* ───────────────── STACKING PANEL ───────────────── */
@@ -142,17 +141,7 @@ function SectionNo({ n, side = "left", dark }: { n: string; side?: "left" | "rig
 /* ───────────────── PUBLICATION ───────────────── */
 export default function Publication() {
   const [loading, setLoading] = useState(true);
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
   const lenisRef = useRef<Lenis | null>(null);
-
-  // Swap nav logo (wordmark → icon) once past the hero
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > window.innerHeight * 0.7);
-    window.addEventListener("scroll", onScroll, { passive: true });
-    onScroll();
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
 
   useEffect(() => {
     const lenis = new Lenis({
@@ -174,11 +163,11 @@ export default function Publication() {
     };
   }, []);
 
-  // Lock scroll while preloader is up or the mobile menu is open
+  // Lock scroll while the preloader is up
   useEffect(() => {
-    if (loading || menuOpen) lenisRef.current?.stop();
+    if (loading) lenisRef.current?.stop();
     else lenisRef.current?.start();
-  }, [loading, menuOpen]);
+  }, [loading]);
 
   return (
     <div className="relative">
@@ -186,151 +175,7 @@ export default function Publication() {
       <Cursor />
       <Grain />
       <ScrollProgress total={9} />
-      {/* ─── NAV ─── */}
-      <nav className="fixed top-0 left-0 right-0 z-[100] flex items-center justify-between px-8 md:px-16 py-6 md:py-8 mix-blend-difference text-[#F3F1EC]">
-        <a href="/" aria-label="Not Normal, home" className="relative flex items-center h-7">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/notnormal-logoblack.png"
-            alt="Not Normal"
-            className={`h-3.5 md:h-4 w-auto transition-opacity duration-300 ${scrolled ? "opacity-0" : "opacity-100"}`}
-            style={{ filter: "invert(1)" }}
-          />
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/notnormal-iconoutline.png"
-            alt="Not Normal"
-            className={`absolute left-0 top-1/2 -translate-y-1/2 h-7 w-auto transition-opacity duration-300 ${scrolled ? "opacity-100" : "opacity-0 pointer-events-none"}`}
-            style={{ filter: "invert(1)" }}
-          />
-        </a>
-        <div className="hidden md:flex items-center gap-12 absolute left-1/2 -translate-x-1/2">
-          {[
-            { l: "About", href: "#s02", tip: "Who we are", shape: "rounded-full" },
-            { l: "The Menu", href: "#s02", tip: "What we do", shape: "rounded-none" },
-            { l: "Projects", href: "#s04", tip: "Selected proof", shape: "rounded-tl-xl rounded-br-xl" },
-            { l: "Journal", href: "#s08", tip: "Thinking & insights", shape: "rounded-lg" },
-            { l: "Contact", href: "/contact", tip: "Let's chat", shape: "rounded-tr-xl rounded-bl-xl" },
-          ].map(({ l, href, tip, shape }) => (
-            <a key={l} href={href} className="group relative text-[10px] tracking-[0.22em] uppercase">
-              <span className="transition-opacity group-hover:opacity-60">{l}</span>
-              {/* Tooltip, unique shape per item */}
-              <span
-                className={`pointer-events-none absolute left-1/2 top-full mt-3 -translate-x-1/2 whitespace-nowrap bg-[#F3F1EC] px-3 py-1.5 text-[8px] tracking-[0.18em] text-[#0A0A0A] opacity-0 translate-y-1 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 ${shape}`}
-              >
-                {tip}
-                <span className="absolute left-1/2 -top-1 -translate-x-1/2 w-2 h-2 rotate-45 bg-[#F3F1EC]" />
-              </span>
-            </a>
-          ))}
-        </div>
-        <div className="flex items-center gap-4">
-          <div className="hidden md:block">
-            <Magnetic strength={0.5}>
-              <ChatLink />
-            </Magnetic>
-          </div>
-          {/* Mobile hamburger */}
-          <button
-            aria-label="Menu"
-            onClick={() => setMenuOpen(true)}
-            className={`md:hidden relative flex flex-col items-end justify-center gap-[6px] w-8 h-8 transition-opacity duration-200 ${menuOpen ? "opacity-0 pointer-events-none" : "opacity-100"}`}
-          >
-            <span className="block h-[2px] w-7 rounded-full bg-[#F3F1EC]" />
-            <span className="block h-[2px] w-7 rounded-full bg-[#F3F1EC]" />
-          </button>
-        </div>
-      </nav>
-
-      {/* ─── MOBILE MENU OVERLAY ─── */}
-      <div
-        className={`fixed inset-0 z-[99] md:hidden bg-[#F3F1EC] text-[#0A0A0A] flex flex-col overflow-hidden px-8 pt-24 pb-10 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${menuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}
-      >
-        {/* Circular close button */}
-        <button
-          aria-label="Close menu"
-          onClick={() => setMenuOpen(false)}
-          className="absolute top-6 right-8 w-10 h-10 rounded-full border border-[#0A0A0A]/20 flex items-center justify-center text-[#0A0A0A] transition-colors hover:bg-[#0A0A0A] hover:text-[#F3F1EC]"
-          style={{ opacity: menuOpen ? 1 : 0, transition: "opacity 0.5s ease 0.1s, background-color 0.3s, color 0.3s" }}
-        >
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.4"><path d="M1 1l12 12M13 1L1 13" /></svg>
-        </button>
-
-        {/* top divider */}
-        <div
-          className="h-px bg-[#0A0A0A]/15 mb-8"
-          style={{ opacity: menuOpen ? 1 : 0, transform: menuOpen ? "scaleX(1)" : "scaleX(0)", transformOrigin: "left", transition: "opacity 0.5s ease 0.05s, transform 0.7s cubic-bezier(0.16,1,0.3,1) 0.05s" }}
-        />
-
-        {/* Links */}
-        <nav className="flex flex-col gap-1">
-          {[
-            { l: "About", href: "#s02" },
-            { l: "The Menu", href: "#s02" },
-            { l: "Projects", href: "#s04" },
-            { l: "Journal", href: "#s08" },
-            { l: "Contact", href: "/contact" },
-          ].map(({ l, href }, i) => (
-            <a
-              key={l}
-              href={href}
-              onClick={() => setMenuOpen(false)}
-              className="font-sans text-[#0A0A0A] leading-[1.15] transition-opacity duration-300 hover:opacity-50"
-              style={{
-                fontSize: "clamp(1.9rem, 8.5vw, 2.6rem)",
-                opacity: menuOpen ? 1 : 0,
-                transform: menuOpen ? "translateY(0)" : "translateY(14px)",
-                transition: `opacity 0.55s cubic-bezier(0.16,1,0.3,1) ${menuOpen ? 0.12 + i * 0.06 : 0}s, transform 0.55s cubic-bezier(0.16,1,0.3,1) ${menuOpen ? 0.12 + i * 0.06 : 0}s`,
-              }}
-            >
-              {l}
-            </a>
-          ))}
-        </nav>
-
-        {/* bottom divider */}
-        <div
-          className="h-px bg-[#0A0A0A]/15 my-8"
-          style={{ opacity: menuOpen ? 1 : 0, transform: menuOpen ? "scaleX(1)" : "scaleX(0)", transformOrigin: "left", transition: "opacity 0.5s ease 0.45s, transform 0.7s cubic-bezier(0.16,1,0.3,1) 0.45s" }}
-        />
-
-        {/* Secondary + social */}
-        <div
-          style={{
-            opacity: menuOpen ? 1 : 0,
-            transform: menuOpen ? "translateY(0)" : "translateY(14px)",
-            transition: `opacity 0.55s cubic-bezier(0.16,1,0.3,1) ${menuOpen ? 0.5 : 0}s, transform 0.55s cubic-bezier(0.16,1,0.3,1) ${menuOpen ? 0.5 : 0}s`,
-          }}
-        >
-          <a href="/the-inside" onClick={() => setMenuOpen(false)} className="font-sans text-[17px] text-[#0A0A0A] transition-opacity duration-300 hover:opacity-50">
-            The Inside
-          </a>
-
-          <p className="text-[10px] tracking-[0.25em] uppercase text-[#0A0A0A]/40 mt-8 mb-4">Social</p>
-          <div className="flex flex-col gap-2.5">
-            {[
-              { l: "Instagram", href: "https://instagram.com" },
-              { l: "LinkedIn", href: "https://linkedin.com" },
-            ].map((s) => (
-              <a key={s.l} href={s.href} target="_blank" rel="noreferrer" className="font-sans text-[17px] text-[#0A0A0A] transition-opacity duration-300 hover:opacity-50">
-                {s.l}
-              </a>
-            ))}
-          </div>
-        </div>
-
-        {/* availability, pinned to bottom */}
-        <div
-          className="mt-auto flex items-center gap-2"
-          style={{ opacity: menuOpen ? 1 : 0, transition: `opacity 0.6s ease ${menuOpen ? 0.6 : 0}s` }}
-        >
-          <span className="relative flex h-2 w-2">
-            <span className="absolute inline-flex h-full w-full rounded-full bg-[#16a34a] opacity-60 animate-ping" />
-            <span className="relative inline-flex h-2 w-2 rounded-full bg-[#16a34a]" />
-          </span>
-          <span className="text-[10px] tracking-[0.18em] uppercase text-[#16a34a]">2 spots this month</span>
-        </div>
-      </div>
+      <SiteNav />
 
       {/* ═══ 01, HERO ═══ */}
       <Panel index={1} bg="black">
@@ -513,56 +358,7 @@ Meet <span className="italic">NORM</span>, our marketing exec.<br />
 
       {/* ═══ FOOTER, THE INVITATION ═══ */}
       <Panel index={10} bg="ivory" minH="auto" slideFrom="up">
-        <footer id="footer" className="px-8 md:px-16 pt-24 pb-10 md:pb-14">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 items-center mb-20 text-center md:text-left">
-            <Reveal>
-              <h2 className="font-editorial leading-[1.2]" style={{ fontSize: "clamp(1.8rem, 3.2vw, 2.8rem)" }}>
-                to be not normal<br />is to be <RotatingWord />
-              </h2>
-            </Reveal>
-            <Reveal delay={0.06}>
-              <div className="space-y-1.5 text-center">
-                <a href="mailto:hello@thisisnn.com" className="block text-[11px] tracking-[0.1em] uppercase hover:opacity-60 transition-opacity">hello@thisisnn.com</a>
-                <a href="tel:+61433714701" className="block text-[11px] tracking-[0.1em] hover:opacity-60 transition-opacity">+61 433 714 701</a>
-                <div className="pt-4 flex items-center justify-center gap-6">
-                  <a href="#" className="block text-[11px] tracking-[0.1em] uppercase hover:opacity-60 transition-opacity">Instagram</a>
-                  <a href="#" className="block text-[11px] tracking-[0.1em] uppercase hover:opacity-60 transition-opacity">LinkedIn</a>
-                </div>
-              </div>
-            </Reveal>
-            <Reveal delay={0.12}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/notnormal-nn-white.png"
-                alt="Not Normal"
-                className="mx-auto"
-                style={{ width: "clamp(96px, 12vw, 150px)", filter: "brightness(0)" }}
-              />
-            </Reveal>
-          </div>
-
-          <div className="border-t border-[#0A0A0A]/15 pt-6 flex flex-col md:flex-row items-center md:justify-between gap-4 text-[9px] tracking-[0.2em] uppercase text-[#0A0A0A]/50">
-            <span>© {new Date().getFullYear()} Not Normal</span>
-            <span>Sydney, Dubai, Beirut</span>
-            <div className="flex gap-6">
-              <a href="#" className="hover:text-[#0A0A0A] transition-colors">Privacy</a>
-              <a href="#" className="hover:text-[#0A0A0A] transition-colors">Terms</a>
-            </div>
-          </div>
-
-          {/* Acknowledgement of Country */}
-          <div className="mt-10 mx-auto max-w-xl rounded-xl border border-[#0A0A0A]/15 px-6 py-5">
-            <p className="text-center text-[9px] leading-relaxed tracking-[0.12em] uppercase text-[#0A0A0A]/40">
-              We acknowledge the Gadigal, the traditional custodians of the Country on which Not Normal and its brands stands.
-            </p>
-          </div>
-
-          <p className="mt-10 text-center text-[9px] tracking-[0.25em] uppercase text-[#0A0A0A]/35">
-            Nobody Remembers Normal.™
-          </p>
-
-          <PacMan />
-        </footer>
+        <SiteFooter />
       </Panel>
     </div>
   );

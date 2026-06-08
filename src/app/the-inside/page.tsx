@@ -2,17 +2,17 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import SiteNav from "@/components/SiteNav";
+import SiteFooter from "@/components/SiteFooter";
 
 export default function TheInside() {
   const [form, setForm] = useState({ email: "", password: "" });
   const [error, setError] = useState(false);
 
   return (
-    <div className="min-h-screen bg-[#0A0A0A] text-[#F3F1EC] flex flex-col items-center justify-center px-6 font-[var(--font-grotesk)]">
-      <Link href="/" className="absolute top-6 left-6 md:left-10 font-display text-sm tracking-[0.2em]">
-        NOT NORMAL<sup className="text-[8px] ml-0.5">™</sup>
-      </Link>
-
+    <main className="bg-[#0A0A0A] text-[#F3F1EC] font-[var(--font-grotesk)]">
+      <SiteNav />
+      <section className="min-h-screen flex flex-col items-center justify-center px-6">
       <div className="w-full max-w-sm">
         <p className="text-[9px] tracking-[0.3em] uppercase text-[#B9B5AE]/50 mb-4 text-center">The Inside</p>
         <h1 className="font-display text-center leading-none mb-12" style={{ fontSize: "clamp(2.5rem, 7vw, 4rem)" }}>
@@ -59,6 +59,8 @@ export default function TheInside() {
           ← Back to site
         </Link>
       </div>
-    </div>
+      </section>
+      <SiteFooter />
+    </main>
   );
 }

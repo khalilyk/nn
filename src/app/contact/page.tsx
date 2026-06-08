@@ -3,6 +3,8 @@
 import { useEffect, useRef, useState } from "react";
 import Cursor from "@/components/Cursor";
 import Grain from "@/components/Grain";
+import SiteNav from "@/components/SiteNav";
+import SiteFooter from "@/components/SiteFooter";
 
 const GREEN = "#C7F000";
 
@@ -60,15 +62,7 @@ export default function ContactPage() {
     <main className="relative bg-[#EFEDE6] text-[#0A0A0A] overflow-hidden">
       <Cursor />
       <Grain />
-
-      {/* header */}
-      <header className="relative z-30 flex items-center justify-between px-8 md:px-16 py-6">
-        <a href="/" aria-label="Not Normal, home" className="block">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/notnormal-logoblack.png" alt="Not Normal" className="h-3.5 md:h-4 w-auto" />
-        </a>
-        <a href="/" data-cursor="Back" className="text-[10px] tracking-[0.22em] uppercase text-[#0A0A0A]/70 hover:text-[#0A0A0A] transition-colors">← Home</a>
-      </header>
+      <SiteNav />
 
       {/* HERO */}
       <section className="relative h-[100vh] min-h-[680px] overflow-hidden">
@@ -144,9 +138,7 @@ export default function ContactPage() {
         </form>
       </section>
 
-      <footer className="px-8 md:px-16 py-8 border-t border-[#0A0A0A]/10 text-[9px] tracking-[0.2em] uppercase text-[#0A0A0A]/40 text-center">
-        Nobody Remembers Normal.™ · Sydney · Dubai · Beirut
-      </footer>
+      <SiteFooter />
     </main>
   );
 }
