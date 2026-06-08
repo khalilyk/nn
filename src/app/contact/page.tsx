@@ -64,15 +64,15 @@ function Bear() {
         }
       }
       if (best) {
-        let sx = 0, sy = 0, minx = W, maxx = 0, miny = H, maxy = 0;
+        let minx = W, maxx = 0, miny = H, maxy = 0;
         for (let i = 0; i < best.length; i += 2) {
           const a = best[i], b = best[i + 1];
-          sx += a; sy += b;
           if (a < minx) minx = a; if (a > maxx) maxx = a;
           if (b < miny) miny = b; if (b > maxy) maxy = b;
         }
-        const n = best.length / 2;
-        setBox({ cx: sx / n / W, cy: sy / n / H, w: (maxx - minx) / W, h: (maxy - miny) / H });
+        // use the bounding-box centre (geometric centre) so the iris rests
+        // dead-centre and travels evenly in every direction
+        setBox({ cx: (minx + maxx) / 2 / W, cy: (miny + maxy) / 2 / H, w: (maxx - minx) / W, h: (maxy - miny) / H });
       }
     };
   }, []);
@@ -154,7 +154,7 @@ export default function ContactPage() {
         </div>
 
         {/* two black panels (peek over the character) */}
-        <a href="#form" className="group relative z-20 -mt-[clamp(40px,7vw,90px)] block bg-[#0A0A0A] text-[#F3F1EC] px-10 md:px-16 py-14 md:py-20">
+        <div className="relative z-20 -mt-[clamp(40px,7vw,90px)] bg-[#0A0A0A] text-[#F3F1EC] px-10 md:px-16 py-14 md:py-20">
           <p className="text-[10px] tracking-[0.25em] uppercase text-[#F3F1EC]/60 mb-8 flex items-center gap-3">
             <span className="w-8 h-px bg-[#F3F1EC]/40" /> Contact Us
           </p>
@@ -164,8 +164,28 @@ export default function ContactPage() {
           <p className="text-[13px] md:text-[14px] text-[#B9B5AE] leading-relaxed max-w-xl">
             Leave your message and we&apos;ll get in touch. Whether you&apos;ve got a project, a half-baked idea, or want to join the family, we&apos;re listening.
           </p>
-          <span className="inline-flex items-center gap-2 mt-8 text-[10px] tracking-[0.22em] uppercase text-[#F3F1EC] group-hover:gap-3 transition-all">Start <span aria-hidden>→</span></span>
-        </a>
+
+          {/* contact details, the fun way */}
+          <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-8 max-w-3xl">
+            <div>
+              <p className="text-[9px] tracking-[0.3em] uppercase text-[#F3F1EC]/40 mb-3">Slide into our inbox</p>
+              <a href="mailto:hello@thisisnn.com" data-cursor="Say hi" className="group font-editorial italic inline-flex items-center gap-2 hover:opacity-70 transition-opacity" style={{ fontSize: "clamp(1.3rem, 2.4vw, 2rem)" }}>
+                hello@thisisnn.com
+                <span aria-hidden className="text-[#FF2EC4] group-hover:translate-x-1 transition-transform">↗</span>
+              </a>
+            </div>
+            <div>
+              <p className="text-[9px] tracking-[0.3em] uppercase text-[#FF2EC4] mb-3">[ Just don&apos;t leave a missed call ]</p>
+              <a href="tel:+610433714701" data-cursor="Ring ring" className="font-editorial italic inline-block hover:opacity-70 transition-opacity" style={{ fontSize: "clamp(1.3rem, 2.4vw, 2rem)" }}>
+                +61 0433 714 701
+              </a>
+            </div>
+          </div>
+
+          <a href="#form" className="group inline-flex items-center gap-2 mt-12 text-[10px] tracking-[0.22em] uppercase text-[#F3F1EC] hover:gap-3 transition-all">
+            Or fill the form <span aria-hidden>→</span>
+          </a>
+        </div>
       </section>
 
       {/* FORM */}
