@@ -21,7 +21,6 @@ import Greeting from "./Greeting";
 import ScrambleText from "./ScrambleText";
 import OverlapImages from "./OverlapImages";
 import MenuSplit from "./MenuSplit";
-import ScrollFrames from "./ScrollFrames";
 import PacMan from "./PacMan";
 import ClientLogos from "./ClientLogos";
 
@@ -432,14 +431,6 @@ export default function Publication() {
             <FeaturedCarousel />
           </ScrollDriftX>
           <SectionNo n="04" />
-        </div>
-      </Panel>
-
-      {/* ═══ 05 — SCROLLING FRAME SEQUENCE ═══ */}
-      <Panel index={5} bg="black" minH="90vh" pin={false}>
-        <div className="relative min-h-[90vh] overflow-hidden">
-          <ScrollFrames />
-          <SectionNo n="05" dark />
         </div>
       </Panel>
 
