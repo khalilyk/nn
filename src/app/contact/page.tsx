@@ -115,16 +115,30 @@ export default function ContactPage() {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [coffee, setCoffee] = useState("");
-  const [sent, setSent] = useState(false);
+  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
+  const sent = status === "sent";
 
   const coffees = ["Espresso", "Cappuccino", "Long black", "Decaf", "I don't drink"];
 
-  const submit = (e: React.FormEvent) => {
+  const submit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const subject = `New enquiry from ${name || "the website"}`;
-    const body = `${message}\n\nCoffee order: ${coffee || "—"}\n\n${name}\n${email}`;
-    window.location.href = `mailto:hello@thisisnn.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    setSent(true);
+    if (status === "sending") return;
+    setStatus("sending");
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, message, coffee }),
+      });
+      if (!res.ok) throw new Error("send failed");
+      setStatus("sent");
+      setName("");
+      setEmail("");
+      setMessage("");
+      setCoffee("");
+    } catch {
+      setStatus("error");
+    }
   };
 
   const field =
@@ -235,13 +249,19 @@ export default function ContactPage() {
           <button
             type="submit"
             data-cursor="Send"
-            className="group relative w-full overflow-hidden rounded-full border border-[#0A0A0A] py-4 mt-2"
+            disabled={status === "sending" || sent}
+            className="group relative w-full overflow-hidden rounded-full border border-[#0A0A0A] py-4 mt-2 disabled:opacity-60"
           >
             <span className="absolute inset-0 bg-[#0A0A0A] -translate-x-full group-hover:translate-x-0 transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)]" />
             <span className="relative z-10 text-[11px] tracking-[0.2em] uppercase font-bold text-[#0A0A0A] group-hover:text-[#EFEDE6] transition-colors duration-500">
-              {sent ? "Opening your mail…" : "Send it"}
+              {status === "sending" ? "Sending…" : sent ? "Got it, talk soon ✦" : "Send it"}
             </span>
           </button>
+          {status === "error" && (
+            <p className="text-[11px] tracking-[0.05em] text-[#FF2EC4] text-center">
+              Something went wrong. Email us directly at hello@thisisnn.com.
+            </p>
+          )}
         </form>
       </section>
 
