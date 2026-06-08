@@ -76,11 +76,11 @@ export default function ContactPage() {
             <div>
               <p className="text-[9px] tracking-[0.25em] uppercase text-[#B9B5AE]/60 mb-4">[ Just don&apos;t leave a missed call ]</p>
               <a href="mailto:hello@thisisnn.com" className="block font-editorial hover:opacity-60 transition-opacity" style={{ fontSize: "clamp(1.3rem, 2.4vw, 2rem)" }}>hello@thisisnn.com</a>
-              <a href="tel:+61433714701" className="block text-[#B9B5AE] mt-2 hover:text-[#F3F1EC] transition-colors">+61 433 714 701</a>
+              <a href="tel:+61433714701" className="block font-editorial text-[#B9B5AE] mt-2 hover:text-[#F3F1EC] transition-colors" style={{ fontSize: "clamp(1.3rem, 2.4vw, 2rem)" }}>+61 433 714 701</a>
             </div>
 
             <div>
-              <p className="text-[9px] tracking-[0.25em] uppercase text-[#B9B5AE]/60 mb-4">Social</p>
+              <p className="text-[9px] tracking-[0.25em] uppercase text-[#B9B5AE]/60 mb-4">[ Follow us ]</p>
               <div className="flex flex-col gap-2">
                 <a href="https://instagram.com" target="_blank" rel="noreferrer" className="hover:opacity-60 transition-opacity">Instagram</a>
                 <a href="https://linkedin.com" target="_blank" rel="noreferrer" className="hover:opacity-60 transition-opacity">LinkedIn</a>
