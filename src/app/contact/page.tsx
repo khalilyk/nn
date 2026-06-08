@@ -203,7 +203,7 @@ export default function ContactPage() {
             </div>
             <div>
               <label className="block text-[9px] tracking-[0.25em] uppercase text-[#0A0A0A]/50 mb-2">Email</label>
-              <input className={field} type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="you@venue.com" required />
+              <input className={field} type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="you@you.com" required />
             </div>
           </div>
           <div>
