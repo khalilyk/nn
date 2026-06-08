@@ -7,21 +7,28 @@ import SiteFooter from "@/components/SiteFooter";
 export const metadata = {
   title: "About · Not Normal",
   description:
-    "Not Normal is a hospitality branding studio building bold brands for the edible and drinkable. Sydney · Dubai · Beirut.",
+    "Not Normal is a hospitality branding studio that builds brands with staying power. Founded by Khalil Khouri. Sydney · Dubai · Beirut.",
 };
 
 const VALUES = [
-  { n: "01", t: "Bold over safe", d: "Beige doesn't get remembered. We make the choice that makes people look twice." },
-  { n: "02", t: "Taste, then tactics", d: "Strategy matters, but it's nothing without craft. We sweat both." },
-  { n: "03", t: "Hospitality first", d: "We come from the floor, the pass, the bar. We build brands that know how to host." },
-  { n: "04", t: "Make it, don't just say it", d: "Branding, storytelling, and stuff you can actually hold. Ideas that ship." },
+  { n: "01", t: "Bold thinking", d: "The world doesn't need more of the same. We make the choice that makes people look twice." },
+  { n: "02", t: "Strategic clarity", d: "Taste with a reason behind it. Every decision earns its place." },
+  { n: "03", t: "Experiences people remember", d: "We build brands with staying power, not brands that chase the trend." },
+  { n: "04", t: "Rooted in hospitality", d: "We understand what makes a concept resonate and what builds genuine guest loyalty." },
 ];
 
-const STUDIOS = [
-  { city: "Sydney", note: "Where it started, harbour-side and caffeinated." },
-  { city: "Dubai", note: "Where it scales, fast, golden, never quiet." },
-  { city: "Beirut", note: "Where it gets soul, late nights and louder flavours." },
+const SERVICES = [
+  "Brand foundations",
+  "Identity systems",
+  "Menu development",
+  "Campaign direction",
+  "Packaging",
+  "Content creation",
+  "Digital strategy",
+  "On-ground activations",
 ];
+
+const STUDIOS = ["Sydney", "Dubai", "Beirut"];
 
 export default function AboutPage() {
   return (
@@ -39,12 +46,12 @@ export default function AboutPage() {
         </div>
         <div className="relative z-10 max-w-5xl mx-auto text-center">
           <p className="text-[10px] tracking-[0.3em] uppercase text-[#0A0A0A]/45 mb-6">Who we are</p>
-          <h1 className="font-display uppercase leading-[0.92] tracking-tight" style={{ fontSize: "clamp(2.4rem, 8vw, 6rem)" }}>
-            We make brands<br />nobody forgets.
+          <h1 className="font-display uppercase leading-[0.92] tracking-tight" style={{ fontSize: "clamp(2.2rem, 7.5vw, 5.6rem)" }}>
+            We&apos;re about indulging<br />in the extraordinary.
           </h1>
           <p className="font-editorial mt-8 mx-auto max-w-2xl leading-[1.5] text-[#0A0A0A]/70" style={{ fontSize: "clamp(1.05rem, 1.9vw, 1.5rem)" }}>
-            Not Normal is a hospitality branding studio building bold brands for the edible and drinkable, from
-            branding and storytelling to stuff you can hold.
+            Not Normal is a hospitality branding studio building bold brands for the edible and drinkable, for the
+            dreamers who&apos;ve poured their lives into building something special.
           </p>
         </div>
       </section>
@@ -54,8 +61,8 @@ export default function AboutPage() {
         <div className="max-w-4xl mx-auto">
           <p className="text-[10px] tracking-[0.3em] uppercase text-[#F3F1EC]/40 mb-8">The short version</p>
           <p className="font-editorial leading-[1.25]" style={{ fontSize: "clamp(1.6rem, 3.4vw, 2.8rem)" }}>
-            Normal is forgettable. We&apos;re here for the venues, the makers and the menus that refuse to blend in,
-            and we give them a look, a voice and a feeling that sticks long after the last bite.
+            The world doesn&apos;t need more of the same. We&apos;re not an agency that follows trends, we&apos;re a
+            studio that builds brands with staying power, rooted in genuine hospitality.
           </p>
         </div>
       </section>
@@ -78,20 +85,55 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* STUDIOS */}
+      {/* WHAT WE DO */}
       <section className="bg-[#F3F1EC] px-8 md:px-16 py-24 md:py-32">
         <div className="max-w-6xl mx-auto">
-          <p className="text-[10px] tracking-[0.3em] uppercase text-[#0A0A0A]/45 mb-3">Find us</p>
+          <p className="text-[10px] tracking-[0.3em] uppercase text-[#0A0A0A]/45 mb-3">What we do</p>
+          <h2 className="font-display uppercase tracking-tight mb-12" style={{ fontSize: "clamp(1.6rem, 4vw, 3rem)" }}>
+            Everything a concept<br />needs to be unforgettable.
+          </h2>
+          <ul className="flex flex-wrap gap-3">
+            {SERVICES.map((s) => (
+              <li key={s} className="rounded-full border border-[#0A0A0A]/25 px-5 py-2.5 text-[12px] md:text-[13px] tracking-[0.04em]">
+                {s}
+              </li>
+            ))}
+          </ul>
+          <p className="mt-10 max-w-xl text-[13px] md:text-[14px] leading-relaxed text-[#0A0A0A]/60">
+            For restaurants, cafés and lifestyle venues that recognise personal interactions and brand consistency
+            are what guests actually remember.
+          </p>
+        </div>
+      </section>
+
+      {/* FOUNDER */}
+      <section className="px-8 md:px-16 py-24 md:py-32">
+        <div className="max-w-4xl mx-auto">
+          <p className="text-[10px] tracking-[0.3em] uppercase text-[#0A0A0A]/45 mb-6">The founder</p>
+          <p className="font-editorial leading-[1.3]" style={{ fontSize: "clamp(1.4rem, 3vw, 2.4rem)" }}>
+            Founded by <span className="italic">Khalil Khouri</span>, former Head of Marketing for acclaimed Dubai
+            restaurants <span className="text-[#FF2EC4]">3Fils</span>, <span className="text-[#FF2EC4]">BRIX</span> and{" "}
+            <span className="text-[#FF2EC4]">Bordo Mavi</span>.
+          </p>
+          <p className="mt-8 max-w-2xl text-[13px] md:text-[14px] leading-relaxed text-[#0A0A0A]/60">
+            Everything we make is rooted in hospitality. We&apos;ve lived the floor, the pass and the bar, so we
+            understand what makes a concept resonate and what builds genuine guest loyalty.
+          </p>
+        </div>
+      </section>
+
+      {/* STUDIOS */}
+      <section className="bg-[#0A0A0A] text-[#F3F1EC] px-8 md:px-16 py-24 md:py-32" data-cursor-color="#F3F1EC">
+        <div className="max-w-6xl mx-auto">
+          <p className="text-[10px] tracking-[0.3em] uppercase text-[#F3F1EC]/40 mb-3">Find us</p>
           <h2 className="font-display uppercase tracking-tight mb-14" style={{ fontSize: "clamp(1.6rem, 4vw, 3rem)" }}>
             Three cities,<br />one obsession.
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-12">
-            {STUDIOS.map((s) => (
-              <div key={s.city}>
-                <h3 className="font-display uppercase leading-none" style={{ fontSize: "clamp(2rem, 5vw, 3.4rem)" }}>{s.city}</h3>
-                <span className="block w-10 h-px bg-[#0A0A0A]/30 my-5" />
-                <p className="font-editorial italic text-[#0A0A0A]/65 leading-relaxed" style={{ fontSize: "clamp(1rem, 1.6vw, 1.2rem)" }}>{s.note}</p>
-              </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+            {STUDIOS.map((city) => (
+              <h3 key={city} className="font-display uppercase leading-none border-t border-[#F3F1EC]/20 pt-6" style={{ fontSize: "clamp(2rem, 5vw, 3.4rem)" }}>
+                {city}
+              </h3>
             ))}
           </div>
         </div>
