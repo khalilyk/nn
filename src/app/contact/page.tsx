@@ -73,7 +73,7 @@ function Bear() {
         // bbox centre, nudged slightly left, the detected box skews right
         // from edge highlights so the iris would otherwise rest off-centre
         const w = (maxx - minx) / W;
-        setBox({ cx: (minx + maxx) / 2 / W + w * 0.2, cy: (miny + maxy) / 2 / H, w, h: (maxy - miny) / H });
+        setBox({ cx: (minx + maxx) / 2 / W + w * 0.12, cy: (miny + maxy) / 2 / H, w, h: (maxy - miny) / H });
       }
     };
   }, []);
@@ -86,8 +86,7 @@ function Bear() {
       const cx = r.left + r.width / 2, cy = r.top + r.height / 2;
       const ang = Math.atan2(e.clientY - cy, e.clientX - cx);
       const dx = Math.cos(ang), dy = Math.sin(ang);
-      // allow the pupil to reach further toward the right edge of the eye
-      const maxX = r.width * (dx > 0 ? 0.45 : 0.28);
+      const maxX = r.width * 0.28;
       const maxY = r.height * 0.2;
       p.style.transform = `translate(${dx * maxX}px, ${dy * maxY}px)`;
     };
