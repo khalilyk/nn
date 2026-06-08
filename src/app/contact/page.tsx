@@ -83,28 +83,18 @@ export default function ContactPage() {
         </div>
 
         {/* two black panels (peek over the character) */}
-        <div className="relative z-20 -mt-[clamp(40px,7vw,90px)] grid grid-cols-1 md:grid-cols-2 bg-[#0A0A0A] text-[#F3F1EC]">
-          <a href="#form" className="group p-10 md:p-16 md:border-r border-[#F3F1EC]/12">
-            <p className="text-[10px] tracking-[0.25em] uppercase text-[#F3F1EC]/60 mb-8 flex items-center gap-3">
-              <span className="w-8 h-px bg-[#F3F1EC]/40" /> Contact Us
-            </p>
-            <h2 className="font-display uppercase leading-[0.95] tracking-tight mb-5" style={{ fontSize: "clamp(1.8rem, 3vw, 2.6rem)" }}>
-              Do you have<br />something to tell us?
-            </h2>
-            <p className="text-[13px] text-[#B9B5AE] leading-relaxed max-w-sm">Leave your message and we will get in touch with you soon.</p>
-            <span className="inline-flex items-center gap-2 mt-8 text-[10px] tracking-[0.22em] uppercase text-[#F3F1EC] group-hover:gap-3 transition-all">Start <span aria-hidden>→</span></span>
-          </a>
-          <a href="#form" className="group p-10 md:p-16 border-t md:border-t-0 border-[#F3F1EC]/12">
-            <p className="text-[10px] tracking-[0.25em] uppercase text-[#F3F1EC]/60 mb-8 flex items-center gap-3">
-              <span className="w-8 h-px bg-[#F3F1EC]/40" /> Join Our Family
-            </p>
-            <h2 className="font-display uppercase leading-[0.95] tracking-tight mb-5" style={{ fontSize: "clamp(1.8rem, 3vw, 2.6rem)" }}>
-              Work<br />with us
-            </h2>
-            <p className="text-[13px] text-[#B9B5AE] leading-relaxed max-w-sm">We&apos;re looking for passionate, creative people who love what they do. If that&apos;s you, fill out the form and we&apos;ll be in touch.</p>
-            <span className="inline-flex items-center gap-2 mt-8 text-[10px] tracking-[0.22em] uppercase text-[#F3F1EC] group-hover:gap-3 transition-all">Apply <span aria-hidden>→</span></span>
-          </a>
-        </div>
+        <a href="#form" className="group relative z-20 -mt-[clamp(40px,7vw,90px)] block bg-[#0A0A0A] text-[#F3F1EC] px-10 md:px-16 py-14 md:py-20">
+          <p className="text-[10px] tracking-[0.25em] uppercase text-[#F3F1EC]/60 mb-8 flex items-center gap-3">
+            <span className="w-8 h-px bg-[#F3F1EC]/40" /> Contact Us
+          </p>
+          <h2 className="font-display uppercase leading-[0.95] tracking-tight mb-5 max-w-3xl" style={{ fontSize: "clamp(1.9rem, 3.4vw, 3rem)" }}>
+            Do you have<br />something to tell us?
+          </h2>
+          <p className="text-[13px] md:text-[14px] text-[#B9B5AE] leading-relaxed max-w-xl">
+            Leave your message and we&apos;ll get in touch. Whether you&apos;ve got a project, a half-baked idea, or want to join the family, we&apos;re listening.
+          </p>
+          <span className="inline-flex items-center gap-2 mt-8 text-[10px] tracking-[0.22em] uppercase text-[#F3F1EC] group-hover:gap-3 transition-all">Start <span aria-hidden>→</span></span>
+        </a>
       </section>
 
       {/* FORM */}
