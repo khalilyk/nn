@@ -70,9 +70,10 @@ function Bear() {
           if (a < minx) minx = a; if (a > maxx) maxx = a;
           if (b < miny) miny = b; if (b > maxy) maxy = b;
         }
-        // use the bounding-box centre (geometric centre) so the iris rests
-        // dead-centre and travels evenly in every direction
-        setBox({ cx: (minx + maxx) / 2 / W, cy: (miny + maxy) / 2 / H, w: (maxx - minx) / W, h: (maxy - miny) / H });
+        // bbox centre, nudged slightly left, the detected box skews right
+        // from edge highlights so the iris would otherwise rest off-centre
+        const w = (maxx - minx) / W;
+        setBox({ cx: (minx + maxx) / 2 / W - w * 0.18, cy: (miny + maxy) / 2 / H, w, h: (maxy - miny) / H });
       }
     };
   }, []);
