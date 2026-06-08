@@ -21,6 +21,7 @@ import Greeting from "./Greeting";
 import ScrambleText from "./ScrambleText";
 import OverlapImages from "./OverlapImages";
 import MenuSplit from "./MenuSplit";
+import Postcard from "./Postcard";
 import PacMan from "./PacMan";
 import ClientLogos from "./ClientLogos";
 
@@ -431,6 +432,14 @@ export default function Publication() {
             <FeaturedCarousel />
           </ScrollDriftX>
           <SectionNo n="04" />
+        </div>
+      </Panel>
+
+      {/* ═══ 05 — POSTCARD ═══ */}
+      <Panel index={5} bg="black" minH="auto" pin={false} slideFrom="up">
+        <div className="relative px-8 md:px-16 py-28 md:py-36">
+          <Postcard />
+          <SectionNo n="05" dark />
         </div>
       </Panel>
 
