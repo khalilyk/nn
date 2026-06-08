@@ -173,7 +173,7 @@ export default function ContactPage() {
               <p className="text-[9px] tracking-[0.3em] uppercase text-[#F3F1EC]/40 mb-3">Slide into our inbox</p>
               <a href="mailto:hello@thisisnn.com" data-cursor="Say hi" className="group font-editorial inline-flex items-center gap-2 hover:opacity-70 transition-opacity" style={{ fontSize: "clamp(1.3rem, 2.4vw, 2rem)" }}>
                 hello@thisisnn.com
-                <span aria-hidden className="text-[#FF2EC4] group-hover:translate-x-1 transition-transform">↗</span>
+                <span aria-hidden className="text-[#FF2EC4] group-hover:-translate-x-1 transition-transform">↖</span>
               </a>
             </div>
             <div className="text-center md:text-right">
@@ -199,7 +199,7 @@ export default function ContactPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div>
               <label className="block text-[9px] tracking-[0.25em] uppercase text-[#0A0A0A]/50 mb-2">Your name</label>
-              <input className={field} value={name} onChange={(e) => setName(e.target.value)} placeholder="Jane Appleseed" required />
+              <input className={field} value={name} onChange={(e) => setName(e.target.value)} placeholder="Tony Stark" required />
             </div>
             <div>
               <label className="block text-[9px] tracking-[0.25em] uppercase text-[#0A0A0A]/50 mb-2">Email</label>

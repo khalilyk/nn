@@ -43,7 +43,7 @@ img { user-select: none; -webkit-user-drag: none; }
   60%      { transform: translate(-3px, 4px) rotate(-7deg); }
   80%      { transform: translate(3px, 2px) rotate(7deg); }
 }
-.animate-squiggle { animation: squiggle 1.4s ease-in-out infinite; }
+.animate-squiggle { animation: squiggle 2.6s ease-in-out infinite; }
 
 /* Sticker pill wobble (anchored to each pill's base rotation via --r) */
 @keyframes pill-wobble {
