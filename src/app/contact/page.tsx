@@ -73,7 +73,7 @@ function Bear() {
         // bbox centre, nudged slightly left, the detected box skews right
         // from edge highlights so the iris would otherwise rest off-centre
         const w = (maxx - minx) / W;
-        setBox({ cx: (minx + maxx) / 2 / W - w * 0.28, cy: (miny + maxy) / 2 / H, w, h: (maxy - miny) / H });
+        setBox({ cx: (minx + maxx) / 2 / W - w * 0.06, cy: (miny + maxy) / 2 / H, w, h: (maxy - miny) / H });
       }
     };
   }, []);
@@ -86,8 +86,7 @@ function Bear() {
       const cx = r.left + r.width / 2, cy = r.top + r.height / 2;
       const ang = Math.atan2(e.clientY - cy, e.clientX - cx);
       const dx = Math.cos(ang), dy = Math.sin(ang);
-      // less room to the right (pupil rests left of the eye centre), more to the left
-      const maxX = r.width * (dx > 0 ? 0.18 : 0.34);
+      const maxX = r.width * 0.28;
       const maxY = r.height * 0.2;
       p.style.transform = `translate(${dx * maxX}px, ${dy * maxY}px)`;
     };
@@ -103,7 +102,7 @@ function Bear() {
       <div
         ref={eye}
         className="absolute"
-        style={{ left: `${box.cx * 100}%`, top: `${box.cy * 100}%`, width: `${box.w * 100}%`, height: `${box.h * 100}%`, transform: "translate(calc(-50% - 3px), -50%)" }}
+        style={{ left: `${box.cx * 100}%`, top: `${box.cy * 100}%`, width: `${box.w * 100}%`, height: `${box.h * 100}%`, transform: "translate(-50%, -50%)" }}
       >
         <div ref={pupil} className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#0A0A0A]" style={{ height: "58%", aspectRatio: "1", transition: "transform 0.08s linear" }} />
       </div>
