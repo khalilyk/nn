@@ -6,9 +6,7 @@ import Grain from "@/components/Grain";
 import SiteNav from "@/components/SiteNav";
 import SiteFooter from "@/components/SiteFooter";
 
-const BODY = "#2a2a2a";
-
-/* One-eyed bear (BE@RBRICK-style), single eye follows the cursor. */
+/* BE@RBRICK figure (image) with a single eye that follows the cursor. */
 function Bear() {
   const eye = useRef<HTMLDivElement>(null);
   const pupil = useRef<HTMLDivElement>(null);
@@ -19,36 +17,20 @@ function Bear() {
       const r = el.getBoundingClientRect();
       const cx = r.left + r.width / 2, cy = r.top + r.height / 2;
       const ang = Math.atan2(e.clientY - cy, e.clientX - cx);
-      const max = r.width * 0.2;
+      const max = r.width * 0.18;
       p.style.transform = `translate(${Math.cos(ang) * max}px, ${Math.sin(ang) * max}px)`;
     };
     window.addEventListener("mousemove", move);
     return () => window.removeEventListener("mousemove", move);
   }, []);
 
-  const piece = "absolute rounded-full";
   return (
-    <div className="relative" style={{ width: "clamp(220px, 30vw, 360px)", aspectRatio: "1 / 1.5" }}>
-      {/* ears */}
-      <div className={piece} style={{ left: "6%", top: "2%", width: "30%", height: "20%", background: BODY }} />
-      <div className={piece} style={{ left: "64%", top: "2%", width: "30%", height: "20%", background: BODY }} />
-      {/* head */}
-      <div className="absolute" style={{ left: "13%", top: "5%", width: "74%", height: "42%", background: BODY, borderRadius: "44% 44% 46% 46% / 48% 48% 52% 52%" }} />
-      {/* snout */}
-      <div className={piece} style={{ left: "45%", top: "33%", width: "10%", height: "7%", background: "#1e1e1e" }} />
-      {/* neck */}
-      <div className="absolute" style={{ left: "38%", top: "44%", width: "24%", height: "8%", background: BODY, borderRadius: "12px" }} />
-      {/* body */}
-      <div className="absolute" style={{ left: "22%", top: "49%", width: "56%", height: "33%", background: BODY, borderRadius: "26px" }} />
-      {/* arms */}
-      <div className="absolute" style={{ left: "9%", top: "50%", width: "16%", height: "30%", background: BODY, borderRadius: "999px", transform: "rotate(8deg)" }} />
-      <div className="absolute" style={{ left: "75%", top: "50%", width: "16%", height: "30%", background: BODY, borderRadius: "999px", transform: "rotate(-8deg)" }} />
-      {/* legs */}
-      <div className="absolute" style={{ left: "26%", top: "80%", width: "22%", height: "20%", background: BODY, borderRadius: "16px 16px 8px 8px" }} />
-      <div className="absolute" style={{ left: "52%", top: "80%", width: "22%", height: "20%", background: BODY, borderRadius: "16px 16px 8px 8px" }} />
-      {/* the one eye */}
-      <div ref={eye} className="absolute bg-white rounded-full shadow-inner" style={{ left: "37%", top: "15%", width: "26%", aspectRatio: "1 / 1" }}>
-        <div ref={pupil} className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#0A0A0A]" style={{ width: "52%", height: "52%", transition: "transform 0.08s linear" }} />
+    <div className="relative" style={{ width: "clamp(240px, 32vw, 400px)", aspectRatio: "1023 / 1537" }}>
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src="/bb-nn.png" alt="" draggable={false} className="absolute inset-0 w-full h-full object-contain" />
+      {/* fresh white eye covering the figure's eye + moving pupil */}
+      <div ref={eye} className="absolute bg-white rounded-full" style={{ left: "39.5%", top: "20.5%", width: "16%", aspectRatio: "1 / 1", boxShadow: "inset 0 -3px 6px rgba(0,0,0,0.1)" }}>
+        <div ref={pupil} className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#0A0A0A]" style={{ width: "54%", height: "54%", transition: "transform 0.08s linear" }} />
       </div>
     </div>
   );
