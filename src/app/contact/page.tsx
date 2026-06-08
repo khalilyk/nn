@@ -6,18 +6,6 @@ import Grain from "@/components/Grain";
 import SiteNav from "@/components/SiteNav";
 import SiteFooter from "@/components/SiteFooter";
 
-const GREEN = "#C7F000";
-
-const pills = [
-  { t: "Say hi", x: "8%", y: "12%", r: 6 },
-  { t: "Let's chat", x: "58%", y: "9%", r: -7 },
-  { t: "G'day", x: "40%", y: "23%", r: 5 },
-  { t: "Pitch us", x: "66%", y: "30%", r: -10 },
-  { t: "Bold moves only", x: "6%", y: "40%", r: -4 },
-  { t: "Reach out", x: "56%", y: "46%", r: 7 },
-  { t: "No brief too weird", x: "8%", y: "72%", r: 8 },
-];
-
 export default function ContactPage() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -43,26 +31,6 @@ export default function ContactPage() {
 
       {/* HERO */}
       <section className="relative h-[100vh] min-h-[680px] overflow-hidden">
-        {/* scattered pills */}
-        {pills.map((p) => (
-          <span
-            key={p.t}
-            className="absolute z-20 font-sans font-bold uppercase text-[#0A0A0A] border-2 border-[#0A0A0A] rounded-2xl px-4 py-2 text-[11px] md:text-[13px] tracking-[0.04em] whitespace-nowrap shadow-[0_6px_16px_-6px_rgba(0,0,0,0.4)] hover:animate-[pill-wobble_1.6s_ease-in-out_infinite]"
-            style={{ left: p.x, top: p.y, transform: `rotate(${p.r}deg)`, background: GREEN, ["--r" as string]: `${p.r}deg` } as React.CSSProperties}
-          >
-            {p.t}
-            {/* speech-bubble tail, black border behind + green fill on top */}
-            <span
-              className="absolute top-full left-5 w-0 h-0"
-              style={{ borderLeft: "9px solid transparent", borderRight: "9px solid transparent", borderTop: "13px solid #0A0A0A" }}
-            />
-            <span
-              className="absolute left-[23px] w-0 h-0"
-              style={{ top: "calc(100% - 3px)", borderLeft: "6px solid transparent", borderRight: "6px solid transparent", borderTop: `9px solid ${GREEN}` }}
-            />
-          </span>
-        ))}
-
         {/* headline */}
         <h1 className="relative z-10 text-center font-editorial leading-[0.92] pt-28 md:pt-36 px-6" style={{ fontSize: "clamp(2.6rem, 9vw, 7.5rem)" }}>
           Ready to create<br />something unforgettable?
