@@ -30,7 +30,7 @@ function Bear() {
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img src="/bb-nn.png" alt="" draggable={false} className="absolute inset-0 w-full h-full object-contain" />
       {/* moving iris on the figure's own eye (no white circle) */}
-      <div ref={eye} className="absolute" style={{ left: "calc(40% + 6px)", top: "24%", width: "15.5%", aspectRatio: "0.88" }}>
+      <div ref={eye} className="absolute" style={{ left: "calc(40% + 10px)", top: "24%", width: "15.5%", aspectRatio: "0.88" }}>
         <div ref={pupil} className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#0A0A0A]" style={{ width: "34%", height: "34%", transition: "transform 0.08s linear" }} />
       </div>
     </div>
