@@ -76,7 +76,7 @@ export default function ContactPage() {
             <div>
               <p className="text-[9px] tracking-[0.25em] uppercase text-[#B9B5AE]/60 mb-4">Direct</p>
               <a href="mailto:hello@thisisnn.com" className="block font-editorial hover:opacity-60 transition-opacity" style={{ fontSize: "clamp(1.3rem, 2.4vw, 2rem)" }}>hello@thisisnn.com</a>
-              <a href="tel:+971501234567" className="block text-[#B9B5AE] mt-2 hover:text-[#F3F1EC] transition-colors">+971 50 123 4567</a>
+              <a href="tel:+61433714701" className="block text-[#B9B5AE] mt-2 hover:text-[#F3F1EC] transition-colors">+61 433 714 701</a>
             </div>
 
             <div>

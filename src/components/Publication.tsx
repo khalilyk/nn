@@ -523,7 +523,7 @@ Meet <span className="italic">NORM</span>, our marketing exec.<br />
             <Reveal delay={0.06}>
               <div className="space-y-1.5 text-center">
                 <a href="mailto:hello@thisisnn.com" className="block text-[11px] tracking-[0.1em] uppercase hover:opacity-60 transition-opacity">hello@thisisnn.com</a>
-                <a href="tel:+971501234567" className="block text-[11px] tracking-[0.1em] hover:opacity-60 transition-opacity">+971 50 123 4567</a>
+                <a href="tel:+61433714701" className="block text-[11px] tracking-[0.1em] hover:opacity-60 transition-opacity">+61 433 714 701</a>
                 <div className="pt-4 flex items-center justify-center gap-6">
                   <a href="#" className="block text-[11px] tracking-[0.1em] uppercase hover:opacity-60 transition-opacity">Instagram</a>
                   <a href="#" className="block text-[11px] tracking-[0.1em] uppercase hover:opacity-60 transition-opacity">LinkedIn</a>
