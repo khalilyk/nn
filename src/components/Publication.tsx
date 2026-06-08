@@ -210,7 +210,7 @@ export default function Publication() {
             { l: "The Menu", href: "#s02", tip: "What we do", shape: "rounded-none" },
             { l: "Projects", href: "#s04", tip: "Selected proof", shape: "rounded-tl-xl rounded-br-xl" },
             { l: "Journal", href: "#s08", tip: "Thinking & insights", shape: "rounded-lg" },
-            { l: "Contact", href: "#footer", tip: "Let's chat", shape: "rounded-tr-xl rounded-bl-xl" },
+            { l: "Contact", href: "/contact", tip: "Let's chat", shape: "rounded-tr-xl rounded-bl-xl" },
           ].map(({ l, href, tip, shape }) => (
             <a key={l} href={href} className="group relative text-[10px] tracking-[0.22em] uppercase">
               <span className="transition-opacity group-hover:opacity-60">{l}</span>
@@ -269,7 +269,7 @@ export default function Publication() {
             { l: "The Menu", href: "#s02" },
             { l: "Projects", href: "#s04" },
             { l: "Journal", href: "#s08" },
-            { l: "Contact", href: "#footer" },
+            { l: "Contact", href: "/contact" },
           ].map(({ l, href }, i) => (
             <a
               key={l}
