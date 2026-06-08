@@ -6,6 +6,7 @@ export default function Cursor() {
   const dot = useRef<HTMLDivElement>(null);
   const [label, setLabel] = useState("");
   const [hovering, setHovering] = useState(false);
+  const [color, setColor] = useState("#81D742");
 
   useEffect(() => {
     if (window.matchMedia("(pointer: coarse)").matches) return;
@@ -27,6 +28,9 @@ export default function Cursor() {
         setHovering(false);
         setLabel("");
       }
+      // optional per-section cursor colour
+      const colorEl = (e.target as HTMLElement)?.closest<HTMLElement>("[data-cursor-color]");
+      setColor(colorEl?.dataset.cursorColor || "#81D742");
     };
 
     const loop = () => {
@@ -48,7 +52,7 @@ export default function Cursor() {
       ref={dot}
       className="fixed top-0 left-0 z-[200] pointer-events-none hidden md:flex items-center justify-center rounded-full"
       style={{
-        background: "#81D742",
+        background: color,
         width: hovering ? 64 : 10,
         height: hovering ? 64 : 10,
         transition: "width 0.35s cubic-bezier(0.16,1,0.3,1), height 0.35s cubic-bezier(0.16,1,0.3,1)",
