@@ -33,22 +33,12 @@ export default function Postcard() {
     return (
       <div className="w-full flex flex-col items-center">
         {!expanded ? (
-          <div
-            className="relative w-full flex items-center justify-center"
-            style={{ height: "clamp(240px, 40vh, 360px)" }}
-            onClick={() => setExpanded(true)}
-            data-cursor="Flip"
-          >
-            {[2, 1, 0].map((i) => (
+          <div className="w-full flex flex-col gap-5" onClick={() => setExpanded(true)} data-cursor="Flip">
+            {[0, 1, 2].map((i) => (
               <div
                 key={i}
-                className="absolute left-1/2 top-1/2 w-[86%] rounded-[3px] overflow-hidden bg-[#0A0A0A]"
-                style={{
-                  aspectRatio: "1599 / 1127",
-                  transform: `translate(-50%, -50%) rotate(${i === 0 ? 0 : i === 1 ? 5 : -6}deg) translateY(${i * 6}px)`,
-                  zIndex: 3 - i,
-                  boxShadow: CARD_SHADOW,
-                }}
+                className="relative w-full rounded-[3px] overflow-hidden bg-[#0A0A0A]"
+                style={{ aspectRatio: "1599 / 1127", boxShadow: CARD_SHADOW }}
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src="/postcard-art.png" alt="" draggable={false} className="absolute inset-0 w-full h-full object-cover pointer-events-none" />
