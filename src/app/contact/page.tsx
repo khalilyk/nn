@@ -28,15 +28,15 @@ function Eye() {
       const cx = r.left + r.width / 2;
       const cy = r.top + r.height / 2;
       const ang = Math.atan2(e.clientY - cy, e.clientX - cx);
-      const max = r.width * 0.22;
-      p.style.transform = `translate(${Math.cos(ang) * max}px, ${Math.sin(ang) * max * 1.3}px)`;
+      const max = r.width * 0.26;
+      p.style.transform = `translate(${Math.cos(ang) * max}px, ${Math.sin(ang) * max}px)`;
     };
     window.addEventListener("mousemove", move);
     return () => window.removeEventListener("mousemove", move);
   }, []);
   return (
-    <div ref={eye} className="relative bg-white rounded-[50%]" style={{ width: "clamp(90px, 13vw, 170px)", height: "clamp(150px, 22vw, 290px)" }}>
-      <div ref={pupil} className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#0A0A0A]" style={{ width: "38%", height: "23%", transition: "transform 0.08s linear" }} />
+    <div ref={eye} className="relative bg-white rounded-full" style={{ width: "clamp(110px, 15vw, 210px)", height: "clamp(110px, 15vw, 210px)" }}>
+      <div ref={pupil} className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#0A0A0A]" style={{ width: "38%", height: "38%", transition: "transform 0.08s linear" }} />
     </div>
   );
 }
