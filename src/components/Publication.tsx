@@ -188,7 +188,7 @@ export default function Publication() {
       <ScrollProgress total={9} />
       {/* ─── NAV ─── */}
       <nav className="fixed top-0 left-0 right-0 z-[100] flex items-center justify-between px-8 md:px-16 py-6 md:py-8 mix-blend-difference text-[#F3F1EC]">
-        <a href="#top" aria-label="Not Normal — home" className="relative flex items-center h-7">
+        <a href="/" aria-label="Not Normal — home" className="relative flex items-center h-7">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/notnormal-logoblack.png"
