@@ -86,7 +86,8 @@ function Bear() {
       const cx = r.left + r.width / 2, cy = r.top + r.height / 2;
       const ang = Math.atan2(e.clientY - cy, e.clientX - cx);
       const dx = Math.cos(ang), dy = Math.sin(ang);
-      const maxX = r.width * 0.28;
+      // allow the pupil to reach further toward the right edge of the eye
+      const maxX = r.width * (dx > 0 ? 0.45 : 0.28);
       const maxY = r.height * 0.2;
       p.style.transform = `translate(${dx * maxX}px, ${dy * maxY}px)`;
     };
