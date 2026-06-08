@@ -29,8 +29,8 @@ function Bear() {
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img src="/bb-nn.png" alt="" draggable={false} className="absolute inset-0 w-full h-full object-contain" />
       {/* fresh white eye covering the figure's eye + moving pupil */}
-      <div ref={eye} className="absolute bg-white rounded-full" style={{ left: "39.5%", top: "20.5%", width: "16%", aspectRatio: "1 / 1", boxShadow: "inset 0 -3px 6px rgba(0,0,0,0.1)" }}>
-        <div ref={pupil} className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#0A0A0A]" style={{ width: "54%", height: "54%", transition: "transform 0.08s linear" }} />
+      <div ref={eye} className="absolute bg-white" style={{ left: "40%", top: "19%", width: "15.5%", aspectRatio: "0.88", borderRadius: "50%", transform: "rotate(8deg)", boxShadow: "inset 0 -3px 6px rgba(0,0,0,0.1)" }}>
+        <div ref={pupil} className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#0A0A0A]" style={{ width: "56%", height: "56%", transition: "transform 0.08s linear" }} />
       </div>
     </div>
   );
@@ -54,7 +54,7 @@ export default function ContactPage() {
     "w-full bg-transparent border-b border-[#0A0A0A]/30 py-3 text-[#0A0A0A] placeholder-[#0A0A0A]/35 outline-none focus:border-[#0A0A0A] transition-colors";
 
   return (
-    <main className="relative bg-[#EFEDE6] text-[#0A0A0A] overflow-hidden">
+    <main className="relative bg-white text-[#0A0A0A] overflow-hidden">
       <Cursor />
       <Grain />
       <SiteNav />
@@ -70,7 +70,7 @@ export default function ContactPage() {
 
         {/* centered intro */}
         <div className="relative z-10 flex flex-col items-center text-center px-6 pt-28 md:pt-36">
-          <h1 className="font-display uppercase leading-[0.95] tracking-tight" style={{ fontSize: "clamp(2.2rem, 6.5vw, 4.6rem)" }}>How can we help you?</h1>
+          <h1 className="font-display uppercase leading-[0.95] tracking-tight" style={{ fontSize: "clamp(2.2rem, 6.5vw, 4.6rem)" }}>Ready to create something unforgettable?</h1>
           <p className="text-center text-[11px] md:text-[13px] tracking-[0.1em] text-[#0A0A0A]/65 mt-6 max-w-2xl leading-relaxed normal-case">
             Got an idea? A dream? A half-baked concept scribbled on a napkin? We&apos;re into that. Whether you&apos;re building from scratch or looking to shake things up, drop us a message. We&apos;re here for bold moves, real conversations, and doing things differently, one unforgettable brand at a time.
           </p>
