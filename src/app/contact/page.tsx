@@ -70,22 +70,22 @@ export default function ContactPage() {
         {pills.map((p) => (
           <span
             key={p.t}
-            className="absolute z-20 font-sans font-bold uppercase text-[#0A0A0A] rounded-full px-4 py-2 text-[11px] md:text-[13px] tracking-[0.04em] whitespace-nowrap shadow-[0_6px_16px_-6px_rgba(0,0,0,0.4)]"
-            style={{ left: p.x, top: p.y, transform: `rotate(${p.r}deg)`, background: GREEN }}
+            className="absolute z-20 font-sans font-bold uppercase text-[#0A0A0A] rounded-full px-4 py-2 text-[11px] md:text-[13px] tracking-[0.04em] whitespace-nowrap shadow-[0_6px_16px_-6px_rgba(0,0,0,0.4)] hover:animate-[pill-wobble_1.6s_ease-in-out_infinite]"
+            style={{ left: p.x, top: p.y, transform: `rotate(${p.r}deg)`, background: GREEN, ["--r" as string]: `${p.r}deg` } as React.CSSProperties}
           >
             {p.t}
           </span>
         ))}
 
         {/* headline */}
-        <h1 className="relative z-10 text-center font-editorial leading-[0.92] pt-10 md:pt-12 px-6" style={{ fontSize: "clamp(3rem, 11vw, 9rem)" }}>
-          Don&apos;t Hesitate<br />to Reach Out!
+        <h1 className="relative z-10 text-center font-editorial leading-[0.92] pt-28 md:pt-36 px-6" style={{ fontSize: "clamp(2.6rem, 9vw, 7.5rem)" }}>
+          Ready to create<br />something unforgettable?
         </h1>
 
         {/* big creature */}
         <div
           className="absolute left-1/2 -translate-x-1/2 rounded-[50%] z-[15]"
-          style={{ width: "min(150vw, 1500px)", height: "min(150vw, 1500px)", top: "42%", background: GREEN }}
+          style={{ width: "min(150vw, 1500px)", height: "min(150vw, 1500px)", top: "46%", background: "#0A0A0A" }}
         />
         {/* eyes */}
         <div className="absolute left-1/2 -translate-x-1/2 z-20 flex gap-[clamp(10px,2vw,28px)]" style={{ top: "52%" }}>
@@ -105,7 +105,7 @@ export default function ContactPage() {
             <a href="mailto:hello@thisisnn.com" className="text-[13px] tracking-[0.08em] uppercase hover:opacity-60 transition-opacity">hello@thisisnn.com</a>
           </div>
           <p className="font-editorial leading-[1.15]" style={{ fontSize: "clamp(1.6rem, 4vw, 3rem)" }}>
-            We aren&apos;t a mass-market studio, so we don&apos;t always have slots available, but you can join the waiting list. Fill out the form and we&apos;ll be in touch when the time is right.
+            Got an idea? A dream? A half-baked concept scribbled on a napkin? We&apos;re into that. Whether you&apos;re building from scratch or looking to shake things up, drop us a message. We&apos;re here for bold moves, real conversations, and doing things differently, one unforgettable brand at a time.
           </p>
         </div>
       </section>
