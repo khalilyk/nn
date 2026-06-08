@@ -85,9 +85,11 @@ function Bear() {
       const r = el.getBoundingClientRect();
       const cx = r.left + r.width / 2, cy = r.top + r.height / 2;
       const ang = Math.atan2(e.clientY - cy, e.clientX - cx);
-      const maxX = r.width * 0.3;
+      const dx = Math.cos(ang), dy = Math.sin(ang);
+      // less room to the right (pupil rests left of the eye centre), more to the left
+      const maxX = r.width * (dx > 0 ? 0.18 : 0.34);
       const maxY = r.height * 0.2;
-      p.style.transform = `translate(${Math.cos(ang) * maxX}px, ${Math.sin(ang) * maxY}px)`;
+      p.style.transform = `translate(${dx * maxX}px, ${dy * maxY}px)`;
     };
     window.addEventListener("mousemove", move);
     return () => window.removeEventListener("mousemove", move);
