@@ -114,12 +114,15 @@ export default function ContactPage() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
+  const [coffee, setCoffee] = useState("");
   const [sent, setSent] = useState(false);
+
+  const coffees = ["Espresso", "Cappuccino", "Long black", "Decaf", "I don't drink"];
 
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
     const subject = `New enquiry from ${name || "the website"}`;
-    const body = `${message}\n\n${name}\n${email}`;
+    const body = `${message}\n\nCoffee order: ${coffee || "—"}\n\n${name}\n${email}`;
     window.location.href = `mailto:hello@thisisnn.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     setSent(true);
   };
@@ -208,6 +211,29 @@ export default function ContactPage() {
           <div>
             <label className="block text-[9px] tracking-[0.25em] uppercase text-[#0A0A0A]/50 mb-2">Message</label>
             <textarea className={`${field} resize-none`} rows={4} value={message} onChange={(e) => setMessage(e.target.value)} placeholder="Tell us what you're building…" required />
+          </div>
+          <div>
+            <label className="block text-[9px] tracking-[0.25em] uppercase text-[#0A0A0A]/50 mb-3">How do you take your coffee?</label>
+            <div className="flex flex-wrap gap-2.5">
+              {coffees.map((c) => {
+                const on = coffee === c;
+                return (
+                  <button
+                    key={c}
+                    type="button"
+                    data-cursor="tap"
+                    onClick={() => setCoffee(on ? "" : c)}
+                    className={`rounded-full border px-4 py-2 text-[11px] tracking-[0.08em] transition-colors ${
+                      on
+                        ? "border-[#0A0A0A] bg-[#0A0A0A] text-[#EFEDE6]"
+                        : "border-[#0A0A0A]/25 text-[#0A0A0A]/70 hover:border-[#0A0A0A]"
+                    }`}
+                  >
+                    {c}
+                  </button>
+                );
+              })}
+            </div>
           </div>
           <button
             type="submit"
