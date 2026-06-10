@@ -69,10 +69,10 @@ export default function SiteNav() {
 
       {/* ─── MORPHING HAMBURGER ⇄ X TOGGLE (above the overlay) ─── */}
       <button
-        aria-label={menuOpen ? "Close menu" : "Open menu"}
-        onClick={() => setMenuOpen((v) => !v)}
-        className="lg:hidden fixed top-6 right-8 z-[120] w-8 h-8 flex items-center justify-center"
-        style={{ color: "#F3F1EC", mixBlendMode: menuOpen ? "normal" : "difference" }}
+        aria-label="Open menu"
+        onClick={() => setMenuOpen(true)}
+        className={`lg:hidden fixed top-6 right-8 z-[120] w-8 h-8 flex items-center justify-center transition-opacity duration-200 ${menuOpen ? "opacity-0 pointer-events-none" : "opacity-100"}`}
+        style={{ color: "#F3F1EC", mixBlendMode: "difference" }}
       >
         <span
           className="absolute left-1/2 top-1/2 block h-[2px] w-7 rounded-full bg-current"
@@ -91,14 +91,22 @@ export default function SiteNav() {
       </button>
 
       {/* ─── MOBILE MENU OVERLAY (3 stacked cards) ─── */}
-      <div className={`fixed inset-0 z-[110] lg:hidden bg-[#0A0A0A] flex flex-col gap-2.5 p-2.5 pt-[76px] transition-opacity duration-[450ms] ease-in-out ${menuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}>
+      <div className={`fixed inset-0 z-[110] lg:hidden bg-[#0A0A0A] flex flex-col gap-2.5 p-2.5 pt-12 transition-opacity duration-[450ms] ease-in-out ${menuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}>
+        {/* 0 — close bar */}
+        <button
+          aria-label="Close menu"
+          onClick={() => setMenuOpen(false)}
+          className="rounded-[26px] bg-[#BBD9F2] text-[#0A0A0A] py-4 flex items-center justify-center"
+          style={card(menuOpen, 0)}
+        >
+          <svg width="20" height="20" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round"><path d="M1 1l12 12M13 1L1 13" /></svg>
+        </button>
+
         {/* 1 — navigation card */}
         <div
           className="relative flex-1 rounded-[26px] bg-[#C5E8B7] text-[#0A0A0A] flex flex-col justify-center items-center px-6 py-8"
-          style={card(menuOpen, 0)}
+          style={card(menuOpen, 1)}
         >
-          <span aria-hidden className="arrow-left absolute left-5 top-1/2 text-4xl leading-none text-[#0A0A0A]/70">←</span>
-          <span aria-hidden className="arrow-right absolute right-5 top-1/2 text-4xl leading-none text-[#0A0A0A]/70">→</span>
           <nav className="flex flex-col items-center gap-2">
             {LINKS.map(({ l, href }) => (
               <a
@@ -119,7 +127,7 @@ export default function SiteNav() {
           href="/contact"
           onClick={() => setMenuOpen(false)}
           className="group relative z-0 rounded-[26px] bg-[#FBD9BE] text-[#0A0A0A] px-6 py-3 flex items-center justify-between"
-          style={card(menuOpen, 1)}
+          style={card(menuOpen, 2)}
         >
           <span className="font-display uppercase tracking-tight leading-none" style={{ fontSize: "clamp(1.4rem, 7vw, 2rem)" }}>Let&apos;s chat</span>
           <span aria-hidden className="font-display text-[2.6rem] leading-none group-hover:translate-x-1.5 transition-transform duration-300">→</span>
@@ -128,7 +136,7 @@ export default function SiteNav() {
         {/* 3 — mascot / chat card */}
         <div
           className="relative z-10 flex-[1.25] rounded-[26px] bg-[#F9CEDF] text-[#0A0A0A]"
-          style={card(menuOpen, 2)}
+          style={card(menuOpen, 3)}
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
