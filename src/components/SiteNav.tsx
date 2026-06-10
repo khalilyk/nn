@@ -68,6 +68,16 @@ export default function SiteNav() {
 
       {/* ─── MOBILE MENU OVERLAY ─── */}
       <div className={`fixed inset-0 z-[110] lg:hidden bg-[#F3F1EC] text-[#0A0A0A] flex flex-col overflow-hidden px-8 pt-24 pb-10 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${menuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}>
+        <a
+          href="/"
+          aria-label="Not Normal, home"
+          onClick={() => setMenuOpen(false)}
+          className="absolute top-7 left-8 flex items-center"
+          style={{ opacity: menuOpen ? 1 : 0, transition: "opacity 0.5s ease 0.1s" }}
+        >
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/notnormal-logoblack.png" alt="Not Normal" className="h-3.5 w-auto" />
+        </a>
         <button
           aria-label="Close menu"
           onClick={() => setMenuOpen(false)}
