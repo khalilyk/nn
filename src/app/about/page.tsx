@@ -125,26 +125,26 @@ export default function AboutPage() {
       </section>
 
       {/* WHAT WE DO */}
-      <section className="relative overflow-hidden bg-[#0A0A0A] text-[#F3F1EC] px-8 md:px-16 py-24 md:py-32" data-cursor-color="#F3F1EC">
-        <StarField color="#F3F1EC" />
+      <section className="relative overflow-hidden bg-[#F3F1EC] text-[#0A0A0A] px-8 md:px-16 py-24 md:py-32">
+        <StarField color="#0A0A0A" />
         <div className="relative z-10 max-w-6xl mx-auto text-center">
-          <p className="text-[10px] tracking-[0.3em] uppercase text-[#F3F1EC]/45 mb-3">What we do</p>
+          <p className="text-[10px] tracking-[0.3em] uppercase text-[#0A0A0A]/45 mb-3">What we do</p>
           <h2 className="font-display uppercase tracking-tight mb-12" style={{ fontSize: "clamp(1.6rem, 4vw, 3rem)" }}>
             Everything a concept<br />needs to be unforgettable.
           </h2>
           {/* mobile: simple pill list */}
           <ul className="md:hidden flex flex-wrap justify-center gap-3">
             {SERVICES.map((s) => (
-              <li key={s} className="rounded-full border border-[#F3F1EC]/30 px-5 py-2.5 text-[12px] tracking-[0.04em]">
+              <li key={s} className="rounded-full border border-[#0A0A0A]/25 px-5 py-2.5 text-[12px] tracking-[0.04em]">
                 {s}
               </li>
             ))}
           </ul>
           {/* desktop: live mindmap */}
           <div className="hidden md:block">
-            <ServiceMindmap dark />
+            <ServiceMindmap />
           </div>
-          <p className="mt-10 max-w-xl mx-auto text-[13px] md:text-[14px] leading-relaxed text-[#F3F1EC]/60">
+          <p className="mt-10 max-w-xl mx-auto text-[13px] md:text-[14px] leading-relaxed text-[#0A0A0A]/60">
             For restaurants, cafés and lifestyle venues that recognise personal interactions and brand consistency
             are what guests actually remember.
           </p>
