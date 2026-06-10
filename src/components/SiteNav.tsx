@@ -96,18 +96,6 @@ export default function SiteNav() {
           <svg width="16" height="16" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="2"><path d="M1 1l12 12M13 1L1 13" /></svg>
         </button>
 
-        {/* full-bleed NN mark, stuck to the very top */}
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/notnormal-nn-white.png"
-          alt="Not Normal"
-          className="absolute top-0 left-0 w-full h-auto select-none"
-          style={{
-            filter: "brightness(0)",
-            opacity: menuOpen ? 1 : 0,
-            transition: "opacity 0.5s ease 0.05s",
-          }}
-        />
 
         {/* centred links */}
         <nav className="relative z-10 flex flex-col items-center gap-3 mt-auto mb-auto">
