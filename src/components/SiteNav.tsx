@@ -94,18 +94,17 @@ export default function SiteNav() {
       <div className={`fixed inset-0 z-[110] lg:hidden bg-[#0A0A0A] flex flex-col gap-2.5 p-2.5 pt-[76px] transition-opacity duration-[450ms] ease-in-out ${menuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}>
         {/* 1 — navigation card */}
         <div
-          className="flex-1 rounded-[26px] bg-[#EFEDE6] text-[#0A0A0A] flex flex-col justify-center items-center px-6 py-8"
+          className="flex-1 rounded-[26px] bg-[#81D742] text-[#0A0A0A] flex flex-col justify-center items-center px-6 py-8"
           style={card(menuOpen, 0)}
         >
-          <p className="text-[9px] tracking-[0.3em] uppercase text-[#0A0A0A]/40 mb-5">Menu</p>
-          <nav className="flex flex-col items-center gap-1.5">
+          <nav className="flex flex-col items-center gap-2">
             {LINKS.map(({ l, href }) => (
               <a
                 key={l}
                 href={href}
                 onClick={() => setMenuOpen(false)}
                 className="font-display uppercase tracking-tight leading-none transition-opacity duration-300 hover:opacity-50"
-                style={{ fontSize: "clamp(1.6rem, 8vw, 2.4rem)" }}
+                style={{ fontSize: "clamp(2rem, 10vw, 3.1rem)" }}
               >
                 {l}
               </a>
@@ -113,24 +112,20 @@ export default function SiteNav() {
           </nav>
         </div>
 
-        {/* 2 — spots band */}
-        <div
-          className="rounded-[26px] bg-[#C6FF4D] text-[#0A0A0A] px-6 py-5 flex items-center justify-between"
+        {/* 2 — let's chat band */}
+        <a
+          href="/contact"
+          onClick={() => setMenuOpen(false)}
+          className="group rounded-[26px] bg-[#EFEDE6] text-[#0A0A0A] px-6 py-5 flex items-center justify-between"
           style={card(menuOpen, 1)}
         >
-          <span className="flex items-center gap-2.5 text-[11px] tracking-[0.18em] uppercase">
-            <span className="relative flex h-2 w-2">
-              <span className="absolute inline-flex h-full w-full rounded-full bg-[#0A0A0A] opacity-40 animate-ping" />
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-[#0A0A0A]" />
-            </span>
-            2 spots left this month
-          </span>
-          <a href="/contact" onClick={() => setMenuOpen(false)} aria-label="Contact" className="text-lg leading-none">→</a>
-        </div>
+          <span className="text-[13px] tracking-[0.18em] uppercase">Let&apos;s chat</span>
+          <span aria-hidden className="text-2xl leading-none tracking-[-0.1em] group-hover:tracking-normal transition-all duration-300">⟶</span>
+        </a>
 
         {/* 3 — mascot / chat card */}
         <div
-          className="relative flex-[1.25] rounded-[26px] bg-[#81D742] text-[#0A0A0A] overflow-hidden"
+          className="relative flex-[1.25] rounded-[26px] bg-white text-[#0A0A0A] overflow-hidden"
           style={card(menuOpen, 2)}
         >
           <div className="relative z-10 p-6">
