@@ -94,7 +94,7 @@ export default function SiteNav() {
       <div className={`fixed inset-0 z-[110] lg:hidden bg-[#0A0A0A] flex flex-col gap-2.5 p-2.5 pt-[76px] transition-opacity duration-[450ms] ease-in-out ${menuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}>
         {/* 1 — navigation card */}
         <div
-          className="flex-1 rounded-[26px] bg-[#81D742] text-[#0A0A0A] flex flex-col justify-center items-center px-6 py-8"
+          className="flex-1 rounded-[26px] bg-[#C5E8B7] text-[#0A0A0A] flex flex-col justify-center items-center px-6 py-8"
           style={card(menuOpen, 0)}
         >
           <nav className="flex flex-col items-center gap-2">
@@ -116,29 +116,18 @@ export default function SiteNav() {
         <a
           href="/contact"
           onClick={() => setMenuOpen(false)}
-          className="group rounded-[26px] bg-[#EFEDE6] text-[#0A0A0A] px-6 py-5 flex items-center justify-between"
+          className="group rounded-[26px] bg-[#FBD9BE] text-[#0A0A0A] px-6 py-5 flex items-center justify-between"
           style={card(menuOpen, 1)}
         >
-          <span className="text-[13px] tracking-[0.18em] uppercase">Let&apos;s chat</span>
-          <span aria-hidden className="text-2xl leading-none tracking-[-0.1em] group-hover:tracking-normal transition-all duration-300">⟶</span>
+          <span className="font-display uppercase tracking-tight leading-none" style={{ fontSize: "clamp(1.4rem, 7vw, 2rem)" }}>Let&apos;s chat</span>
+          <span aria-hidden className="font-display text-[2.6rem] leading-none group-hover:translate-x-1.5 transition-transform duration-300">→</span>
         </a>
 
         {/* 3 — mascot / chat card */}
         <div
-          className="relative flex-[1.25] rounded-[26px] bg-white text-[#0A0A0A] overflow-hidden"
+          className="relative flex-[1.25] rounded-[26px] bg-[#F9CEDF] text-[#0A0A0A] overflow-hidden"
           style={card(menuOpen, 2)}
         >
-          <div className="relative z-10 p-6">
-            <p className="text-[9px] tracking-[0.3em] uppercase text-[#0A0A0A]/45 mb-2">Say hello</p>
-            <a
-              href="/contact"
-              onClick={() => setMenuOpen(false)}
-              className="font-display uppercase tracking-tight leading-[0.95] inline-block hover:opacity-60 transition-opacity"
-              style={{ fontSize: "clamp(1.8rem, 8vw, 2.6rem)" }}
-            >
-              Let&apos;s chat <span aria-hidden>→</span>
-            </a>
-          </div>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/nn-panda.png"
