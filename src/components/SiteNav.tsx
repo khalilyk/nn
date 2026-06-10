@@ -4,22 +4,6 @@ import { useEffect, useState } from "react";
 import Magnetic from "./Magnetic";
 import ChatLink from "./ChatLink";
 
-const IgIcon = () => (
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <rect x="2" y="2" width="20" height="20" rx="5" />
-    <circle cx="12" cy="12" r="4" />
-    <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
-  </svg>
-);
-
-const LiIcon = () => (
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z" />
-    <rect x="2" y="9" width="4" height="12" />
-    <circle cx="4" cy="4" r="2" />
-  </svg>
-);
-
 const LINKS = [
   { l: "About", href: "/about", tip: "Who we are", shape: "rounded-full" },
   { l: "The Menu", href: "/#s02", tip: "What we do", shape: "rounded-none" },
@@ -112,13 +96,15 @@ export default function SiteNav() {
           <svg width="16" height="16" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="2"><path d="M1 1l12 12M13 1L1 13" /></svg>
         </button>
 
-        {/* giant title */}
+        {/* giant stretched title */}
         <h2
-          className="font-display uppercase tracking-tight text-center leading-[0.9]"
+          className="font-display uppercase text-center leading-[0.8] w-full whitespace-nowrap"
           style={{
-            fontSize: "clamp(2.6rem, 13vw, 4.5rem)",
+            fontSize: "clamp(3rem, 19vw, 7rem)",
+            letterSpacing: "-0.03em",
+            transformOrigin: "center top",
             opacity: menuOpen ? 1 : 0,
-            transform: menuOpen ? "translateY(0)" : "translateY(14px)",
+            transform: menuOpen ? "translateY(0) scaleY(1.9)" : "translateY(14px) scaleY(1.9)",
             transition: "opacity 0.5s ease 0.05s, transform 0.6s cubic-bezier(0.16,1,0.3,1) 0.05s",
           }}
         >
@@ -146,19 +132,6 @@ export default function SiteNav() {
             </a>
           ))}
         </nav>
-
-        {/* social icons */}
-        <div
-          className="flex items-center gap-5"
-          style={{ opacity: menuOpen ? 1 : 0, transform: menuOpen ? "translateY(0)" : "translateY(14px)", transition: `opacity 0.55s cubic-bezier(0.16,1,0.3,1) ${menuOpen ? 0.5 : 0}s, transform 0.55s cubic-bezier(0.16,1,0.3,1) ${menuOpen ? 0.5 : 0}s` }}
-        >
-          <a href="https://instagram.com" target="_blank" rel="noreferrer" aria-label="Instagram" className="w-12 h-12 rounded-full border-2 border-[#0A0A0A] flex items-center justify-center transition-colors hover:bg-[#0A0A0A] hover:text-[#81D742]">
-            <IgIcon />
-          </a>
-          <a href="https://linkedin.com" target="_blank" rel="noreferrer" aria-label="LinkedIn" className="w-12 h-12 rounded-full border-2 border-[#0A0A0A] flex items-center justify-center transition-colors hover:bg-[#0A0A0A] hover:text-[#81D742]">
-            <LiIcon />
-          </a>
-        </div>
       </div>
     </>
   );
