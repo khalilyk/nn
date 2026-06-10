@@ -50,6 +50,12 @@ img { user-select: none; -webkit-user-drag: none; }
 
 @keyframes spin-slow { to { transform: rotate(360deg); } }
 
+/* slow side-arrow drift on the nav card */
+@keyframes drift-left  { 0%, 100% { transform: translate(0, -50%); } 50% { transform: translate(-10px, -50%); } }
+@keyframes drift-right { 0%, 100% { transform: translate(0, -50%); } 50% { transform: translate(10px, -50%); } }
+.arrow-left  { animation: drift-left  2.6s ease-in-out infinite; }
+.arrow-right { animation: drift-right 2.6s ease-in-out infinite; }
+
 /* Squiggly descending arrow */
 @keyframes squiggle {
   0%, 100% { transform: translate(0, 0) rotate(0deg); }

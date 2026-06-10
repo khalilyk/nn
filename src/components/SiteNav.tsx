@@ -94,9 +94,11 @@ export default function SiteNav() {
       <div className={`fixed inset-0 z-[110] lg:hidden bg-[#0A0A0A] flex flex-col gap-2.5 p-2.5 pt-[76px] transition-opacity duration-[450ms] ease-in-out ${menuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}>
         {/* 1 — navigation card */}
         <div
-          className="flex-1 rounded-[26px] bg-[#C5E8B7] text-[#0A0A0A] flex flex-col justify-center items-center px-6 py-8"
+          className="relative flex-1 rounded-[26px] bg-[#C5E8B7] text-[#0A0A0A] flex flex-col justify-center items-center px-6 py-8"
           style={card(menuOpen, 0)}
         >
+          <span aria-hidden className="arrow-left absolute left-5 top-1/2 text-4xl leading-none text-[#0A0A0A]/70">←</span>
+          <span aria-hidden className="arrow-right absolute right-5 top-1/2 text-4xl leading-none text-[#0A0A0A]/70">→</span>
           <nav className="flex flex-col items-center gap-2">
             {LINKS.map(({ l, href }) => (
               <a
@@ -116,7 +118,7 @@ export default function SiteNav() {
         <a
           href="/contact"
           onClick={() => setMenuOpen(false)}
-          className="group rounded-[26px] bg-[#FBD9BE] text-[#0A0A0A] px-6 py-5 flex items-center justify-between"
+          className="group relative z-0 rounded-[26px] bg-[#FBD9BE] text-[#0A0A0A] px-6 py-3 flex items-center justify-between"
           style={card(menuOpen, 1)}
         >
           <span className="font-display uppercase tracking-tight leading-none" style={{ fontSize: "clamp(1.4rem, 7vw, 2rem)" }}>Let&apos;s chat</span>
@@ -125,14 +127,14 @@ export default function SiteNav() {
 
         {/* 3 — mascot / chat card */}
         <div
-          className="relative flex-[1.25] rounded-[26px] bg-[#F9CEDF] text-[#0A0A0A] overflow-hidden"
+          className="relative z-10 flex-[1.25] rounded-[26px] bg-[#F9CEDF] text-[#0A0A0A]"
           style={card(menuOpen, 2)}
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/nn-panda.png"
             alt="Not Normal"
-            className="pointer-events-none absolute left-1/2 -translate-x-1/2 bottom-0 z-0 w-[340px] max-w-none h-auto translate-y-[26%]"
+            className="pointer-events-none absolute left-1/2 -translate-x-1/2 bottom-0 z-20 w-[430px] max-w-none h-auto translate-y-[8%]"
           />
         </div>
       </div>
