@@ -33,13 +33,16 @@ export default function ServiceMindmap({ dark = false }: { dark?: boolean }) {
   const mainLines = useRef<(SVGLineElement | null)[]>([]);
   const subNodes = useRef<(HTMLDivElement | null)[]>([]);
   const subLines = useRef<(SVGLineElement | null)[]>([]);
+  const streak = dark ? "#F3F1EC" : "#0A0A0A";
   const [active, setActive] = useState<number | null>(null);
+  const [warp, setWarp] = useState(0);
   const activeRef = useRef<number | null>(null);
   activeRef.current = active;
   const nowRef = useRef(0);
   const growStart = useRef(0);
 
-  const expand = (i: number) => { growStart.current = nowRef.current; setActive(i); };
+  const expand = (i: number) => { growStart.current = nowRef.current; setWarp((w) => w + 1); setActive(i); };
+  const collapse = () => { setWarp((w) => w + 1); setActive(null); };
 
   useEffect(() => {
     const el = wrap.current;
@@ -128,10 +131,21 @@ export default function ServiceMindmap({ dark = false }: { dark?: boolean }) {
     <div
       ref={wrap}
       data-cursor={active === null ? "Explore" : "Back"}
-      onClick={() => setActive(null)}
+      onClick={() => collapse()}
       className="relative w-full overflow-hidden select-none"
       style={{ height: "clamp(520px, 72vh, 680px)" }}
     >
+      {/* hyperspace warp streaks on every zoom */}
+      <div key={warp} className="absolute inset-0 z-40 pointer-events-none flex items-center justify-center">
+        {warp > 0 &&
+          Array.from({ length: 36 }).map((_, i) => (
+            <span
+              key={i}
+              className="warp-streak absolute left-1/2 top-1/2 h-px w-[55%]"
+              style={{ ["--ang" as string]: `${(i / 36) * 360}deg`, transformOrigin: "left center", background: `linear-gradient(90deg, transparent, ${streak})` }}
+            />
+          ))}
+      </div>
       {/* MAIN SCENE */}
       <div
         className={`absolute inset-0 origin-center ${EASE} ${active === null ? "" : "pointer-events-none"}`}
