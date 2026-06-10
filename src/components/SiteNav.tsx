@@ -67,7 +67,7 @@ export default function SiteNav() {
       </nav>
 
       {/* ─── MOBILE MENU OVERLAY ─── */}
-      <div className={`fixed inset-0 z-[99] lg:hidden bg-[#F3F1EC] text-[#0A0A0A] flex flex-col overflow-hidden px-8 pt-24 pb-10 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${menuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}>
+      <div className={`fixed inset-0 z-[110] lg:hidden bg-[#F3F1EC] text-[#0A0A0A] flex flex-col overflow-hidden px-8 pt-24 pb-10 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${menuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}>
         <button
           aria-label="Close menu"
           onClick={() => setMenuOpen(false)}
