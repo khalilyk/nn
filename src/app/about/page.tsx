@@ -110,15 +110,36 @@ export default function AboutPage() {
       <section className="px-8 md:px-16 py-24 md:py-32">
         <div className="max-w-4xl mx-auto">
           <p className="text-[10px] tracking-[0.3em] uppercase text-[#0A0A0A]/45 mb-6">The founder</p>
-          <p className="font-editorial leading-[1.3]" style={{ fontSize: "clamp(1.4rem, 3vw, 2.4rem)" }}>
-            Founded by <span className="italic">Khalil Khouri</span>, former Head of Marketing for acclaimed Dubai
-            restaurants <span className="text-[#FF2EC4]">3Fils</span>, <span className="text-[#FF2EC4]">BRIX</span> and{" "}
-            <span className="text-[#FF2EC4]">Bordo Mavi</span>.
+          <p className="font-editorial leading-[1.1]" style={{ fontSize: "clamp(1.8rem, 4vw, 3rem)" }}>
+            Founded by <span className="italic">Khalil Khouri</span>.
           </p>
-          <p className="mt-8 max-w-2xl text-[13px] md:text-[14px] leading-relaxed text-[#0A0A0A]/60">
-            Everything we make is rooted in hospitality. We&apos;ve lived the floor, the pass and the bar, so we
-            understand what makes a concept resonate and what builds genuine guest loyalty.
-          </p>
+          <div className="mt-8 max-w-2xl space-y-5 text-[14px] md:text-[15px] leading-relaxed text-[#0A0A0A]/65">
+            <p>
+              The former Head of Marketing behind some of Dubai&apos;s most awarded restaurants, including{" "}
+              <span className="text-[#FF2EC4]">3Fils</span>, <span className="text-[#FF2EC4]">BRIX</span> and{" "}
+              <span className="text-[#FF2EC4]">Bordo Mavi</span>. Not Normal was born from a simple idea:{" "}
+              <span className="text-[#0A0A0A] font-medium">the world doesn&apos;t need more of the same.</span>
+            </p>
+            <p>
+              After shaping brands in Dubai&apos;s competitive dining scene, collaborating across Beirut&apos;s creative
+              landscape and now operating from Sydney, Not Normal brings a global hospitality perspective to every
+              project. Different markets. Same standard: bold thinking, strategic clarity and experiences people
+              remember.
+            </p>
+            <p>
+              From brand foundations and identity systems to menu development, campaign direction, packaging, content,
+              digital strategy and on-ground activations, Not Normal partners with restaurants, cafés and lifestyle
+              venues ready to carve their own lane and own it confidently.
+            </p>
+            <p>
+              Everything is rooted in hospitality. We understand what makes a concept resonate, what builds genuine
+              guest loyalty and what transforms a venue from busy… to unforgettable.
+            </p>
+            <p>
+              This isn&apos;t an agency that follows trends. It&apos;s a studio that builds brands with staying power,
+              across cities, cultures and communities.
+            </p>
+          </div>
         </div>
       </section>
 
@@ -139,17 +160,26 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="px-8 md:px-16 py-24 md:py-36 text-center">
-        <p className="font-display uppercase tracking-tight leading-[0.95] mx-auto max-w-4xl" style={{ fontSize: "clamp(2rem, 6vw, 4.6rem)" }}>
-          Wanna build<br />something not normal?
-        </p>
+      {/* CTA — matches the home page "starting from scratch" section */}
+      <section className="px-8 md:px-16 py-24 md:py-36 flex flex-col items-center justify-center text-center">
+        <p className="text-[9px] tracking-[0.3em] uppercase text-[#0A0A0A]/40 mb-6">Wanna build something not normal?</p>
+        <h2 className="font-editorial leading-[1.1] mb-10 max-w-2xl mx-auto" style={{ fontSize: "clamp(1.8rem, 3.8vw, 3.4rem)" }}>
+          We&apos;ll build your brand from the ground up.
+          <span className="italic"> Identity, strategy, story</span>, the whole thing.
+        </h2>
         <Link
           href="/contact"
-          data-cursor="Let's talk"
-          className="group inline-flex items-center gap-3 mt-12 bg-[#0A0A0A] text-[#F3F1EC] rounded-full px-9 py-4 text-[11px] tracking-[0.22em] uppercase hover:gap-5 transition-all"
+          data-cursor="Go"
+          className="group relative inline-flex items-center gap-4 overflow-hidden rounded-full border border-[#0A0A0A] px-9 py-4"
         >
-          Start a project <span aria-hidden>→</span>
+          <span className="absolute inset-0 bg-[#0A0A0A] translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)]" />
+          <span className="relative z-10 text-[10px] tracking-[0.28em] uppercase text-[#0A0A0A] group-hover:text-[#F3F1EC] transition-colors duration-500">
+            Start a project
+          </span>
+          <span className="relative z-10 w-7 h-7 rounded-full border border-[#0A0A0A] group-hover:border-[#F3F1EC] flex items-center justify-center overflow-hidden">
+            <span className="text-[#0A0A0A] group-hover:text-[#F3F1EC] transition-all duration-500 group-hover:translate-x-5">→</span>
+            <span className="absolute text-[#F3F1EC] -translate-x-5 group-hover:translate-x-0 transition-transform duration-500">→</span>
+          </span>
         </Link>
       </section>
 
