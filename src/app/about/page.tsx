@@ -113,13 +113,13 @@ export default function AboutPage() {
 
       {/* WHAT WE DO */}
       <section className="bg-[#F3F1EC] px-8 md:px-16 py-24 md:py-32">
-        <div className="max-w-6xl mx-auto">
+        <div className="max-w-6xl mx-auto text-center">
           <p className="text-[10px] tracking-[0.3em] uppercase text-[#0A0A0A]/45 mb-3">What we do</p>
           <h2 className="font-display uppercase tracking-tight mb-12" style={{ fontSize: "clamp(1.6rem, 4vw, 3rem)" }}>
             Everything a concept<br />needs to be unforgettable.
           </h2>
           {/* mobile: simple pill list */}
-          <ul className="md:hidden flex flex-wrap gap-3">
+          <ul className="md:hidden flex flex-wrap justify-center gap-3">
             {SERVICES.map((s) => (
               <li key={s} className="rounded-full border border-[#0A0A0A]/25 px-5 py-2.5 text-[12px] tracking-[0.04em]">
                 {s}
@@ -130,7 +130,7 @@ export default function AboutPage() {
           <div className="hidden md:block">
             <ServiceMindmap />
           </div>
-          <p className="mt-10 max-w-xl text-[13px] md:text-[14px] leading-relaxed text-[#0A0A0A]/60">
+          <p className="mt-10 max-w-xl mx-auto text-[13px] md:text-[14px] leading-relaxed text-[#0A0A0A]/60">
             For restaurants, cafés and lifestyle venues that recognise personal interactions and brand consistency
             are what guests actually remember.
           </p>
