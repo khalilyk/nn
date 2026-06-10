@@ -178,7 +178,7 @@ export default function ContactPage() {
             <span className="w-8 h-px bg-[#F3F1EC]/40" /> Contact Us <span className="w-8 h-px bg-[#F3F1EC]/40" />
           </p>
           <h2 className="font-display uppercase leading-[0.95] tracking-tight" style={{ fontSize: "clamp(1.9rem, 3.4vw, 3rem)" }}>
-            You&apos;ll find us<br />somewhere<br />between Sydney, Dubai &amp;<br />Beirut
+            You&apos;ll find us<br />somewhere between<br />Sydney, Dubai &amp; Beirut
           </h2>
 
           {/* contact details, the fun way — email left, number right */}
