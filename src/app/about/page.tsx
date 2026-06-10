@@ -111,17 +111,15 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* TWO-IMAGE SPLIT */}
-      <section className="px-2 md:px-2.5">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-2.5">
-          <div className="relative w-full aspect-[4/5] md:aspect-[3/4] overflow-hidden rounded-2xl">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/nn-f2.png" alt="Not Normal" className="absolute inset-0 w-full h-full object-cover" />
-          </div>
-          <div className="relative w-full aspect-[4/5] md:aspect-[3/4] overflow-hidden rounded-2xl">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/nn-f5.png" alt="Not Normal" className="absolute inset-0 w-full h-full object-cover" />
-          </div>
+      {/* TWO-IMAGE SPLIT — full edge to edge */}
+      <section className="grid grid-cols-1 md:grid-cols-2">
+        <div className="relative w-full aspect-[4/5] md:aspect-[3/4] overflow-hidden">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/nn-f2.png" alt="Not Normal" className="absolute inset-0 w-full h-full object-cover" />
+        </div>
+        <div className="relative w-full aspect-[4/5] md:aspect-[3/4] overflow-hidden">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/nn-f5.png" alt="Not Normal" className="absolute inset-0 w-full h-full object-cover" />
         </div>
       </section>
 

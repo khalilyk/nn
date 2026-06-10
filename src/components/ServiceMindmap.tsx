@@ -26,6 +26,10 @@ export default function ServiceMindmap() {
   const [active, setActive] = useState<number | null>(null);
   const activeRef = useRef<number | null>(null);
   activeRef.current = active;
+  const nowRef = useRef(0);
+  const growStart = useRef(0);
+
+  const expand = (i: number) => { growStart.current = nowRef.current; setActive(i); };
 
   useEffect(() => {
     const el = wrap.current;
@@ -40,10 +44,13 @@ export default function ServiceMindmap() {
     el.addEventListener("mousemove", onMove);
     el.addEventListener("mouseleave", onLeave);
 
+    const easeOut = (x: number) => 1 - Math.pow(1 - x, 3);
+
     let raf = 0;
     let start = 0;
     const loop = (t: number) => {
       raf = requestAnimationFrame(loop);
+      nowRef.current = t;
       if (!start) start = t;
       mx += (tmx - mx) * 0.07;
       my += (tmy - my) * 0.07;
@@ -53,18 +60,25 @@ export default function ServiceMindmap() {
       const time = (t - start) / 1000;
       const a = activeRef.current;
       const count = a === null ? BRANCHES.length : BRANCHES[a].items.length;
-      const radius = Math.min(r.width, r.height) * (a === null ? 0.36 : 0.34);
+      const baseRadius = Math.min(r.width, r.height) * (a === null ? 0.36 : 0.34);
       const refs = a === null ? branchRefs.current : subRefs.current;
+      // grow factor: 1 on the main map, ramps 0→1 when a branch expands
+      const grow = a === null ? 1 : easeOut(Math.min((t - growStart.current) / 520, 1));
       for (let i = 0; i < count; i++) {
         const ang = (i / count) * Math.PI * 2 - Math.PI / 2;
         const depth = 0.5 + (i % 3) * 0.3;
         const phase = i * 1.7;
-        const idleX = Math.sin(time * 0.6 + phase) * 9;
-        const idleY = Math.cos(time * 0.5 + phase) * 9;
-        const px = cx + Math.cos(ang) * radius + mx * 46 * depth + idleX;
-        const py = cy + Math.sin(ang) * radius + my * 46 * depth + idleY;
+        const idleX = Math.sin(time * 0.6 + phase) * 9 * grow;
+        const idleY = Math.cos(time * 0.5 + phase) * 9 * grow;
+        const rr = baseRadius * grow;
+        const px = cx + Math.cos(ang) * rr + mx * 46 * depth * grow + idleX;
+        const py = cy + Math.sin(ang) * rr + my * 46 * depth * grow + idleY;
         const node = refs[i];
-        if (node) node.style.transform = `translate(-50%,-50%) translate(${px}px,${py}px)`;
+        if (node) {
+          const sc = a === null ? 1 : 0.45 + 0.55 * grow;
+          node.style.transform = `translate(-50%,-50%) translate(${px}px,${py}px) scale(${sc})`;
+          if (a !== null) node.style.opacity = String(grow);
+        }
         const ln = lineRefs.current[i];
         if (ln) {
           ln.setAttribute("x1", String(cx + mx * 14));
@@ -120,7 +134,7 @@ export default function ServiceMindmap() {
         <div
           key={b.label}
           ref={(e) => { branchRefs.current[i] = e; }}
-          onClick={(e) => { e.stopPropagation(); setActive(i); }}
+          onClick={(e) => { e.stopPropagation(); expand(i); }}
           className={`group absolute left-0 top-0 z-20 cursor-pointer transition-opacity duration-300 ${active === null ? "opacity-100" : "opacity-0 pointer-events-none"}`}
           style={{ transform: "translate(-50%,-50%)" }}
         >
@@ -137,7 +151,7 @@ export default function ServiceMindmap() {
             key={it}
             ref={(e) => { subRefs.current[i] = e; }}
             className="absolute left-0 top-0 z-20 whitespace-nowrap rounded-full border border-[#0A0A0A]/20 bg-[#F3F1EC] px-4 py-2 text-[11px] md:text-[12px] tracking-[0.04em] text-center"
-            style={{ transform: "translate(-50%,-50%)" }}
+            style={{ transform: "translate(-50%,-50%)", opacity: 0 }}
           >
             {it}
           </div>
