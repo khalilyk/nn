@@ -30,7 +30,11 @@ const LINKS = [
 
 export default function SiteNav() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [closing, setClosing] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+
+  const openMenu = () => { setClosing(false); setMenuOpen(true); };
+  const closeMenu = () => setClosing(true); // circle expands, then unmounts onTransitionEnd
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > window.innerHeight * 0.7);
@@ -73,7 +77,7 @@ export default function SiteNav() {
           </div>
           <button
             aria-label="Menu"
-            onClick={() => setMenuOpen(true)}
+            onClick={openMenu}
             className={`lg:hidden relative flex flex-col items-end justify-center gap-[6px] w-8 h-8 transition-opacity duration-200 ${menuOpen ? "opacity-0 pointer-events-none" : "opacity-100"}`}
           >
             <span className="block h-[2px] w-7 rounded-full bg-[#F3F1EC]" />
@@ -83,10 +87,30 @@ export default function SiteNav() {
       </nav>
 
       {/* ─── MOBILE MENU OVERLAY ─── */}
-      <div className={`fixed inset-0 z-[110] lg:hidden bg-[#81D742] text-[#0A0A0A] flex flex-col items-center overflow-hidden px-8 pt-20 pb-12 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${menuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}>
+      <div className={`fixed inset-0 z-[110] lg:hidden bg-[#81D742] text-[#0A0A0A] flex flex-col items-center overflow-hidden px-8 pt-20 pb-12 transition-opacity duration-300 ${menuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}>
+        {/* circular ink that zooms out from the X to cover the screen, then unmounts the menu */}
+        <span
+          aria-hidden
+          onTransitionEnd={(e) => {
+            // once the ink has covered the screen, unmount the menu behind it.
+            // `closing` stays true so the circle keeps covering while the overlay
+            // fades out; openMenu resets it before the next open.
+            if (e.propertyName === "transform" && closing) setMenuOpen(false);
+          }}
+          className="absolute rounded-full bg-[#0A0A0A] pointer-events-none"
+          style={{
+            width: 44,
+            height: 44,
+            top: 24,
+            right: 32,
+            transformOrigin: "center",
+            transform: closing ? "scale(60)" : "scale(0)",
+            transition: closing ? "transform 0.6s cubic-bezier(0.7,0,0.3,1)" : "none",
+          }}
+        />
         <button
           aria-label="Close menu"
-          onClick={() => setMenuOpen(false)}
+          onClick={closeMenu}
           className="absolute top-6 right-8 w-11 h-11 rounded-full border-2 border-[#0A0A0A] flex items-center justify-center text-[#0A0A0A] transition-colors hover:bg-[#0A0A0A] hover:text-[#81D742]"
           style={{ opacity: menuOpen ? 1 : 0, transition: "opacity 0.5s ease 0.1s, background-color 0.3s, color 0.3s" }}
         >
