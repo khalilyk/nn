@@ -149,7 +149,7 @@ export default function SiteNav() {
         <img
           src="/nn-panda.png"
           alt="Not Normal"
-          className="pointer-events-none absolute left-1/2 bottom-0 z-0 w-[800px] max-w-none h-auto"
+          className="pointer-events-none absolute left-1/2 bottom-0 z-0 w-[400px] max-w-none h-auto"
           style={{
             opacity: menuOpen ? 1 : 0,
             transform: menuOpen ? "translate(-50%, 22%)" : "translate(-50%, calc(22% + 14px))",
