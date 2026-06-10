@@ -96,33 +96,18 @@ export default function SiteNav() {
           <svg width="16" height="16" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="2"><path d="M1 1l12 12M13 1L1 13" /></svg>
         </button>
 
-        {/* full-bleed fish-eye title, stuck to the very top */}
-        <h2
-          aria-label="Navigation"
-          className="absolute top-0 left-0 w-full flex justify-between items-center font-display uppercase leading-none px-2 pt-6 select-none"
+        {/* full-bleed NN mark, stuck to the very top */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/notnormal-nn-white.png"
+          alt="Not Normal"
+          className="absolute top-0 left-0 w-full h-auto select-none"
           style={{
-            fontSize: "clamp(2rem, 11vw, 4.5rem)",
-            perspective: "300px",
-            transformStyle: "preserve-3d",
+            filter: "brightness(0)",
             opacity: menuOpen ? 1 : 0,
             transition: "opacity 0.5s ease 0.05s",
           }}
-        >
-          {"NAVIGATION".split("").map((ch, i, arr) => {
-            const d = (i / (arr.length - 1) - 0.5) * 2; // -1..1 across the word
-            const bulge = 1 - d * d; // 0 at edges, 1 in the centre
-            const tz = (bulge * 90).toFixed(1); // centre letters pushed toward the viewer = convex bulge
-            return (
-              <span
-                key={i}
-                aria-hidden
-                style={{ display: "inline-block", transform: `translateZ(${tz}px)`, transformOrigin: "center center" }}
-              >
-                {ch}
-              </span>
-            );
-          })}
-        </h2>
+        />
 
         {/* centred links */}
         <nav className="relative z-10 flex flex-col items-center gap-3 mt-auto mb-auto">
