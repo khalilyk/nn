@@ -38,7 +38,7 @@ export default function SiteNav() {
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/notnormal-iconoutline.png" alt="Not Normal" className={`absolute left-0 top-1/2 -translate-y-1/2 h-7 w-auto transition-opacity duration-300 ${scrolled ? "opacity-100" : "opacity-0 pointer-events-none"}`} style={{ filter: "invert(1)" }} />
         </a>
-        <div className="hidden md:flex items-center gap-12 absolute left-1/2 -translate-x-1/2">
+        <div className="hidden lg:flex items-center gap-12 absolute left-1/2 -translate-x-1/2">
           {LINKS.map(({ l, href, tip, shape }) => (
             <a key={l} href={href} className="group relative text-[10px] tracking-[0.22em] uppercase">
               <span className="transition-opacity group-hover:opacity-60">{l}</span>
@@ -50,7 +50,7 @@ export default function SiteNav() {
           ))}
         </div>
         <div className="flex items-center gap-4">
-          <div className="hidden md:block">
+          <div className="hidden lg:block">
             <Magnetic strength={0.5}>
               <ChatLink />
             </Magnetic>
@@ -58,7 +58,7 @@ export default function SiteNav() {
           <button
             aria-label="Menu"
             onClick={() => setMenuOpen(true)}
-            className={`md:hidden relative flex flex-col items-end justify-center gap-[6px] w-8 h-8 transition-opacity duration-200 ${menuOpen ? "opacity-0 pointer-events-none" : "opacity-100"}`}
+            className={`lg:hidden relative flex flex-col items-end justify-center gap-[6px] w-8 h-8 transition-opacity duration-200 ${menuOpen ? "opacity-0 pointer-events-none" : "opacity-100"}`}
           >
             <span className="block h-[2px] w-7 rounded-full bg-[#F3F1EC]" />
             <span className="block h-[2px] w-7 rounded-full bg-[#F3F1EC]" />
@@ -67,7 +67,7 @@ export default function SiteNav() {
       </nav>
 
       {/* ─── MOBILE MENU OVERLAY ─── */}
-      <div className={`fixed inset-0 z-[99] md:hidden bg-[#F3F1EC] text-[#0A0A0A] flex flex-col overflow-hidden px-8 pt-24 pb-10 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${menuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}>
+      <div className={`fixed inset-0 z-[99] lg:hidden bg-[#F3F1EC] text-[#0A0A0A] flex flex-col overflow-hidden px-8 pt-24 pb-10 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${menuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}>
         <button
           aria-label="Close menu"
           onClick={() => setMenuOpen(false)}
