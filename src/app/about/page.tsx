@@ -35,14 +35,14 @@ const CLIENTS_ROW_2 = ["PieHaus", "Yava", "Bar Baker", "Shanghai Me", "Mimi Kaku
 function MarqueeRow({ items, dir }: { items: string[]; dir: "left" | "right" }) {
   const loop = [...items, ...items];
   return (
-    <div className="overflow-hidden border-b border-[#F3F1EC]/15">
+    <div className="overflow-hidden border-b border-[#0A0A0A]/15">
       <div className={`flex w-max ${dir === "left" ? "marquee-left" : "marquee-right"}`}>
         {loop.map((name, i) => (
           <div
             key={i}
-            className="shrink-0 w-[clamp(190px,26vw,300px)] aspect-square border-r border-[#F3F1EC]/15 flex items-center justify-center group"
+            className="shrink-0 w-[clamp(190px,26vw,300px)] aspect-square border-r border-[#0A0A0A]/15 flex items-center justify-center group"
           >
-            <span className="font-display uppercase text-[#F3F1EC]/35 group-hover:text-[#F3F1EC] group-hover:scale-105 transition-all duration-500 text-center px-3" style={{ fontSize: "clamp(1rem, 1.5vw, 1.6rem)" }}>
+            <span className="font-display uppercase text-[#0A0A0A]/40 group-hover:text-[#0A0A0A] group-hover:scale-105 transition-all duration-500 text-center px-3" style={{ fontSize: "clamp(1rem, 1.5vw, 1.6rem)" }}>
               {name.toUpperCase()}
             </span>
           </div>
@@ -131,14 +131,15 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* FOUNDER */}
+      {/* FOUNDER — split screen, image on the right */}
       <section className="px-8 md:px-16 py-24 md:py-32">
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-start">
+          <div>
           <p className="text-[10px] tracking-[0.3em] uppercase text-[#0A0A0A]/45 mb-6">The founder</p>
           <p className="font-editorial leading-[1.1]" style={{ fontSize: "clamp(1.8rem, 4vw, 3rem)" }}>
             Founded by <span className="italic">Khalil Khouri</span>.
           </p>
-          <div className="mt-8 max-w-2xl space-y-5 text-[14px] md:text-[15px] leading-relaxed text-[#0A0A0A]/65">
+          <div className="mt-8 space-y-5 text-[14px] md:text-[15px] leading-relaxed text-[#0A0A0A]/65">
             <p>
               The former Head of Marketing behind some of Dubai&apos;s most awarded restaurants, including{" "}
               <span className="text-[#FF2EC4]">3Fils</span>, <span className="text-[#FF2EC4]">BRIX</span> and{" "}
@@ -165,15 +166,23 @@ export default function AboutPage() {
               across cities, cultures and communities.
             </p>
           </div>
+          </div>
+          {/* image */}
+          <div className="md:sticky md:top-28">
+            <div className="relative w-full aspect-[4/5] overflow-hidden rounded-2xl">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/nn-f6.png" alt="Not Normal" className="absolute inset-0 w-full h-full object-cover" />
+            </div>
+          </div>
         </div>
       </section>
 
       {/* CLIENTS MARQUEE */}
-      <section className="bg-[#0A0A0A] text-[#F3F1EC] px-8 md:px-16 py-24 md:py-32" data-cursor-color="#F3F1EC">
+      <section className="bg-[#81D742] text-[#0A0A0A] px-8 md:px-16 py-24 md:py-32" data-cursor-color="#F3F1EC">
         <div className="max-w-6xl mx-auto">
           {/* client logo marquee — two rows, opposite directions */}
-          <p className="text-[10px] tracking-[0.3em] uppercase text-[#F3F1EC]/40 mb-6">Call them clients, call them friends</p>
-          <div className="marquee-row border-t border-l border-[#F3F1EC]/15">
+          <p className="text-[10px] tracking-[0.3em] uppercase text-[#0A0A0A]/40 mb-6">Call them clients, call them friends</p>
+          <div className="marquee-row border-t border-l border-[#0A0A0A]/15">
             <MarqueeRow items={CLIENTS_ROW_1} dir="left" />
             <MarqueeRow items={CLIENTS_ROW_2} dir="right" />
           </div>
