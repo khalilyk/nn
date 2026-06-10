@@ -187,7 +187,7 @@ export default function ContactPage() {
               <p className="text-[9px] tracking-[0.3em] uppercase text-[#F3F1EC]/40 mb-3">Slide into our inbox</p>
               <a href="mailto:hello@thisisnn.com" data-cursor="Say hi" className="group font-editorial inline-flex items-center gap-2 hover:opacity-70 transition-opacity" style={{ fontSize: "clamp(1.3rem, 2.4vw, 2rem)" }}>
                 hello@thisisnn.com
-                <span aria-hidden className="text-[#FF2EC4] group-hover:-translate-x-1 transition-transform">↖</span>
+                <span aria-hidden className="text-[#FF2EC4] group-hover:-translate-x-1 transition-transform">{"↖︎"}</span>
               </a>
             </div>
             <div className="text-center md:text-right">
@@ -206,7 +206,7 @@ export default function ContactPage() {
       </section>
 
       {/* FORM */}
-      <section id="form" className="relative max-w-3xl mx-4 md:mx-auto mt-6 md:mt-8 mb-12 md:mb-20 px-8 md:px-14 py-14 md:py-16 rounded-3xl border border-[#0A0A0A]/15 bg-white shadow-[0_24px_60px_-24px_rgba(0,0,0,0.18)] text-center">
+      <section id="form" className="relative max-w-3xl mx-0 md:mx-auto mt-6 md:mt-8 mb-12 md:mb-20 px-6 md:px-14 py-14 md:py-16 rounded-none md:rounded-3xl border-y md:border border-[#0A0A0A]/15 bg-white shadow-[0_24px_60px_-24px_rgba(0,0,0,0.18)] text-center">
         <p className="text-[9px] tracking-[0.3em] uppercase text-[#0A0A0A]/40 mb-3">The Form</p>
         <h2 className="font-display uppercase leading-[0.95] tracking-tight mb-12" style={{ fontSize: "clamp(1.8rem, 4vw, 3rem)" }}>Wanna start something?</h2>
         <form onSubmit={submit} className="flex flex-col gap-8">
