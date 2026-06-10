@@ -28,8 +28,19 @@ export default function ServiceMindmap() {
   activeRef.current = active;
   const nowRef = useRef(0);
   const growStart = useRef(0);
+  const origin = useRef({ x: 0, y: 0 });
 
-  const expand = (i: number) => { growStart.current = nowRef.current; setActive(i); };
+  const expand = (i: number) => {
+    const wrapEl = wrap.current;
+    const node = branchRefs.current[i];
+    if (wrapEl && node) {
+      const wr = wrapEl.getBoundingClientRect();
+      const nr = node.getBoundingClientRect();
+      origin.current = { x: nr.left + nr.width / 2 - wr.left, y: nr.top + nr.height / 2 - wr.top };
+    }
+    growStart.current = nowRef.current;
+    setActive(i);
+  };
 
   useEffect(() => {
     const el = wrap.current;
@@ -74,8 +85,14 @@ export default function ServiceMindmap() {
         const ring = i % 2 === 0 ? 1 : 0.66;
         const idleX = Math.sin(time * 0.6 + phase) * 4 * grow;
         const idleY = Math.cos(time * 0.5 + phase) * 4 * grow;
-        const px = cx + Math.cos(ang) * rx * ring * grow + mx * 26 * depth * grow + idleX;
-        const py = cy + Math.sin(ang) * ry * ring * grow + my * 26 * depth * grow + idleY;
+        // final resting (orbit) position
+        const targetX = cx + Math.cos(ang) * rx * ring + mx * 26 * depth + idleX;
+        const targetY = cy + Math.sin(ang) * ry * ring + my * 26 * depth + idleY;
+        // expand out FROM the clicked label's spot (origin) when a branch opens
+        const ox = a === null ? cx : origin.current.x;
+        const oy = a === null ? cy : origin.current.y;
+        const px = ox + (targetX - ox) * grow;
+        const py = oy + (targetY - oy) * grow;
         const node = refs[i];
         if (node) {
           const sc = a === null ? 1 : 0.45 + 0.55 * grow;
