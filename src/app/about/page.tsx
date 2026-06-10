@@ -40,8 +40,7 @@ function MarqueeRow({ items, dir }: { items: string[]; dir: "left" | "right" }) 
         {loop.map((name, i) => (
           <div
             key={i}
-            className="shrink-0 w-[clamp(190px,26vw,300px)] border-r border-[#F3F1EC]/15 flex items-center justify-center group"
-            style={{ minHeight: "clamp(120px, 16vh, 190px)" }}
+            className="shrink-0 w-[clamp(190px,26vw,300px)] aspect-square border-r border-[#F3F1EC]/15 flex items-center justify-center group"
           >
             <span className="font-display uppercase text-[#F3F1EC]/35 group-hover:text-[#F3F1EC] group-hover:scale-105 transition-all duration-500 text-center px-3" style={{ fontSize: "clamp(1rem, 1.5vw, 1.6rem)" }}>
               {name.toUpperCase()}
