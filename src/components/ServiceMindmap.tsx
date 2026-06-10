@@ -20,7 +20,14 @@ const MAX_SUB = 6;
 
 /* Live radial mindmap with a zoom transition: click a branch and the camera
    zooms into its own "planet" system; click out and it zooms back to main. */
-export default function ServiceMindmap() {
+export default function ServiceMindmap({ dark = false }: { dark?: boolean }) {
+  const stroke = dark ? "#F3F1EC" : "#0A0A0A";
+  const hubCls = dark ? "bg-[#F3F1EC] text-[#0A0A0A]" : "bg-[#0A0A0A] text-[#F3F1EC]";
+  const labelCls = dark
+    ? "border-[#F3F1EC]/30 bg-[#0A0A0A] text-[#F3F1EC] group-hover:bg-[#F3F1EC] group-hover:text-[#0A0A0A] group-hover:border-[#F3F1EC]"
+    : "border-[#0A0A0A]/25 bg-[#F3F1EC] text-[#0A0A0A] group-hover:bg-[#0A0A0A] group-hover:text-[#F3F1EC] group-hover:border-[#0A0A0A]";
+  const subCls = dark ? "border-[#F3F1EC]/25 bg-[#0A0A0A] text-[#F3F1EC]" : "border-[#0A0A0A]/20 bg-[#F3F1EC] text-[#0A0A0A]";
+  const hintCls = dark ? "text-[#F3F1EC]/40" : "text-[#0A0A0A]/35";
   const wrap = useRef<HTMLDivElement>(null);
   const mainNodes = useRef<(HTMLDivElement | null)[]>([]);
   const mainLines = useRef<(SVGLineElement | null)[]>([]);
@@ -132,10 +139,10 @@ export default function ServiceMindmap() {
       >
         <svg className="absolute inset-0 w-full h-full pointer-events-none" aria-hidden>
           {BRANCHES.map((_, i) => (
-            <line key={i} ref={(e) => { mainLines.current[i] = e; }} stroke="#0A0A0A" strokeOpacity="0.2" strokeWidth="1" />
+            <line key={i} ref={(e) => { mainLines.current[i] = e; }} stroke={stroke} strokeOpacity="0.2" strokeWidth="1" />
           ))}
         </svg>
-        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 rounded-full bg-[#0A0A0A] text-[#F3F1EC] flex items-center justify-center text-center px-5" style={{ width: "clamp(130px,15vw,180px)", height: "clamp(130px,15vw,180px)" }}>
+        <div className={`absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 rounded-full ${hubCls} flex items-center justify-center text-center px-5`} style={{ width: "clamp(130px,15vw,180px)", height: "clamp(130px,15vw,180px)" }}>
           <span className="font-display uppercase leading-[0.95] tracking-tight" style={{ fontSize: "clamp(0.85rem,1.3vw,1.1rem)" }}>Your<br />concept</span>
         </div>
         {BRANCHES.map((b, i) => (
@@ -146,7 +153,7 @@ export default function ServiceMindmap() {
             className="group absolute left-0 top-0 z-20 cursor-pointer"
             style={{ transform: "translate(-50%,-50%)" }}
           >
-            <div className="whitespace-nowrap rounded-full border border-[#0A0A0A]/25 bg-[#F3F1EC] px-5 py-2.5 text-[12px] md:text-[13px] tracking-[0.04em] text-center group-hover:bg-[#0A0A0A] group-hover:text-[#F3F1EC] group-hover:border-[#0A0A0A] group-hover:scale-105 transition-[background-color,color,border-color,scale] duration-300">
+            <div className={`whitespace-nowrap rounded-full border ${labelCls} px-5 py-2.5 text-[12px] md:text-[13px] tracking-[0.04em] text-center group-hover:scale-105 transition-[background-color,color,border-color,scale] duration-300`}>
               {b.label}
             </div>
           </div>
@@ -160,25 +167,25 @@ export default function ServiceMindmap() {
       >
         <svg className="absolute inset-0 w-full h-full pointer-events-none" aria-hidden>
           {Array.from({ length: MAX_SUB }).map((_, i) => (
-            <line key={i} ref={(e) => { subLines.current[i] = e; }} stroke="#0A0A0A" strokeOpacity="0.2" strokeWidth="1" />
+            <line key={i} ref={(e) => { subLines.current[i] = e; }} stroke={stroke} strokeOpacity="0.2" strokeWidth="1" />
           ))}
         </svg>
         {/* planet */}
-        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 rounded-full bg-[#0A0A0A] text-[#F3F1EC] flex items-center justify-center text-center px-5" style={{ width: "clamp(150px,17vw,210px)", height: "clamp(150px,17vw,210px)" }}>
+        <div className={`absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 rounded-full ${hubCls} flex items-center justify-center text-center px-5`} style={{ width: "clamp(150px,17vw,210px)", height: "clamp(150px,17vw,210px)" }}>
           <span className="font-display uppercase leading-[0.95] tracking-tight" style={{ fontSize: "clamp(0.9rem,1.5vw,1.3rem)" }}>{branch?.label}</span>
         </div>
         {branch?.items.map((it, i) => (
           <div
             key={it}
             ref={(e) => { subNodes.current[i] = e; }}
-            className="absolute left-0 top-0 z-20 whitespace-nowrap rounded-full border border-[#0A0A0A]/20 bg-[#F3F1EC] px-4 py-2 text-[11px] md:text-[12px] tracking-[0.04em] text-center"
+            className={`absolute left-0 top-0 z-20 whitespace-nowrap rounded-full border ${subCls} px-4 py-2 text-[11px] md:text-[12px] tracking-[0.04em] text-center`}
             style={{ transform: "translate(-50%,-50%)", opacity: 0 }}
           >
             {it}
           </div>
         ))}
         {branch && (
-          <p className="absolute left-1/2 bottom-1 -translate-x-1/2 z-30 text-[9px] tracking-[0.3em] uppercase text-[#0A0A0A]/35 pointer-events-none">
+          <p className={`absolute left-1/2 bottom-1 -translate-x-1/2 z-30 text-[9px] tracking-[0.3em] uppercase ${hintCls} pointer-events-none`}>
             Click anywhere to zoom out
           </p>
         )}

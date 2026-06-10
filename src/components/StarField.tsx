@@ -9,7 +9,7 @@ const rand = (n: number) => {
 };
 
 /* Super-tiny black stars scattered in the background that parallax with the cursor. */
-export default function StarField({ count = 64 }: { count?: number }) {
+export default function StarField({ count = 64, color = "#0A0A0A" }: { count?: number; color?: string }) {
   const wrap = useRef<HTMLDivElement>(null);
   const refs = useRef<(HTMLSpanElement | null)[]>([]);
   const stars = Array.from({ length: count }, (_, i) => ({
