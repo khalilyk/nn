@@ -4,6 +4,7 @@ import Grain from "@/components/Grain";
 import SiteNav from "@/components/SiteNav";
 import SiteFooter from "@/components/SiteFooter";
 import ParallaxImage from "@/components/ParallaxImage";
+import ServiceMindmap from "@/components/ServiceMindmap";
 
 export const metadata = {
   title: "About · Not Normal",
@@ -117,13 +118,18 @@ export default function AboutPage() {
           <h2 className="font-display uppercase tracking-tight mb-12" style={{ fontSize: "clamp(1.6rem, 4vw, 3rem)" }}>
             Everything a concept<br />needs to be unforgettable.
           </h2>
-          <ul className="flex flex-wrap gap-3">
+          {/* mobile: simple pill list */}
+          <ul className="md:hidden flex flex-wrap gap-3">
             {SERVICES.map((s) => (
-              <li key={s} className="rounded-full border border-[#0A0A0A]/25 px-5 py-2.5 text-[12px] md:text-[13px] tracking-[0.04em]">
+              <li key={s} className="rounded-full border border-[#0A0A0A]/25 px-5 py-2.5 text-[12px] tracking-[0.04em]">
                 {s}
               </li>
             ))}
           </ul>
+          {/* desktop: live mindmap */}
+          <div className="hidden md:block">
+            <ServiceMindmap />
+          </div>
           <p className="mt-10 max-w-xl text-[13px] md:text-[14px] leading-relaxed text-[#0A0A0A]/60">
             For restaurants, cafés and lifestyle venues that recognise personal interactions and brand consistency
             are what guests actually remember.
@@ -141,29 +147,31 @@ export default function AboutPage() {
           </p>
           <div className="mt-8 space-y-5 text-[14px] md:text-[15px] leading-relaxed text-[#0A0A0A]/65">
             <p>
-              The former Head of Marketing behind some of Dubai&apos;s most awarded restaurants, including{" "}
+              The former Head of Marketing behind some of Dubai&apos;s most recognised hospitality brands, including{" "}
               <span className="text-[#FF2EC4]">3Fils</span>, <span className="text-[#FF2EC4]">BRIX</span> and{" "}
-              <span className="text-[#FF2EC4]">Bordo Mavi</span>. Not Normal was born from a simple idea:{" "}
+              <span className="text-[#FF2EC4]">Bordo Mavi</span>, Not Normal was born from a simple belief:{" "}
               <span className="text-[#0A0A0A] font-medium">the world doesn&apos;t need more of the same.</span>
             </p>
             <p>
-              After shaping brands in Dubai&apos;s competitive dining scene, collaborating across Beirut&apos;s creative
-              landscape and now operating from Sydney, Not Normal brings a global hospitality perspective to every
-              project. Different markets. Same standard: bold thinking, strategic clarity and experiences people
-              remember.
+              Over the past two decades, our work has helped shape brands recognised by{" "}
+              <span className="text-[#0A0A0A] font-medium">Michelin</span>, celebrated by{" "}
+              <span className="text-[#0A0A0A] font-medium">The World&apos;s 50 Best Restaurants</span>, and awarded
+              across some of the region&apos;s most competitive dining markets. From Dubai&apos;s waterfront
+              institutions to emerging concepts in Sydney and creative collaborations throughout Beirut, we&apos;ve seen
+              firsthand what separates a venue people visit from one they talk about.
             </p>
             <p>
-              From brand foundations and identity systems to menu development, campaign direction, packaging, content,
-              digital strategy and on-ground activations, Not Normal partners with restaurants, cafés and lifestyle
-              venues ready to carve their own lane and own it confidently.
+              Today, Not Normal partners with restaurants, cafés and lifestyle brands to build identities with
+              substance and longevity. From concept development and brand strategy to menus, packaging, content,
+              digital marketing and launch campaigns, every project is approached through a hospitality lens.
             </p>
             <p>
-              Everything is rooted in hospitality. We understand what makes a concept resonate, what builds genuine
-              guest loyalty and what transforms a venue from busy… to unforgettable.
+              We understand what makes guests return, what creates genuine connection and what turns a good concept
+              into a destination.
             </p>
             <p>
-              This isn&apos;t an agency that follows trends. It&apos;s a studio that builds brands with staying power,
-              across cities, cultures and communities.
+              Built across cities, cultures and award-winning hospitality brands, Not Normal creates work designed to
+              be remembered.
             </p>
           </div>
           </div>
@@ -171,7 +179,7 @@ export default function AboutPage() {
           <div className="md:sticky md:top-28">
             <div className="relative w-full aspect-[4/5] overflow-hidden rounded-2xl">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/nn-f6.png" alt="Not Normal" className="absolute inset-0 w-full h-full object-cover" />
+              <img src="/nn-founder.png" alt="Khalil Khouri" className="absolute inset-0 w-full h-full object-cover" />
             </div>
           </div>
         </div>
