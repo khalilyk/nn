@@ -135,11 +135,11 @@ export default function SiteNav() {
         <a
           href="/contact"
           onClick={() => setMenuOpen(false)}
-          className="group relative z-0 rounded-[26px] bg-[#FBD9BE] text-[#0A0A0A] px-6 py-3 flex items-center justify-center gap-4"
+          className="group relative z-0 rounded-[26px] bg-[#FBD9BE] text-[#0A0A0A] px-6 py-3 flex items-center justify-between"
           style={card(menuOpen, 2)}
         >
           <span className="font-display uppercase tracking-tight leading-none" style={{ fontSize: "clamp(1.4rem, 7vw, 2rem)" }}>Let&apos;s chat</span>
-          <span aria-hidden className="font-display text-[2.6rem] leading-none group-hover:translate-x-1.5 transition-transform duration-300">→</span>
+          <span aria-hidden className="font-display text-[2.6rem] leading-none flex items-center self-stretch translate-y-[0.06em] group-hover:translate-x-1.5 transition-transform duration-300">→</span>
         </a>
 
         {/* 3 — mascot / chat card */}
