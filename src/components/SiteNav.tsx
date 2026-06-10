@@ -99,9 +99,11 @@ export default function SiteNav() {
         {/* full-bleed fish-eye title, stuck to the very top */}
         <h2
           aria-label="Navigation"
-          className="absolute top-0 left-0 w-full flex justify-between items-center font-display uppercase leading-none px-2 pt-5 select-none"
+          className="absolute top-0 left-0 w-full flex justify-between items-center font-display uppercase leading-none px-2 pt-6 select-none"
           style={{
             fontSize: "clamp(2rem, 11vw, 4.5rem)",
+            perspective: "300px",
+            transformStyle: "preserve-3d",
             opacity: menuOpen ? 1 : 0,
             transition: "opacity 0.5s ease 0.05s",
           }}
@@ -109,13 +111,12 @@ export default function SiteNav() {
           {"NAVIGATION".split("").map((ch, i, arr) => {
             const d = (i / (arr.length - 1) - 0.5) * 2; // -1..1 across the word
             const bulge = 1 - d * d; // 0 at edges, 1 in the centre
-            const scale = (0.72 + bulge * 0.55).toFixed(3); // small edges, big middle
-            const ty = (-bulge * 4).toFixed(1); // centre rises slightly (lens bulge)
+            const tz = (bulge * 90).toFixed(1); // centre letters pushed toward the viewer = convex bulge
             return (
               <span
                 key={i}
                 aria-hidden
-                style={{ display: "inline-block", transform: `scale(${scale}) translateY(${ty}px)`, transformOrigin: "center bottom" }}
+                style={{ display: "inline-block", transform: `translateZ(${tz}px)`, transformOrigin: "center center" }}
               >
                 {ch}
               </span>
@@ -123,8 +124,8 @@ export default function SiteNav() {
           })}
         </h2>
 
-        {/* centred links with flanking arrows */}
-        <nav className="flex flex-col items-center gap-3 mt-auto mb-auto">
+        {/* centred links */}
+        <nav className="relative z-10 flex flex-col items-center gap-3 mt-auto mb-auto">
           {LINKS.map(({ l, href }, i) => (
             <a
               key={l}
@@ -148,10 +149,10 @@ export default function SiteNav() {
         <img
           src="/nn-panda.png"
           alt="Not Normal"
-          className="w-40 md:w-48 h-auto mx-auto"
+          className="pointer-events-none absolute left-1/2 bottom-0 z-0 w-[800px] max-w-none h-auto"
           style={{
             opacity: menuOpen ? 1 : 0,
-            transform: menuOpen ? "translateY(0)" : "translateY(14px)",
+            transform: menuOpen ? "translate(-50%, 22%)" : "translate(-50%, calc(22% + 14px))",
             transition: `opacity 0.55s cubic-bezier(0.16,1,0.3,1) ${menuOpen ? 0.5 : 0}s, transform 0.55s cubic-bezier(0.16,1,0.3,1) ${menuOpen ? 0.5 : 0}s`,
           }}
         />
