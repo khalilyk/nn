@@ -4,6 +4,22 @@ import { useEffect, useState } from "react";
 import Magnetic from "./Magnetic";
 import ChatLink from "./ChatLink";
 
+const IgIcon = () => (
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <rect x="2" y="2" width="20" height="20" rx="5" />
+    <circle cx="12" cy="12" r="4" />
+    <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
+  </svg>
+);
+
+const LiIcon = () => (
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z" />
+    <rect x="2" y="9" width="4" height="12" />
+    <circle cx="4" cy="4" r="2" />
+  </svg>
+);
+
 const LINKS = [
   { l: "About", href: "/about", tip: "Who we are", shape: "rounded-full" },
   { l: "The Menu", href: "/#s02", tip: "What we do", shape: "rounded-none" },
@@ -67,64 +83,62 @@ export default function SiteNav() {
       </nav>
 
       {/* ─── MOBILE MENU OVERLAY ─── */}
-      <div className={`fixed inset-0 z-[110] lg:hidden bg-[#F3F1EC] text-[#0A0A0A] flex flex-col overflow-hidden px-8 pt-24 pb-10 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${menuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}>
-        <a
-          href="/"
-          aria-label="Not Normal, home"
-          onClick={() => setMenuOpen(false)}
-          className="absolute top-7 left-8 flex items-center"
-          style={{ opacity: menuOpen ? 1 : 0, transition: "opacity 0.5s ease 0.1s" }}
-        >
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/notnormal-logoblack.png" alt="Not Normal" className="h-3.5 w-auto" />
-        </a>
+      <div className={`fixed inset-0 z-[110] lg:hidden bg-[#81D742] text-[#0A0A0A] flex flex-col items-center overflow-hidden px-8 pt-20 pb-12 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${menuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}>
         <button
           aria-label="Close menu"
           onClick={() => setMenuOpen(false)}
-          className="absolute top-6 right-8 w-10 h-10 rounded-full border border-[#0A0A0A]/20 flex items-center justify-center text-[#0A0A0A] transition-colors hover:bg-[#0A0A0A] hover:text-[#F3F1EC]"
+          className="absolute top-6 right-8 w-11 h-11 rounded-full border-2 border-[#0A0A0A] flex items-center justify-center text-[#0A0A0A] transition-colors hover:bg-[#0A0A0A] hover:text-[#81D742]"
           style={{ opacity: menuOpen ? 1 : 0, transition: "opacity 0.5s ease 0.1s, background-color 0.3s, color 0.3s" }}
         >
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.4"><path d="M1 1l12 12M13 1L1 13" /></svg>
+          <svg width="16" height="16" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="2"><path d="M1 1l12 12M13 1L1 13" /></svg>
         </button>
 
-        <div className="h-px bg-[#0A0A0A]/15 mb-8" style={{ opacity: menuOpen ? 1 : 0, transform: menuOpen ? "scaleX(1)" : "scaleX(0)", transformOrigin: "left", transition: "opacity 0.5s ease 0.05s, transform 0.7s cubic-bezier(0.16,1,0.3,1) 0.05s" }} />
+        {/* giant title */}
+        <h2
+          className="font-display uppercase tracking-tight text-center leading-[0.9]"
+          style={{
+            fontSize: "clamp(2.6rem, 13vw, 4.5rem)",
+            opacity: menuOpen ? 1 : 0,
+            transform: menuOpen ? "translateY(0)" : "translateY(14px)",
+            transition: "opacity 0.5s ease 0.05s, transform 0.6s cubic-bezier(0.16,1,0.3,1) 0.05s",
+          }}
+        >
+          Navigation
+        </h2>
 
-        <nav className="flex flex-col gap-1">
+        {/* centred links with flanking arrows */}
+        <nav className="flex flex-col items-center gap-3 mt-auto mb-auto">
           {LINKS.map(({ l, href }, i) => (
             <a
               key={l}
               href={href}
               onClick={() => setMenuOpen(false)}
-              className="font-sans text-[#0A0A0A] leading-[1.15] transition-opacity duration-300 hover:opacity-50"
+              className="group flex items-center justify-center gap-4 font-display uppercase tracking-tight text-[#0A0A0A] leading-none"
               style={{
-                fontSize: "clamp(1.9rem, 8.5vw, 2.6rem)",
+                fontSize: "clamp(1.8rem, 9vw, 2.8rem)",
                 opacity: menuOpen ? 1 : 0,
                 transform: menuOpen ? "translateY(0)" : "translateY(14px)",
-                transition: `opacity 0.55s cubic-bezier(0.16,1,0.3,1) ${menuOpen ? 0.12 + i * 0.06 : 0}s, transform 0.55s cubic-bezier(0.16,1,0.3,1) ${menuOpen ? 0.12 + i * 0.06 : 0}s`,
+                transition: `opacity 0.55s cubic-bezier(0.16,1,0.3,1) ${menuOpen ? 0.14 + i * 0.06 : 0}s, transform 0.55s cubic-bezier(0.16,1,0.3,1) ${menuOpen ? 0.14 + i * 0.06 : 0}s`,
               }}
             >
+              <span aria-hidden className="text-[0.6em] opacity-40 group-hover:opacity-100 group-hover:-translate-x-1 transition-all duration-300">←</span>
               {l}
+              <span aria-hidden className="text-[0.6em] opacity-40 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-300">→</span>
             </a>
           ))}
         </nav>
 
-        <div className="h-px bg-[#0A0A0A]/15 my-8" style={{ opacity: menuOpen ? 1 : 0, transform: menuOpen ? "scaleX(1)" : "scaleX(0)", transformOrigin: "left", transition: "opacity 0.5s ease 0.45s, transform 0.7s cubic-bezier(0.16,1,0.3,1) 0.45s" }} />
-
-        <div style={{ opacity: menuOpen ? 1 : 0, transform: menuOpen ? "translateY(0)" : "translateY(14px)", transition: `opacity 0.55s cubic-bezier(0.16,1,0.3,1) ${menuOpen ? 0.5 : 0}s, transform 0.55s cubic-bezier(0.16,1,0.3,1) ${menuOpen ? 0.5 : 0}s` }}>
-          <a href="/the-inside" onClick={() => setMenuOpen(false)} className="font-sans text-[17px] text-[#0A0A0A] transition-opacity duration-300 hover:opacity-50">The Inside</a>
-          <p className="text-[10px] tracking-[0.25em] uppercase text-[#0A0A0A]/40 mt-8 mb-4">Social</p>
-          <div className="flex flex-col gap-2.5">
-            <a href="https://instagram.com" target="_blank" rel="noreferrer" className="font-sans text-[17px] text-[#0A0A0A] transition-opacity duration-300 hover:opacity-50">Instagram</a>
-            <a href="https://linkedin.com" target="_blank" rel="noreferrer" className="font-sans text-[17px] text-[#0A0A0A] transition-opacity duration-300 hover:opacity-50">LinkedIn</a>
-          </div>
-        </div>
-
-        <div className="mt-auto flex items-center gap-2" style={{ opacity: menuOpen ? 1 : 0, transition: `opacity 0.6s ease ${menuOpen ? 0.6 : 0}s` }}>
-          <span className="relative flex h-2 w-2">
-            <span className="absolute inline-flex h-full w-full rounded-full bg-[#16a34a] opacity-60 animate-ping" />
-            <span className="relative inline-flex h-2 w-2 rounded-full bg-[#16a34a]" />
-          </span>
-          <span className="text-[10px] tracking-[0.18em] uppercase text-[#16a34a]">2 spots this month</span>
+        {/* social icons */}
+        <div
+          className="flex items-center gap-5"
+          style={{ opacity: menuOpen ? 1 : 0, transform: menuOpen ? "translateY(0)" : "translateY(14px)", transition: `opacity 0.55s cubic-bezier(0.16,1,0.3,1) ${menuOpen ? 0.5 : 0}s, transform 0.55s cubic-bezier(0.16,1,0.3,1) ${menuOpen ? 0.5 : 0}s` }}
+        >
+          <a href="https://instagram.com" target="_blank" rel="noreferrer" aria-label="Instagram" className="w-12 h-12 rounded-full border-2 border-[#0A0A0A] flex items-center justify-center transition-colors hover:bg-[#0A0A0A] hover:text-[#81D742]">
+            <IgIcon />
+          </a>
+          <a href="https://linkedin.com" target="_blank" rel="noreferrer" aria-label="LinkedIn" className="w-12 h-12 rounded-full border-2 border-[#0A0A0A] flex items-center justify-center transition-colors hover:bg-[#0A0A0A] hover:text-[#81D742]">
+            <LiIcon />
+          </a>
         </div>
       </div>
     </>
