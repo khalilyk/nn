@@ -135,7 +135,7 @@ export default function SiteNav() {
         <a
           href="/contact"
           onClick={() => setMenuOpen(false)}
-          className="group relative z-0 rounded-[26px] bg-[#FBD9BE] text-[#0A0A0A] px-6 py-3 flex items-center justify-between"
+          className="group relative z-0 rounded-[26px] bg-[#FBD9BE] text-[#0A0A0A] px-6 py-3 flex items-center justify-center gap-4"
           style={card(menuOpen, 2)}
         >
           <span className="font-display uppercase tracking-tight leading-none" style={{ fontSize: "clamp(1.4rem, 7vw, 2rem)" }}>Let&apos;s chat</span>
