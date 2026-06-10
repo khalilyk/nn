@@ -206,7 +206,7 @@ export default function ContactPage() {
       </section>
 
       {/* FORM */}
-      <section id="form" className="relative max-w-3xl mx-4 md:mx-auto mt-6 md:mt-8 mb-12 md:mb-20 px-8 md:px-14 py-14 md:py-16 rounded-3xl border border-[#0A0A0A]/15 bg-white shadow-[0_24px_60px_-24px_rgba(0,0,0,0.18)]">
+      <section id="form" className="relative max-w-3xl mx-4 md:mx-auto mt-6 md:mt-8 mb-12 md:mb-20 px-8 md:px-14 py-14 md:py-16 rounded-3xl border border-[#0A0A0A]/15 bg-white shadow-[0_24px_60px_-24px_rgba(0,0,0,0.18)] text-center">
         <p className="text-[9px] tracking-[0.3em] uppercase text-[#0A0A0A]/40 mb-3">The Form</p>
         <h2 className="font-display uppercase leading-[0.95] tracking-tight mb-12" style={{ fontSize: "clamp(1.8rem, 4vw, 3rem)" }}>Wanna start something?</h2>
         <form onSubmit={submit} className="flex flex-col gap-8">
@@ -226,7 +226,7 @@ export default function ContactPage() {
           </div>
           <div>
             <label className="block text-[9px] tracking-[0.25em] uppercase text-[#0A0A0A]/50 mb-3">How do you take your coffee?</label>
-            <div className="flex flex-wrap gap-2.5">
+            <div className="flex flex-wrap justify-center gap-2.5">
               {coffees.map((c) => {
                 const on = coffee === c;
                 return (
