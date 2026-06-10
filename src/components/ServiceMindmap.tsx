@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const BRANCHES: { label: string; items: string[] }[] = [
   { label: "Brand foundations", items: ["Brand strategy", "Positioning", "Naming", "Brand story", "Vision & values", "Customer personas"] },
@@ -16,24 +16,20 @@ const BRANCHES: { label: string; items: string[] }[] = [
   { label: "Operations support", items: ["SOP development", "Staff training", "Internal branding", "Recruitment campaigns"] },
 ];
 
-/* Live radial mindmap — branches orbit a central hub, drift gently and
-   parallax toward the cursor. Hovering a branch freezes the motion and
-   reveals its sub-items. */
+/* Live radial mindmap. Branches orbit a hub, drifting + parallaxing toward the
+   cursor. Click a branch to expand it into its sub-points; click out to return. */
 export default function ServiceMindmap() {
   const wrap = useRef<HTMLDivElement>(null);
-  const nodes = useRef<(HTMLDivElement | null)[]>([]);
-  const lines = useRef<(SVGLineElement | null)[]>([]);
-  const frozen = useRef(false);
+  const branchRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const subRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const lineRefs = useRef<(SVGLineElement | null)[]>([]);
+  const [active, setActive] = useState<number | null>(null);
+  const activeRef = useRef<number | null>(null);
+  activeRef.current = active;
 
   useEffect(() => {
     const el = wrap.current;
     if (!el) return;
-    const n = BRANCHES.length;
-    const meta = BRANCHES.map((_, i) => {
-      const a = (i / n) * Math.PI * 2 - Math.PI / 2;
-      return { ax: Math.cos(a), ay: Math.sin(a), depth: 0.5 + (i % 3) * 0.3, phase: i * 1.7 };
-    });
-
     let tmx = 0, tmy = 0, mx = 0, my = 0;
     const onMove = (e: MouseEvent) => {
       const r = el.getBoundingClientRect();
@@ -48,31 +44,40 @@ export default function ServiceMindmap() {
     let start = 0;
     const loop = (t: number) => {
       raf = requestAnimationFrame(loop);
-      if (frozen.current) return; // hold positions so the open panel is readable
       if (!start) start = t;
       mx += (tmx - mx) * 0.07;
       my += (tmy - my) * 0.07;
       const r = el.getBoundingClientRect();
       const cx = r.width / 2;
       const cy = r.height / 2;
-      const radius = Math.min(r.width, r.height) * 0.36;
       const time = (t - start) / 1000;
-      meta.forEach((m, i) => {
-        const idleX = Math.sin(time * 0.6 + m.phase) * 9;
-        const idleY = Math.cos(time * 0.5 + m.phase) * 9;
-        const px = cx + m.ax * radius + mx * 46 * m.depth + idleX;
-        const py = cy + m.ay * radius + my * 46 * m.depth + idleY;
-        const node = nodes.current[i];
+      const a = activeRef.current;
+      const count = a === null ? BRANCHES.length : BRANCHES[a].items.length;
+      const radius = Math.min(r.width, r.height) * (a === null ? 0.36 : 0.34);
+      const refs = a === null ? branchRefs.current : subRefs.current;
+      for (let i = 0; i < count; i++) {
+        const ang = (i / count) * Math.PI * 2 - Math.PI / 2;
+        const depth = 0.5 + (i % 3) * 0.3;
+        const phase = i * 1.7;
+        const idleX = Math.sin(time * 0.6 + phase) * 9;
+        const idleY = Math.cos(time * 0.5 + phase) * 9;
+        const px = cx + Math.cos(ang) * radius + mx * 46 * depth + idleX;
+        const py = cy + Math.sin(ang) * radius + my * 46 * depth + idleY;
+        const node = refs[i];
         if (node) node.style.transform = `translate(-50%,-50%) translate(${px}px,${py}px)`;
-        const ln = lines.current[i];
+        const ln = lineRefs.current[i];
         if (ln) {
           ln.setAttribute("x1", String(cx + mx * 14));
           ln.setAttribute("y1", String(cy + my * 14));
           ln.setAttribute("x2", String(px));
           ln.setAttribute("y2", String(py));
+          ln.style.opacity = "1";
         }
-      });
-      return;
+      }
+      for (let i = count; i < lineRefs.current.length; i++) {
+        const ln = lineRefs.current[i];
+        if (ln) ln.style.opacity = "0";
+      }
     };
     raf = requestAnimationFrame(loop);
     return () => {
@@ -82,56 +87,67 @@ export default function ServiceMindmap() {
     };
   }, []);
 
+  const activeBranch = active === null ? null : BRANCHES[active];
+
   return (
-    <div ref={wrap} data-cursor="Explore" className="relative w-full" style={{ height: "clamp(520px, 72vh, 680px)" }}>
+    <div
+      ref={wrap}
+      data-cursor={active === null ? "Explore" : "Back"}
+      onClick={() => setActive(null)}
+      className="relative w-full select-none"
+      style={{ height: "clamp(520px, 72vh, 680px)" }}
+    >
       <svg className="absolute inset-0 w-full h-full pointer-events-none" aria-hidden>
         {BRANCHES.map((_, i) => (
-          <line key={i} ref={(e) => { lines.current[i] = e; }} stroke="#0A0A0A" strokeOpacity="0.2" strokeWidth="1" />
+          <line key={i} ref={(e) => { lineRefs.current[i] = e; }} stroke="#0A0A0A" strokeOpacity="0.2" strokeWidth="1" />
         ))}
       </svg>
 
-      {/* central hub */}
-      <div
-        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 rounded-full bg-[#0A0A0A] text-[#F3F1EC] flex items-center justify-center text-center"
-        style={{ width: "clamp(120px,13vw,160px)", height: "clamp(120px,13vw,160px)" }}
+      {/* central hub — also returns to the main map */}
+      <button
+        type="button"
+        onClick={(e) => { e.stopPropagation(); setActive(null); }}
+        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 rounded-full bg-[#0A0A0A] text-[#F3F1EC] flex items-center justify-center text-center px-5 transition-[width,height] duration-300"
+        style={{ width: "clamp(130px,15vw,180px)", height: "clamp(130px,15vw,180px)" }}
       >
-        <span className="font-display uppercase leading-[0.92] tracking-tight" style={{ fontSize: "clamp(0.9rem,1.4vw,1.15rem)" }}>
-          Your<br />concept
+        <span className="font-display uppercase leading-[0.95] tracking-tight" style={{ fontSize: "clamp(0.85rem,1.3vw,1.1rem)" }}>
+          {activeBranch ? activeBranch.label : <>Your<br />concept</>}
         </span>
-      </div>
+      </button>
 
-      {/* orbiting branch nodes */}
-      {BRANCHES.map((b, i) => {
-        const a = (i / BRANCHES.length) * Math.PI * 2 - Math.PI / 2;
-        const openUp = Math.sin(a) > 0.25; // lower-half nodes open their panel upward
-        return (
+      {/* branch nodes (main map) */}
+      {BRANCHES.map((b, i) => (
+        <div
+          key={b.label}
+          ref={(e) => { branchRefs.current[i] = e; }}
+          onClick={(e) => { e.stopPropagation(); setActive(i); }}
+          className={`group absolute left-0 top-0 z-20 cursor-pointer transition-opacity duration-300 ${active === null ? "opacity-100" : "opacity-0 pointer-events-none"}`}
+          style={{ transform: "translate(-50%,-50%)" }}
+        >
+          <div className="whitespace-nowrap rounded-full border border-[#0A0A0A]/25 bg-[#F3F1EC] px-5 py-2.5 text-[12px] md:text-[13px] tracking-[0.04em] text-center group-hover:bg-[#0A0A0A] group-hover:text-[#F3F1EC] group-hover:border-[#0A0A0A] group-hover:scale-105 transition-[background-color,color,border-color,scale] duration-300">
+            {b.label}
+          </div>
+        </div>
+      ))}
+
+      {/* sub-item nodes (expanded branch) */}
+      {activeBranch &&
+        activeBranch.items.map((it, i) => (
           <div
-            key={b.label}
-            ref={(e) => { nodes.current[i] = e; }}
-            onMouseEnter={() => { frozen.current = true; }}
-            onMouseLeave={() => { frozen.current = false; }}
-            className="group absolute left-0 top-0 z-20 hover:z-40"
+            key={it}
+            ref={(e) => { subRefs.current[i] = e; }}
+            className="absolute left-0 top-0 z-20 whitespace-nowrap rounded-full border border-[#0A0A0A]/20 bg-[#F3F1EC] px-4 py-2 text-[11px] md:text-[12px] tracking-[0.04em] text-center"
             style={{ transform: "translate(-50%,-50%)" }}
           >
-            <div className="whitespace-nowrap rounded-full border border-[#0A0A0A]/25 bg-[#F3F1EC] px-5 py-2.5 text-[12px] md:text-[13px] tracking-[0.04em] text-center group-hover:bg-[#0A0A0A] group-hover:text-[#F3F1EC] group-hover:border-[#0A0A0A] group-hover:scale-105 transition-[background-color,color,border-color,scale] duration-300">
-              {b.label}
-            </div>
-            {/* sub-items panel */}
-            <div
-              className={`pointer-events-none absolute left-1/2 -translate-x-1/2 w-48 rounded-2xl border border-[#0A0A0A]/10 bg-[#F3F1EC] shadow-[0_18px_40px_-18px_rgba(0,0,0,0.35)] p-4 opacity-0 translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 ${openUp ? "bottom-full mb-3" : "top-full mt-3"}`}
-            >
-              <ul className="space-y-1.5 text-left">
-                {b.items.map((it) => (
-                  <li key={it} className="flex items-start gap-2 text-[11px] leading-snug text-[#0A0A0A]/60">
-                    <span className="text-[#81D742]">✦</span>
-                    {it}
-                  </li>
-                ))}
-              </ul>
-            </div>
+            {it}
           </div>
-        );
-      })}
+        ))}
+
+      {activeBranch && (
+        <p className="absolute left-1/2 bottom-1 -translate-x-1/2 z-30 text-[9px] tracking-[0.3em] uppercase text-[#0A0A0A]/35 pointer-events-none">
+          Click anywhere to go back
+        </p>
+      )}
     </div>
   );
 }
