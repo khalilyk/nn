@@ -60,7 +60,9 @@ export default function ServiceMindmap() {
       const time = (t - start) / 1000;
       const a = activeRef.current;
       const count = a === null ? BRANCHES.length : BRANCHES[a].items.length;
-      const baseRadius = Math.min(r.width, r.height) * (a === null ? 0.36 : 0.34);
+      // elliptical orbit — wide horizontally (uses the room) so labels don't collide
+      const rx = Math.min(r.width * 0.43, 480) * (a === null ? 1 : 0.9);
+      const ry = r.height * (a === null ? 0.4 : 0.38);
       const refs = a === null ? branchRefs.current : subRefs.current;
       // grow factor: 1 on the main map, ramps 0→1 when a branch expands
       const grow = a === null ? 1 : easeOut(Math.min((t - growStart.current) / 520, 1));
@@ -68,11 +70,12 @@ export default function ServiceMindmap() {
         const ang = (i / count) * Math.PI * 2 - Math.PI / 2;
         const depth = 0.5 + (i % 3) * 0.3;
         const phase = i * 1.7;
-        const idleX = Math.sin(time * 0.6 + phase) * 9 * grow;
-        const idleY = Math.cos(time * 0.5 + phase) * 9 * grow;
-        const rr = baseRadius * grow;
-        const px = cx + Math.cos(ang) * rr + mx * 46 * depth * grow + idleX;
-        const py = cy + Math.sin(ang) * rr + my * 46 * depth * grow + idleY;
+        // alternate nodes onto an inner ring so neighbours never overlap
+        const ring = i % 2 === 0 ? 1 : 0.66;
+        const idleX = Math.sin(time * 0.6 + phase) * 4 * grow;
+        const idleY = Math.cos(time * 0.5 + phase) * 4 * grow;
+        const px = cx + Math.cos(ang) * rx * ring * grow + mx * 26 * depth * grow + idleX;
+        const py = cy + Math.sin(ang) * ry * ring * grow + my * 26 * depth * grow + idleY;
         const node = refs[i];
         if (node) {
           const sc = a === null ? 1 : 0.45 + 0.55 * grow;
