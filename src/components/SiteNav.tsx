@@ -96,19 +96,31 @@ export default function SiteNav() {
           <svg width="16" height="16" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="2"><path d="M1 1l12 12M13 1L1 13" /></svg>
         </button>
 
-        {/* giant stretched title */}
+        {/* full-bleed fish-eye title, stuck to the very top */}
         <h2
-          className="font-display uppercase text-center leading-[0.8] w-full whitespace-nowrap"
+          aria-label="Navigation"
+          className="absolute top-0 left-0 w-full flex justify-between items-center font-display uppercase leading-none px-2 pt-5 select-none"
           style={{
-            fontSize: "clamp(3rem, 19vw, 7rem)",
-            letterSpacing: "-0.03em",
-            transformOrigin: "center top",
+            fontSize: "clamp(2rem, 11vw, 4.5rem)",
             opacity: menuOpen ? 1 : 0,
-            transform: menuOpen ? "translateY(0) scaleY(1.9)" : "translateY(14px) scaleY(1.9)",
-            transition: "opacity 0.5s ease 0.05s, transform 0.6s cubic-bezier(0.16,1,0.3,1) 0.05s",
+            transition: "opacity 0.5s ease 0.05s",
           }}
         >
-          Navigation
+          {"NAVIGATION".split("").map((ch, i, arr) => {
+            const d = (i / (arr.length - 1) - 0.5) * 2; // -1..1 across the word
+            const bulge = 1 - d * d; // 0 at edges, 1 in the centre
+            const scale = (0.72 + bulge * 0.55).toFixed(3); // small edges, big middle
+            const ty = (-bulge * 4).toFixed(1); // centre rises slightly (lens bulge)
+            return (
+              <span
+                key={i}
+                aria-hidden
+                style={{ display: "inline-block", transform: `scale(${scale}) translateY(${ty}px)`, transformOrigin: "center bottom" }}
+              >
+                {ch}
+              </span>
+            );
+          })}
         </h2>
 
         {/* centred links with flanking arrows */}
@@ -118,7 +130,7 @@ export default function SiteNav() {
               key={l}
               href={href}
               onClick={() => setMenuOpen(false)}
-              className="group flex items-center justify-center gap-4 font-display uppercase tracking-tight text-[#0A0A0A] leading-none"
+              className="font-display uppercase tracking-tight text-[#0A0A0A] leading-none transition-opacity duration-300 hover:opacity-60"
               style={{
                 fontSize: "clamp(1.8rem, 9vw, 2.8rem)",
                 opacity: menuOpen ? 1 : 0,
@@ -126,12 +138,23 @@ export default function SiteNav() {
                 transition: `opacity 0.55s cubic-bezier(0.16,1,0.3,1) ${menuOpen ? 0.14 + i * 0.06 : 0}s, transform 0.55s cubic-bezier(0.16,1,0.3,1) ${menuOpen ? 0.14 + i * 0.06 : 0}s`,
               }}
             >
-              <span aria-hidden className="text-[0.6em] opacity-40 group-hover:opacity-100 group-hover:-translate-x-1 transition-all duration-300">←</span>
               {l}
-              <span aria-hidden className="text-[0.6em] opacity-40 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-300">→</span>
             </a>
           ))}
         </nav>
+
+        {/* running panda mascot, pinned to the bottom */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/nn-panda.png"
+          alt="Not Normal"
+          className="w-40 md:w-48 h-auto mx-auto"
+          style={{
+            opacity: menuOpen ? 1 : 0,
+            transform: menuOpen ? "translateY(0)" : "translateY(14px)",
+            transition: `opacity 0.55s cubic-bezier(0.16,1,0.3,1) ${menuOpen ? 0.5 : 0}s, transform 0.55s cubic-bezier(0.16,1,0.3,1) ${menuOpen ? 0.5 : 0}s`,
+          }}
+        />
       </div>
     </>
   );
