@@ -88,31 +88,26 @@ export default function SiteNav() {
 
       {/* ─── MOBILE MENU OVERLAY ─── */}
       <div className={`fixed inset-0 z-[110] lg:hidden bg-[#81D742] text-[#0A0A0A] flex flex-col items-center overflow-hidden px-8 pt-20 pb-12 transition-opacity duration-300 ${menuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}>
-        {/* circular ink that zooms out from the X to cover the screen, then unmounts the menu */}
-        <span
-          aria-hidden
-          onTransitionEnd={(e) => {
-            // once the ink has covered the screen, unmount the menu behind it.
-            // `closing` stays true so the circle keeps covering while the overlay
-            // fades out; openMenu resets it before the next open.
-            if (e.propertyName === "transform" && closing) setMenuOpen(false);
-          }}
-          className="absolute rounded-full bg-[#0A0A0A] pointer-events-none"
-          style={{
-            width: 44,
-            height: 44,
-            top: 24,
-            right: 32,
-            transformOrigin: "center",
-            transform: closing ? "scale(60)" : "scale(0)",
-            transition: closing ? "transform 0.6s cubic-bezier(0.7,0,0.3,1)" : "none",
-          }}
-        />
+        {/* the X button itself zooms out to cover the screen, then unmounts the menu */}
         <button
           aria-label="Close menu"
           onClick={closeMenu}
-          className="absolute top-6 right-8 w-11 h-11 rounded-full border-2 border-[#0A0A0A] flex items-center justify-center text-[#0A0A0A] transition-colors hover:bg-[#0A0A0A] hover:text-[#81D742]"
-          style={{ opacity: menuOpen ? 1 : 0, transition: "opacity 0.5s ease 0.1s, background-color 0.3s, color 0.3s" }}
+          onTransitionEnd={(e) => {
+            // once the X has scaled up to cover the screen, unmount the menu behind it.
+            // `closing` stays true so it keeps covering while the overlay fades out;
+            // openMenu resets it before the next open.
+            if (e.propertyName === "transform" && closing) setMenuOpen(false);
+          }}
+          className="absolute top-6 right-8 w-11 h-11 rounded-full border-2 border-[#0A0A0A] flex items-center justify-center text-[#0A0A0A]"
+          style={{
+            opacity: menuOpen ? 1 : 0,
+            backgroundColor: closing ? "#0A0A0A" : "transparent",
+            transformOrigin: "center",
+            transform: closing ? "scale(60)" : "scale(1)",
+            transition: closing
+              ? "transform 0.6s cubic-bezier(0.7,0,0.3,1), background-color 0.15s ease"
+              : "opacity 0.5s ease 0.1s",
+          }}
         >
           <svg width="16" height="16" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="2"><path d="M1 1l12 12M13 1L1 13" /></svg>
         </button>
