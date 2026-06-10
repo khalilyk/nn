@@ -2,29 +2,34 @@
 
 import { useEffect, useRef } from "react";
 
-const SERVICES = [
-  "Brand foundations",
-  "Identity systems",
-  "Menu development",
-  "Campaign direction",
-  "Packaging",
-  "Content creation",
-  "Digital strategy",
-  "On-ground activations",
+const BRANCHES: { label: string; items: string[] }[] = [
+  { label: "Brand foundations", items: ["Brand strategy", "Positioning", "Naming", "Brand story", "Vision & values", "Customer personas"] },
+  { label: "Identity systems", items: ["Logo design", "Visual identity", "Brand guidelines", "Typography", "Colour systems", "Brand assets"] },
+  { label: "Menu development", items: ["Menu strategy", "Engineering & pricing", "Menu design", "F&B concepts", "Signature products", "Seasonal rollouts"] },
+  { label: "Campaign direction", items: ["Launch campaigns", "Promotions", "Influencer strategy", "PR alignment", "Photography direction", "Creative concepts"] },
+  { label: "Packaging", items: ["Takeaway packaging", "Retail products", "Merchandise", "Supplier sourcing", "Production management", "Sustainability review"] },
+  { label: "Content creation", items: ["Photography", "Videography", "Social media content", "Copywriting", "Reels & short form", "Content calendars"] },
+  { label: "Digital strategy", items: ["Website design", "SEO", "Email marketing", "CRM & loyalty", "Online ordering", "Analytics & reporting"] },
+  { label: "On-ground activations", items: ["Venue launches", "Pop-ups", "Collaborations", "Events", "Partnerships", "Guest experiences"] },
+  { label: "Guest experience", items: ["Service design", "Customer journey", "Staff touchpoints", "Loyalty programs"] },
+  { label: "Growth strategy", items: ["Customer acquisition", "Retention", "Partnerships", "Expansion planning"] },
+  { label: "Operations support", items: ["SOP development", "Staff training", "Internal branding", "Recruitment campaigns"] },
 ];
 
-/* Live radial mindmap — services orbit a central hub, drifting gently and
-   parallaxing toward the cursor. */
+/* Live radial mindmap — branches orbit a central hub, drift gently and
+   parallax toward the cursor. Hovering a branch freezes the motion and
+   reveals its sub-items. */
 export default function ServiceMindmap() {
   const wrap = useRef<HTMLDivElement>(null);
   const nodes = useRef<(HTMLDivElement | null)[]>([]);
   const lines = useRef<(SVGLineElement | null)[]>([]);
+  const frozen = useRef(false);
 
   useEffect(() => {
     const el = wrap.current;
     if (!el) return;
-    const n = SERVICES.length;
-    const meta = SERVICES.map((_, i) => {
+    const n = BRANCHES.length;
+    const meta = BRANCHES.map((_, i) => {
       const a = (i / n) * Math.PI * 2 - Math.PI / 2;
       return { ax: Math.cos(a), ay: Math.sin(a), depth: 0.5 + (i % 3) * 0.3, phase: i * 1.7 };
     });
@@ -42,19 +47,21 @@ export default function ServiceMindmap() {
     let raf = 0;
     let start = 0;
     const loop = (t: number) => {
+      raf = requestAnimationFrame(loop);
+      if (frozen.current) return; // hold positions so the open panel is readable
       if (!start) start = t;
       mx += (tmx - mx) * 0.07;
       my += (tmy - my) * 0.07;
       const r = el.getBoundingClientRect();
       const cx = r.width / 2;
       const cy = r.height / 2;
-      const radius = Math.min(r.width, r.height) * 0.38;
+      const radius = Math.min(r.width, r.height) * 0.36;
       const time = (t - start) / 1000;
       meta.forEach((m, i) => {
         const idleX = Math.sin(time * 0.6 + m.phase) * 9;
         const idleY = Math.cos(time * 0.5 + m.phase) * 9;
-        const px = cx + m.ax * radius + mx * 48 * m.depth + idleX;
-        const py = cy + m.ay * radius + my * 48 * m.depth + idleY;
+        const px = cx + m.ax * radius + mx * 46 * m.depth + idleX;
+        const py = cy + m.ay * radius + my * 46 * m.depth + idleY;
         const node = nodes.current[i];
         if (node) node.style.transform = `translate(-50%,-50%) translate(${px}px,${py}px)`;
         const ln = lines.current[i];
@@ -65,7 +72,7 @@ export default function ServiceMindmap() {
           ln.setAttribute("y2", String(py));
         }
       });
-      raf = requestAnimationFrame(loop);
+      return;
     };
     raf = requestAnimationFrame(loop);
     return () => {
@@ -76,9 +83,9 @@ export default function ServiceMindmap() {
   }, []);
 
   return (
-    <div ref={wrap} data-cursor="Explore" className="relative w-full" style={{ height: "clamp(460px, 60vh, 600px)" }}>
+    <div ref={wrap} data-cursor="Explore" className="relative w-full" style={{ height: "clamp(520px, 72vh, 680px)" }}>
       <svg className="absolute inset-0 w-full h-full pointer-events-none" aria-hidden>
-        {SERVICES.map((_, i) => (
+        {BRANCHES.map((_, i) => (
           <line key={i} ref={(e) => { lines.current[i] = e; }} stroke="#0A0A0A" strokeOpacity="0.2" strokeWidth="1" />
         ))}
       </svg>
@@ -93,17 +100,38 @@ export default function ServiceMindmap() {
         </span>
       </div>
 
-      {/* orbiting service nodes */}
-      {SERVICES.map((s, i) => (
-        <div
-          key={s}
-          ref={(e) => { nodes.current[i] = e; }}
-          className="absolute left-0 top-0 z-20 whitespace-nowrap rounded-full border border-[#0A0A0A]/25 bg-[#F3F1EC] px-5 py-2.5 text-[12px] md:text-[13px] tracking-[0.04em] hover:bg-[#0A0A0A] hover:text-[#F3F1EC] hover:border-[#0A0A0A] hover:scale-105 transition-[background-color,color,border-color,scale] duration-300"
-          style={{ transform: "translate(-50%,-50%)" }}
-        >
-          {s}
-        </div>
-      ))}
+      {/* orbiting branch nodes */}
+      {BRANCHES.map((b, i) => {
+        const a = (i / BRANCHES.length) * Math.PI * 2 - Math.PI / 2;
+        const openUp = Math.sin(a) > 0.25; // lower-half nodes open their panel upward
+        return (
+          <div
+            key={b.label}
+            ref={(e) => { nodes.current[i] = e; }}
+            onMouseEnter={() => { frozen.current = true; }}
+            onMouseLeave={() => { frozen.current = false; }}
+            className="group absolute left-0 top-0 z-20 hover:z-40"
+            style={{ transform: "translate(-50%,-50%)" }}
+          >
+            <div className="whitespace-nowrap rounded-full border border-[#0A0A0A]/25 bg-[#F3F1EC] px-5 py-2.5 text-[12px] md:text-[13px] tracking-[0.04em] text-center group-hover:bg-[#0A0A0A] group-hover:text-[#F3F1EC] group-hover:border-[#0A0A0A] group-hover:scale-105 transition-[background-color,color,border-color,scale] duration-300">
+              {b.label}
+            </div>
+            {/* sub-items panel */}
+            <div
+              className={`pointer-events-none absolute left-1/2 -translate-x-1/2 w-48 rounded-2xl border border-[#0A0A0A]/10 bg-[#F3F1EC] shadow-[0_18px_40px_-18px_rgba(0,0,0,0.35)] p-4 opacity-0 translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 ${openUp ? "bottom-full mb-3" : "top-full mt-3"}`}
+            >
+              <ul className="space-y-1.5 text-left">
+                {b.items.map((it) => (
+                  <li key={it} className="flex items-start gap-2 text-[11px] leading-snug text-[#0A0A0A]/60">
+                    <span className="text-[#81D742]">✦</span>
+                    {it}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        );
+      })}
     </div>
   );
 }
