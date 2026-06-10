@@ -16,9 +16,6 @@ export default function SiteNav() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
-  const openMenu = () => setMenuOpen(true);
-  const closeMenu = () => setMenuOpen(false);
-
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > window.innerHeight * 0.7);
     window.addEventListener("scroll", onScroll, { passive: true });
@@ -58,30 +55,36 @@ export default function SiteNav() {
               <ChatLink />
             </Magnetic>
           </div>
-          <button
-            aria-label="Menu"
-            onClick={openMenu}
-            className={`lg:hidden relative flex flex-col items-end justify-center gap-[6px] w-8 h-8 transition-opacity duration-200 ${menuOpen ? "opacity-0 pointer-events-none" : "opacity-100"}`}
-          >
-            <span className="block h-[2px] w-7 rounded-full bg-[#F3F1EC]" />
-            <span className="block h-[2px] w-7 rounded-full bg-[#F3F1EC]" />
-          </button>
+          {/* spacer to keep nav layout; the morphing toggle lives above the overlay */}
+          <span className="lg:hidden w-8 h-8" aria-hidden />
         </div>
       </nav>
 
+      {/* ─── MORPHING HAMBURGER ⇄ X TOGGLE (above the overlay) ─── */}
+      <button
+        aria-label={menuOpen ? "Close menu" : "Open menu"}
+        onClick={() => setMenuOpen((v) => !v)}
+        className="lg:hidden fixed top-6 right-8 z-[120] w-8 h-8 flex items-center justify-center"
+        style={{ color: menuOpen ? "#0A0A0A" : "#F3F1EC", mixBlendMode: menuOpen ? "normal" : "difference" }}
+      >
+        <span
+          className="absolute left-1/2 top-1/2 block h-[2px] w-7 rounded-full bg-current"
+          style={{
+            transform: menuOpen ? "translate(-50%,-50%) rotate(45deg)" : "translate(-50%,-50%) translateY(-4px)",
+            transition: "transform 0.35s cubic-bezier(0.16,1,0.3,1)",
+          }}
+        />
+        <span
+          className="absolute left-1/2 top-1/2 block h-[2px] w-7 rounded-full bg-current"
+          style={{
+            transform: menuOpen ? "translate(-50%,-50%) rotate(-45deg)" : "translate(-50%,-50%) translateY(4px)",
+            transition: "transform 0.35s cubic-bezier(0.16,1,0.3,1)",
+          }}
+        />
+      </button>
+
       {/* ─── MOBILE MENU OVERLAY ─── */}
       <div className={`fixed inset-0 z-[110] lg:hidden bg-[#81D742] text-[#0A0A0A] flex flex-col items-center overflow-hidden px-8 pt-20 pb-12 transition-opacity duration-[450ms] ease-in-out ${menuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}>
-        <button
-          aria-label="Close menu"
-          onClick={closeMenu}
-          className="absolute top-6 right-8 w-11 h-11 rounded-full border-2 border-[#0A0A0A] flex items-center justify-center text-[#0A0A0A] transition-colors hover:bg-[#0A0A0A] hover:text-[#81D742]"
-          style={{
-            opacity: menuOpen ? 1 : 0,
-            transition: "opacity 0.5s ease 0.1s, background-color 0.3s, color 0.3s",
-          }}
-        >
-          <svg width="16" height="16" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="2"><path d="M1 1l12 12M13 1L1 13" /></svg>
-        </button>
 
 
         {/* centred links */}
