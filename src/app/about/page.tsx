@@ -182,7 +182,13 @@ export default function AboutPage() {
         <div className="max-w-6xl mx-auto">
           {/* client logo marquee — two rows, opposite directions */}
           <p className="text-[10px] tracking-[0.3em] uppercase text-[#0A0A0A]/40 mb-6">Call them clients, call them friends</p>
-          <div className="marquee-row border-t border-l border-[#0A0A0A]/15">
+          <div
+            className="marquee-row border-t border-[#0A0A0A]/15"
+            style={{
+              maskImage: "linear-gradient(to right, transparent, #000 7%, #000 93%, transparent)",
+              WebkitMaskImage: "linear-gradient(to right, transparent, #000 7%, #000 93%, transparent)",
+            }}
+          >
             <MarqueeRow items={CLIENTS_ROW_1} dir="left" />
             <MarqueeRow items={CLIENTS_ROW_2} dir="right" />
           </div>
