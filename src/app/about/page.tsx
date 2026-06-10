@@ -50,8 +50,8 @@ export default function AboutPage() {
             We&apos;re about indulging<br />in the extraordinary.
           </h1>
           <p className="font-editorial mt-8 mx-auto max-w-2xl leading-[1.5] text-[#0A0A0A]/70" style={{ fontSize: "clamp(1.05rem, 1.9vw, 1.5rem)" }}>
-            [ From restaurants to cafés, lifestyle concepts to pop-ups - we build identities, campaigns, content and
-            experiences that make people stop, feel and remember. ]
+            From restaurants to cafés, lifestyle concepts to pop-ups - we build identities, campaigns, content and
+            experiences that make people stop, feel and remember.
           </p>
         </div>
       </section>
