@@ -5,6 +5,7 @@ import SiteNav from "@/components/SiteNav";
 import SiteFooter from "@/components/SiteFooter";
 import ParallaxImage from "@/components/ParallaxImage";
 import ServiceMindmap from "@/components/ServiceMindmap";
+import StarField from "@/components/StarField";
 
 export const metadata = {
   title: "About · Not Normal",
@@ -124,8 +125,9 @@ export default function AboutPage() {
       </section>
 
       {/* WHAT WE DO */}
-      <section className="bg-[#F3F1EC] px-8 md:px-16 py-24 md:py-32">
-        <div className="max-w-6xl mx-auto text-center">
+      <section className="relative overflow-hidden bg-[#F3F1EC] px-8 md:px-16 py-24 md:py-32">
+        <StarField />
+        <div className="relative z-10 max-w-6xl mx-auto text-center">
           <p className="text-[10px] tracking-[0.3em] uppercase text-[#0A0A0A]/45 mb-3">What we do</p>
           <h2 className="font-display uppercase tracking-tight mb-12" style={{ fontSize: "clamp(1.6rem, 4vw, 3rem)" }}>
             Everything a concept<br />needs to be unforgettable.
@@ -188,7 +190,7 @@ export default function AboutPage() {
           </div>
           </div>
           {/* image */}
-          <div className="md:sticky md:top-28">
+          <div>
             <div className="relative w-full aspect-square overflow-hidden rounded-2xl">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src="/nn-founder.png" alt="Khalil Khouri" className="absolute inset-0 w-full h-full object-cover" />
