@@ -39,12 +39,28 @@ export default function SiteNav() {
     <>
       {/* ─── NAV ─── */}
       <nav className="fixed top-0 left-0 right-0 z-[100] flex items-center justify-between px-8 md:px-16 py-6 md:py-8 mix-blend-difference text-[#F3F1EC]">
-        <a href="/" aria-label="Not Normal, home" className="relative flex items-center h-7">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/notnormal-logoblack.png" alt="Not Normal" className={`h-3.5 md:h-4 w-auto transition-opacity duration-300 ${scrolled ? "opacity-0" : "opacity-100"}`} style={{ filter: "invert(1)" }} />
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/notnormal-iconoutline.png" alt="Not Normal" className={`absolute left-0 top-1/2 -translate-y-1/2 h-7 w-auto transition-opacity duration-300 ${scrolled ? "opacity-100" : "opacity-0 pointer-events-none"}`} style={{ filter: "invert(1)" }} />
-        </a>
+        <div className="relative flex items-center h-7">
+          {/* top of page: wordmark linking home */}
+          <a href="/" aria-label="Not Normal, home" className={`flex items-center transition-opacity duration-300 ${scrolled ? "opacity-0 pointer-events-none" : "opacity-100"}`}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/notnormal-logoblack.png" alt="Not Normal" className="h-3.5 md:h-4 w-auto" style={{ filter: "invert(1)" }} />
+          </a>
+          {/* scrolled: back-to-top arrow with tooltip */}
+          <button
+            type="button"
+            aria-label="Back to top"
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            className={`group absolute left-0 top-1/2 -translate-y-1/2 w-7 h-7 flex items-center justify-center transition-opacity duration-300 ${scrolled ? "opacity-100" : "opacity-0 pointer-events-none"}`}
+          >
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M12 19V5M6 11l6-6 6 6" />
+            </svg>
+            <span className="pointer-events-none absolute left-0 top-full mt-3 whitespace-nowrap bg-[#F3F1EC] px-3 py-1.5 rounded-full text-[8px] tracking-[0.18em] uppercase text-[#0A0A0A] opacity-0 translate-y-1 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0">
+              All the way up
+              <span className="absolute left-3 -top-1 w-2 h-2 rotate-45 bg-[#F3F1EC]" />
+            </span>
+          </button>
+        </div>
         <div className="hidden lg:flex items-center gap-12 absolute left-1/2 -translate-x-1/2">
           {LINKS.map(({ l, href, tip, shape }) => (
             <a key={l} href={href} className="group relative text-[10px] tracking-[0.22em] uppercase">
