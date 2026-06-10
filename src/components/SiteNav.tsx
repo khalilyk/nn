@@ -12,6 +12,13 @@ const LINKS = [
   { l: "Contact", href: "/contact", tip: "Let's chat", shape: "rounded-tr-xl rounded-bl-xl" },
 ];
 
+// staggered entrance for each stacked menu card
+const card = (open: boolean, i: number) => ({
+  opacity: open ? 1 : 0,
+  transform: open ? "translateY(0) scale(1)" : "translateY(18px) scale(0.98)",
+  transition: `opacity 0.5s cubic-bezier(0.16,1,0.3,1) ${open ? 0.1 + i * 0.08 : 0}s, transform 0.5s cubic-bezier(0.16,1,0.3,1) ${open ? 0.1 + i * 0.08 : 0}s`,
+});
+
 export default function SiteNav() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -65,7 +72,7 @@ export default function SiteNav() {
         aria-label={menuOpen ? "Close menu" : "Open menu"}
         onClick={() => setMenuOpen((v) => !v)}
         className="lg:hidden fixed top-6 right-8 z-[120] w-8 h-8 flex items-center justify-center"
-        style={{ color: menuOpen ? "#0A0A0A" : "#F3F1EC", mixBlendMode: menuOpen ? "normal" : "difference" }}
+        style={{ color: "#F3F1EC", mixBlendMode: menuOpen ? "normal" : "difference" }}
       >
         <span
           className="absolute left-1/2 top-1/2 block h-[2px] w-7 rounded-full bg-current"
@@ -83,42 +90,67 @@ export default function SiteNav() {
         />
       </button>
 
-      {/* ─── MOBILE MENU OVERLAY ─── */}
-      <div className={`fixed inset-0 z-[110] lg:hidden bg-[#81D742] text-[#0A0A0A] flex flex-col items-center overflow-hidden px-8 pt-20 pb-12 transition-opacity duration-[450ms] ease-in-out ${menuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}>
+      {/* ─── MOBILE MENU OVERLAY (3 stacked cards) ─── */}
+      <div className={`fixed inset-0 z-[110] lg:hidden bg-[#0A0A0A] flex flex-col gap-2.5 p-2.5 pt-[76px] transition-opacity duration-[450ms] ease-in-out ${menuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}>
+        {/* 1 — navigation card */}
+        <div
+          className="flex-1 rounded-[26px] bg-[#EFEDE6] text-[#0A0A0A] flex flex-col justify-center items-center px-6 py-8"
+          style={card(menuOpen, 0)}
+        >
+          <p className="text-[9px] tracking-[0.3em] uppercase text-[#0A0A0A]/40 mb-5">Menu</p>
+          <nav className="flex flex-col items-center gap-1.5">
+            {LINKS.map(({ l, href }) => (
+              <a
+                key={l}
+                href={href}
+                onClick={() => setMenuOpen(false)}
+                className="font-display uppercase tracking-tight leading-none transition-opacity duration-300 hover:opacity-50"
+                style={{ fontSize: "clamp(1.6rem, 8vw, 2.4rem)" }}
+              >
+                {l}
+              </a>
+            ))}
+          </nav>
+        </div>
 
+        {/* 2 — spots band */}
+        <div
+          className="rounded-[26px] bg-[#C6FF4D] text-[#0A0A0A] px-6 py-5 flex items-center justify-between"
+          style={card(menuOpen, 1)}
+        >
+          <span className="flex items-center gap-2.5 text-[11px] tracking-[0.18em] uppercase">
+            <span className="relative flex h-2 w-2">
+              <span className="absolute inline-flex h-full w-full rounded-full bg-[#0A0A0A] opacity-40 animate-ping" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-[#0A0A0A]" />
+            </span>
+            2 spots left this month
+          </span>
+          <a href="/contact" onClick={() => setMenuOpen(false)} aria-label="Contact" className="text-lg leading-none">→</a>
+        </div>
 
-        {/* centred links */}
-        <nav className="relative z-10 flex flex-col items-center gap-3 mt-auto mb-auto">
-          {LINKS.map(({ l, href }, i) => (
+        {/* 3 — mascot / chat card */}
+        <div
+          className="relative flex-[1.25] rounded-[26px] bg-[#81D742] text-[#0A0A0A] overflow-hidden"
+          style={card(menuOpen, 2)}
+        >
+          <div className="relative z-10 p-6">
+            <p className="text-[9px] tracking-[0.3em] uppercase text-[#0A0A0A]/45 mb-2">Say hello</p>
             <a
-              key={l}
-              href={href}
+              href="/contact"
               onClick={() => setMenuOpen(false)}
-              className="font-display uppercase tracking-tight text-[#0A0A0A] leading-none transition-opacity duration-300 hover:opacity-60"
-              style={{
-                fontSize: "clamp(1.8rem, 9vw, 2.8rem)",
-                opacity: menuOpen ? 1 : 0,
-                transform: menuOpen ? "translateY(0)" : "translateY(14px)",
-                transition: `opacity 0.55s cubic-bezier(0.16,1,0.3,1) ${menuOpen ? 0.14 + i * 0.06 : 0}s, transform 0.55s cubic-bezier(0.16,1,0.3,1) ${menuOpen ? 0.14 + i * 0.06 : 0}s`,
-              }}
+              className="font-display uppercase tracking-tight leading-[0.95] inline-block hover:opacity-60 transition-opacity"
+              style={{ fontSize: "clamp(1.8rem, 8vw, 2.6rem)" }}
             >
-              {l}
+              Let&apos;s chat <span aria-hidden>→</span>
             </a>
-          ))}
-        </nav>
-
-        {/* running panda mascot, pinned to the bottom */}
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/nn-panda.png"
-          alt="Not Normal"
-          className="pointer-events-none absolute left-1/2 bottom-0 z-0 w-[400px] max-w-none h-auto"
-          style={{
-            opacity: menuOpen ? 1 : 0,
-            transform: menuOpen ? "translate(-50%, 22%)" : "translate(-50%, calc(22% + 14px))",
-            transition: `opacity 0.55s cubic-bezier(0.16,1,0.3,1) ${menuOpen ? 0.5 : 0}s, transform 0.55s cubic-bezier(0.16,1,0.3,1) ${menuOpen ? 0.5 : 0}s`,
-          }}
-        />
+          </div>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/nn-panda.png"
+            alt="Not Normal"
+            className="pointer-events-none absolute left-1/2 -translate-x-1/2 bottom-0 z-0 w-[340px] max-w-none h-auto translate-y-[26%]"
+          />
+        </div>
       </div>
     </>
   );
