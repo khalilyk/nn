@@ -25,6 +25,11 @@ body {
   font-family: var(--font-grotesk), system-ui, sans-serif;
 }
 
+/* every page's main clips horizontal overflow so the document never grows
+   wider than the viewport (iOS Safari otherwise scales the page to fit the
+   widest element, shrinking fixed overlays and showing the black bg) */
+main { overflow-x: clip; max-width: 100vw; }
+
 ::-webkit-scrollbar { width: 0; height: 0; }
 
 ::selection { background: var(--ivory); color: var(--black); }

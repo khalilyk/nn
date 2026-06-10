@@ -170,7 +170,7 @@ export default function Publication() {
   }, [loading]);
 
   return (
-    <div className="relative">
+    <div className="relative overflow-x-clip">
       <Preloader onDone={() => setLoading(false)} />
       <Cursor />
       <Grain />
