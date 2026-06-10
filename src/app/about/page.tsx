@@ -3,6 +3,7 @@ import Cursor from "@/components/Cursor";
 import Grain from "@/components/Grain";
 import SiteNav from "@/components/SiteNav";
 import SiteFooter from "@/components/SiteFooter";
+import ParallaxImage from "@/components/ParallaxImage";
 
 export const metadata = {
   title: "About · Not Normal",
@@ -27,8 +28,6 @@ const SERVICES = [
   "Digital strategy",
   "On-ground activations",
 ];
-
-const STUDIOS = ["Sydney", "Dubai", "Beirut"];
 
 const CLIENTS_ROW_1 = ["3Fils", "Revolver", "Maison Dali", "Oakberry", "Kinoya", "Tony's Woodfire"];
 const CLIENTS_ROW_2 = ["PieHaus", "Yava", "Bar Baker", "Shanghai Me", "Mimi Kakushi", "Lucky's"];
@@ -79,6 +78,9 @@ export default function AboutPage() {
           </p>
         </div>
       </section>
+
+      {/* PARALLAX IMAGE */}
+      <ParallaxImage src="/nn-f3.png" alt="Out in the city" />
 
       {/* MANIFESTO BAND */}
       <section className="relative bg-[#0A0A0A] text-[#F3F1EC] px-8 md:px-16 py-24 md:py-32" data-cursor-color="#F3F1EC">
@@ -167,23 +169,11 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* STUDIOS */}
+      {/* CLIENTS MARQUEE */}
       <section className="bg-[#0A0A0A] text-[#F3F1EC] px-8 md:px-16 py-24 md:py-32" data-cursor-color="#F3F1EC">
         <div className="max-w-6xl mx-auto">
-          <p className="text-[10px] tracking-[0.3em] uppercase text-[#F3F1EC]/40 mb-3">Find us</p>
-          <h2 className="font-display uppercase tracking-tight mb-14" style={{ fontSize: "clamp(1.6rem, 4vw, 3rem)" }}>
-            Three cities,<br />one obsession.
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-            {STUDIOS.map((city) => (
-              <h3 key={city} className="font-display uppercase leading-none border-t border-[#F3F1EC]/20 pt-6" style={{ fontSize: "clamp(2rem, 5vw, 3.4rem)" }}>
-                {city}
-              </h3>
-            ))}
-          </div>
-
           {/* client logo marquee — two rows, opposite directions */}
-          <p className="text-[10px] tracking-[0.3em] uppercase text-[#F3F1EC]/40 mt-24 mb-6">Call them clients, call them friends</p>
+          <p className="text-[10px] tracking-[0.3em] uppercase text-[#F3F1EC]/40 mb-6">Call them clients, call them friends</p>
           <div className="marquee-row border-t border-l border-[#F3F1EC]/15">
             <MarqueeRow items={CLIENTS_ROW_1} dir="left" />
             <MarqueeRow items={CLIENTS_ROW_2} dir="right" />
