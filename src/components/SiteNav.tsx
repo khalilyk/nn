@@ -139,7 +139,11 @@ export default function SiteNav() {
           style={card(menuOpen, 2)}
         >
           <span className="font-display uppercase tracking-tight leading-none" style={{ fontSize: "clamp(1.4rem, 7vw, 2rem)" }}>Let&apos;s chat</span>
-          <span aria-hidden className="font-display text-[2.6rem] leading-none flex items-center self-stretch translate-y-[0.06em] group-hover:translate-x-1.5 transition-transform duration-300">→</span>
+          <span aria-hidden className="flex items-center group-hover:translate-x-1.5 transition-transform duration-300">
+            <svg width="38" height="22" viewBox="0 0 38 22" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M2 11h32M25 3l9 8-9 8" />
+            </svg>
+          </span>
         </a>
 
         {/* 3 — mascot / chat card */}
