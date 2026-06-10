@@ -131,14 +131,14 @@ export default function SiteNav() {
           </nav>
         </div>
 
-        {/* 2 — let's chat band */}
+        {/* 2 — ring ring band */}
         <a
-          href="/contact"
+          href="tel:+610433714701"
           onClick={() => setMenuOpen(false)}
           className="group relative z-0 rounded-[26px] bg-[#FBD9BE] text-[#0A0A0A] px-6 py-3 flex items-center justify-between"
           style={card(menuOpen, 2)}
         >
-          <span className="font-display uppercase tracking-tight leading-none" style={{ fontSize: "clamp(1.4rem, 7vw, 2rem)" }}>Let&apos;s chat</span>
+          <span className="font-display uppercase tracking-tight leading-none" style={{ fontSize: "clamp(1.4rem, 7vw, 2rem)" }}>Ring ring</span>
           <span aria-hidden className="flex items-center group-hover:translate-x-1.5 transition-transform duration-300">
             <svg width="38" height="22" viewBox="0 0 38 22" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round">
               <path d="M2 11h32M25 3l9 8-9 8" />
