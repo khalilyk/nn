@@ -18,7 +18,9 @@ export default function Cursor() {
     const onMove = (e: MouseEvent) => {
       target.x = e.clientX;
       target.y = e.clientY;
-      const el = (e.target as HTMLElement)?.closest<HTMLElement>("[data-cursor]");
+      // e.target isn't always an Element (e.g. SVG-internal nodes) — guard closest()
+      const t = e.target instanceof Element ? e.target : null;
+      const el = t?.closest<HTMLElement>("[data-cursor]");
       if (el) {
         const val = el.dataset.cursor || "";
         setHovering(true);
@@ -29,7 +31,7 @@ export default function Cursor() {
         setLabel("");
       }
       // optional per-section cursor colour
-      const colorEl = (e.target as HTMLElement)?.closest<HTMLElement>("[data-cursor-color]");
+      const colorEl = t?.closest<HTMLElement>("[data-cursor-color]");
       setColor(colorEl?.dataset.cursorColor || "#81D742");
     };
 

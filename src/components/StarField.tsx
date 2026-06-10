@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 // deterministic pseudo-random (no Math.random → no hydration mismatch)
 const rand = (n: number) => {
@@ -12,6 +12,7 @@ const rand = (n: number) => {
 export default function StarField({ count = 64, color = "#0A0A0A" }: { count?: number; color?: string }) {
   const wrap = useRef<HTMLDivElement>(null);
   const refs = useRef<(HTMLSpanElement | null)[]>([]);
+  const [mounted, setMounted] = useState(false);
   const stars = Array.from({ length: count }, (_, i) => ({
     x: rand(i + 1) * 100,
     y: rand(i + 1.7) * 100,
@@ -19,7 +20,10 @@ export default function StarField({ count = 64, color = "#0A0A0A" }: { count?: n
     depth: 0.2 + rand(i + 3.1) * 1.1,
   }));
 
+  useEffect(() => { setMounted(true); }, []);
+
   useEffect(() => {
+    if (!mounted) return;
     const el = wrap.current;
     if (!el) return;
     let tx = 0, ty = 0, cx = 0, cy = 0, raf = 0;
@@ -46,20 +50,21 @@ export default function StarField({ count = 64, color = "#0A0A0A" }: { count?: n
       window.removeEventListener("mousemove", onMove);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [mounted]);
 
   return (
     <div ref={wrap} aria-hidden className="absolute inset-0 overflow-hidden pointer-events-none">
-      {stars.map((st, i) => (
-        <span
-          key={i}
-          ref={(e) => { refs.current[i] = e; }}
-          className="absolute text-[#0A0A0A] will-change-transform"
-          style={{ left: `${st.x}%`, top: `${st.y}%`, fontSize: `${st.size}px`, opacity: 0.32, lineHeight: 1 }}
-        >
-          ✦
-        </span>
-      ))}
+      {mounted &&
+        stars.map((st, i) => (
+          <span
+            key={i}
+            ref={(e) => { refs.current[i] = e; }}
+            className="absolute will-change-transform"
+            style={{ left: `${st.x}%`, top: `${st.y}%`, fontSize: `${st.size}px`, opacity: 0.32, lineHeight: 1, color }}
+          >
+            ✦
+          </span>
+        ))}
     </div>
   );
 }
