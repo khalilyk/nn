@@ -50,6 +50,14 @@ img { user-select: none; -webkit-user-drag: none; }
 
 @keyframes spin-slow { to { transform: rotate(360deg); } }
 
+/* two-row logo marquee */
+@keyframes marquee-left  { from { transform: translateX(0); }      to { transform: translateX(-50%); } }
+@keyframes marquee-right { from { transform: translateX(-50%); }   to { transform: translateX(0); } }
+.marquee-left  { animation: marquee-left  38s linear infinite; }
+.marquee-right { animation: marquee-right 38s linear infinite; }
+.marquee-row:hover .marquee-left,
+.marquee-row:hover .marquee-right { animation-play-state: paused; }
+
 /* slow side-arrow drift on the nav card */
 @keyframes drift-left  { 0%, 100% { transform: translate(0, -50%); } 50% { transform: translate(-10px, -50%); } }
 @keyframes drift-right { 0%, 100% { transform: translate(0, -50%); } 50% { transform: translate(10px, -50%); } }

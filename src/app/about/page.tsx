@@ -30,6 +30,25 @@ const SERVICES = [
 
 const STUDIOS = ["Sydney", "Dubai", "Beirut"];
 
+const CLIENTS_ROW_1 = ["3Fils", "Revolver", "Maison Dali", "Oakberry", "Kinoya", "Tony's Woodfire"];
+const CLIENTS_ROW_2 = ["PieHaus", "Yava", "Bar Baker", "Shanghai Me", "Mimi Kakushi", "Lucky's"];
+
+function MarqueeRow({ items, dir }: { items: string[]; dir: "left" | "right" }) {
+  const loop = [...items, ...items];
+  return (
+    <div className="overflow-hidden border-b border-[#F3F1EC]/15">
+      <div className={`flex w-max ${dir === "left" ? "marquee-left" : "marquee-right"}`}>
+        {loop.map((name, i) => (
+          <span key={i} className="shrink-0 flex items-center font-display uppercase text-[#F3F1EC]/35 whitespace-nowrap" style={{ fontSize: "clamp(1.1rem, 1.6vw, 1.7rem)" }}>
+            <span className="px-8 py-7">{name.toUpperCase()}</span>
+            <span className="text-[#81D742]/70">✦</span>
+          </span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export default function AboutPage() {
   return (
     <main className="relative bg-white text-[#0A0A0A] overflow-hidden">
@@ -156,6 +175,13 @@ export default function AboutPage() {
                 {city}
               </h3>
             ))}
+          </div>
+
+          {/* client logo marquee — two rows, opposite directions */}
+          <p className="text-[10px] tracking-[0.3em] uppercase text-[#F3F1EC]/40 mt-24 mb-6">Call them clients, call them friends</p>
+          <div className="marquee-row border-t border-[#F3F1EC]/15">
+            <MarqueeRow items={CLIENTS_ROW_1} dir="left" />
+            <MarqueeRow items={CLIENTS_ROW_2} dir="right" />
           </div>
         </div>
       </section>
