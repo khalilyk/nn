@@ -189,9 +189,9 @@ export default function AboutPage() {
           </div>
           {/* image */}
           <div className="md:sticky md:top-28">
-            <div className="relative w-full aspect-[4/5] overflow-hidden rounded-2xl">
+            <div className="relative w-full aspect-square overflow-hidden rounded-2xl">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/nn-f6.png" alt="Khalil Khouri" className="absolute inset-0 w-full h-full object-cover" />
+              <img src="/nn-founder.png" alt="Khalil Khouri" className="absolute inset-0 w-full h-full object-cover" />
             </div>
           </div>
         </div>
