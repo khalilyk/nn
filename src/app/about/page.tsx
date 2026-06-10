@@ -39,10 +39,15 @@ function MarqueeRow({ items, dir }: { items: string[]; dir: "left" | "right" }) 
     <div className="overflow-hidden border-b border-[#F3F1EC]/15">
       <div className={`flex w-max ${dir === "left" ? "marquee-left" : "marquee-right"}`}>
         {loop.map((name, i) => (
-          <span key={i} className="shrink-0 flex items-center font-display uppercase text-[#F3F1EC]/35 whitespace-nowrap" style={{ fontSize: "clamp(1.1rem, 1.6vw, 1.7rem)" }}>
-            <span className="px-8 py-7">{name.toUpperCase()}</span>
-            <span className="text-[#81D742]/70">✦</span>
-          </span>
+          <div
+            key={i}
+            className="shrink-0 w-[clamp(190px,26vw,300px)] border-r border-[#F3F1EC]/15 flex items-center justify-center group"
+            style={{ minHeight: "clamp(120px, 16vh, 190px)" }}
+          >
+            <span className="font-display uppercase text-[#F3F1EC]/35 group-hover:text-[#F3F1EC] group-hover:scale-105 transition-all duration-500 text-center px-3" style={{ fontSize: "clamp(1rem, 1.5vw, 1.6rem)" }}>
+              {name.toUpperCase()}
+            </span>
+          </div>
         ))}
       </div>
     </div>
@@ -179,7 +184,7 @@ export default function AboutPage() {
 
           {/* client logo marquee — two rows, opposite directions */}
           <p className="text-[10px] tracking-[0.3em] uppercase text-[#F3F1EC]/40 mt-24 mb-6">Call them clients, call them friends</p>
-          <div className="marquee-row border-t border-[#F3F1EC]/15">
+          <div className="marquee-row border-t border-l border-[#F3F1EC]/15">
             <MarqueeRow items={CLIENTS_ROW_1} dir="left" />
             <MarqueeRow items={CLIENTS_ROW_2} dir="right" />
           </div>
