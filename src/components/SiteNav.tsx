@@ -99,7 +99,16 @@ export default function SiteNav() {
           className="rounded-[26px] bg-[#BBD9F2] text-[#0A0A0A] py-4 flex items-center justify-center"
           style={card(menuOpen, 0)}
         >
-          <svg width="20" height="20" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round"><path d="M1 1l12 12M13 1L1 13" /></svg>
+          <span className="relative block w-5 h-5">
+            <span
+              className="absolute left-1/2 top-1/2 block h-[2.5px] w-5 rounded-full bg-current"
+              style={{ transform: menuOpen ? "translate(-50%,-50%) rotate(45deg)" : "translate(-50%,-50%) rotate(0deg)", transition: "transform 0.45s cubic-bezier(0.16,1,0.3,1) 0.18s" }}
+            />
+            <span
+              className="absolute left-1/2 top-1/2 block h-[2.5px] w-5 rounded-full bg-current"
+              style={{ transform: menuOpen ? "translate(-50%,-50%) rotate(-45deg)" : "translate(-50%,-50%) rotate(0deg)", transition: "transform 0.45s cubic-bezier(0.16,1,0.3,1) 0.18s" }}
+            />
+          </span>
         </button>
 
         {/* 1 — navigation card */}
@@ -142,7 +151,7 @@ export default function SiteNav() {
           <img
             src="/nn-panda.png"
             alt="Not Normal"
-            className="pointer-events-none absolute left-1/2 -translate-x-1/2 bottom-0 z-20 w-[430px] max-w-none h-auto translate-y-[8%]"
+            className="pointer-events-none absolute left-1/2 -translate-x-1/2 bottom-0 z-20 w-[430px] max-w-none h-auto translate-y-[calc(8%+15px)]"
           />
         </div>
       </div>
