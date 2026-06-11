@@ -134,6 +134,17 @@ export default function MenuPage() {
         </p>
       </section>
 
+      {/* SPLIT SCREEN — triptych */}
+      <section className="grid grid-cols-1 md:grid-cols-3">
+        {[
+          "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1400&q=80",
+          "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=1400&q=80",
+          "https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&w=1400&q=80",
+        ].map((src, i) => (
+          <ParallaxImage key={i} src={src} className="w-full h-[44vh] md:h-[82vh]" amount={12} />
+        ))}
+      </section>
+
       {/* THE PAGES — a sheet per course, scattered & overlapping like real paper */}
       <section className="px-4 sm:px-8 pb-24 md:pb-32 flex justify-center">
         <div className="relative w-full max-w-[1080px]">
