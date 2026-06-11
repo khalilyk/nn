@@ -48,26 +48,28 @@ const listSize = { fontSize: "clamp(0.75rem, 1.15vw, 0.85rem)" };
 
 const COURSES = [
   {
-    cat: "The Amuse-Bouché", title: "Branding & Identity", rot: -1,
+    cat: "The Amuse-Bouché", title: "Branding & Identity", rot: -1, paper: -2.2,
     desc: "A brand isn’t just a name or a logo — it’s the foundation of everything. We craft powerful, distinct identities that connect with audiences, from defining your mission and values to designing visual and verbal identities that bring your brand to life. Whether launching from scratch or refining an existing brand, we make sure you stand out and stay memorable.",
     items: ["Naming & Tagline Development", "Logo & Brand Identity", "Brand Strategy & Positioning", "Verbal & Visual Identity"],
   },
   {
-    cat: "The Appetisers", title: "Social & Storytelling", rot: 2,
+    cat: "The Appetisers", title: "Social & Storytelling", rot: 2, paper: 1.8,
     desc: "Great hospitality brands don’t just sell — they tell stories. We create engaging content, from stunning visuals to scroll-stopping social media and dynamic campaigns that connect with your audience. Through creative strategy, photo and video production, and brand messaging, we turn your vision into compelling narratives that people remember.",
     items: ["Public Relations (PR)", "Social Media Strategy", "Photography & Videography", "Campaign Ideation & Execution", "Creative Messaging", "Influencer & Ambassador Marketing"],
   },
   {
-    cat: "The Mains", title: "Experience & Innovation", rot: -2,
+    cat: "The Mains", title: "Experience & Innovation", rot: -2, paper: 2.4,
     desc: "Beyond branding, we perfect the experience. From menu research and development to hospitality staff training, we help shape every touchpoint of the guest journey. Whether refining service standards, testing new concepts, or enhancing the overall experience, we create hospitality moments that leave a lasting impression.",
     items: ["Menu Research & Development", "Hospitality Staff Training", "Service Enhancement", "Concept Testing & Refinement"],
   },
   {
-    cat: "The Desserts", title: "Visual Production", rot: 1,
+    cat: "The Desserts", title: "Visual Production", rot: 1, paper: -1.6,
     desc: "A brand isn’t just an idea — it needs to be seen, felt, and experienced. We translate strategy into reality with striking design, print, and digital execution. From food packaging, signage, and uniforms to website design and immersive event branding, we ensure every detail aligns with your identity, making your brand unmistakable in every space it lives.",
     items: ["Signage & Environmental Branding", "Print & Packaging Design", "Website Design & Development", "Uniform Design & Manufacture"],
   },
 ];
+
+const DOODLES = [Cutlery, Grapes, Cheese, Bread];
 
 export default function MenuPage() {
   return (
@@ -86,35 +88,37 @@ export default function MenuPage() {
         </p>
       </header>
 
-      {/* THE PAPER */}
-      <section className="px-4 md:px-8 pb-20 md:pb-28 flex justify-center">
-        <div
-          className="relative w-full max-w-[820px] bg-[#EDE7D7] text-[#0A0A0A] px-7 sm:px-12 md:px-16 py-14 md:py-20"
-          style={{ transform: "rotate(-0.6deg)", boxShadow: "0 30px 70px -30px rgba(0,0,0,0.4), 0 10px 24px -12px rgba(0,0,0,0.25)" }}
-        >
-          <Grain />
+      {/* THE PAGES — a sheet per course, scattered & overlapping like real paper */}
+      <section className="px-4 sm:px-8 pb-24 md:pb-32 flex justify-center">
+        <div className="relative w-full max-w-[1080px]">
+          {COURSES.map((c, i) => {
+            const right = i % 2 === 1;
+            const Doodle = DOODLES[i];
+            return (
+              <div
+                key={c.cat}
+                className={`relative w-full max-w-[540px] ${i === 0 ? "" : "-mt-12 md:-mt-20"} ${right ? "ml-auto" : "mr-auto"}`}
+                style={{ zIndex: i + 1, transform: `rotate(${c.paper}deg)` }}
+              >
+                <div
+                  className="relative bg-[#EDE7D7] text-[#0A0A0A] px-7 sm:px-10 md:px-12 py-11 md:py-14"
+                  style={{ boxShadow: "0 28px 60px -28px rgba(0,0,0,0.45), 0 8px 20px -10px rgba(0,0,0,0.3)" }}
+                >
+                  <Grain />
+                  <div className={`pointer-events-none absolute ${right ? "left-6" : "right-6"} top-6 w-12 md:w-16 opacity-90`} style={{ transform: `rotate(${c.rot * -3}deg)` }}>
+                    <Doodle />
+                  </div>
 
-          {/* doodles */}
-          <div className="pointer-events-none absolute right-[14%] top-[8%] w-12 md:w-16 opacity-90 -rotate-6"><Cutlery /></div>
-          <div className="pointer-events-none absolute left-[44%] top-[24%] w-12 md:w-16 opacity-90 rotate-6"><Grapes /></div>
-          <div className="pointer-events-none absolute left-[42%] top-[50%] w-16 md:w-20 opacity-90 -rotate-3"><Cheese /></div>
-          <div className="pointer-events-none absolute right-[34%] top-[62%] w-16 md:w-24 opacity-90 rotate-2"><Bread /></div>
-
-          <div className="relative grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-16 md:gap-y-28">
-            {COURSES.map((c, i) => {
-              const right = i % 2 === 1;
-              return (
-                <div key={c.cat} className={right ? "md:text-right md:mt-24" : i === 2 ? "md:-mt-8" : ""}>
                   <p className="font-editorial italic text-[#0A0A0A]/55" style={{ fontSize: "clamp(0.85rem, 1.4vw, 1.05rem)" }}>{c.cat}</p>
-                  <h2 className={head + " mt-1"} style={{ fontSize: "clamp(1.9rem, 5.5vw, 3.2rem)", transform: `rotate(${c.rot}deg)` }}>{c.title}</h2>
-                  <p className={`font-editorial mt-4 leading-relaxed text-[#0A0A0A]/70 ${right ? "md:ml-auto" : ""}`} style={{ fontSize: "clamp(0.85rem, 1.25vw, 0.95rem)", maxWidth: "30ch" }}>{c.desc}</p>
+                  <h2 className={head + " mt-1"} style={{ fontSize: "clamp(1.9rem, 5.5vw, 3rem)", transform: `rotate(${c.rot}deg)` }}>{c.title}</h2>
+                  <p className="font-editorial mt-4 leading-relaxed text-[#0A0A0A]/70" style={{ fontSize: "clamp(0.85rem, 1.25vw, 0.95rem)", maxWidth: "42ch" }}>{c.desc}</p>
                   <ul className={list} style={listSize}>
                     {c.items.map((it) => <li key={it}>{it}</li>)}
                   </ul>
                 </div>
-              );
-            })}
-          </div>
+              </div>
+            );
+          })}
         </div>
       </section>
 
