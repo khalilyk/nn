@@ -2,6 +2,7 @@ import Cursor from "@/components/Cursor";
 import Grain from "@/components/Grain";
 import SiteNav from "@/components/SiteNav";
 import SiteFooter from "@/components/SiteFooter";
+import ParallaxImage from "@/components/ParallaxImage";
 
 export const metadata = {
   title: "The Menu · Not Normal",
@@ -113,6 +114,25 @@ export default function MenuPage() {
           Everything we bring to the table, served across Sydney, Dubai &amp; Beirut.
         </p>
       </header>
+
+      {/* FULL-WIDTH IMAGE */}
+      <ParallaxImage
+        src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=2000&q=80"
+        alt="A table set for guests"
+        className="w-full h-[48vh] md:h-[70vh]"
+      />
+
+      {/* MISSION */}
+      <section className="px-6 py-20 md:py-28 max-w-3xl mx-auto text-center">
+        <div className="font-editorial leading-relaxed text-[#0A0A0A]/80 space-y-6" style={{ fontSize: "clamp(1.05rem, 1.9vw, 1.4rem)" }}>
+          <p>With a focus on the edible, the drinkable and the unforgettable, we&apos;re on a mission to humanize hospitality.</p>
+          <p>From Branding &amp; Identity to Content &amp; Storytelling, we craft bold strategies and campaigns that leave a mark.</p>
+          <p>Our Guest Experience &amp; Innovation services refine menus and elevate service, while Design, Digital &amp; Execution bring brands to life through print, signage, websites and more. We don&apos;t just market hospitality — we shape it.</p>
+        </div>
+        <p className="font-display uppercase leading-[0.95] tracking-tight mt-12 mx-auto max-w-[18ch]" style={{ fontSize: "clamp(1.6rem, 4.5vw, 3rem)" }}>
+          Because in a world of ordinary, nobody remembers normal.
+        </p>
+      </section>
 
       {/* THE PAGES — a sheet per course, scattered & overlapping like real paper */}
       <section className="px-4 sm:px-8 pb-24 md:pb-32 flex justify-center">
