@@ -163,30 +163,37 @@ export default function MenuPage() {
       <section className="relative bg-[#e7d7b3] text-[#1a1408] overflow-hidden px-6 py-20 md:py-28">
         <PaperTex seed={7} opacity={0.4} freq="0.6 0.7" />
         <Grain />
+        {/* centre fold crease */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-y-0 left-1/2 -translate-x-1/2 w-12"
+          style={{ background: "linear-gradient(to right, rgba(0,0,0,0) 0%, rgba(0,0,0,0.05) 40%, rgba(0,0,0,0.14) 50%, rgba(255,255,255,0.25) 60%, rgba(0,0,0,0) 100%)" }}
+        />
+        <div aria-hidden className="pointer-events-none absolute inset-y-0 left-1/2 w-px bg-[#1a1408]/15" />
         <div className="relative mx-auto max-w-3xl">
           <div className="flex items-end justify-between gap-6 border-b-2 border-[#1a1408]/30 pb-6">
             <div className="w-24 md:w-32 text-[#1a1408] -rotate-3"><Bottles /></div>
-            <div className="text-right">
+            <div className="text-right" style={{ transform: "rotate(-1.2deg)" }}>
               <p className="font-kalam text-[#1a1408]/70" style={{ fontSize: "clamp(0.95rem, 2vw, 1.2rem)" }}>The Mains</p>
               <p className="font-kalam font-bold leading-[0.95] mt-1" style={{ fontSize: "clamp(2rem, 7vw, 4rem)" }}>Experience &amp; Innovation</p>
             </div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-10 mt-12">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-10 mt-14">
             {[
-              { t: "Menu R&D", d: "recipes, tasting, refinement" },
-              { t: "Staff Training", d: "hospitality, hosting, care" },
-              { t: "Service Enhancement", d: "every touchpoint, elevated" },
-              { t: "Concept Testing", d: "ideas trialled & honed" },
+              { t: "Menu R&D", d: "recipes, tasting, refinement", r: -1.6, x: 6, y: 0 },
+              { t: "Staff Training", d: "hospitality, hosting, care", r: 1.3, x: -4, y: 14 },
+              { t: "Service Enhancement", d: "every touchpoint, elevated", r: 0.9, x: -2, y: 8 },
+              { t: "Concept Testing", d: "ideas trialled & honed", r: -1.1, x: 10, y: -6 },
             ].map((m) => (
-              <div key={m.t}>
+              <div key={m.t} style={{ transform: `translate(${m.x}px, ${m.y}px) rotate(${m.r}deg)` }}>
                 <p className="font-kalam font-bold leading-tight" style={{ fontSize: "clamp(1.5rem, 4.5vw, 2.2rem)" }}>{m.t}</p>
-                <p className="font-kalam mt-1 text-[#1a1408]/75" style={{ fontSize: "clamp(1rem, 2.6vw, 1.35rem)" }}>{m.d}</p>
+                <p className="font-kalam mt-1 text-[#1a1408]/75" style={{ fontSize: "clamp(1rem, 2.6vw, 1.35rem)", transform: "rotate(0.6deg)" }}>{m.d}</p>
               </div>
             ))}
           </div>
 
-          <p className="font-kalam mt-12 text-[#1a1408]/80 leading-snug" style={{ fontSize: "clamp(1.1rem, 2.8vw, 1.5rem)" }}>
+          <p className="font-kalam mt-16 text-[#1a1408]/80 leading-snug" style={{ fontSize: "clamp(1.1rem, 2.8vw, 1.5rem)", transform: "rotate(-0.8deg)" }}>
             we perfect every moment of the guest journey — from the first hello to the last bite.
           </p>
         </div>
