@@ -110,7 +110,7 @@ export default function MenuPage() {
           The Menu
         </h1>
         <p className="font-editorial italic mt-5 mx-auto max-w-xl leading-relaxed text-[#0A0A0A]/65" style={{ fontSize: "clamp(1rem, 1.8vw, 1.3rem)" }}>
-          Everything we bring to the table, served across Sydney, Dubai &amp; Beirut.
+          It&apos;s how you make them feel.
         </p>
       </header>
 
