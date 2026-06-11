@@ -50,7 +50,7 @@ export default function OverlapImages() {
           key={i}
           className="absolute overflow-hidden shadow-2xl grayscale hover:grayscale-0 transition-all duration-500"
           style={{
-            width: "21%",
+            height: "84%",
             aspectRatio: "3 / 4",
             top: p.top,
             left: p.left,
