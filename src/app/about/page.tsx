@@ -204,7 +204,7 @@ export default function AboutPage() {
         <div className="max-w-6xl mx-auto">
           {/* client logo marquee — two rows, opposite directions */}
           <p className="font-display uppercase text-[#0A0A0A] leading-[0.95] tracking-tight max-w-3xl mb-10" style={{ fontSize: "clamp(2rem, 5vw, 4rem)" }}>
-            Call them clients, call them friends, basically the same thing.
+            Some of our friends
           </p>
           <div
             className="marquee-row border-t border-[#0A0A0A]/15"
