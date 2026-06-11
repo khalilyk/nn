@@ -106,11 +106,11 @@ export default function MenuPage() {
       {/* HEADER */}
       <header className="px-6 pt-36 md:pt-44 pb-10 md:pb-14 text-center">
         <p className="text-[10px] tracking-[0.35em] uppercase text-[#0A0A0A]/45 mb-5">Pull up a chair</p>
-        <h1 className="font-display uppercase leading-[0.9] tracking-tight" style={{ fontSize: "clamp(2.8rem, 12vw, 8rem)" }}>
-          The Menu
+        <h1 className="font-display uppercase leading-[0.9] tracking-tight mx-auto max-w-[14ch]" style={{ fontSize: "clamp(2.4rem, 9vw, 6.5rem)" }}>
+          It&apos;s how you make them feel
         </h1>
-        <p className="font-editorial italic mt-5 mx-auto max-w-xl leading-relaxed text-[#0A0A0A]/65" style={{ fontSize: "clamp(1rem, 1.8vw, 1.3rem)" }}>
-          It&apos;s how you make them feel.
+        <p className="font-editorial italic mt-6 mx-auto max-w-xl leading-relaxed text-[#0A0A0A]/65" style={{ fontSize: "clamp(1rem, 1.8vw, 1.3rem)" }}>
+          Everything we bring to the table, served across Sydney, Dubai &amp; Beirut.
         </p>
       </header>
 
