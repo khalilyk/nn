@@ -71,6 +71,32 @@ const COURSES = [
 
 const DOODLES = [Cutlery, Grapes, Cheese, Bread];
 
+/* procedural crumpled-paper shading — turbulence lit from an angle, blended over the sheet */
+function Crumple({ seed }: { seed: number }) {
+  const id = `crumple-${seed}`;
+  const fid = `fibre-${seed}`;
+  return (
+    <>
+      <svg aria-hidden className="pointer-events-none absolute inset-0 w-full h-full mix-blend-multiply opacity-[0.55]" preserveAspectRatio="none">
+        <filter id={id}>
+          <feTurbulence type="fractalNoise" baseFrequency="0.012 0.015" numOctaves="5" seed={seed} stitchTiles="stitch" result="n" />
+          <feDiffuseLighting in="n" lightingColor="#ffffff" surfaceScale="1.8" diffuseConstant="1.1" result="l">
+            <feDistantLight azimuth={235 + seed * 12} elevation="56" />
+          </feDiffuseLighting>
+        </filter>
+        <rect width="100%" height="100%" filter={`url(#${id})`} />
+      </svg>
+      <svg aria-hidden className="pointer-events-none absolute inset-0 w-full h-full mix-blend-multiply opacity-[0.06]" preserveAspectRatio="none">
+        <filter id={fid}>
+          <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed={seed + 7} stitchTiles="stitch" />
+          <feColorMatrix type="saturate" values="0" />
+        </filter>
+        <rect width="100%" height="100%" filter={`url(#${fid})`} />
+      </svg>
+    </>
+  );
+}
+
 export default function MenuPage() {
   return (
     <main className="relative bg-[#E7E4DD] text-[#0A0A0A] overflow-hidden">
@@ -104,6 +130,7 @@ export default function MenuPage() {
                   className="relative bg-[#EDE7D7] text-[#0A0A0A] px-7 sm:px-10 md:px-12 py-11 md:py-14"
                   style={{ boxShadow: "0 28px 60px -28px rgba(0,0,0,0.45), 0 8px 20px -10px rgba(0,0,0,0.3)" }}
                 >
+                  <Crumple seed={i + 1} />
                   <Grain />
                   <div className={`pointer-events-none absolute ${right ? "left-6" : "right-6"} top-6 w-12 md:w-16 opacity-90`} style={{ transform: `rotate(${c.rot * -3}deg)` }}>
                     <Doodle />
