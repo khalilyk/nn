@@ -314,7 +314,7 @@ export default function MenuPage() {
       </section>
 
       {/* CTA */}
-      <section className="bg-[#F3F1EC] text-[#0A0A0A] px-8 md:px-16 py-24 md:py-36 flex flex-col items-center justify-center text-center">
+      <section className="bg-white text-[#0A0A0A] px-8 md:px-16 py-24 md:py-36 flex flex-col items-center justify-center text-center">
         <p className="text-[9px] tracking-[0.3em] uppercase text-[#0A0A0A]/40 mb-6">Wanna build something not normal?</p>
         <h2 className="font-editorial leading-[1.1] mb-10 max-w-2xl mx-auto" style={{ fontSize: "clamp(1.8rem, 3.8vw, 3.4rem)" }}>
           We&apos;ll build your brand from the ground up.<span className="italic"> Identity, strategy, story</span>, the whole thing.
