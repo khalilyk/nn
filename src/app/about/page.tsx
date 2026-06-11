@@ -189,8 +189,13 @@ export default function AboutPage() {
             </p>
           </div>
           </div>
-          {/* image — parallaxes with scroll */}
-          <ParallaxImage src="/nn-founder.png" alt="Khalil Khouri" className="w-full aspect-square rounded-2xl" amount={9} scale={1.22} />
+          {/* image */}
+          <div>
+            <div className="relative w-full aspect-square overflow-hidden rounded-2xl">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/nn-founder.png" alt="Khalil Khouri" className="absolute inset-0 w-full h-full object-cover" />
+            </div>
+          </div>
         </div>
       </section>
 
