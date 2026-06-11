@@ -117,7 +117,7 @@ function Panel({
       <div
         ref={inner}
         className={`origin-top ${clip ? "overflow-hidden" : ""} ${bg === "black" ? "bg-[#0A0A0A] text-[#F3F1EC]" : "bg-[#F3F1EC] text-[#0A0A0A]"}`}
-        style={{ minHeight: minH, boxShadow: "0 -30px 60px -25px rgba(0,0,0,0.5)", willChange: "transform, filter" }}
+        style={{ minHeight: minH, boxShadow: "0 -30px 60px -25px rgba(0,0,0,0.5)", willChange: pin ? "transform, filter" : "auto" }}
       >
         {children}
       </div>
@@ -170,7 +170,7 @@ export default function Publication() {
   }, [loading]);
 
   return (
-    <div className="relative overflow-x-clip">
+    <div className="relative overflow-x-clip md:overflow-x-visible">
       <Preloader onDone={() => setLoading(false)} />
       <Cursor />
       <Grain />
@@ -233,7 +233,7 @@ export default function Publication() {
       </Panel>
 
       {/* ═══ 02, NOBODY REMEMBERS NORMAL + THE MENU ═══ */}
-      <Panel index={2} bg="ivory" minH="auto" pin={false} slideFrom="left" clip={false}>
+      <Panel index={2} bg="ivory" minH="auto" pin={false} clip={false}>
         <div id="s02" className="relative">
           {/* Top, statement + image */}
           <div className="flex flex-col items-center justify-center text-center px-8 md:px-16 pt-28 pb-16">
@@ -251,11 +251,10 @@ export default function Publication() {
             </Reveal>
           </div>
 
-          {/* The Menu, split screen, sticky left + scrolling services */}
+          {/* The Menu, split screen, sticky left + scrolling services.
+              No Reveal wrapper here — its transform would break the sticky column. */}
           <div className="px-8 md:px-16 pb-24 md:pb-28">
-            <Reveal>
-              <MenuSplit />
-            </Reveal>
+            <MenuSplit />
           </div>
 
           <SectionNo n="02" />

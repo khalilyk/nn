@@ -28,16 +28,18 @@ const services = [
 export default function MenuSplit() {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20">
-      {/* Left, intro + CTA (sticks just below the nav, never overlapping the images above) */}
-      <div className="md:sticky md:top-28 self-start h-fit">
-        <p className="text-[9px] tracking-[0.3em] uppercase text-[#0A0A0A]/40 mb-6">The Menu, What We Do</p>
-        <h3 className="font-editorial leading-[1.1] mb-8" style={{ fontSize: "clamp(1.9rem, 3.4vw, 3rem)" }}>
-          From concept to creation, this is what happens when strategy meets standout design.
-        </h3>
-        <p className="text-[#0A0A0A]/70 leading-relaxed max-w-md mb-10" style={{ fontSize: "clamp(0.95rem, 1.3vw, 1.05rem)" }}>
-          We help hospitality brands stand out through strategy, design, content and guest experience. From branding to campaigns, every detail is crafted to connect and be remembered.
-        </p>
-        <MenuLink />
+      {/* Left, intro + CTA — cell stretches full height, inner wrapper sticks below the nav */}
+      <div>
+        <div className="md:sticky md:top-28">
+          <p className="text-[9px] tracking-[0.3em] uppercase text-[#0A0A0A]/40 mb-6">The Menu, What We Do</p>
+          <h3 className="font-editorial leading-[1.1] mb-8" style={{ fontSize: "clamp(1.9rem, 3.4vw, 3rem)" }}>
+            From concept to creation, this is what happens when strategy meets standout design.
+          </h3>
+          <p className="text-[#0A0A0A]/70 leading-relaxed max-w-md mb-10" style={{ fontSize: "clamp(0.95rem, 1.3vw, 1.05rem)" }}>
+            We help hospitality brands stand out through strategy, design, content and guest experience. From branding to campaigns, every detail is crafted to connect and be remembered.
+          </p>
+          <MenuLink />
+        </div>
       </div>
 
       {/* Right, scrolling services */}

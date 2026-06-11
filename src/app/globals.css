@@ -20,8 +20,8 @@ body {
   position: relative;
   background: var(--black);
   color: var(--ivory);
-  overflow-x: hidden;
-  max-width: 100%;
+  /* NOTE: do not set overflow-x here — it turns body into a scroll container and
+     breaks position: sticky page-wide. Horizontal overflow is clamped on html. */
   font-family: var(--font-grotesk), system-ui, sans-serif;
 }
 
