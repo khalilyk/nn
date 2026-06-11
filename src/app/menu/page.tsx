@@ -5,7 +5,7 @@ import SiteFooter from "@/components/SiteFooter";
 
 export const metadata = {
   title: "The Menu · Not Normal",
-  description: "Small chops, meat, sides, salads, dessert and sauces — the Not Normal table.",
+  description: "The Amuse-Bouché, Appetisers, Mains and Desserts — everything Not Normal brings to the table.",
 };
 
 const stroke: React.CSSProperties = { fill: "none", stroke: "#0A0A0A", strokeWidth: 1.4, strokeLinecap: "round", strokeLinejoin: "round" };
@@ -43,8 +43,15 @@ const Bread = () => (
 );
 
 const head = "font-marker leading-none text-[#0A0A0A]";
-const list = "font-editorial mt-4 space-y-1 text-[#0A0A0A]/85";
+const list = "font-editorial mt-3 space-y-1 text-[#0A0A0A]/85";
 const listSize = { fontSize: "clamp(0.85rem, 1.3vw, 0.95rem)" };
+
+const COURSES = [
+  { cat: "The Amuse-Bouché", title: "Branding & Identity", rot: -1, items: ["Naming & Tagline Development", "Logo & Brand Identity", "Brand Strategy & Positioning", "Verbal & Visual Identity"] },
+  { cat: "The Appetisers", title: "Social & Storytelling", rot: 2, items: ["Public Relations (PR)", "Social Media Strategy", "Photography & Videography", "Campaign Ideation & Execution", "Creative Messaging", "Influencer & Ambassador Marketing"] },
+  { cat: "The Mains", title: "Experience & Innovation", rot: -2, items: ["Menu Research & Development", "Hospitality Staff Training", "Service Enhancement", "Concept Testing & Refinement"] },
+  { cat: "The Desserts", title: "Visual Production", rot: 1, items: ["Signage & Environmental Branding", "Print & Packaging Design", "Website Design & Development", "Uniform Design & Manufacture"] },
+];
 
 export default function MenuPage() {
   return (
@@ -77,70 +84,19 @@ export default function MenuPage() {
           <div className="pointer-events-none absolute left-[42%] top-[50%] w-16 md:w-20 opacity-90 -rotate-3"><Cheese /></div>
           <div className="pointer-events-none absolute right-[34%] top-[62%] w-16 md:w-24 opacity-90 rotate-2"><Bread /></div>
 
-          <div className="relative grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-14 md:gap-y-24">
-            {/* LEFT COLUMN */}
-            <div className="space-y-14 md:space-y-24">
-              <div>
-                <h2 className={head} style={{ fontSize: "clamp(1.6rem, 4vw, 2.4rem)", transform: "rotate(-1deg)" }}>Small Chops</h2>
-                <ul className={list} style={listSize}>
-                  <li>Mini meat pie</li>
-                  <li>Tasty&apos;s signature Puff puff</li>
-                  <li>Springrolls</li>
-                </ul>
-              </div>
-
-              <div className="md:pl-8">
-                <h2 className={head} style={{ fontSize: "clamp(2rem, 6vw, 3.4rem)", transform: "rotate(-2deg)" }}>Meat</h2>
-                <ul className={list} style={listSize}>
-                  <li>AFK Chicken</li>
-                  <li>Pork Belly &amp; Porchetta</li>
-                  <li>Jacobs ladder (beef short ribs)</li>
-                  <li>Lamb el asador</li>
-                  <li>Cedar-Planked Trout</li>
-                </ul>
-              </div>
-
-              <div>
-                <h2 className={head} style={{ fontSize: "clamp(1.8rem, 5vw, 2.8rem)", transform: "rotate(-1deg)" }}>Salads</h2>
-                <div className="font-editorial mt-4 space-y-2 text-[#0A0A0A]/85" style={listSize}>
-                  <p><span className="font-semibold">Charred Flatbreads &amp; Sourdough</span><br />with Butters</p>
-                  <p><span className="font-semibold">Kale &amp; Tahini Caesar Salad</span><br />with Za&apos;atar, Chickpeas &amp; Roasted Grapes</p>
-                  <p><span className="font-semibold">Roasted New Potatoes</span> with Sea Salt &amp; Rosemary</p>
+          <div className="relative grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-16 md:gap-y-28">
+            {COURSES.map((c, i) => {
+              const right = i % 2 === 1;
+              return (
+                <div key={c.cat} className={right ? "md:text-right md:mt-24" : i === 2 ? "md:-mt-8" : ""}>
+                  <h2 className={head} style={{ fontSize: "clamp(1.7rem, 5vw, 2.9rem)", transform: `rotate(${c.rot}deg)` }}>{c.cat}</h2>
+                  <p className="font-editorial italic mt-2 text-[#0A0A0A]/55" style={{ fontSize: "clamp(0.8rem, 1.3vw, 0.95rem)" }}>{c.title}</p>
+                  <ul className={list} style={listSize}>
+                    {c.items.map((it) => <li key={it}>{it}</li>)}
+                  </ul>
                 </div>
-              </div>
-            </div>
-
-            {/* RIGHT COLUMN */}
-            <div className="space-y-14 md:space-y-28 md:mt-24 md:text-right">
-              <div>
-                <h2 className={head} style={{ fontSize: "clamp(2rem, 6vw, 3.2rem)", transform: "rotate(2deg)" }}>Sides</h2>
-                <ul className={list} style={listSize}>
-                  <li>Jollof</li>
-                  <li>Fried Rice</li>
-                  <li>Fried Plantain</li>
-                  <li>Gizzdodo</li>
-                  <li>Nigerian Salad</li>
-                  <li>Beef Suya</li>
-                </ul>
-              </div>
-
-              <div className="md:mt-40">
-                <h2 className={head} style={{ fontSize: "clamp(1.7rem, 4.5vw, 2.6rem)", transform: "rotate(-2deg)" }}>Dessert</h2>
-                <ul className={list} style={listSize}>
-                  <li>Ice Cream &amp; Sorbet</li>
-                  <li>Fruit Platters</li>
-                  <li>Brownies</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          {/* SAUCES — bottom */}
-          <div className="relative mt-16 md:mt-10">
-            <h2 className={head} style={{ fontSize: "clamp(1.7rem, 4.5vw, 2.6rem)", transform: "rotate(-1deg)" }}>Sauces</h2>
-            <p className="font-editorial mt-3 text-[#0A0A0A]/85" style={listSize}>
-              Chimichurri, Mango Salsa, Hot Sauce, Lemon &amp; Sumac Yogurt, Garlic Mayo
-            </p>
+              );
+            })}
           </div>
         </div>
       </section>
