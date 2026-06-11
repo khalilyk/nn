@@ -169,6 +169,17 @@ export default function MenuPage() {
         </div>
       </section>
 
+      {/* SPLIT SCREEN — triptych */}
+      <section className="grid grid-cols-1 md:grid-cols-3">
+        {[
+          "https://images.unsplash.com/photo-1424847651672-bf20a4b0982b?auto=format&fit=crop&w=1400&q=80",
+          "https://images.unsplash.com/photo-1551218808-94e220e084d2?auto=format&fit=crop&w=1400&q=80",
+          "https://images.unsplash.com/photo-1470337458703-46ad1756a187?auto=format&fit=crop&w=1400&q=80",
+        ].map((src, i) => (
+          <ParallaxImage key={i} src={src} className="w-full h-[44vh] md:h-[82vh]" amount={12} />
+        ))}
+      </section>
+
       <SiteFooter />
     </main>
   );
