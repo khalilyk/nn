@@ -94,15 +94,12 @@ export default function MenuPage() {
           </div>
 
           {/* categories */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 border-y-2 border-[#1a1605] divide-x divide-[#1a1605]/60">
+          <div className="grid grid-cols-2 sm:grid-cols-4 border-y-2 border-[#1a1605] divide-x divide-[#1a1605]/60">
             {[
               ["Naming", "Names, taglines & verbal DNA", "01"],
               ["Logo", "Primary marks & lockups", "02"],
               ["Strategy", "Positioning & narrative", "03"],
               ["Identity", "Type, colour & art direction", "04"],
-              ["Guidelines", "Brand books & rules", "05"],
-              ["Messaging", "Voice, tone & copy", "06"],
-              ["Research", "Audience & market", "07"],
             ].map(([n, d, no]) => (
               <div key={no} className="px-3 py-3 text-center">
                 <p className="font-slab font-bold uppercase leading-tight" style={{ fontSize: "clamp(0.72rem, 1.3vw, 0.95rem)" }}>{n}</p>
@@ -126,14 +123,11 @@ export default function MenuPage() {
             {/* main list */}
             <div className="px-1 lg:px-6 py-5 space-y-1.5">
               {[
-                ["Brand Strategy", "Positioning, narrative, mission, vision & values", "01"],
+                ["Brand Strategy", "Positioning, narrative, mission & values", "01"],
                 ["Naming & Tagline", "Naming systems, taglines & verbal identity", "02"],
-                ["Logo & Identity", "Primary marks, lockups, sub-brands & usage", "03"],
-                ["Visual System", "Colour, type, grid, art direction & iconography", "04"],
-                ["Verbal Identity", "Tone of voice, messaging framework & copy", "05"],
-                ["Brand Guidelines", "Comprehensive brand book & governance", "06"],
-                ["Templates & Collateral", "Stationery, decks, social & print kits", "07"],
-                ["Launch Toolkit", "Rollout assets, training & brand handover", "08"],
+                ["Logo & Identity", "Primary marks, lockups & usage", "03"],
+                ["Visual System", "Colour, type, art direction & iconography", "04"],
+                ["Brand Guidelines", "Comprehensive brand book & toolkit", "05"],
               ].map(([n, d, no]) => (
                 <div key={no} className="flex items-baseline gap-2">
                   <span className="font-slab font-bold uppercase whitespace-nowrap" style={{ fontSize: "clamp(1rem, 2.2vw, 1.6rem)" }}>{n}</span>
@@ -153,11 +147,7 @@ export default function MenuPage() {
               </div>
               <div>
                 <p className="font-slab font-bold uppercase" style={{ fontSize: "clamp(0.95rem, 1.8vw, 1.15rem)" }}>Brand Audit</p>
-                <p className="leading-tight mt-1" style={{ fontSize: "clamp(0.6rem, 1.1vw, 0.72rem)" }}>Strategy, identity &amp; touchpoints. Add report +1</p>
-              </div>
-              <div>
-                <p className="font-slab font-bold uppercase" style={{ fontSize: "clamp(0.95rem, 1.8vw, 1.15rem)" }}>Refresh</p>
-                <p className="leading-tight mt-1" style={{ fontSize: "clamp(0.6rem, 1.1vw, 0.72rem)" }}>Evolve an existing brand</p>
+                <p className="leading-tight mt-1" style={{ fontSize: "clamp(0.6rem, 1.1vw, 0.72rem)" }}>Strategy, identity &amp; touchpoints</p>
               </div>
             </div>
           </div>
@@ -169,7 +159,6 @@ export default function MenuPage() {
               <div className="mt-3 space-y-3 font-sans">
                 {[
                   ["Starter Board", "Logo, palette, type & one-page guide", "A"],
-                  ["Identity Board", "Full visual & verbal identity system", "B"],
                   ["Combo Board", "Strategy, identity & launch toolkit", "AB"],
                 ].map(([n, d, t]) => (
                   <div key={t}>
@@ -182,7 +171,7 @@ export default function MenuPage() {
             <div className="px-1 sm:px-5 py-5">
               <p className="font-slab font-bold uppercase" style={{ fontSize: "clamp(1.1rem, 2.4vw, 1.5rem)" }}>Add-Ons</p>
               <div className="grid grid-cols-2 gap-x-6 gap-y-1.5 mt-3 font-sans" style={{ fontSize: "clamp(0.65rem, 1.2vw, 0.85rem)" }}>
-                {["Stationery", "Social Kit", "Iconography", "Templates", "Signage", "Merch", "Packaging", "Motion"].map((s) => (
+                {["Stationery", "Social Kit", "Signage", "Templates", "Packaging", "Motion"].map((s) => (
                   <p key={s}>{s}</p>
                 ))}
               </div>
