@@ -44,14 +44,6 @@ const Tomato = () => (
   </svg>
 );
 
-const Bottles = () => (
-  <svg viewBox="0 0 200 120" className="w-full h-full" style={ink}>
-    <path d="M28 110V58c0-8 6-12 6-22V24h12v12c0 10 6 14 6 22v52z" />
-    <path d="M70 110V46c0-10 8-14 8-26V8h10v12c0 12 8 16 8 26v64z" />
-    <path d="M118 110V62c0-7 5-11 5-19V30h11v13c0 8 5 12 5 19v48z" />
-    <path d="M150 112c14-4 30-4 44 0" />
-  </svg>
-);
 
 /* tunable paper-fibre texture (riso/letterpress grain) */
 function PaperTex({ seed = 1, opacity = 0.5, freq = "0.7 0.8", blend = "multiply" as React.CSSProperties["mixBlendMode"] }) {
@@ -160,42 +152,53 @@ export default function MenuPage() {
       </section>
 
       {/* ── THE MAINS — handwritten kraft bistro menu ── */}
-      <section className="relative bg-[#e7d7b3] text-[#1a1408] overflow-hidden px-6 py-20 md:py-28">
-        <PaperTex seed={7} opacity={0.4} freq="0.6 0.7" />
+      <section className="relative bg-[#f1ede2] text-[#1b1a14] overflow-hidden px-6 py-20 md:py-28">
+        <PaperTex seed={7} opacity={0.35} freq="0.5 0.6" />
         <Grain />
-        {/* centre fold crease */}
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-y-0 left-1/2 -translate-x-1/2 w-12"
-          style={{ background: "linear-gradient(to right, rgba(0,0,0,0) 0%, rgba(0,0,0,0.05) 40%, rgba(0,0,0,0.14) 50%, rgba(255,255,255,0.25) 60%, rgba(0,0,0,0) 100%)" }}
-        />
-        <div aria-hidden className="pointer-events-none absolute inset-y-0 left-1/2 w-px bg-[#1a1408]/15" />
-        <div className="relative mx-auto max-w-3xl">
-          <div className="flex items-end justify-between gap-6 border-b-2 border-[#1a1408]/30 pb-6">
-            <div className="w-24 md:w-32 text-[#1a1408] -rotate-3"><Bottles /></div>
-            <div className="text-right" style={{ transform: "rotate(-1.2deg)" }}>
-              <p className="font-kalam text-[#1a1408]/70" style={{ fontSize: "clamp(0.95rem, 2vw, 1.2rem)" }}>The Mains</p>
-              <p className="font-kalam font-bold leading-[0.95] mt-1" style={{ fontSize: "clamp(2rem, 7vw, 4rem)" }}>Experience &amp; Innovation</p>
+        <div className="relative mx-auto max-w-4xl">
+          {/* masthead */}
+          <div className="grid grid-cols-3 items-start gap-2">
+            <div className="font-editorial uppercase leading-tight">
+              <p style={{ fontSize: "clamp(0.8rem, 1.8vw, 1.05rem)", letterSpacing: "0.08em" }}>The Mains</p>
+              <p className="text-[#1b1a14]/55" style={{ fontSize: "clamp(0.6rem, 1.2vw, 0.75rem)", letterSpacing: "0.12em" }}>No. III</p>
+            </div>
+            <h2 className="font-editorial uppercase text-center leading-[0.92]" style={{ fontSize: "clamp(1.9rem, 7vw, 4.4rem)" }}>
+              Experience<br className="hidden sm:block" /> &amp; Innovation
+            </h2>
+            <div className="font-editorial uppercase text-right leading-tight">
+              <p style={{ fontSize: "clamp(0.8rem, 1.8vw, 1.05rem)", letterSpacing: "0.08em" }}>Not Normal</p>
+              <p className="text-[#1b1a14]/55" style={{ fontSize: "clamp(0.6rem, 1.2vw, 0.75rem)", letterSpacing: "0.12em" }}>Syd · Dxb · Bey</p>
             </div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-10 mt-14">
+          {/* items */}
+          <div className="mt-16 md:mt-24 font-spacemono uppercase" style={{ fontSize: "clamp(0.7rem, 1.5vw, 0.9rem)", letterSpacing: "0.03em" }}>
             {[
-              { t: "Menu R&D", d: "recipes, tasting, refinement", r: -1.6, x: 6, y: 0 },
-              { t: "Staff Training", d: "hospitality, hosting, care", r: 1.3, x: -4, y: 14 },
-              { t: "Service Enhancement", d: "every touchpoint, elevated", r: 0.9, x: -2, y: 8 },
-              { t: "Concept Testing", d: "ideas trialled & honed", r: -1.1, x: 10, y: -6 },
-            ].map((m) => (
-              <div key={m.t} style={{ transform: `translate(${m.x}px, ${m.y}px) rotate(${m.r}deg)` }}>
-                <p className="font-kalam font-bold leading-tight" style={{ fontSize: "clamp(1.5rem, 4.5vw, 2.2rem)" }}>{m.t}</p>
-                <p className="font-kalam mt-1 text-[#1a1408]/75" style={{ fontSize: "clamp(1rem, 2.6vw, 1.35rem)", transform: "rotate(0.6deg)" }}>{m.d}</p>
+              [
+                ["Menu Research & Development, Seasonal Tasting", "01"],
+                ["Recipe Refinement, Costing, Supplier Sourcing", "02"],
+                ["Concept Testing, Trialled & Honed", "03"],
+              ],
+              [
+                ["Hospitality Staff Training, Hosting, Care", "04"],
+                ["Service Standards, Sequence Of Service", "05"],
+                ["Service Enhancement, Every Guest Touchpoint", "06"],
+              ],
+              [
+                ["Guest Journey Mapping, First Hello To Last Bite", "07"],
+                ["Ambience, Pacing & Memorable Moments", "08"],
+              ],
+            ].map((group, gi) => (
+              <div key={gi} className={gi === 0 ? "" : "mt-10"}>
+                {group.map(([name, no]) => (
+                  <div key={no} className="flex items-baseline justify-between gap-6 py-[0.55rem]">
+                    <span>{name}</span>
+                    <span className="text-[#1b1a14]/60 tabular-nums">{no}</span>
+                  </div>
+                ))}
               </div>
             ))}
           </div>
-
-          <p className="font-kalam mt-16 text-[#1a1408]/80 leading-snug" style={{ fontSize: "clamp(1.1rem, 2.8vw, 1.5rem)", transform: "rotate(-0.8deg)" }}>
-            we perfect every moment of the guest journey — from the first hello to the last bite.
-          </p>
         </div>
       </section>
 
