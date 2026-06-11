@@ -203,7 +203,9 @@ export default function AboutPage() {
       <section className="bg-[#81D742] text-[#0A0A0A] px-8 md:px-16 py-24 md:py-32" data-cursor-color="#F3F1EC">
         <div className="max-w-6xl mx-auto">
           {/* client logo marquee — two rows, opposite directions */}
-          <p className="text-[10px] tracking-[0.3em] uppercase text-[#0A0A0A]/40 mb-6">Call them clients, call them friends</p>
+          <p className="font-display uppercase text-[#0A0A0A] leading-[0.95] tracking-tight max-w-3xl mb-10" style={{ fontSize: "clamp(2rem, 5vw, 4rem)" }}>
+            Call them clients, call them friends, basically the same thing.
+          </p>
           <div
             className="marquee-row border-t border-[#0A0A0A]/15"
             style={{
