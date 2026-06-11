@@ -30,9 +30,7 @@ export default function Reveal({
         if (entry.isIntersecting) {
           el.style.opacity = "1";
           el.style.transform = "translateY(0)";
-        } else {
-          el.style.opacity = "0";
-          el.style.transform = `translateY(${y}px)`;
+          obs.disconnect(); // reveal once, then stay (no reset-on-leave flicker)
         }
       },
       { threshold: 0.2, rootMargin: "0px 0px -8% 0px" }

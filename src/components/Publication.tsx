@@ -78,7 +78,7 @@ function Panel({
     };
   }, [pin]);
 
-  // Directional slide, plays in on enter, reverses out on leave (both scroll directions)
+  // Directional slide, plays in once on enter then stays (no reset-on-leave → no scroll flicker)
   useEffect(() => {
     const el = ref.current;
     if (!el || !slideFrom) return;
@@ -87,9 +87,7 @@ function Panel({
         if (e.isIntersecting) {
           el.style.transform = "translate(0, 0)";
           el.style.opacity = "1";
-        } else {
-          el.style.transform = SLIDE_OFFSET[slideFrom];
-          el.style.opacity = "0";
+          obs.disconnect();
         }
       },
       { threshold: 0.15 }
