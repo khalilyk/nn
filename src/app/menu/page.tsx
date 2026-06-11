@@ -272,19 +272,23 @@ export default function MenuPage() {
       <section className="bg-[#0A0A0A] text-[#0A0A0A] px-3 py-3 md:px-5 md:py-5">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-5">
           {/* left: halftone image panel */}
-          <div className="relative bg-[#b8b6ad] overflow-hidden flex flex-col justify-between p-6 md:p-8 min-h-[60vh]">
+          <div className="relative bg-[#d9d7cd] overflow-hidden flex flex-col justify-between p-6 md:p-8 min-h-[60vh]">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1200&q=80"
               alt=""
-              className="absolute inset-0 w-full h-full object-cover mix-blend-luminosity"
-              style={{ filter: "grayscale(1) contrast(1.45) brightness(1.5)" }}
+              className="absolute inset-0 w-full h-full object-cover mix-blend-multiply"
+              style={{ filter: "grayscale(1) contrast(1.85) brightness(1.32)" }}
             />
-            <div className="absolute inset-0 bg-[#cdcbc1]/35 pointer-events-none" />
-            {/* halftone dots */}
+            {/* halftone — white dots punched into the shadows (screen) */}
             <div
-              className="absolute inset-0 mix-blend-multiply opacity-50 pointer-events-none"
-              style={{ backgroundImage: "radial-gradient(#000 1px, transparent 1.5px)", backgroundSize: "4px 4px" }}
+              className="absolute inset-0 mix-blend-screen pointer-events-none"
+              style={{ backgroundImage: "radial-gradient(#fff 0.9px, transparent 1.3px)", backgroundSize: "3px 3px", opacity: 0.6 }}
+            />
+            {/* fine black grain in the midtones (multiply) */}
+            <div
+              className="absolute inset-0 mix-blend-multiply pointer-events-none"
+              style={{ backgroundImage: "radial-gradient(#000 0.7px, transparent 1.1px)", backgroundSize: "3px 3px", opacity: 0.25 }}
             />
             <p className="font-spacemono uppercase tracking-[0.25em] text-[#15140f] relative z-10" style={{ fontSize: "clamp(0.7rem, 1.6vw, 0.95rem)" }}>The Desserts · No. IV</p>
             <p className="font-spacemono font-bold uppercase tracking-[0.12em] text-[#15140f] relative z-10 leading-[0.95]" style={{ fontSize: "clamp(2rem, 6vw, 3.6rem)" }}>Visual<br />Production</p>
