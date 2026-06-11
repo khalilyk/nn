@@ -71,7 +71,8 @@ export default function AboutPage() {
         <div className="relative z-10 max-w-5xl mx-auto text-center">
           <p className="text-[10px] tracking-[0.3em] uppercase text-[#0A0A0A]/45 mb-6">Who we are</p>
           <h1 className="font-display uppercase leading-[0.92] tracking-tight" style={{ fontSize: "clamp(2.2rem, 7.5vw, 5.6rem)" }}>
-            We&apos;re about indulging<br />in the extraordinary.
+            We&apos;re about indulging<br />in the{" "}
+            <span className="inline-block origin-center transition-transform duration-300 ease-out hover:scale-[2]">extraordinary</span>.
           </h1>
           <p className="font-editorial mt-8 mx-auto max-w-2xl leading-[1.5] text-[#0A0A0A]/70" style={{ fontSize: "clamp(1.05rem, 1.9vw, 1.5rem)" }}>
             From restaurants to cafés, lifestyle concepts to pop-ups - we build identities, campaigns, content and
