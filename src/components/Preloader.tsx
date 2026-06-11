@@ -31,33 +31,32 @@ export default function Preloader({ onDone }: { onDone?: () => void }) {
 
   return (
     <div
-      className="fixed inset-0 z-[300] bg-[#0A0A0A] flex flex-col items-center justify-center"
+      className="fixed inset-0 z-[300] bg-[#0A0A0A] overflow-hidden flex items-end"
       style={{
         transform: leaving ? "translateY(-100%)" : "translateY(0)",
         transition: "transform 0.95s cubic-bezier(0.76,0,0.24,1)",
       }}
     >
-      <div className="overflow-hidden">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/notnormal-logoblack.png"
-          alt="Not Normal"
-          style={{
-            width: "clamp(220px, 40vw, 560px)",
-            filter: "invert(1)",
-            transform: leaving ? "translateY(-110%)" : "translateY(0)",
-            transition: "transform 0.7s cubic-bezier(0.76,0,0.24,1)",
-          }}
-        />
-      </div>
-      <div className="absolute bottom-10 right-8 md:right-16">
-        <span className="font-display text-[#F3F1EC]/70" style={{ fontSize: "clamp(2rem, 6vw, 4rem)" }}>
-          {String(count).padStart(3, "0")}
-        </span>
-      </div>
-      <div className="absolute bottom-12 left-8 md:left-16">
+      {/* label, top */}
+      <div className="absolute top-10 left-8 md:left-16">
         <span className="text-[9px] tracking-[0.3em] uppercase text-[#F3F1EC]/40">Hospitality · Brand · Marketing</span>
       </div>
+      <div className="absolute top-10 right-8 md:right-16">
+        <span className="text-[9px] tracking-[0.3em] uppercase text-[#F3F1EC]/40">Loading</span>
+      </div>
+
+      {/* giant full-page percentage */}
+      <div className="w-full px-4 md:px-8 pb-2 md:pb-4 flex items-end leading-none">
+        <span className="font-display uppercase text-[#F3F1EC] leading-[0.74]" style={{ fontSize: "clamp(7rem, 36vw, 30rem)" }}>
+          {count}
+        </span>
+        <span className="font-display uppercase text-[#81D742] leading-none mb-[0.12em] ml-1" style={{ fontSize: "clamp(2rem, 9vw, 7rem)" }}>
+          %
+        </span>
+      </div>
+
+      {/* progress fill bar */}
+      <div className="absolute bottom-0 left-0 h-[6px] bg-[#81D742]" style={{ width: `${count}%`, transition: "width 0.18s linear" }} />
     </div>
   );
 }
