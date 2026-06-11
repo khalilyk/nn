@@ -63,6 +63,17 @@ function ArcText({ text, up = true, size = 24, spacing = 5, maxW = "280px" }: { 
   );
 }
 
+function BarRow({ label, items }: { label: string; items: string[] }) {
+  return (
+    <div className="grid grid-cols-[34%_1fr] sm:grid-cols-[30%_1fr] gap-x-5 sm:gap-x-8 items-start">
+      <div className="text-right uppercase text-[#a5403f] tracking-[0.1em] leading-snug whitespace-pre-line pt-[0.15em]" style={{ fontSize: "clamp(0.6rem, 1.25vw, 0.82rem)" }}>{label}</div>
+      <div className="uppercase tracking-[0.04em] leading-snug" style={{ fontSize: "clamp(0.78rem, 1.7vw, 1.05rem)" }}>
+        {items.map((it, i) => <p key={i}>{it}</p>)}
+      </div>
+    </div>
+  );
+}
+
 export default function MenuPage() {
   return (
     <main className="relative bg-[#E7E4DD] text-[#0A0A0A] overflow-hidden">
@@ -80,108 +91,39 @@ export default function MenuPage() {
         </p>
       </header>
 
-      {/* ── THE AMUSE-BOUCHÉ — UL&CO. gridded board ── */}
-      <section className="relative bg-[#f5e53c] text-[#1a1605] overflow-hidden px-4 md:px-8 py-12 md:py-16">
-        <PaperTex seed={3} opacity={0.14} freq="0.55 0.65" />
-        <div className="relative mx-auto max-w-6xl">
-          {/* masthead */}
-          <div className="flex items-end justify-between gap-3 pb-4">
-            <p className="font-sans font-semibold uppercase tracking-wide max-w-[7rem] leading-tight" style={{ fontSize: "clamp(0.5rem, 1vw, 0.72rem)" }}>Not Normal · Branding &amp; Identity</p>
-            <p className="font-slab font-bold leading-none" style={{ fontSize: "clamp(1.8rem, 6vw, 3.6rem)" }}>NN&amp;CO.</p>
-            <p className="font-classic italic text-right leading-tight" style={{ fontSize: "clamp(0.5rem, 1vw, 0.72rem)" }}>
-              Syd · Dxb · Bey <span className="font-slab not-italic font-bold ml-1" style={{ fontSize: "1.7em" }}>№ I</span>
-            </p>
+      {/* ── THE AMUSE-BOUCHÉ — pink typewriter bar menu ── */}
+      <section className="relative bg-[#f09a9c] text-[#1c1012] overflow-hidden px-6 py-16 md:py-24 font-spacemono">
+        <PaperTex seed={3} opacity={0.16} freq="0.7 0.8" />
+        <div className="relative mx-auto max-w-2xl">
+          <p className="uppercase text-center tracking-[0.25em] text-[#a5403f] mb-12" style={{ fontSize: "clamp(0.55rem, 1.2vw, 0.72rem)" }}>
+            The Amuse-Bouché · No. I
+          </p>
+
+          {/* top group */}
+          <div className="space-y-7">
+            <BarRow label="Strategy" items={["Positioning, narrative & brand strategy"]} />
+            <BarRow label="Naming" items={["Naming systems, taglines &", "verbal DNA"]} />
+            <BarRow label="Voice" items={["Tone of voice & messaging framework"]} />
+            <BarRow label="Research" items={["Audience, market & competitor audit"]} />
           </div>
 
-          {/* categories */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 border-y-2 border-[#1a1605] divide-x divide-[#1a1605]/60">
-            {[
-              ["Naming", "Names, taglines & verbal DNA", "01"],
-              ["Logo", "Primary marks & lockups", "02"],
-              ["Strategy", "Positioning & narrative", "03"],
-              ["Identity", "Type, colour & art direction", "04"],
-            ].map(([n, d, no]) => (
-              <div key={no} className="px-3 py-3 text-center">
-                <p className="font-slab font-bold uppercase leading-tight" style={{ fontSize: "clamp(0.72rem, 1.3vw, 0.95rem)" }}>{n}</p>
-                <p className="font-sans mt-1 leading-snug" style={{ fontSize: "clamp(0.52rem, 0.95vw, 0.68rem)" }}>{d}</p>
-                <p className="font-slab font-bold mt-2" style={{ fontSize: "clamp(0.85rem, 1.7vw, 1.2rem)" }}>{no}</p>
-              </div>
-            ))}
-          </div>
-
-          {/* main area */}
-          <div className="grid lg:grid-cols-[auto_1fr_13rem] border-b-2 border-[#1a1605]">
-            {/* mascot + rotated tagline */}
-            <div className="hidden lg:flex flex-col items-center justify-between py-5 pr-4 border-r-2 border-[#1a1605]">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/nn-panda.png" alt="" className="w-14 h-14 object-contain" />
-              <p className="font-classic italic" style={{ writingMode: "vertical-rl", transform: "rotate(180deg)", fontSize: "clamp(0.85rem, 1.4vw, 1.05rem)" }}>
-                Stand out and stay memorable.
-              </p>
-            </div>
-
-            {/* main list */}
-            <div className="px-1 lg:px-6 py-5 space-y-1.5">
-              {[
-                ["Brand Strategy", "Positioning, narrative, mission & values", "01"],
-                ["Naming & Tagline", "Naming systems, taglines & verbal identity", "02"],
-                ["Logo & Identity", "Primary marks, lockups & usage", "03"],
-                ["Visual System", "Colour, type, art direction & iconography", "04"],
-                ["Brand Guidelines", "Comprehensive brand book & toolkit", "05"],
-              ].map(([n, d, no]) => (
-                <div key={no} className="flex items-baseline gap-2">
-                  <span className="font-slab font-bold uppercase whitespace-nowrap" style={{ fontSize: "clamp(1rem, 2.2vw, 1.6rem)" }}>{n}</span>
-                  <span className="font-sans uppercase leading-tight hidden md:block flex-shrink" style={{ fontSize: "clamp(0.5rem, 0.9vw, 0.64rem)" }}>{d}</span>
-                  <span className="flex-1 border-b-2 border-dotted border-[#1a1605]/45" style={{ transform: "translateY(-0.3em)" }} />
-                  <span className="font-slab font-bold" style={{ fontSize: "clamp(0.95rem, 1.9vw, 1.35rem)" }}>{no}</span>
-                </div>
-              ))}
-            </div>
-
-            {/* extras column */}
-            <div className="px-1 lg:px-6 py-5 border-t-2 lg:border-t-0 lg:border-l-2 border-[#1a1605] space-y-5 font-sans">
-              <div>
-                <p className="font-slab font-bold uppercase" style={{ fontSize: "clamp(1rem, 2vw, 1.3rem)" }}>Workshops</p>
-                <p className="leading-tight mt-1" style={{ fontSize: "clamp(0.6rem, 1.1vw, 0.75rem)" }}>Half Day<span className="float-right font-bold">1</span></p>
-                <p className="leading-tight" style={{ fontSize: "clamp(0.6rem, 1.1vw, 0.75rem)" }}>Full Day<span className="float-right font-bold">2</span></p>
-              </div>
-              <div>
-                <p className="font-slab font-bold uppercase" style={{ fontSize: "clamp(0.95rem, 1.8vw, 1.15rem)" }}>Brand Audit</p>
-                <p className="leading-tight mt-1" style={{ fontSize: "clamp(0.6rem, 1.1vw, 0.72rem)" }}>Strategy, identity &amp; touchpoints</p>
-              </div>
+          {/* centrepiece */}
+          <div className="text-center my-12 md:my-16">
+            <p className="font-fancy leading-[0.8] text-[#1c1012]" style={{ fontSize: "clamp(3.4rem, 16vw, 8rem)" }}>Branding</p>
+            <div className="relative inline-block mt-1">
+              <p className="uppercase text-[#b03f3e] tracking-[0.3em]" style={{ fontSize: "clamp(0.9rem, 3vw, 1.6rem)" }}>At Your Service</p>
+              <svg viewBox="0 0 300 24" className="absolute -bottom-3 left-1/4 w-3/4 h-4 overflow-visible" aria-hidden>
+                <path d="M6,14 C70,2 150,2 230,12 C250,15 268,12 292,4" fill="none" stroke="#b03f3e" strokeWidth="2.5" strokeLinecap="round" />
+              </svg>
             </div>
           </div>
 
-          {/* packages + sides */}
-          <div className="grid sm:grid-cols-2 border-b-2 border-[#1a1605] divide-y sm:divide-y-0 sm:divide-x divide-[#1a1605]">
-            <div className="px-1 sm:px-5 py-5">
-              <p className="font-slab font-bold uppercase" style={{ fontSize: "clamp(1.1rem, 2.4vw, 1.5rem)" }}>Packages <span className="font-sans normal-case font-normal" style={{ fontSize: "0.5em" }}>— scoped to your stage</span></p>
-              <div className="mt-3 space-y-3 font-sans">
-                {[
-                  ["Starter Board", "Logo, palette, type & one-page guide", "A"],
-                  ["Combo Board", "Strategy, identity & launch toolkit", "AB"],
-                ].map(([n, d, t]) => (
-                  <div key={t}>
-                    <p className="font-slab font-bold uppercase" style={{ fontSize: "clamp(0.8rem, 1.5vw, 1rem)" }}>{n}<span className="float-right">{t}</span></p>
-                    <p className="leading-tight" style={{ fontSize: "clamp(0.58rem, 1vw, 0.7rem)" }}>{d}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-            <div className="px-1 sm:px-5 py-5">
-              <p className="font-slab font-bold uppercase" style={{ fontSize: "clamp(1.1rem, 2.4vw, 1.5rem)" }}>Add-Ons</p>
-              <div className="grid grid-cols-2 gap-x-6 gap-y-1.5 mt-3 font-sans" style={{ fontSize: "clamp(0.65rem, 1.2vw, 0.85rem)" }}>
-                {["Stationery", "Social Kit", "Signage", "Templates", "Packaging", "Motion"].map((s) => (
-                  <p key={s}>{s}</p>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* bottom bar */}
-          <div className="flex items-center justify-between gap-4 pt-4">
-            <p className="font-sans font-bold uppercase" style={{ fontSize: "clamp(0.8rem, 2.3vw, 1.5rem)" }}>Strategy — Design — Delivered In House</p>
-            <p className="font-classic text-right" style={{ fontSize: "clamp(0.5rem, 1vw, 0.72rem)" }}>Property of <span className="font-bold">Not Normal Studio</span></p>
+          {/* bottom group */}
+          <div className="space-y-7">
+            <BarRow label="Logo" items={["Primary marks, lockups", "& usage systems"]} />
+            <BarRow label="Identity" items={["Colour, type, art direction", "& iconography"]} />
+            <BarRow label="Toolkit" items={["Guidelines, templates", "& collateral"]} />
+            <BarRow label={"Launch\nA little later"} items={["You'll know where to go"]} />
           </div>
         </div>
       </section>
