@@ -42,7 +42,7 @@ const Bread = () => (
   </svg>
 );
 
-const head = "font-marker leading-none text-[#0A0A0A]";
+const head = "font-permanent leading-tight text-[#0A0A0A]";
 const list = "font-typewriter mt-4 space-y-1.5 text-[#0A0A0A]/80";
 const listSize = { fontSize: "clamp(0.75rem, 1.15vw, 0.85rem)" };
 

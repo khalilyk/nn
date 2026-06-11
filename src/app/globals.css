@@ -39,6 +39,7 @@ main { overflow-x: clip; max-width: 100vw; }
 .font-sans { font-family: var(--font-grotesk), system-ui, sans-serif; }
 .font-marker { font-family: var(--font-marker), "Brush Script MT", cursive; }
 .font-typewriter { font-family: var(--font-typewriter), "Courier New", monospace; }
+.font-permanent { font-family: var(--font-permanent), "Brush Script MT", cursive; }
 
 /* Stacking panels */
 .panel {

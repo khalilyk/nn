@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Playfair_Display, Space_Grotesk, Anton, Caveat, Special_Elite } from "next/font/google";
+import { Playfair_Display, Space_Grotesk, Anton, Caveat, Special_Elite, Permanent_Marker } from "next/font/google";
 import "./globals.css";
 
 const caveat = Caveat({
@@ -11,6 +11,12 @@ const caveat = Caveat({
 const typewriter = Special_Elite({
   subsets: ["latin"],
   variable: "--font-typewriter",
+  weight: ["400"],
+});
+
+const permanentMarker = Permanent_Marker({
+  subsets: ["latin"],
+  variable: "--font-permanent",
   weight: ["400"],
 });
 
@@ -41,7 +47,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${playfair.variable} ${grotesk.variable} ${anton.variable} ${caveat.variable} ${typewriter.variable}`}>
+    <html lang="en" className={`${playfair.variable} ${grotesk.variable} ${anton.variable} ${caveat.variable} ${typewriter.variable} ${permanentMarker.variable}`}>
       <body className="bg-[#0A0A0A] text-[#F3F1EC]">{children}</body>
     </html>
   );
