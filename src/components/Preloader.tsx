@@ -10,20 +10,20 @@ export default function Preloader({ onDone }: { onDone?: () => void }) {
   useEffect(() => {
     let n = 0;
     const id = setInterval(() => {
-      n += Math.floor(Math.random() * 7) + 3;
+      n += Math.floor(Math.random() * 9) + 7;
       if (n >= 100) {
         n = 100;
         clearInterval(id);
         setCount(100);
-        setTimeout(() => setLeaving(true), 350);
+        setTimeout(() => setLeaving(true), 180);
         setTimeout(() => {
           setGone(true);
           onDone?.();
-        }, 1300);
+        }, 880);
       } else {
         setCount(n);
       }
-    }, 90);
+    }, 55);
     return () => clearInterval(id);
   }, [onDone]);
 
@@ -34,7 +34,7 @@ export default function Preloader({ onDone }: { onDone?: () => void }) {
       className="fixed inset-0 z-[300] bg-[#0A0A0A] overflow-hidden flex items-end"
       style={{
         transform: leaving ? "translateY(-100%)" : "translateY(0)",
-        transition: "transform 0.95s cubic-bezier(0.76,0,0.24,1)",
+        transition: "transform 0.7s cubic-bezier(0.76,0,0.24,1)",
       }}
     >
       {/* water that fills the page from the bottom as it loads */}
