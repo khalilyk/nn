@@ -1,4 +1,5 @@
 import Cursor from "@/components/Cursor";
+import Grain from "@/components/Grain";
 import SiteNav from "@/components/SiteNav";
 import SiteFooter from "@/components/SiteFooter";
 
@@ -48,7 +49,54 @@ export default function MenuPage() {
         </p>
       </header>
 
-      {/* BODY — to be rebuilt */}
+      {/* ── THE AMUSE-BOUCHÉ — vintage slab-serif menu poster ── */}
+      <section className="relative bg-[#D9D586] text-[#1c1b0d] overflow-hidden px-6 py-24 md:py-32">
+        <Grain />
+        <div className="relative mx-auto max-w-2xl text-center leading-[1.15]">
+          <p className="font-slab font-bold uppercase" style={{ fontSize: "clamp(2.2rem, 7vw, 4rem)", letterSpacing: "0.01em" }}>
+            The Amuse-Bouché
+          </p>
+          <p className="font-editorial italic mt-1" style={{ fontSize: "clamp(1.6rem, 5vw, 2.8rem)" }}>
+            Branding &amp; Identity
+          </p>
+          <p className="font-editorial italic mt-5" style={{ fontSize: "clamp(1rem, 2.2vw, 1.35rem)" }}>
+            Course No. <span className="align-super text-[0.7em]">I</span>
+          </p>
+
+          <p className="font-editorial mt-8 mx-auto max-w-md leading-relaxed" style={{ fontSize: "clamp(0.95rem, 1.6vw, 1.1rem)" }}>
+            A brand isn’t just a name or a logo — it’s the foundation of everything. We craft
+            powerful, distinct identities that connect with audiences and make you unmistakable.
+          </p>
+
+          {/* central motif */}
+          <div
+            className="mx-auto my-10 md:my-12 w-40 h-40 md:w-52 md:h-52 rounded-full overflow-hidden"
+            style={{ boxShadow: "0 18px 40px -18px rgba(0,0,0,0.5)" }}
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="https://images.unsplash.com/photo-1525351484163-7529414344d8?auto=format&fit=crop&w=600&q=80"
+              alt=""
+              className="w-full h-full object-cover"
+            />
+          </div>
+
+          <div className="space-y-3 md:space-y-4">
+            <p className="font-slab font-semibold uppercase" style={{ fontSize: "clamp(1.15rem, 3vw, 1.7rem)", letterSpacing: "0.02em" }}>
+              Naming &amp; Tagline Development
+            </p>
+            <p className="font-editorial italic" style={{ fontSize: "clamp(1.2rem, 3.2vw, 1.8rem)" }}>
+              Logo &amp; Brand Identity
+            </p>
+            <p className="font-slab font-semibold uppercase" style={{ fontSize: "clamp(1.15rem, 3vw, 1.7rem)", letterSpacing: "0.02em" }}>
+              Brand Strategy &amp; Positioning
+            </p>
+            <p className="font-editorial italic" style={{ fontSize: "clamp(1.2rem, 3.2vw, 1.8rem)" }}>
+              Verbal &amp; Visual Identity
+            </p>
+          </div>
+        </div>
+      </section>
 
       <SiteFooter />
     </main>

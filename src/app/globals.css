@@ -40,6 +40,7 @@ main { overflow-x: clip; max-width: 100vw; }
 .font-marker { font-family: var(--font-marker), "Brush Script MT", cursive; }
 .font-typewriter { font-family: var(--font-typewriter), "Courier New", monospace; }
 .font-permanent { font-family: var(--font-permanent), "Brush Script MT", cursive; }
+.font-slab { font-family: var(--font-slab), Rockwell, "Courier New", serif; }
 
 /* Stacking panels */
 .panel {
