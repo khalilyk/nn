@@ -43,8 +43,8 @@ const Bread = () => (
 );
 
 const head = "font-marker leading-none text-[#0A0A0A]";
-const list = "font-editorial mt-3 space-y-1 text-[#0A0A0A]/85";
-const listSize = { fontSize: "clamp(0.85rem, 1.3vw, 0.95rem)" };
+const list = "font-typewriter mt-4 space-y-1.5 text-[#0A0A0A]/80";
+const listSize = { fontSize: "clamp(0.75rem, 1.15vw, 0.85rem)" };
 
 const COURSES = [
   { cat: "The Amuse-Bouché", title: "Branding & Identity", rot: -1, items: ["Naming & Tagline Development", "Logo & Brand Identity", "Brand Strategy & Positioning", "Verbal & Visual Identity"] },
