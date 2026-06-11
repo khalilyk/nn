@@ -32,6 +32,27 @@ export const COURSES = [
   },
 ];
 
+const ink: React.CSSProperties = { fill: "none", stroke: "currentColor", strokeWidth: 4, strokeLinecap: "round", strokeLinejoin: "round" };
+
+const Tomato = () => (
+  <svg viewBox="0 0 200 200" className="w-full h-full" style={ink}>
+    <path d="M40 120c-6-30 22-58 60-58s66 26 60 58c-5 28-33 46-60 46s-55-18-60-46z" />
+    <path d="M100 62c-4-16-18-26-34-24 6 12 18 20 34 24z" />
+    <path d="M100 62c4-16 18-26 34-24-6 12-18 20-34 24z" />
+    <path d="M100 38c0-8 4-14 10-18" />
+    <path d="M74 100c8-8 18-10 26-6M120 130c-6 6-16 8-24 6" />
+  </svg>
+);
+
+const Bottles = () => (
+  <svg viewBox="0 0 200 120" className="w-full h-full" style={ink}>
+    <path d="M28 110V58c0-8 6-12 6-22V24h12v12c0 10 6 14 6 22v52z" />
+    <path d="M70 110V46c0-10 8-14 8-26V8h10v12c0 12 8 16 8 26v64z" />
+    <path d="M118 110V62c0-7 5-11 5-19V30h11v13c0 8 5 12 5 19v48z" />
+    <path d="M150 112c14-4 30-4 44 0" />
+  </svg>
+);
+
 export default function MenuPage() {
   return (
     <main className="relative bg-[#E7E4DD] text-[#0A0A0A] overflow-hidden">
@@ -94,6 +115,99 @@ export default function MenuPage() {
             <p className="font-editorial italic" style={{ fontSize: "clamp(1.2rem, 3.2vw, 1.8rem)" }}>
               Verbal &amp; Visual Identity
             </p>
+          </div>
+        </div>
+      </section>
+
+      {/* ── THE APPETISERS — electric-blue headline + ink scrawl ── */}
+      <section className="relative bg-[#efe7d4] text-[#0A0A0A] overflow-hidden px-6 py-20 md:py-28">
+        <Grain />
+        <div className="pointer-events-none absolute -left-4 bottom-4 w-44 md:w-64 text-[#0A0A0A] opacity-90 -rotate-12">
+          <Tomato />
+        </div>
+        <div className="relative mx-auto max-w-3xl">
+          <h2 className="font-display uppercase leading-[0.8] text-[#1f9ee0] tracking-tight" style={{ fontSize: "clamp(3rem, 14vw, 8.5rem)" }}>
+            The Appetisers
+          </h2>
+          <div className="font-scrawl text-[#111] mt-6 leading-[0.9]" style={{ fontSize: "clamp(2rem, 7vw, 4.2rem)" }}>
+            <p className="-rotate-1">public relations, social</p>
+            <p className="rotate-1 mt-2">media &amp; storytelling,</p>
+            <p className="-rotate-1 mt-2 md:pl-10">photography &amp; video,</p>
+            <p className="rotate-1 mt-2">campaigns that connect</p>
+            <p className="-rotate-1 mt-2 md:pl-24">on creative messaging</p>
+            <p className="mt-3">
+              <span className="font-scrawl">+ influencer marketing</span>{" "}
+              <span className="font-display text-[#1f9ee0] align-middle" style={{ fontSize: "clamp(1.4rem, 4vw, 2.4rem)" }}>+ more</span>
+            </p>
+          </div>
+          <p className="font-display uppercase text-[#1f9ee0] mt-6 leading-none" style={{ fontSize: "clamp(2.6rem, 11vw, 6rem)" }}>
+            No. II
+          </p>
+        </div>
+      </section>
+
+      {/* ── THE MAINS — handwritten kraft bistro menu ── */}
+      <section className="relative bg-[#e7d7b3] text-[#1a1408] overflow-hidden px-6 py-20 md:py-28">
+        <Grain />
+        <div className="relative mx-auto max-w-3xl">
+          <div className="flex items-end justify-between gap-6 border-b-2 border-[#1a1408]/30 pb-6">
+            <div className="w-24 md:w-32 text-[#1a1408] -rotate-3"><Bottles /></div>
+            <div>
+              <p className="font-permanent text-right leading-none" style={{ fontSize: "clamp(2.2rem, 8vw, 4.5rem)" }}>The Mains</p>
+              <p className="font-marker text-right mt-1 text-[#1a1408]/70" style={{ fontSize: "clamp(1.1rem, 3vw, 1.6rem)" }}>experience &amp; innovation</p>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-10 mt-12">
+            {[
+              { t: "Menu R&D", d: "recipes, tasting, refinement" },
+              { t: "Staff Training", d: "hospitality, hosting, care" },
+              { t: "Service Enhancement", d: "every touchpoint, elevated" },
+              { t: "Concept Testing", d: "ideas trialled & honed" },
+            ].map((m) => (
+              <div key={m.t}>
+                <p className="font-permanent leading-none" style={{ fontSize: "clamp(1.5rem, 4.5vw, 2.2rem)" }}>{m.t}</p>
+                <p className="font-marker mt-1 text-[#1a1408]/75" style={{ fontSize: "clamp(1rem, 2.6vw, 1.35rem)" }}>{m.d}</p>
+              </div>
+            ))}
+          </div>
+
+          <p className="font-marker mt-12 text-[#1a1408]/80 leading-snug" style={{ fontSize: "clamp(1.1rem, 2.8vw, 1.5rem)" }}>
+            we perfect every moment of the guest journey — from the first hello to the last bite.
+          </p>
+        </div>
+      </section>
+
+      {/* ── THE DESSERTS — B&W photocopy zine ── */}
+      <section className="bg-[#0A0A0A] text-[#0A0A0A] px-3 py-3 md:px-5 md:py-5">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-5">
+          {/* left: halftone image panel */}
+          <div className="relative bg-[#b8b6ad] overflow-hidden flex flex-col justify-between p-6 md:p-8 min-h-[60vh]">
+            <p className="font-spacemono font-bold uppercase tracking-[0.15em] text-[#15140f] relative z-10" style={{ fontSize: "clamp(1.6rem, 5vw, 3rem)" }}>The Desserts</p>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1200&q=80"
+              alt=""
+              className="absolute inset-0 w-full h-full object-cover mix-blend-luminosity"
+              style={{ filter: "grayscale(1) contrast(1.6) brightness(1.05)" }}
+            />
+            <p className="font-spacemono font-bold uppercase tracking-[0.15em] text-[#15140f] relative z-10 text-right" style={{ fontSize: "clamp(1.6rem, 5vw, 3rem)" }}>Visual Production</p>
+          </div>
+
+          {/* right: monospace menu */}
+          <div className="bg-[#f4f3ee] px-6 py-7 md:px-9 md:py-9 font-spacemono text-[#15140f] flex flex-col">
+            {[
+              { t: "Signage & Environmental Branding", d: "wayfinding, facades, immersive event branding + spatial identity" },
+              { t: "Print & Packaging Design", d: "menus, food packaging, collateral + finishing" },
+              { t: "Website Design & Development", d: "design systems, build, content + launch" },
+              { t: "Uniform Design & Manufacture", d: "garment design, sampling + production" },
+            ].map((d) => (
+              <div key={d.t} className="border-b border-[#15140f]/30 py-4 first:pt-0">
+                <p className="font-bold uppercase leading-tight" style={{ fontSize: "clamp(0.95rem, 2.1vw, 1.25rem)" }}>{d.t}</p>
+                <p className="uppercase mt-1.5 text-[#15140f]/70 leading-snug" style={{ fontSize: "clamp(0.6rem, 1.2vw, 0.72rem)" }}>{d.d}</p>
+              </div>
+            ))}
+            <p className="font-bold uppercase tracking-[0.3em] text-center mt-auto pt-8" style={{ fontSize: "clamp(1.3rem, 4vw, 2.2rem)" }}>4 of 4</p>
           </div>
         </div>
       </section>

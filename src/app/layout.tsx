@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Playfair_Display, Space_Grotesk, Anton, Caveat, Special_Elite, Permanent_Marker, Zilla_Slab } from "next/font/google";
+import { Playfair_Display, Space_Grotesk, Anton, Caveat, Special_Elite, Permanent_Marker, Zilla_Slab, Reenie_Beanie, Space_Mono } from "next/font/google";
 import "./globals.css";
 
 const caveat = Caveat({
@@ -24,6 +24,19 @@ const zillaSlab = Zilla_Slab({
   subsets: ["latin"],
   variable: "--font-slab",
   weight: ["400", "500", "600", "700"],
+  style: ["normal", "italic"],
+});
+
+const reenie = Reenie_Beanie({
+  subsets: ["latin"],
+  variable: "--font-scrawl",
+  weight: ["400"],
+});
+
+const spaceMono = Space_Mono({
+  subsets: ["latin"],
+  variable: "--font-spacemono",
+  weight: ["400", "700"],
   style: ["normal", "italic"],
 });
 
@@ -54,7 +67,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${playfair.variable} ${grotesk.variable} ${anton.variable} ${caveat.variable} ${typewriter.variable} ${permanentMarker.variable} ${zillaSlab.variable}`}>
+    <html lang="en" className={`${playfair.variable} ${grotesk.variable} ${anton.variable} ${caveat.variable} ${typewriter.variable} ${permanentMarker.variable} ${zillaSlab.variable} ${reenie.variable} ${spaceMono.variable}`}>
       <body className="bg-[#0A0A0A] text-[#F3F1EC]">{children}</body>
     </html>
   );
