@@ -50,13 +50,13 @@ function PaperTex({ seed = 1, opacity = 0.5, freq = "0.7 0.8", blend = "multiply
 }
 
 /* arched section heading (SVG textPath) */
-function ArcText({ text, up = true }: { text: string; up?: boolean }) {
+function ArcText({ text, up = true, size = 24, spacing = 5, maxW = "280px" }: { text: string; up?: boolean; size?: number; spacing?: number; maxW?: string }) {
   const id = "arc-" + text.replace(/[^a-z]/gi, "").toLowerCase();
   const d = up ? "M6,56 Q200,6 394,56" : "M6,16 Q200,66 394,16";
   return (
-    <svg viewBox="0 0 400 66" className="w-full max-w-[280px] mx-auto h-12 md:h-14 overflow-visible" aria-label={text}>
+    <svg viewBox="0 0 400 66" className="w-full mx-auto h-12 md:h-14 overflow-visible" style={{ maxWidth: maxW }} aria-label={text}>
       <path id={id} d={d} fill="none" />
-      <text className="font-sans" style={{ fontWeight: 600, fontSize: 24, letterSpacing: 5, fill: "#0A0A0A" }}>
+      <text className="font-sans" style={{ fontWeight: 600, fontSize: size, letterSpacing: spacing, fill: "#0A0A0A" }}>
         <textPath href={`#${id}`} startOffset="50%" textAnchor="middle">{text}</textPath>
       </text>
     </svg>
@@ -82,40 +82,6 @@ function MenuList({ items }: { items: [string, string][] }) {
           <span className="tabular-nums">{no}</span>
         </div>
       ))}
-    </div>
-  );
-}
-
-/* faded circular library-style ink stamp */
-function Stamp() {
-  return (
-    <svg viewBox="0 0 200 200" aria-hidden className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-52 h-52 md:w-64 md:h-64 opacity-[0.16] mix-blend-multiply" style={{ color: "#2b5a86", transform: "translate(-50%,-50%) rotate(-7deg)" }}>
-      <circle cx="100" cy="100" r="92" fill="none" stroke="currentColor" strokeWidth="2.5" />
-      <circle cx="100" cy="100" r="76" fill="none" stroke="currentColor" strokeWidth="1.2" />
-      <path id="stamp-top" d="M36,100 A64,64 0 0,1 164,100" fill="none" />
-      <path id="stamp-bot" d="M164,100 A64,64 0 0,0 36,100" fill="none" />
-      <text fill="currentColor" className="font-classic" style={{ fontSize: 12.5, letterSpacing: 3 }}>
-        <textPath href="#stamp-top" startOffset="50%" textAnchor="middle">NOT NORMAL · STUDIO</textPath>
-      </text>
-      <text fill="currentColor" className="font-classic" style={{ fontSize: 12.5, letterSpacing: 3 }}>
-        <textPath href="#stamp-bot" startOffset="50%" textAnchor="middle">SOCIAL · STORYTELLING</textPath>
-      </text>
-      <text x="100" y="92" textAnchor="middle" fill="currentColor" className="font-classic" style={{ fontSize: 10, letterSpacing: 2 }}>EST.</text>
-      <text x="100" y="116" textAnchor="middle" fill="currentColor" className="font-classic" style={{ fontSize: 18 }}>✦</text>
-    </svg>
-  );
-}
-
-/* one row of the scattered ledger menu */
-function LedgerRow({ l, c, r, rule }: { l?: string; c?: string; r?: string; rule?: boolean }) {
-  return (
-    <div className="grid grid-cols-3 items-baseline gap-x-3 py-2">
-      <span className="text-left">{l}</span>
-      <span className="text-center">
-        {c}
-        {rule && <span className="block mx-auto mt-2 w-14 border-t border-[#26415a]/55" />}
-      </span>
-      <span className="text-right">{r}</span>
     </div>
   );
 }
@@ -194,52 +160,92 @@ export default function MenuPage() {
         </div>
       </section>
 
-      {/* ── THE APPETISERS — 1909 ledger menu ── */}
-      <section
-        className="relative text-[#1a2330] overflow-hidden px-6 py-16 md:py-24 font-classic"
-        style={{
-          backgroundColor: "#f4efdf",
-          backgroundImage:
-            "repeating-linear-gradient(0deg, transparent 0 29px, rgba(86,134,170,0.32) 29px 30px), repeating-linear-gradient(90deg, transparent 0 79px, rgba(86,134,170,0.26) 79px 80px)",
-        }}
-      >
-        <PaperTex seed={5} opacity={0.22} freq="0.7 0.8" />
+      {/* ── THE APPETISERS — Lewis BBQ poster ── */}
+      <section className="relative bg-[#d7e5db] text-[#0e1a12] overflow-hidden px-6 py-14 md:py-20">
+        <PaperTex seed={5} opacity={0.16} freq="0.7 0.8" />
         <div className="relative mx-auto max-w-3xl">
           {/* masthead */}
-          <div className="relative">
-            <p className="absolute left-0 top-2" style={{ fontSize: "clamp(0.95rem, 2.2vw, 1.3rem)" }}>The Appetisers</p>
-            <p className="absolute right-0 -top-2 font-bold" style={{ fontSize: "clamp(1.8rem, 6vw, 3.2rem)" }}>No. II</p>
-            <div className="text-center pt-16 md:pt-10">
-              <p className="uppercase tracking-[0.25em]" style={{ fontSize: "clamp(1.3rem, 4vw, 2.4rem)" }}>Social</p>
-              <p className="italic my-1" style={{ fontSize: "clamp(0.95rem, 2vw, 1.2rem)" }}>&amp;</p>
-              <p className="uppercase tracking-[0.25em]" style={{ fontSize: "clamp(1.3rem, 4vw, 2.4rem)" }}>Storytelling</p>
+          <div className="grid grid-cols-3 items-start gap-2">
+            <p className="font-classic font-bold italic leading-tight" style={{ fontSize: "clamp(0.65rem, 1.5vw, 0.95rem)" }}>
+              Nobody<br />remembers<br />normal.
+            </p>
+            <div className="text-center">
+              <p className="font-script leading-[0.9]" style={{ fontSize: "clamp(2.2rem, 9vw, 4.6rem)" }}>Not Normal</p>
+              <p className="uppercase mt-1" style={{ fontSize: "clamp(0.55rem, 1.3vw, 0.8rem)", letterSpacing: "0.35em" }}>Social &amp; Storytelling</p>
+            </div>
+            <div className="text-right">
+              <span className="inline-block border-2 border-current px-2 py-1 uppercase font-display tracking-wide" style={{ fontSize: "clamp(0.5rem, 1.1vw, 0.65rem)" }}>Served Daily</span>
+              <p className="font-display mt-2" style={{ fontSize: "clamp(0.75rem, 1.7vw, 1.05rem)" }}><span className="text-[0.65em] align-middle mr-1">NO.</span>II</p>
             </div>
           </div>
 
-          {/* scattered ledger courses */}
-          <div className="relative mt-12 md:mt-16" style={{ fontSize: "clamp(0.82rem, 1.7vw, 1.05rem)" }}>
-            <Stamp />
-            <div className="relative">
-              <LedgerRow c="Brand Storytelling" rule />
-              <LedgerRow l="Media Relations" r="Press & Launches" />
-              <LedgerRow c="Public Relations" rule />
-              <LedgerRow l="Newsroom & Comms" r="Crisis Handling" />
-              <LedgerRow c="Social Media & Content" rule />
-              <LedgerRow l="Channel Strategy" r="Community Management" />
-              <LedgerRow l="Content Calendars" r="Always-On Content" />
-              <LedgerRow c="Photography & Film" rule />
-              <LedgerRow l="Art Direction" r="Production" />
-              <LedgerRow l="Reels & Shorts" r="Brand Films" />
-              <LedgerRow c="Campaign Ideation & Execution" rule />
-              <LedgerRow l="Seasonal Pushes" r="Activations" />
-              <LedgerRow l="Paid & Organic" r="Always-On" />
-              <LedgerRow c="Creative Messaging" rule />
-              <LedgerRow l="Tone Of Voice" r="Copywriting" />
-              <LedgerRow c="Influencer & Ambassador Marketing" rule />
-              <LedgerRow l="Partnerships" r="Seeding" />
-              <LedgerRow c="People Remember The Story" />
+          {/* EARNED —— OWNED */}
+          <div className="flex items-center gap-4 mt-10 font-display uppercase" style={{ fontSize: "clamp(1rem, 2.6vw, 1.6rem)" }}>
+            <span>Earned</span>
+            <span className="flex-1 h-[3px] bg-current" />
+            <span>Owned</span>
+          </div>
+
+          {/* hero item */}
+          <h2 className="font-display uppercase leading-[0.85] mt-8" style={{ fontSize: "clamp(2.3rem, 9vw, 5rem)" }}>
+            Public Relations.<span className="ml-2 align-top" style={{ fontSize: "0.3em" }}>01</span>
+          </h2>
+
+          {/* split items */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-0 mt-8 items-center">
+            <div className="text-center sm:pr-8 sm:border-r-2 sm:border-current font-display uppercase leading-[0.9]" style={{ fontSize: "clamp(1.3rem, 4vw, 2rem)" }}>
+              Social Media<br />Strategy <span className="align-top" style={{ fontSize: "0.45em" }}>02</span>
+            </div>
+            <div className="sm:pl-8 font-display uppercase leading-[0.9] space-y-3" style={{ fontSize: "clamp(1.5rem, 4.6vw, 2.4rem)" }}>
+              <p>Photography &amp; Film <span className="align-top" style={{ fontSize: "0.4em" }}>03</span></p>
+              <p>Campaigns &amp; Activations <span className="align-top" style={{ fontSize: "0.4em" }}>04</span></p>
             </div>
           </div>
+
+          {/* boxed + script */}
+          <div className="grid grid-cols-1 sm:grid-cols-[1.5fr_1fr] gap-6 items-center mt-10">
+            <div className="border-2 border-current px-5 py-4 text-center leading-none">
+              <p>
+                <span className="font-classic font-bold" style={{ fontSize: "clamp(1.2rem, 3.6vw, 1.8rem)" }}>BRAND </span>
+                <span className="font-display uppercase" style={{ fontSize: "clamp(1.8rem, 6vw, 3rem)" }}>STORYTELLING</span>
+              </p>
+              <p className="font-classic italic mt-2" style={{ fontSize: "clamp(0.8rem, 1.8vw, 1rem)" }}>
+                (Content &amp; Campaigns) <span className="not-italic ml-1">05</span>
+              </p>
+            </div>
+            <div className="text-center">
+              <p className="font-classic font-bold leading-none" style={{ fontSize: "clamp(1.4rem, 4.5vw, 2.2rem)" }}>Creative Messaging</p>
+              <p className="font-classic mt-1" style={{ fontSize: "clamp(0.9rem, 2vw, 1.15rem)" }}>06</p>
+            </div>
+          </div>
+
+          {/* sides w/ dotted leaders */}
+          <div className="mt-12 font-sans font-medium uppercase space-y-3" style={{ fontSize: "clamp(0.95rem, 2.4vw, 1.4rem)" }}>
+            {[
+              ["Influencer Marketing", "07"],
+              ["Ambassador Programs", "08"],
+              ["Community Management", "09"],
+            ].map(([n, no]) => (
+              <div key={no} className="flex items-end">
+                <span>{n}</span>
+                <span className="flex-1 mx-3 border-b-2 border-dotted border-current/70" style={{ transform: "translateY(-0.35em)" }} />
+                <span>{no}</span>
+              </div>
+            ))}
+          </div>
+
+          {/* serif centre */}
+          <div className="text-center mt-12 font-classic">
+            <p style={{ fontSize: "clamp(1.4rem, 4.5vw, 2.2rem)" }}>Always-On Content</p>
+            <p className="mt-1" style={{ fontSize: "clamp(0.9rem, 2vw, 1.1rem)" }}>10</p>
+          </div>
+
+          {/* bottom rule */}
+          <div className="mt-12 border-t-[3px] border-current pt-3 flex justify-between font-display uppercase" style={{ fontSize: "clamp(0.6rem, 1.4vw, 0.85rem)" }}>
+            <span>Sydney · Dubai · Beirut</span>
+            <span>thisisnn.com</span>
+          </div>
+          <div className="mt-3 flex justify-center"><ArcText text="SOCIAL · STORY · STUDIO" size={15} spacing={2.5} maxW="380px" /></div>
         </div>
       </section>
 
