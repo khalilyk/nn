@@ -89,8 +89,8 @@ export default function MenuPage() {
               const right = i % 2 === 1;
               return (
                 <div key={c.cat} className={right ? "md:text-right md:mt-24" : i === 2 ? "md:-mt-8" : ""}>
-                  <h2 className={head} style={{ fontSize: "clamp(1.7rem, 5vw, 2.9rem)", transform: `rotate(${c.rot}deg)` }}>{c.cat}</h2>
-                  <p className="font-editorial italic mt-2 text-[#0A0A0A]/55" style={{ fontSize: "clamp(0.8rem, 1.3vw, 0.95rem)" }}>{c.title}</p>
+                  <p className="font-editorial italic text-[#0A0A0A]/55" style={{ fontSize: "clamp(0.85rem, 1.4vw, 1.05rem)" }}>{c.cat}</p>
+                  <h2 className={head + " mt-1"} style={{ fontSize: "clamp(1.9rem, 5.5vw, 3.2rem)", transform: `rotate(${c.rot}deg)` }}>{c.title}</h2>
                   <ul className={list} style={listSize}>
                     {c.items.map((it) => <li key={it}>{it}</li>)}
                   </ul>
