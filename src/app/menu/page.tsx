@@ -223,15 +223,15 @@ export default function MenuPage() {
         <Grain />
         <div className="relative mx-auto max-w-4xl">
           {/* masthead */}
-          <div className="grid grid-cols-3 items-start gap-2">
-            <div className="font-editorial uppercase leading-tight">
+          <div className="flex flex-wrap items-start justify-between gap-y-5 sm:grid sm:grid-cols-3 sm:items-start gap-2">
+            <div className="order-1 font-editorial uppercase leading-tight">
               <p style={{ fontSize: "clamp(0.8rem, 1.8vw, 1.05rem)", letterSpacing: "0.08em" }}>The Mains</p>
               <p className="text-[#1b1a14]/55" style={{ fontSize: "clamp(0.6rem, 1.2vw, 0.75rem)", letterSpacing: "0.12em" }}>No. III</p>
             </div>
-            <h2 className="font-editorial uppercase text-center leading-[0.92]" style={{ fontSize: "clamp(1.9rem, 7vw, 4.4rem)" }}>
+            <h2 className="order-3 sm:order-2 basis-full sm:basis-auto font-editorial uppercase text-center leading-[0.92]" style={{ fontSize: "clamp(2.4rem, 7vw, 4.4rem)" }}>
               Experience<br className="hidden sm:block" /> &amp; Innovation
             </h2>
-            <div className="font-editorial uppercase text-right leading-tight">
+            <div className="order-2 sm:order-3 font-editorial uppercase text-right leading-tight">
               <p style={{ fontSize: "clamp(0.8rem, 1.8vw, 1.05rem)", letterSpacing: "0.08em" }}>Not Normal</p>
               <p className="text-[#1b1a14]/55" style={{ fontSize: "clamp(0.6rem, 1.2vw, 0.75rem)", letterSpacing: "0.12em" }}>Syd · Dxb · Bey</p>
             </div>
