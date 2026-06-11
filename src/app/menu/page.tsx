@@ -47,10 +47,26 @@ const list = "font-typewriter mt-4 space-y-1.5 text-[#0A0A0A]/80";
 const listSize = { fontSize: "clamp(0.75rem, 1.15vw, 0.85rem)" };
 
 const COURSES = [
-  { cat: "The Amuse-Bouché", title: "Branding & Identity", rot: -1, items: ["Naming & Tagline Development", "Logo & Brand Identity", "Brand Strategy & Positioning", "Verbal & Visual Identity"] },
-  { cat: "The Appetisers", title: "Social & Storytelling", rot: 2, items: ["Public Relations (PR)", "Social Media Strategy", "Photography & Videography", "Campaign Ideation & Execution", "Creative Messaging", "Influencer & Ambassador Marketing"] },
-  { cat: "The Mains", title: "Experience & Innovation", rot: -2, items: ["Menu Research & Development", "Hospitality Staff Training", "Service Enhancement", "Concept Testing & Refinement"] },
-  { cat: "The Desserts", title: "Visual Production", rot: 1, items: ["Signage & Environmental Branding", "Print & Packaging Design", "Website Design & Development", "Uniform Design & Manufacture"] },
+  {
+    cat: "The Amuse-Bouché", title: "Branding & Identity", rot: -1,
+    desc: "A brand isn’t just a name or a logo — it’s the foundation of everything. We craft powerful, distinct identities that connect with audiences, from defining your mission and values to designing visual and verbal identities that bring your brand to life. Whether launching from scratch or refining an existing brand, we make sure you stand out and stay memorable.",
+    items: ["Naming & Tagline Development", "Logo & Brand Identity", "Brand Strategy & Positioning", "Verbal & Visual Identity"],
+  },
+  {
+    cat: "The Appetisers", title: "Social & Storytelling", rot: 2,
+    desc: "Great hospitality brands don’t just sell — they tell stories. We create engaging content, from stunning visuals to scroll-stopping social media and dynamic campaigns that connect with your audience. Through creative strategy, photo and video production, and brand messaging, we turn your vision into compelling narratives that people remember.",
+    items: ["Public Relations (PR)", "Social Media Strategy", "Photography & Videography", "Campaign Ideation & Execution", "Creative Messaging", "Influencer & Ambassador Marketing"],
+  },
+  {
+    cat: "The Mains", title: "Experience & Innovation", rot: -2,
+    desc: "Beyond branding, we perfect the experience. From menu research and development to hospitality staff training, we help shape every touchpoint of the guest journey. Whether refining service standards, testing new concepts, or enhancing the overall experience, we create hospitality moments that leave a lasting impression.",
+    items: ["Menu Research & Development", "Hospitality Staff Training", "Service Enhancement", "Concept Testing & Refinement"],
+  },
+  {
+    cat: "The Desserts", title: "Visual Production", rot: 1,
+    desc: "A brand isn’t just an idea — it needs to be seen, felt, and experienced. We translate strategy into reality with striking design, print, and digital execution. From food packaging, signage, and uniforms to website design and immersive event branding, we ensure every detail aligns with your identity, making your brand unmistakable in every space it lives.",
+    items: ["Signage & Environmental Branding", "Print & Packaging Design", "Website Design & Development", "Uniform Design & Manufacture"],
+  },
 ];
 
 export default function MenuPage() {
@@ -91,6 +107,7 @@ export default function MenuPage() {
                 <div key={c.cat} className={right ? "md:text-right md:mt-24" : i === 2 ? "md:-mt-8" : ""}>
                   <p className="font-editorial italic text-[#0A0A0A]/55" style={{ fontSize: "clamp(0.85rem, 1.4vw, 1.05rem)" }}>{c.cat}</p>
                   <h2 className={head + " mt-1"} style={{ fontSize: "clamp(1.9rem, 5.5vw, 3.2rem)", transform: `rotate(${c.rot}deg)` }}>{c.title}</h2>
+                  <p className={`font-editorial mt-4 leading-relaxed text-[#0A0A0A]/70 ${right ? "md:ml-auto" : ""}`} style={{ fontSize: "clamp(0.85rem, 1.25vw, 0.95rem)", maxWidth: "30ch" }}>{c.desc}</p>
                   <ul className={list} style={listSize}>
                     {c.items.map((it) => <li key={it}>{it}</li>)}
                   </ul>
