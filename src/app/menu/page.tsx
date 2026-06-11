@@ -3,6 +3,7 @@ import Cursor from "@/components/Cursor";
 import Grain from "@/components/Grain";
 import SiteNav from "@/components/SiteNav";
 import SiteFooter from "@/components/SiteFooter";
+import ParallaxImage from "@/components/ParallaxImage";
 
 export const metadata = {
   title: "The Menu · Not Normal",
@@ -71,6 +72,13 @@ export default function MenuPage() {
           </p>
         </div>
       </section>
+
+      {/* FULL-WIDTH IMAGE */}
+      <ParallaxImage
+        src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=2200&q=80"
+        alt="A table set"
+        className="w-full h-[50vh] md:h-[70vh]"
+      />
 
       {/* COURSES */}
       <section className="px-6 md:px-8 pb-24 md:pb-32">
