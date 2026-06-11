@@ -46,6 +46,7 @@ main { overflow-x: clip; max-width: 100vw; }
 .font-dmserif { font-family: var(--font-dmserif), Georgia, serif; }
 .font-brush { font-family: var(--font-brush), "Bradley Hand", cursive; }
 .font-kalam { font-family: var(--font-kalam), "Comic Sans MS", cursive; }
+.font-classic { font-family: var(--font-classic), "Times New Roman", Georgia, serif; }
 
 /* Stacking panels */
 .panel {

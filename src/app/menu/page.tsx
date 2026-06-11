@@ -32,17 +32,7 @@ export const COURSES = [
   },
 ];
 
-const ink: React.CSSProperties = { fill: "none", stroke: "currentColor", strokeWidth: 4, strokeLinecap: "round", strokeLinejoin: "round" };
 
-const Tomato = () => (
-  <svg viewBox="0 0 200 200" className="w-full h-full" style={ink}>
-    <path d="M40 120c-6-30 22-58 60-58s66 26 60 58c-5 28-33 46-60 46s-55-18-60-46z" />
-    <path d="M100 62c-4-16-18-26-34-24 6 12 18 20 34 24z" />
-    <path d="M100 62c4-16 18-26 34-24-6 12-18 20-34 24z" />
-    <path d="M100 38c0-8 4-14 10-18" />
-    <path d="M74 100c8-8 18-10 26-6M120 130c-6 6-16 8-24 6" />
-  </svg>
-);
 
 
 /* tunable paper-fibre texture (riso/letterpress grain) */
@@ -92,6 +82,40 @@ function MenuList({ items }: { items: [string, string][] }) {
           <span className="tabular-nums">{no}</span>
         </div>
       ))}
+    </div>
+  );
+}
+
+/* faded circular library-style ink stamp */
+function Stamp() {
+  return (
+    <svg viewBox="0 0 200 200" aria-hidden className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-52 h-52 md:w-64 md:h-64 opacity-[0.16] mix-blend-multiply" style={{ color: "#2b5a86", transform: "translate(-50%,-50%) rotate(-7deg)" }}>
+      <circle cx="100" cy="100" r="92" fill="none" stroke="currentColor" strokeWidth="2.5" />
+      <circle cx="100" cy="100" r="76" fill="none" stroke="currentColor" strokeWidth="1.2" />
+      <path id="stamp-top" d="M36,100 A64,64 0 0,1 164,100" fill="none" />
+      <path id="stamp-bot" d="M164,100 A64,64 0 0,0 36,100" fill="none" />
+      <text fill="currentColor" className="font-classic" style={{ fontSize: 12.5, letterSpacing: 3 }}>
+        <textPath href="#stamp-top" startOffset="50%" textAnchor="middle">NOT NORMAL · STUDIO</textPath>
+      </text>
+      <text fill="currentColor" className="font-classic" style={{ fontSize: 12.5, letterSpacing: 3 }}>
+        <textPath href="#stamp-bot" startOffset="50%" textAnchor="middle">SOCIAL · STORYTELLING</textPath>
+      </text>
+      <text x="100" y="92" textAnchor="middle" fill="currentColor" className="font-classic" style={{ fontSize: 10, letterSpacing: 2 }}>EST.</text>
+      <text x="100" y="116" textAnchor="middle" fill="currentColor" className="font-classic" style={{ fontSize: 18 }}>✦</text>
+    </svg>
+  );
+}
+
+/* one row of the scattered ledger menu */
+function LedgerRow({ l, c, r, rule }: { l?: string; c?: string; r?: string; rule?: boolean }) {
+  return (
+    <div className="grid grid-cols-3 items-baseline gap-x-3 py-2">
+      <span className="text-left">{l}</span>
+      <span className="text-center">
+        {c}
+        {rule && <span className="block mx-auto mt-2 w-14 border-t border-[#26415a]/55" />}
+      </span>
+      <span className="text-right">{r}</span>
     </div>
   );
 }
@@ -170,30 +194,51 @@ export default function MenuPage() {
         </div>
       </section>
 
-      {/* ── THE APPETISERS — electric-blue headline + ink scrawl ── */}
-      <section className="relative bg-[#efe7d4] text-[#0A0A0A] overflow-hidden px-6 py-20 md:py-28">
-        <PaperTex seed={5} opacity={0.5} freq="0.85 0.9" />
-        <Grain />
-        <div className="pointer-events-none absolute -left-4 bottom-4 w-44 md:w-64 text-[#0A0A0A] opacity-90 -rotate-12">
-          <Tomato />
-        </div>
+      {/* ── THE APPETISERS — 1909 ledger menu ── */}
+      <section
+        className="relative text-[#1a2330] overflow-hidden px-6 py-16 md:py-24 font-classic"
+        style={{
+          backgroundColor: "#f4efdf",
+          backgroundImage:
+            "repeating-linear-gradient(0deg, transparent 0 29px, rgba(86,134,170,0.32) 29px 30px), repeating-linear-gradient(90deg, transparent 0 79px, rgba(86,134,170,0.26) 79px 80px)",
+        }}
+      >
+        <PaperTex seed={5} opacity={0.22} freq="0.7 0.8" />
         <div className="relative mx-auto max-w-3xl">
-          <p className="font-display uppercase tracking-[0.18em] text-[#1f9ee0]" style={{ fontSize: "clamp(0.8rem, 1.8vw, 1rem)" }}>
-            The Appetisers · No. II
-          </p>
-          <h2 className="font-display uppercase leading-[0.8] text-[#1f9ee0] tracking-tight mt-2" style={{ fontSize: "clamp(3rem, 14vw, 8.5rem)" }}>
-            Social &amp;<br />Storytelling
-          </h2>
-          <div className="font-brush text-[#111] mt-8 leading-[1.05]" style={{ fontSize: "clamp(1.5rem, 5vw, 3rem)" }}>
-            <p className="-rotate-1">public relations, social</p>
-            <p className="rotate-1 mt-2">media &amp; storytelling,</p>
-            <p className="-rotate-1 mt-2 md:pl-10">photography &amp; video,</p>
-            <p className="rotate-1 mt-2">campaigns that connect</p>
-            <p className="-rotate-1 mt-2 md:pl-24">on creative messaging</p>
-            <p className="mt-3">
-              <span>+ influencer marketing</span>{" "}
-              <span className="font-display text-[#1f9ee0] align-middle" style={{ fontSize: "clamp(1.2rem, 3.4vw, 2rem)" }}>+ more</span>
-            </p>
+          {/* masthead */}
+          <div className="relative">
+            <p className="absolute left-0 top-2" style={{ fontSize: "clamp(0.95rem, 2.2vw, 1.3rem)" }}>The Appetisers</p>
+            <p className="absolute right-0 -top-2 font-bold" style={{ fontSize: "clamp(1.8rem, 6vw, 3.2rem)" }}>No. II</p>
+            <div className="text-center pt-16 md:pt-10">
+              <p className="uppercase tracking-[0.25em]" style={{ fontSize: "clamp(1.3rem, 4vw, 2.4rem)" }}>Social</p>
+              <p className="italic my-1" style={{ fontSize: "clamp(0.95rem, 2vw, 1.2rem)" }}>&amp;</p>
+              <p className="uppercase tracking-[0.25em]" style={{ fontSize: "clamp(1.3rem, 4vw, 2.4rem)" }}>Storytelling</p>
+            </div>
+          </div>
+
+          {/* scattered ledger courses */}
+          <div className="relative mt-12 md:mt-16" style={{ fontSize: "clamp(0.82rem, 1.7vw, 1.05rem)" }}>
+            <Stamp />
+            <div className="relative">
+              <LedgerRow c="Brand Storytelling" rule />
+              <LedgerRow l="Media Relations" r="Press & Launches" />
+              <LedgerRow c="Public Relations" rule />
+              <LedgerRow l="Newsroom & Comms" r="Crisis Handling" />
+              <LedgerRow c="Social Media & Content" rule />
+              <LedgerRow l="Channel Strategy" r="Community Management" />
+              <LedgerRow l="Content Calendars" r="Always-On Content" />
+              <LedgerRow c="Photography & Film" rule />
+              <LedgerRow l="Art Direction" r="Production" />
+              <LedgerRow l="Reels & Shorts" r="Brand Films" />
+              <LedgerRow c="Campaign Ideation & Execution" rule />
+              <LedgerRow l="Seasonal Pushes" r="Activations" />
+              <LedgerRow l="Paid & Organic" r="Always-On" />
+              <LedgerRow c="Creative Messaging" rule />
+              <LedgerRow l="Tone Of Voice" r="Copywriting" />
+              <LedgerRow c="Influencer & Ambassador Marketing" rule />
+              <LedgerRow l="Partnerships" r="Seeding" />
+              <LedgerRow c="People Remember The Story" />
+            </div>
           </div>
         </div>
       </section>
