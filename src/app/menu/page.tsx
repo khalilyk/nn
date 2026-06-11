@@ -53,6 +53,20 @@ const Bottles = () => (
   </svg>
 );
 
+/* tunable paper-fibre texture (riso/letterpress grain) */
+function PaperTex({ seed = 1, opacity = 0.5, freq = "0.7 0.8", blend = "multiply" as React.CSSProperties["mixBlendMode"] }) {
+  const id = `paper-${seed}`;
+  return (
+    <svg aria-hidden className="pointer-events-none absolute inset-0 w-full h-full" style={{ opacity, mixBlendMode: blend }} preserveAspectRatio="none">
+      <filter id={id}>
+        <feTurbulence type="fractalNoise" baseFrequency={freq} numOctaves="3" seed={seed} stitchTiles="stitch" />
+        <feColorMatrix type="saturate" values="0" />
+      </filter>
+      <rect width="100%" height="100%" filter={`url(#${id})`} />
+    </svg>
+  );
+}
+
 export default function MenuPage() {
   return (
     <main className="relative bg-[#E7E4DD] text-[#0A0A0A] overflow-hidden">
@@ -72,17 +86,15 @@ export default function MenuPage() {
 
       {/* ── THE AMUSE-BOUCHÉ — vintage slab-serif menu poster ── */}
       <section className="relative bg-[#D9D586] text-[#1c1b0d] overflow-hidden px-6 py-24 md:py-32">
+        <PaperTex seed={3} opacity={0.45} freq="0.5 0.65" />
         <Grain />
-        <div className="relative mx-auto max-w-2xl text-center leading-[1.15]">
-          <p className="font-slab font-bold uppercase" style={{ fontSize: "clamp(2.2rem, 7vw, 4rem)", letterSpacing: "0.01em" }}>
-            The Amuse-Bouché
+        <div className="relative mx-auto max-w-2xl text-center leading-[1.05]">
+          <p className="font-slab uppercase tracking-[0.12em]" style={{ fontSize: "clamp(0.85rem, 1.8vw, 1.05rem)" }}>
+            The Amuse-Bouché · No. <span className="align-super text-[0.75em]">I</span>
           </p>
-          <p className="font-editorial italic mt-1" style={{ fontSize: "clamp(1.6rem, 5vw, 2.8rem)" }}>
-            Branding &amp; Identity
-          </p>
-          <p className="font-editorial italic mt-5" style={{ fontSize: "clamp(1rem, 2.2vw, 1.35rem)" }}>
-            Course No. <span className="align-super text-[0.7em]">I</span>
-          </p>
+          <h2 className="font-slab font-bold uppercase mt-3 leading-[0.95]" style={{ fontSize: "clamp(2.6rem, 9vw, 5.5rem)", letterSpacing: "0.005em" }}>
+            Branding<br />&amp; Identity
+          </h2>
 
           <p className="font-editorial mt-8 mx-auto max-w-md leading-relaxed" style={{ fontSize: "clamp(0.95rem, 1.6vw, 1.1rem)" }}>
             A brand isn’t just a name or a logo — it’s the foundation of everything. We craft
@@ -106,13 +118,13 @@ export default function MenuPage() {
             <p className="font-slab font-semibold uppercase" style={{ fontSize: "clamp(1.15rem, 3vw, 1.7rem)", letterSpacing: "0.02em" }}>
               Naming &amp; Tagline Development
             </p>
-            <p className="font-editorial italic" style={{ fontSize: "clamp(1.2rem, 3.2vw, 1.8rem)" }}>
+            <p className="font-dmserif italic" style={{ fontSize: "clamp(1.4rem, 3.6vw, 2rem)" }}>
               Logo &amp; Brand Identity
             </p>
             <p className="font-slab font-semibold uppercase" style={{ fontSize: "clamp(1.15rem, 3vw, 1.7rem)", letterSpacing: "0.02em" }}>
               Brand Strategy &amp; Positioning
             </p>
-            <p className="font-editorial italic" style={{ fontSize: "clamp(1.2rem, 3.2vw, 1.8rem)" }}>
+            <p className="font-dmserif italic" style={{ fontSize: "clamp(1.4rem, 3.6vw, 2rem)" }}>
               Verbal &amp; Visual Identity
             </p>
           </div>
@@ -121,40 +133,42 @@ export default function MenuPage() {
 
       {/* ── THE APPETISERS — electric-blue headline + ink scrawl ── */}
       <section className="relative bg-[#efe7d4] text-[#0A0A0A] overflow-hidden px-6 py-20 md:py-28">
+        <PaperTex seed={5} opacity={0.5} freq="0.85 0.9" />
         <Grain />
         <div className="pointer-events-none absolute -left-4 bottom-4 w-44 md:w-64 text-[#0A0A0A] opacity-90 -rotate-12">
           <Tomato />
         </div>
         <div className="relative mx-auto max-w-3xl">
-          <h2 className="font-display uppercase leading-[0.8] text-[#1f9ee0] tracking-tight" style={{ fontSize: "clamp(3rem, 14vw, 8.5rem)" }}>
-            The Appetisers
+          <p className="font-display uppercase tracking-[0.18em] text-[#1f9ee0]" style={{ fontSize: "clamp(0.8rem, 1.8vw, 1rem)" }}>
+            The Appetisers · No. II
+          </p>
+          <h2 className="font-display uppercase leading-[0.8] text-[#1f9ee0] tracking-tight mt-2" style={{ fontSize: "clamp(3rem, 14vw, 8.5rem)" }}>
+            Social &amp;<br />Storytelling
           </h2>
-          <div className="font-scrawl text-[#111] mt-6 leading-[0.9]" style={{ fontSize: "clamp(2rem, 7vw, 4.2rem)" }}>
+          <div className="font-brush text-[#111] mt-8 leading-[1.05]" style={{ fontSize: "clamp(1.5rem, 5vw, 3rem)" }}>
             <p className="-rotate-1">public relations, social</p>
             <p className="rotate-1 mt-2">media &amp; storytelling,</p>
             <p className="-rotate-1 mt-2 md:pl-10">photography &amp; video,</p>
             <p className="rotate-1 mt-2">campaigns that connect</p>
             <p className="-rotate-1 mt-2 md:pl-24">on creative messaging</p>
             <p className="mt-3">
-              <span className="font-scrawl">+ influencer marketing</span>{" "}
-              <span className="font-display text-[#1f9ee0] align-middle" style={{ fontSize: "clamp(1.4rem, 4vw, 2.4rem)" }}>+ more</span>
+              <span>+ influencer marketing</span>{" "}
+              <span className="font-display text-[#1f9ee0] align-middle" style={{ fontSize: "clamp(1.2rem, 3.4vw, 2rem)" }}>+ more</span>
             </p>
           </div>
-          <p className="font-display uppercase text-[#1f9ee0] mt-6 leading-none" style={{ fontSize: "clamp(2.6rem, 11vw, 6rem)" }}>
-            No. II
-          </p>
         </div>
       </section>
 
       {/* ── THE MAINS — handwritten kraft bistro menu ── */}
       <section className="relative bg-[#e7d7b3] text-[#1a1408] overflow-hidden px-6 py-20 md:py-28">
+        <PaperTex seed={7} opacity={0.4} freq="0.6 0.7" />
         <Grain />
         <div className="relative mx-auto max-w-3xl">
           <div className="flex items-end justify-between gap-6 border-b-2 border-[#1a1408]/30 pb-6">
             <div className="w-24 md:w-32 text-[#1a1408] -rotate-3"><Bottles /></div>
-            <div>
-              <p className="font-permanent text-right leading-none" style={{ fontSize: "clamp(2.2rem, 8vw, 4.5rem)" }}>The Mains</p>
-              <p className="font-marker text-right mt-1 text-[#1a1408]/70" style={{ fontSize: "clamp(1.1rem, 3vw, 1.6rem)" }}>experience &amp; innovation</p>
+            <div className="text-right">
+              <p className="font-kalam text-[#1a1408]/70" style={{ fontSize: "clamp(0.95rem, 2vw, 1.2rem)" }}>The Mains</p>
+              <p className="font-kalam font-bold leading-[0.95] mt-1" style={{ fontSize: "clamp(2rem, 7vw, 4rem)" }}>Experience &amp; Innovation</p>
             </div>
           </div>
 
@@ -166,13 +180,13 @@ export default function MenuPage() {
               { t: "Concept Testing", d: "ideas trialled & honed" },
             ].map((m) => (
               <div key={m.t}>
-                <p className="font-permanent leading-none" style={{ fontSize: "clamp(1.5rem, 4.5vw, 2.2rem)" }}>{m.t}</p>
-                <p className="font-marker mt-1 text-[#1a1408]/75" style={{ fontSize: "clamp(1rem, 2.6vw, 1.35rem)" }}>{m.d}</p>
+                <p className="font-kalam font-bold leading-tight" style={{ fontSize: "clamp(1.5rem, 4.5vw, 2.2rem)" }}>{m.t}</p>
+                <p className="font-kalam mt-1 text-[#1a1408]/75" style={{ fontSize: "clamp(1rem, 2.6vw, 1.35rem)" }}>{m.d}</p>
               </div>
             ))}
           </div>
 
-          <p className="font-marker mt-12 text-[#1a1408]/80 leading-snug" style={{ fontSize: "clamp(1.1rem, 2.8vw, 1.5rem)" }}>
+          <p className="font-kalam mt-12 text-[#1a1408]/80 leading-snug" style={{ fontSize: "clamp(1.1rem, 2.8vw, 1.5rem)" }}>
             we perfect every moment of the guest journey — from the first hello to the last bite.
           </p>
         </div>
@@ -183,19 +197,26 @@ export default function MenuPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-5">
           {/* left: halftone image panel */}
           <div className="relative bg-[#b8b6ad] overflow-hidden flex flex-col justify-between p-6 md:p-8 min-h-[60vh]">
-            <p className="font-spacemono font-bold uppercase tracking-[0.15em] text-[#15140f] relative z-10" style={{ fontSize: "clamp(1.6rem, 5vw, 3rem)" }}>The Desserts</p>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1200&q=80"
               alt=""
               className="absolute inset-0 w-full h-full object-cover mix-blend-luminosity"
-              style={{ filter: "grayscale(1) contrast(1.6) brightness(1.05)" }}
+              style={{ filter: "grayscale(1) contrast(1.45) brightness(1.5)" }}
             />
-            <p className="font-spacemono font-bold uppercase tracking-[0.15em] text-[#15140f] relative z-10 text-right" style={{ fontSize: "clamp(1.6rem, 5vw, 3rem)" }}>Visual Production</p>
+            <div className="absolute inset-0 bg-[#cdcbc1]/35 pointer-events-none" />
+            {/* halftone dots */}
+            <div
+              className="absolute inset-0 mix-blend-multiply opacity-50 pointer-events-none"
+              style={{ backgroundImage: "radial-gradient(#000 1px, transparent 1.5px)", backgroundSize: "4px 4px" }}
+            />
+            <p className="font-spacemono uppercase tracking-[0.25em] text-[#15140f] relative z-10" style={{ fontSize: "clamp(0.7rem, 1.6vw, 0.95rem)" }}>The Desserts · No. IV</p>
+            <p className="font-spacemono font-bold uppercase tracking-[0.12em] text-[#15140f] relative z-10 leading-[0.95]" style={{ fontSize: "clamp(2rem, 6vw, 3.6rem)" }}>Visual<br />Production</p>
           </div>
 
           {/* right: monospace menu */}
-          <div className="bg-[#f4f3ee] px-6 py-7 md:px-9 md:py-9 font-spacemono text-[#15140f] flex flex-col">
+          <div className="relative bg-[#f4f3ee] px-6 py-7 md:px-9 md:py-9 font-spacemono text-[#15140f] flex flex-col">
+            <PaperTex seed={9} opacity={0.5} freq="0.9 0.95" />
             {[
               { t: "Signage & Environmental Branding", d: "wayfinding, facades, immersive event branding + spatial identity" },
               { t: "Print & Packaging Design", d: "menus, food packaging, collateral + finishing" },
