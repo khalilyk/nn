@@ -59,6 +59,43 @@ function PaperTex({ seed = 1, opacity = 0.5, freq = "0.7 0.8", blend = "multiply
   );
 }
 
+/* arched section heading (SVG textPath) */
+function ArcText({ text, up = true }: { text: string; up?: boolean }) {
+  const id = "arc-" + text.replace(/[^a-z]/gi, "").toLowerCase();
+  const d = up ? "M6,56 Q200,6 394,56" : "M6,16 Q200,66 394,16";
+  return (
+    <svg viewBox="0 0 400 66" className="w-full max-w-[280px] mx-auto h-12 md:h-14 overflow-visible" aria-label={text}>
+      <path id={id} d={d} fill="none" />
+      <text className="font-sans" style={{ fontWeight: 600, fontSize: 24, letterSpacing: 5, fill: "#0A0A0A" }}>
+        <textPath href={`#${id}`} startOffset="50%" textAnchor="middle">{text}</textPath>
+      </text>
+    </svg>
+  );
+}
+
+/* full-width stretched letter band (each letter repeated, spread edge to edge) */
+function StretchRow({ word, reps = 4 }: { word: string; reps?: number }) {
+  const letters = word.toUpperCase().split("").flatMap((c) => Array(reps).fill(c) as string[]);
+  return (
+    <div className="flex justify-between font-sans font-semibold text-[#0A0A0A] select-none overflow-hidden" style={{ fontSize: "clamp(0.65rem, 1.5vw, 0.95rem)" }}>
+      {letters.map((c, i) => <span key={i}>{c}</span>)}
+    </div>
+  );
+}
+
+function MenuList({ items }: { items: [string, string][] }) {
+  return (
+    <div className="font-sans mt-3">
+      {items.map(([name, no]) => (
+        <div key={no} className="flex items-baseline justify-between gap-3 py-[0.3rem]" style={{ fontSize: "clamp(0.78rem, 1.5vw, 0.95rem)" }}>
+          <span>{name}</span>
+          <span className="tabular-nums">{no}</span>
+        </div>
+      ))}
+    </div>
+  );
+}
+
 export default function MenuPage() {
   return (
     <main className="relative bg-[#E7E4DD] text-[#0A0A0A] overflow-hidden">
@@ -76,49 +113,59 @@ export default function MenuPage() {
         </p>
       </header>
 
-      {/* ── THE AMUSE-BOUCHÉ — vintage slab-serif menu poster ── */}
-      <section className="relative bg-[#D9D586] text-[#1c1b0d] overflow-hidden px-6 py-24 md:py-32">
-        <PaperTex seed={3} opacity={0.45} freq="0.5 0.65" />
-        <Grain />
-        <div className="relative mx-auto max-w-2xl text-center leading-[1.05]">
-          <p className="font-slab uppercase tracking-[0.12em]" style={{ fontSize: "clamp(0.85rem, 1.8vw, 1.05rem)" }}>
-            The Amuse-Bouché · No. <span className="align-super text-[0.75em]">I</span>
-          </p>
-          <h2 className="font-slab font-bold uppercase mt-3 leading-[0.95]" style={{ fontSize: "clamp(2.6rem, 9vw, 5.5rem)", letterSpacing: "0.005em" }}>
-            Branding<br />&amp; Identity
-          </h2>
-
-          <p className="font-editorial mt-8 mx-auto max-w-md leading-relaxed" style={{ fontSize: "clamp(0.95rem, 1.6vw, 1.1rem)" }}>
-            A brand isn’t just a name or a logo — it’s the foundation of everything. We craft
-            powerful, distinct identities that connect with audiences and make you unmistakable.
+      {/* ── THE AMUSE-BOUCHÉ — yellow drinks-menu ── */}
+      <section className="relative bg-[#ecec3a] text-[#0A0A0A] overflow-hidden px-5 md:px-8 py-14 md:py-20">
+        <PaperTex seed={3} opacity={0.16} freq="0.6 0.7" />
+        <div className="relative mx-auto max-w-5xl">
+          <p className="font-sans uppercase text-center tracking-[0.22em] mb-6" style={{ fontSize: "clamp(0.62rem, 1.3vw, 0.8rem)" }}>
+            The Amuse-Bouché — Branding &amp; Identity — No. I
           </p>
 
-          {/* central motif */}
-          <div
-            className="mx-auto my-10 md:my-12 w-40 h-40 md:w-52 md:h-52 rounded-full overflow-hidden"
-            style={{ boxShadow: "0 18px 40px -18px rgba(0,0,0,0.5)" }}
-          >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="https://images.unsplash.com/photo-1525351484163-7529414344d8?auto=format&fit=crop&w=600&q=80"
-              alt=""
-              className="w-full h-full object-cover"
-            />
-          </div>
+          <div className="grid md:grid-cols-2 gap-x-8 md:gap-x-16 md:divide-x divide-[#0A0A0A]/40">
+            {/* LEFT */}
+            <div className="md:pr-10">
+              <StretchRow word="Not Normal" />
+              <div className="mt-10">
+                <ArcText text="STRATEGY" />
+                <MenuList items={[
+                  ["Brand Strategy & Positioning", "01"],
+                  ["Mission, Vision & Values", "02"],
+                  ["Audience & Market Research", "03"],
+                  ["Competitive Audit", "04"],
+                ]} />
+              </div>
+              <div className="mt-10">
+                <ArcText text="NAMING" up={false} />
+                <MenuList items={[
+                  ["Naming & Tagline Development", "05"],
+                  ["Messaging Framework", "06"],
+                  ["Tone Of Voice", "07"],
+                ]} />
+              </div>
+            </div>
 
-          <div className="space-y-3 md:space-y-4">
-            <p className="font-slab font-semibold uppercase" style={{ fontSize: "clamp(1.15rem, 3vw, 1.7rem)", letterSpacing: "0.02em" }}>
-              Naming &amp; Tagline Development
-            </p>
-            <p className="font-dmserif italic" style={{ fontSize: "clamp(1.4rem, 3.6vw, 2rem)" }}>
-              Logo &amp; Brand Identity
-            </p>
-            <p className="font-slab font-semibold uppercase" style={{ fontSize: "clamp(1.15rem, 3vw, 1.7rem)", letterSpacing: "0.02em" }}>
-              Brand Strategy &amp; Positioning
-            </p>
-            <p className="font-dmserif italic" style={{ fontSize: "clamp(1.4rem, 3.6vw, 2rem)" }}>
-              Verbal &amp; Visual Identity
-            </p>
+            {/* RIGHT */}
+            <div className="md:pl-10 mt-12 md:mt-0">
+              <StretchRow word="Not Normal" />
+              <div className="mt-10">
+                <ArcText text="IDENTITY" />
+                <MenuList items={[
+                  ["Logo & Brand Identity", "08"],
+                  ["Colour & Type System", "09"],
+                  ["Art Direction", "10"],
+                  ["Iconography & Motifs", "11"],
+                ]} />
+              </div>
+              <div className="mt-10">
+                <ArcText text="TOOLKIT" up={false} />
+                <MenuList items={[
+                  ["Verbal & Visual Identity", "12"],
+                  ["Brand Guidelines", "13"],
+                  ["Templates & Collateral", "14"],
+                  ["Brand Book", "15"],
+                ]} />
+              </div>
+            </div>
           </div>
         </div>
       </section>
