@@ -50,6 +50,10 @@ img { user-select: none; -webkit-user-drag: none; }
 
 @keyframes spin-slow { to { transform: rotate(360deg); } }
 
+/* loader water-line wave */
+@keyframes water-wave { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.water-wave { animation: water-wave 2.4s linear infinite; }
+
 /* hyperspace warp streaks (mindmap zoom) */
 @keyframes warp-streak {
   0%   { transform: rotate(var(--ang)) scaleX(0);   opacity: 0; }
