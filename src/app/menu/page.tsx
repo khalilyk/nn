@@ -82,7 +82,7 @@ export default function MenuPage() {
 
       {/* HEADER */}
       <header className="bg-white px-6 pt-36 md:pt-44 pb-10 md:pb-14 text-center">
-        <p className="text-[10px] tracking-[0.35em] uppercase text-[#0A0A0A]/45 mb-5">Pull up a chair</p>
+        <p className="text-[10px] tracking-[0.35em] uppercase text-[#0A0A0A]/45 mb-5">What we do</p>
         <h1 className="font-display uppercase leading-[0.9] tracking-tight mx-auto max-w-[14ch]" style={{ fontSize: "clamp(2.4rem, 9vw, 6.5rem)" }}>
           It&apos;s how you make them feel
         </h1>
