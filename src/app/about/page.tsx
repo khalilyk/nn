@@ -5,6 +5,7 @@ import SiteNav from "@/components/SiteNav";
 import SiteFooter from "@/components/SiteFooter";
 import ParallaxImage from "@/components/ParallaxImage";
 import ServiceMindmap from "@/components/ServiceMindmap";
+import MobileMindmap from "@/components/MobileMindmap";
 import StarField from "@/components/StarField";
 
 export const metadata = {
@@ -18,17 +19,6 @@ const VALUES = [
   { n: "02", t: "Strategic clarity", d: "Taste with a reason behind it. Every decision earns its place." },
   { n: "03", t: "Experiences people remember", d: "We build brands with staying power, not brands that chase the trend." },
   { n: "04", t: "Rooted in hospitality", d: "We understand what makes a concept resonate and what builds genuine guest loyalty." },
-];
-
-const SERVICES = [
-  "Brand foundations",
-  "Identity systems",
-  "Menu development",
-  "Campaign direction",
-  "Packaging",
-  "Content creation",
-  "Digital strategy",
-  "On-ground activations",
 ];
 
 const CLIENTS_ROW_1 = ["3Fils", "Revolver", "Maison Dali", "Oakberry", "Kinoya", "Tony's Woodfire"];
@@ -133,14 +123,10 @@ export default function AboutPage() {
           <h2 className="font-display uppercase tracking-tight mb-12" style={{ fontSize: "clamp(1.6rem, 4vw, 3rem)" }}>
             Everything a concept<br />needs to be unforgettable.
           </h2>
-          {/* mobile: simple pill list */}
-          <ul className="md:hidden flex flex-wrap justify-center gap-3">
-            {SERVICES.map((s) => (
-              <li key={s} className="rounded-full border border-[#0A0A0A]/25 px-5 py-2.5 text-[12px] tracking-[0.04em]">
-                {s}
-              </li>
-            ))}
-          </ul>
+          {/* mobile: tap-to-expand mindmap */}
+          <div className="md:hidden text-left max-w-md mx-auto">
+            <MobileMindmap />
+          </div>
           {/* desktop: live mindmap */}
           <div className="hidden md:block">
             <ServiceMindmap />

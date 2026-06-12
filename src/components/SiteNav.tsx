@@ -113,17 +113,17 @@ export default function SiteNav() {
 
         {/* 1 — navigation card */}
         <div
-          className="relative flex-1 rounded-[26px] bg-[#C5E8B7] text-[#0A0A0A] flex flex-col justify-center items-center px-6 py-8"
+          className="relative flex-1 overflow-hidden rounded-[26px] bg-[#C5E8B7] text-[#0A0A0A] flex flex-col justify-center items-center px-6 py-6"
           style={card(menuOpen, 1)}
         >
-          <nav className="flex flex-col items-center gap-2">
+          <nav className="flex flex-col items-center gap-[2vh]">
             {LINKS.map(({ l, href }) => (
               <a
                 key={l}
                 href={href}
                 onClick={() => setMenuOpen(false)}
                 className="font-display uppercase tracking-tight leading-none transition-opacity duration-300 hover:opacity-50"
-                style={{ fontSize: "clamp(2rem, 10vw, 3.1rem)" }}
+                style={{ fontSize: "clamp(1.6rem, 7vw, 2.6rem)" }}
               >
                 {l}
               </a>
@@ -152,14 +152,14 @@ export default function SiteNav() {
 
         {/* 3 — mascot / chat card */}
         <div
-          className="relative z-10 flex-[1.25] rounded-[26px] bg-[#F9CEDF] text-[#0A0A0A]"
+          className="relative z-10 flex-[1.3] overflow-hidden rounded-[26px] bg-[#F9CEDF] text-[#0A0A0A]"
           style={card(menuOpen, 3)}
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/nn-panda.png"
             alt="Not Normal"
-            className="pointer-events-none absolute left-1/2 -translate-x-1/2 bottom-0 z-20 w-[430px] max-w-none h-auto translate-y-[calc(8%+30px)]"
+            className="pointer-events-none absolute left-1/2 -translate-x-1/2 bottom-0 z-20 w-[112%] max-w-none h-auto"
           />
         </div>
       </div>

@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 
-const BRANCHES: { label: string; items: string[] }[] = [
+export const BRANCHES: { label: string; items: string[] }[] = [
   { label: "Brand foundations", items: ["Brand strategy", "Positioning", "Naming", "Brand story", "Vision & values", "Customer personas"] },
   { label: "Identity systems", items: ["Logo design", "Visual identity", "Brand guidelines", "Typography", "Colour systems", "Brand assets"] },
   { label: "Menu development", items: ["Menu strategy", "Engineering & pricing", "Menu design", "F&B concepts", "Signature products", "Seasonal rollouts"] },
