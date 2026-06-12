@@ -74,6 +74,33 @@ function BarRow({ label, items }: { label: string; items: string[] }) {
   );
 }
 
+/* scattered coffee drops / splatter */
+function CoffeeDrops() {
+  const drop = "M30 3 C40 22 49 34 49 47 C49 61 41 71 30 71 C19 71 11 61 11 47 C11 34 20 22 30 3 Z";
+  return (
+    <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden" style={{ color: "#3a2012" }}>
+      <svg viewBox="0 0 60 74" className="absolute right-[7%] top-[8%] w-9 md:w-12 opacity-[0.22] mix-blend-multiply -rotate-12"><path d={drop} fill="currentColor" /></svg>
+      <svg viewBox="0 0 60 74" className="absolute right-[14%] top-[14%] w-4 md:w-5 opacity-[0.18] mix-blend-multiply rotate-6"><path d={drop} fill="currentColor" /></svg>
+      <svg viewBox="0 0 20 20" className="absolute right-[5%] top-[20%] w-2 opacity-[0.18] mix-blend-multiply"><circle cx="10" cy="10" r="9" fill="currentColor" /></svg>
+      <svg viewBox="0 0 60 74" className="absolute left-[6%] bottom-[10%] w-10 md:w-14 opacity-[0.2] mix-blend-multiply rotate-[160deg]"><path d={drop} fill="currentColor" /></svg>
+      <svg viewBox="0 0 20 20" className="absolute left-[15%] bottom-[8%] w-2.5 opacity-[0.16] mix-blend-multiply"><circle cx="10" cy="10" r="9" fill="currentColor" /></svg>
+      <svg viewBox="0 0 20 20" className="absolute left-[4%] bottom-[22%] w-1.5 opacity-[0.16] mix-blend-multiply"><circle cx="10" cy="10" r="9" fill="currentColor" /></svg>
+    </div>
+  );
+}
+
+/* dried wine-glass ring stain */
+function WineRing() {
+  return (
+    <svg aria-hidden viewBox="0 0 200 200" className="pointer-events-none absolute right-[5%] top-[6%] w-36 md:w-56 opacity-[0.22] mix-blend-multiply rotate-6" style={{ color: "#5e1f2e" }}>
+      <circle cx="100" cy="100" r="70" fill="currentColor" opacity="0.07" />
+      <circle cx="100" cy="100" r="78" fill="none" stroke="currentColor" strokeWidth="6" opacity="0.45" />
+      <circle cx="100" cy="100" r="78" fill="none" stroke="currentColor" strokeWidth="3" opacity="0.8" strokeDasharray="210 50" strokeDashoffset="30" strokeLinecap="round" />
+      <circle cx="100" cy="100" r="84" fill="none" stroke="currentColor" strokeWidth="1.5" opacity="0.4" strokeDasharray="120 140" />
+    </svg>
+  );
+}
+
 export default function MenuPage() {
   return (
     <main className="relative bg-[#E7E4DD] text-[#0A0A0A] overflow-hidden">
@@ -101,6 +128,7 @@ export default function MenuPage() {
       {/* ── THE AMUSE-BOUCHÉ — pink typewriter bar menu ── */}
       <section className="relative bg-[#f09a9c] text-[#1c1012] overflow-hidden px-6 py-16 md:py-24 font-spacemono">
         <PaperTex seed={3} opacity={0.16} freq="0.7 0.8" />
+        <CoffeeDrops />
         <div className="relative mx-auto max-w-2xl">
           <p className="uppercase text-center tracking-[0.25em] text-[#a5403f] mb-12" style={{ fontSize: "clamp(0.55rem, 1.2vw, 0.72rem)" }}>
             The Amuse-Bouché · No. I
@@ -227,6 +255,7 @@ export default function MenuPage() {
       <section className="relative bg-[#f1ede2] text-[#1b1a14] overflow-hidden px-6 py-20 md:py-28">
         <PaperTex seed={7} opacity={0.35} freq="0.5 0.6" />
         <Grain />
+        <WineRing />
         <div className="relative mx-auto max-w-4xl">
           {/* masthead */}
           <div className="flex flex-wrap items-start justify-between gap-y-5 sm:grid sm:grid-cols-3 sm:items-start gap-2">
