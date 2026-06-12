@@ -108,17 +108,17 @@ export default function MenuPage() {
 
           {/* top group */}
           <div className="space-y-7">
-            <BarRow label="Strategy" items={["Positioning, narrative & brand strategy"]} />
-            <BarRow label="Naming" items={["Naming systems, taglines &", "verbal DNA"]} />
-            <BarRow label="Voice" items={["Tone of voice & messaging framework"]} />
-            <BarRow label="Research" items={["Audience, market & competitor audit"]} />
+            <BarRow label="Naming" items={["Naming & Tagline Development"]} />
+            <BarRow label="Strategy" items={["Brand Strategy & Positioning"]} />
+            <BarRow label="Logo" items={["Logo & Identity Design"]} />
+            <BarRow label="Visual" items={["Visual Identity Systems"]} />
           </div>
 
           {/* centrepiece */}
           <div className="text-center my-12 md:my-16">
             <p className="font-fancy leading-[0.8] text-[#1c1012]" style={{ fontSize: "clamp(3.4rem, 16vw, 8rem)" }}>Branding</p>
             <div className="relative inline-block mt-1">
-              <p className="uppercase text-[#b03f3e] tracking-[0.3em]" style={{ fontSize: "clamp(0.9rem, 3vw, 1.6rem)" }}>At Your Service</p>
+              <p className="uppercase text-[#b03f3e] tracking-[0.3em]" style={{ fontSize: "clamp(0.9rem, 3vw, 1.6rem)" }}>&amp; Identity</p>
               <svg viewBox="0 0 300 24" className="absolute -bottom-3 left-1/4 w-3/4 h-4 overflow-visible" aria-hidden>
                 <path d="M6,14 C70,2 150,2 230,12 C250,15 268,12 292,4" fill="none" stroke="#b03f3e" strokeWidth="2.5" strokeLinecap="round" />
               </svg>
@@ -127,10 +127,10 @@ export default function MenuPage() {
 
           {/* bottom group */}
           <div className="space-y-7">
-            <BarRow label="Logo" items={["Primary marks, lockups", "& usage systems"]} />
-            <BarRow label="Identity" items={["Colour, type, art direction", "& iconography"]} />
-            <BarRow label="Toolkit" items={["Guidelines, templates", "& collateral"]} />
-            <BarRow label={"Launch\nA little later"} items={["You'll know where to go"]} />
+            <BarRow label="Voice" items={["Tone of Voice & Messaging"]} />
+            <BarRow label="Guides" items={["Brand Guidelines"]} />
+            <BarRow label="Menu" items={["Menu Design"]} />
+            <BarRow label="Packaging" items={["Packaging Concepts"]} />
           </div>
         </div>
       </section>
@@ -146,7 +146,7 @@ export default function MenuPage() {
             </p>
             <div className="text-center">
               <p className="font-script leading-[0.9]" style={{ fontSize: "clamp(2.2rem, 9vw, 4.6rem)" }}>Not Normal</p>
-              <p className="uppercase mt-1" style={{ fontSize: "clamp(0.55rem, 1.3vw, 0.8rem)", letterSpacing: "0.35em" }}>Social &amp; Storytelling</p>
+              <p className="uppercase mt-1" style={{ fontSize: "clamp(0.55rem, 1.3vw, 0.8rem)", letterSpacing: "0.35em" }}>Web Design &amp; Development</p>
             </div>
             <div className="text-right">
               <span className="inline-block border-2 border-current px-2 py-1 uppercase font-display tracking-wide" style={{ fontSize: "clamp(0.5rem, 1.1vw, 0.65rem)" }}>Served Daily</span>
@@ -154,26 +154,26 @@ export default function MenuPage() {
             </div>
           </div>
 
-          {/* EARNED —— OWNED */}
+          {/* DESIGN —— BUILD */}
           <div className="flex items-center gap-4 mt-10 font-display uppercase" style={{ fontSize: "clamp(1rem, 2.6vw, 1.6rem)" }}>
-            <span>Earned</span>
+            <span>Design</span>
             <span className="flex-1 h-[3px] bg-current" />
-            <span>Owned</span>
+            <span>Build</span>
           </div>
 
           {/* hero item */}
           <h2 className="font-display uppercase leading-[0.85] mt-8" style={{ fontSize: "clamp(2.3rem, 9vw, 5rem)" }}>
-            Public Relations.<span className="ml-2 align-top" style={{ fontSize: "0.3em" }}>01</span>
+            Website Design.<span className="ml-2 align-top" style={{ fontSize: "0.3em" }}>01</span>
           </h2>
 
           {/* split items */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-0 mt-8 items-center">
             <div className="text-center sm:pr-8 sm:border-r-2 sm:border-current font-display uppercase leading-[0.9]" style={{ fontSize: "clamp(1.3rem, 4vw, 2rem)" }}>
-              Social Media<br />Strategy <span className="align-top" style={{ fontSize: "0.45em" }}>02</span>
+              Website<br />Development <span className="align-top" style={{ fontSize: "0.45em" }}>02</span>
             </div>
             <div className="sm:pl-8 font-display uppercase leading-[0.9] space-y-3" style={{ fontSize: "clamp(1.5rem, 4.6vw, 2.4rem)" }}>
-              <p>Photography &amp; Film <span className="align-top" style={{ fontSize: "0.4em" }}>03</span></p>
-              <p>Campaigns &amp; Activations <span className="align-top" style={{ fontSize: "0.4em" }}>04</span></p>
+              <p>UX &amp; Journey Mapping <span className="align-top" style={{ fontSize: "0.4em" }}>03</span></p>
+              <p>Mobile Optimisation <span className="align-top" style={{ fontSize: "0.4em" }}>04</span></p>
             </div>
           </div>
 
@@ -181,15 +181,15 @@ export default function MenuPage() {
           <div className="grid grid-cols-1 sm:grid-cols-[1.5fr_1fr] gap-6 items-center mt-10">
             <div className="border-2 border-current px-5 py-4 text-center leading-none">
               <p>
-                <span className="font-classic font-bold" style={{ fontSize: "clamp(1.2rem, 3.6vw, 1.8rem)" }}>BRAND </span>
-                <span className="font-display uppercase" style={{ fontSize: "clamp(1.8rem, 6vw, 3rem)" }}>STORYTELLING</span>
+                <span className="font-classic font-bold" style={{ fontSize: "clamp(1.2rem, 3.6vw, 1.8rem)" }}>BOOKING + </span>
+                <span className="font-display uppercase" style={{ fontSize: "clamp(1.8rem, 6vw, 3rem)" }}>RESERVATIONS</span>
               </p>
               <p className="font-classic italic mt-2" style={{ fontSize: "clamp(0.8rem, 1.8vw, 1rem)" }}>
-                (Content &amp; Campaigns) <span className="not-italic ml-1">05</span>
+                (Integrations) <span className="not-italic ml-1">05</span>
               </p>
             </div>
             <div className="text-center">
-              <p className="font-classic font-bold leading-none" style={{ fontSize: "clamp(1.4rem, 4.5vw, 2.2rem)" }}>Creative Messaging</p>
+              <p className="font-classic font-bold leading-none" style={{ fontSize: "clamp(1.4rem, 4.5vw, 2.2rem)" }}>E-Commerce</p>
               <p className="font-classic mt-1" style={{ fontSize: "clamp(0.9rem, 2vw, 1.15rem)" }}>06</p>
             </div>
           </div>
@@ -197,9 +197,8 @@ export default function MenuPage() {
           {/* sides w/ dotted leaders */}
           <div className="mt-12 font-sans font-medium uppercase space-y-3" style={{ fontSize: "clamp(0.95rem, 2.4vw, 1.4rem)" }}>
             {[
-              ["Influencer Marketing", "07"],
-              ["Ambassador Programs", "08"],
-              ["Community Management", "09"],
+              ["SEO Foundations", "07"],
+              ["Website Management & Updates", "08"],
             ].map(([n, no]) => (
               <div key={no} className="flex items-end">
                 <span>{n}</span>
@@ -211,8 +210,8 @@ export default function MenuPage() {
 
           {/* serif centre */}
           <div className="text-center mt-12 font-classic">
-            <p style={{ fontSize: "clamp(1.4rem, 4.5vw, 2.2rem)" }}>Always-On Content</p>
-            <p className="mt-1" style={{ fontSize: "clamp(0.9rem, 2vw, 1.1rem)" }}>10</p>
+            <p style={{ fontSize: "clamp(1.4rem, 4.5vw, 2.2rem)" }}>Built To Convert</p>
+            <p className="mt-1" style={{ fontSize: "clamp(0.9rem, 2vw, 1.1rem)" }}>—</p>
           </div>
 
           {/* bottom rule */}
@@ -220,7 +219,7 @@ export default function MenuPage() {
             <span>Sydney · Dubai · Beirut</span>
             <span>thisisnn.com</span>
           </div>
-          <div className="mt-3 flex justify-center"><ArcText text="SOCIAL · STORY · STUDIO" size={15} spacing={2.5} maxW="380px" /></div>
+          <div className="mt-3 flex justify-center"><ArcText text="WEB · DESIGN · STUDIO" size={15} spacing={2.5} maxW="380px" /></div>
         </div>
       </section>
 
@@ -236,11 +235,11 @@ export default function MenuPage() {
               <p className="text-[#1b1a14]/55" style={{ fontSize: "clamp(0.6rem, 1.2vw, 0.75rem)", letterSpacing: "0.12em" }}>No. III</p>
             </div>
             <h2 className="order-3 sm:order-2 basis-full sm:basis-auto font-editorial uppercase text-center leading-[0.92]" style={{ fontSize: "clamp(2.4rem, 7vw, 4.4rem)" }}>
-              Experience<br className="hidden sm:block" /> &amp; Innovation
+              Print<br className="hidden sm:block" /> &amp; Production
             </h2>
             <div className="order-2 sm:order-3 font-editorial uppercase text-right leading-tight">
-              <p style={{ fontSize: "clamp(0.8rem, 1.8vw, 1.05rem)", letterSpacing: "0.08em" }}>Not Normal</p>
-              <p className="text-[#1b1a14]/55" style={{ fontSize: "clamp(0.6rem, 1.2vw, 0.75rem)", letterSpacing: "0.12em" }}>Syd · Dxb · Bey</p>
+              <p style={{ fontSize: "clamp(0.8rem, 1.8vw, 1.05rem)", letterSpacing: "0.08em" }}>Print Paradise</p>
+              <p className="text-[#1b1a14]/55" style={{ fontSize: "clamp(0.6rem, 1.2vw, 0.75rem)", letterSpacing: "0.12em" }}>Sister Co.</p>
             </div>
           </div>
 
@@ -248,18 +247,18 @@ export default function MenuPage() {
           <div className="mt-16 md:mt-24 font-spacemono uppercase" style={{ fontSize: "clamp(0.7rem, 1.5vw, 0.9rem)", letterSpacing: "0.03em" }}>
             {[
               [
-                ["Menu Research & Development, Seasonal Tasting", "01"],
-                ["Recipe Refinement, Costing, Supplier Sourcing", "02"],
-                ["Concept Testing, Trialled & Honed", "03"],
+                ["Signage & Environmental Graphics", "01"],
+                ["Menus & Printed Collateral", "02"],
+                ["Packaging Production", "03"],
               ],
               [
-                ["Hospitality Staff Training, Hosting, Care", "04"],
-                ["Service Standards, Sequence Of Service", "05"],
-                ["Service Enhancement, Every Guest Touchpoint", "06"],
+                ["Uniform Design & Manufacture", "04"],
+                ["Promotional Merchandise", "05"],
+                ["Vehicle Graphics, Wraps & Decals", "06"],
               ],
               [
-                ["Guest Journey Mapping, First Hello To Last Bite", "07"],
-                ["Ambience, Pacing & Memorable Moments", "08"],
+                ["Exhibition & Event Displays", "07"],
+                ["Large Format Printing", "08"],
               ],
             ].map((group, gi) => (
               <div key={gi} className={gi === 0 ? "" : "mt-10"}>
@@ -298,21 +297,24 @@ export default function MenuPage() {
               style={{ backgroundImage: "radial-gradient(#000 0.7px, transparent 1.1px)", backgroundSize: "3px 3px", opacity: 0.25 }}
             />
             <p className="self-start bg-[#f4f3ee] px-2.5 py-1 font-spacemono uppercase tracking-[0.25em] text-[#15140f] relative z-10" style={{ fontSize: "clamp(0.7rem, 1.6vw, 0.95rem)" }}>The Desserts · No. IV</p>
-            <p className="self-start bg-[#f4f3ee] px-3 py-2 font-spacemono font-bold uppercase tracking-[0.12em] text-[#15140f] relative z-10 leading-[0.95]" style={{ fontSize: "clamp(2rem, 6vw, 3.6rem)" }}>Visual<br />Production</p>
+            <p className="self-start bg-[#f4f3ee] px-3 py-2 font-spacemono font-bold uppercase tracking-[0.12em] text-[#15140f] relative z-10 leading-[0.95]" style={{ fontSize: "clamp(2rem, 6vw, 3.6rem)" }}>Social<br />&amp; Content</p>
           </div>
 
           {/* right: monospace menu */}
           <div className="relative bg-[#f4f3ee] px-6 py-7 md:px-9 md:py-9 font-spacemono text-[#15140f] flex flex-col">
             <PaperTex seed={9} opacity={0.5} freq="0.9 0.95" />
             {[
-              { t: "Signage & Environmental Branding", d: "wayfinding, facades, immersive event branding + spatial identity" },
-              { t: "Print & Packaging Design", d: "menus, food packaging, collateral + finishing" },
-              { t: "Website Design & Development", d: "design systems, build, content + launch" },
-              { t: "Uniform Design & Manufacture", d: "garment design, sampling + production" },
+              { t: "Social Media Strategy", d: "channel strategy, positioning + always-on planning" },
+              { t: "Content Planning & Calendars", d: "monthly calendars, themes + scheduling" },
+              { t: "Photography & Videography", d: "stills, food, reels + brand films" },
+              { t: "Copywriting & Creative Messaging", d: "tone of voice, captions + campaigns" },
+              { t: "Campaign Development", d: "concepts, rollout + paid support" },
+              { t: "Influencer & Ambassador Partnerships", d: "seeding, partnerships + activations" },
+              { t: "Community Management", d: "engagement, replies + growth" },
             ].map((d) => (
-              <div key={d.t} className="border-b border-[#15140f]/30 py-4 first:pt-0">
-                <p className="font-bold uppercase leading-tight" style={{ fontSize: "clamp(0.95rem, 2.1vw, 1.25rem)" }}>{d.t}</p>
-                <p className="uppercase mt-1.5 text-[#15140f]/70 leading-snug" style={{ fontSize: "clamp(0.6rem, 1.2vw, 0.72rem)" }}>{d.d}</p>
+              <div key={d.t} className="border-b border-[#15140f]/30 py-3.5 first:pt-0">
+                <p className="font-bold uppercase leading-tight" style={{ fontSize: "clamp(0.9rem, 2vw, 1.15rem)" }}>{d.t}</p>
+                <p className="uppercase mt-1 text-[#15140f]/70 leading-snug" style={{ fontSize: "clamp(0.58rem, 1.1vw, 0.7rem)" }}>{d.d}</p>
               </div>
             ))}
             <p className="font-bold uppercase tracking-[0.3em] text-center mt-auto pt-8" style={{ fontSize: "clamp(1.3rem, 4vw, 2.2rem)" }}>4 of 4</p>
