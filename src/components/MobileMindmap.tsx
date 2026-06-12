@@ -21,7 +21,7 @@ export default function MobileMindmap() {
               className="w-full flex items-center justify-between gap-4 px-5 py-4 text-left"
               aria-expanded={isOpen}
             >
-              <span className="font-display uppercase tracking-tight leading-none" style={{ fontSize: "clamp(1.1rem, 5.5vw, 1.6rem)" }}>{b.label}</span>
+              <span className="font-sans tracking-[0.02em] leading-none" style={{ fontSize: "clamp(0.95rem, 4.2vw, 1.15rem)" }}>{b.label}</span>
               <span
                 className="shrink-0 text-xl leading-none transition-transform duration-300"
                 style={{ transform: isOpen ? "rotate(45deg)" : "rotate(0deg)" }}
