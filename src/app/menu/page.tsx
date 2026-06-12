@@ -248,17 +248,16 @@ export default function MenuPage() {
             {[
               [
                 ["Signage & Environmental Graphics", "01"],
-                ["Menus & Printed Collateral", "02"],
-                ["Packaging Production", "03"],
+                ["Packaging Production", "02"],
+                ["Menus & Printed Collateral", "03"],
               ],
               [
                 ["Uniform Design & Manufacture", "04"],
                 ["Promotional Merchandise", "05"],
-                ["Vehicle Graphics, Wraps & Decals", "06"],
               ],
               [
-                ["Exhibition & Event Displays", "07"],
-                ["Large Format Printing", "08"],
+                ["Exhibition & Event Displays", "06"],
+                ["Large Format Printing", "07"],
               ],
             ].map((group, gi) => (
               <div key={gi} className={gi === 0 ? "" : "mt-10"}>
@@ -297,24 +296,25 @@ export default function MenuPage() {
               style={{ backgroundImage: "radial-gradient(#000 0.7px, transparent 1.1px)", backgroundSize: "3px 3px", opacity: 0.25 }}
             />
             <p className="self-start bg-[#f4f3ee] px-2.5 py-1 font-spacemono uppercase tracking-[0.25em] text-[#15140f] relative z-10" style={{ fontSize: "clamp(0.7rem, 1.6vw, 0.95rem)" }}>The Desserts · No. IV</p>
-            <p className="self-start bg-[#f4f3ee] px-3 py-2 font-spacemono font-bold uppercase tracking-[0.12em] text-[#15140f] relative z-10 leading-[0.95]" style={{ fontSize: "clamp(2rem, 6vw, 3.6rem)" }}>Social<br />&amp; Content</p>
+            <p className="self-start bg-[#f4f3ee] px-3 py-2 font-spacemono font-bold uppercase tracking-[0.12em] text-[#15140f] relative z-10 leading-[0.95]" style={{ fontSize: "clamp(1.7rem, 5.2vw, 3.1rem)" }}>PR &amp; Brand<br />Visibility</p>
           </div>
 
           {/* right: monospace menu */}
           <div className="relative bg-[#f4f3ee] px-6 py-7 md:px-9 md:py-9 font-spacemono text-[#15140f] flex flex-col">
             <PaperTex seed={9} opacity={0.5} freq="0.9 0.95" />
             {[
-              { t: "Social Media Strategy", d: "channel strategy, positioning + always-on planning" },
-              { t: "Content Planning & Calendars", d: "monthly calendars, themes + scheduling" },
-              { t: "Photography & Videography", d: "stills, food, reels + brand films" },
-              { t: "Copywriting & Creative Messaging", d: "tone of voice, captions + campaigns" },
-              { t: "Campaign Development", d: "concepts, rollout + paid support" },
+              { t: "Public Relations (PR)", d: "media strategy, positioning + narrative" },
+              { t: "Media Outreach & Press Releases", d: "press kits, pitching + coverage" },
+              { t: "Launch Strategies & Campaigns", d: "openings, moments + rollouts" },
               { t: "Influencer & Ambassador Partnerships", d: "seeding, partnerships + activations" },
+              { t: "Social Media Strategy", d: "channels, planning + always-on" },
+              { t: "Content Creation", d: "concepts, copy + creative" },
+              { t: "Photography & Videography", d: "food, interiors, reels + brand films" },
               { t: "Community Management", d: "engagement, replies + growth" },
             ].map((d) => (
-              <div key={d.t} className="border-b border-[#15140f]/30 py-3.5 first:pt-0">
-                <p className="font-bold uppercase leading-tight" style={{ fontSize: "clamp(0.9rem, 2vw, 1.15rem)" }}>{d.t}</p>
-                <p className="uppercase mt-1 text-[#15140f]/70 leading-snug" style={{ fontSize: "clamp(0.58rem, 1.1vw, 0.7rem)" }}>{d.d}</p>
+              <div key={d.t} className="border-b border-[#15140f]/30 py-3 first:pt-0">
+                <p className="font-bold uppercase leading-tight" style={{ fontSize: "clamp(0.85rem, 1.9vw, 1.1rem)" }}>{d.t}</p>
+                <p className="uppercase mt-1 text-[#15140f]/70 leading-snug" style={{ fontSize: "clamp(0.56rem, 1.05vw, 0.68rem)" }}>{d.d}</p>
               </div>
             ))}
             <p className="font-bold uppercase tracking-[0.3em] text-center mt-auto pt-8" style={{ fontSize: "clamp(1.3rem, 4vw, 2.2rem)" }}>4 of 4</p>
