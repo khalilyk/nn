@@ -2,6 +2,9 @@ import Cursor from "@/components/Cursor";
 import Grain from "@/components/Grain";
 import SiteNav from "@/components/SiteNav";
 import SiteFooter from "@/components/SiteFooter";
+import StarField from "@/components/StarField";
+import ServiceMindmap from "@/components/ServiceMindmap";
+import MobileMindmap from "@/components/MobileMindmap";
 
 export const metadata = {
   title: "The Menu · Not Normal",
@@ -332,6 +335,29 @@ export default function MenuPage() {
             ))}
             <p className="font-bold uppercase tracking-[0.3em] text-center mt-auto pt-8" style={{ fontSize: "clamp(1.3rem, 4vw, 2.2rem)" }}>4 of 4</p>
           </div>
+        </div>
+      </section>
+
+      {/* WHAT WE DO — mindmap */}
+      <section className="relative overflow-hidden bg-[#F3F1EC] text-[#0A0A0A] px-8 md:px-16 py-24 md:py-32">
+        <StarField color="#0A0A0A" />
+        <div className="relative z-10 max-w-6xl mx-auto text-center">
+          <p className="text-[10px] tracking-[0.3em] uppercase text-[#0A0A0A]/45 mb-3">What we do</p>
+          <h2 className="font-display uppercase tracking-tight mb-12" style={{ fontSize: "clamp(1.6rem, 4vw, 3rem)" }}>
+            Everything a concept<br />needs to be unforgettable.
+          </h2>
+          {/* mobile: tap-to-expand mindmap */}
+          <div className="md:hidden text-left max-w-md mx-auto">
+            <MobileMindmap />
+          </div>
+          {/* desktop: live mindmap */}
+          <div className="hidden md:block">
+            <ServiceMindmap />
+          </div>
+          <p className="mt-10 max-w-xl mx-auto text-[13px] md:text-[14px] leading-relaxed text-[#0A0A0A]/60">
+            For restaurants, cafés and lifestyle venues that recognise personal interactions and brand consistency
+            are what guests actually remember.
+          </p>
         </div>
       </section>
 
