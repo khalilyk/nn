@@ -127,7 +127,7 @@ function CityCode({ code, name, active, onEnter }: { code: string; name: string;
       onMouseEnter={() => { setHovered(true); onEnter(); }}
       onMouseLeave={() => setHovered(false)}
       className="font-display leading-[0.95] transition-colors duration-500 whitespace-nowrap"
-      style={{ fontSize: "clamp(1.7rem, 3.6vw, 2.8rem)", color: active ? "#F3F1EC" : "rgba(243,241,236,0.28)" }}
+      style={{ fontSize: "clamp(2.6rem, 5.5vw, 4.4rem)", color: active ? "#F3F1EC" : "rgba(243,241,236,0.28)" }}
     >
       {text}
     </button>
@@ -230,16 +230,18 @@ export default function ContactSection() {
                 {/* interactive city codes */}
                 <CityCodes />
 
-                {/* large contact details */}
-                <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 gap-8 text-left">
-                  <div>
+                {/* contact detail cards */}
+                <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 gap-4 text-left">
+                  <a href="mailto:hello@thisisnn.com" data-cursor="Say hi" className="group relative rounded-2xl border border-[#F3F1EC]/15 bg-[#F3F1EC]/[0.03] p-5 md:p-6 hover:border-[#FF2EC4]/60 hover:bg-[#F3F1EC]/[0.06] transition-colors">
+                    <span aria-hidden className="absolute top-4 right-4 text-[#F3F1EC]/40 group-hover:text-[#FF2EC4] group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-all">↗</span>
                     <p className="text-[9px] tracking-[0.3em] uppercase text-[#F3F1EC]/40 mb-2">Email</p>
-                    <a href="mailto:hello@thisisnn.com" data-cursor="Say hi" className="font-editorial inline-block leading-tight hover:text-[#FF2EC4] transition-colors break-all" style={{ fontSize: "clamp(1.2rem, 2vw, 1.7rem)" }}>hello@thisisnn.com</a>
-                  </div>
-                  <div>
+                    <p className="font-editorial leading-tight break-all group-hover:text-[#FF2EC4] transition-colors" style={{ fontSize: "clamp(1.15rem, 1.8vw, 1.5rem)" }}>hello@thisisnn.com</p>
+                  </a>
+                  <a href="tel:+61433714701" data-cursor="Ring ring" className="group relative rounded-2xl border border-[#F3F1EC]/15 bg-[#F3F1EC]/[0.03] p-5 md:p-6 hover:border-[#FF2EC4]/60 hover:bg-[#F3F1EC]/[0.06] transition-colors">
+                    <span aria-hidden className="absolute top-4 right-4 text-[#F3F1EC]/40 group-hover:text-[#FF2EC4] group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-all">↗</span>
                     <p className="text-[9px] tracking-[0.3em] uppercase text-[#F3F1EC]/40 mb-2">Phone</p>
-                    <a href="tel:+61433714701" data-cursor="Ring ring" className="font-editorial inline-block leading-tight hover:text-[#FF2EC4] transition-colors" style={{ fontSize: "clamp(1.2rem, 2vw, 1.7rem)" }}>+61 433 714 701</a>
-                  </div>
+                    <p className="font-editorial leading-tight group-hover:text-[#FF2EC4] transition-colors" style={{ fontSize: "clamp(1.15rem, 1.8vw, 1.5rem)" }}>+61 433 714 701</p>
+                  </a>
                 </div>
 
               </div>
