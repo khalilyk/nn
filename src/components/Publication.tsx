@@ -24,6 +24,7 @@ import Postcard from "./Postcard";
 import ClientLogos from "./ClientLogos";
 import AboutSection from "./AboutSection";
 import ContactSection from "./ContactSection";
+import JournalSection from "./JournalSection";
 
 /* ───────────────── STACKING PANEL ───────────────── */
 const SLIDE_OFFSET: Record<string, string> = {
@@ -323,6 +324,11 @@ Meet <span className="italic">NORM</span>, our marketing exec.<br />
         </div>
       </Panel>
 
+
+      {/* ═══ JOURNAL (blog) ═══ */}
+      <Panel index={9} bg="ivory" minH="auto" pin={false}>
+        <JournalSection />
+      </Panel>
 
       {/* ═══ CONTACT (woven in, now incl. Three Cities) ═══ */}
       <Panel index={10} bg="ivory" minH="auto" pin={false}>
