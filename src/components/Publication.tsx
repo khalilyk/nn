@@ -317,39 +317,6 @@ Meet <span className="italic">NORM</span>, our marketing exec.<br />
         </div>
       </Panel>
 
-      {/* ═══ 08, CTA: START FROM SCRATCH (centered, above footer) ═══ */}
-      <Panel index={8} bg="ivory" minH="62vh">
-        <div className="relative min-h-[62vh] flex flex-col items-center justify-center text-center px-8 md:px-16 py-24">
-          <Reveal>
-            <p className="text-[9px] tracking-[0.3em] uppercase text-[#0A0A0A]/40 mb-6">Starting from scratch?</p>
-          </Reveal>
-          <Reveal delay={0.06}>
-            <h2 className="font-editorial leading-[1.1] mb-10 max-w-2xl mx-auto" style={{ fontSize: "clamp(1.8rem, 3.8vw, 3.4rem)" }}>
-              We&apos;ll build your brand from the ground up.
-              <span className="italic"> Identity, strategy, story</span>, the whole thing.
-            </h2>
-          </Reveal>
-          <Reveal delay={0.14}>
-            <Magnetic strength={0.35}>
-              <a
-                href="#footer"
-                data-cursor="Go"
-                className="group relative inline-flex items-center gap-4 overflow-hidden rounded-full border border-[#0A0A0A] px-9 py-4"
-              >
-                <span className="absolute inset-0 bg-[#0A0A0A] translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)]" />
-                <span className="relative z-10 text-[10px] tracking-[0.28em] uppercase text-[#0A0A0A] group-hover:text-[#F3F1EC] transition-colors duration-500">
-                  Are You Ready?
-                </span>
-                <span className="relative z-10 w-7 h-7 rounded-full border border-[#0A0A0A] group-hover:border-[#F3F1EC] flex items-center justify-center overflow-hidden">
-                  <span className="text-[#0A0A0A] group-hover:text-[#F3F1EC] transition-all duration-500 group-hover:translate-x-5">→</span>
-                  <span className="absolute text-[#F3F1EC] -translate-x-5 group-hover:translate-x-0 transition-transform duration-500">→</span>
-                </span>
-              </a>
-            </Magnetic>
-          </Reveal>
-          <SectionNo n="08" />
-        </div>
-      </Panel>
 
       {/* ═══ CONTACT (woven in, now incl. Three Cities) ═══ */}
       <Panel index={10} bg="ivory" minH="auto" pin={false}>

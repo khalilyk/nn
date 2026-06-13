@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import ThreeCities from "./ThreeCities";
 
 /* BE@RBRICK figure with an eye that follows the cursor (auto-detected eye box). */
 function Bear() {
@@ -96,6 +95,69 @@ function Bear() {
   );
 }
 
+/* Compact interactive city codes — types out the full name on hover. */
+const CITIES = [
+  { code: "SYD", name: "SYDNEY", line: "Where we're based, and where we build." },
+  { code: "DXB", name: "DUBAI", line: "Where we cut our teeth on some of the region's most awarded concepts." },
+  { code: "BEY", name: "BEIRUT", line: "Where hospitality isn't a business, it's a way of life." },
+];
+
+function CityCode({ code, name, active, onEnter }: { code: string; name: string; active: boolean; onEnter: () => void }) {
+  const [text, setText] = useState(code);
+  const [hovered, setHovered] = useState(false);
+  const cur = useRef(code);
+  useEffect(() => {
+    const target = hovered ? name : code;
+    let cancelled = false;
+    let t: ReturnType<typeof setTimeout>;
+    const step = () => {
+      if (cancelled) return;
+      const c = cur.current;
+      if (c === target) return;
+      const next = !target.startsWith(c) ? c.slice(0, -1) : target.slice(0, c.length + 1);
+      cur.current = next;
+      setText(next || " ");
+      t = setTimeout(step, 32);
+    };
+    step();
+    return () => { cancelled = true; clearTimeout(t); };
+  }, [hovered, code, name]);
+  return (
+    <button
+      onMouseEnter={() => { setHovered(true); onEnter(); }}
+      onMouseLeave={() => setHovered(false)}
+      className="font-display leading-[0.95] transition-colors duration-500 whitespace-nowrap"
+      style={{ fontSize: "clamp(1.7rem, 3.6vw, 2.8rem)", color: active ? "#F3F1EC" : "rgba(243,241,236,0.28)" }}
+    >
+      {text}
+    </button>
+  );
+}
+
+function CityCodes() {
+  const [active, setActive] = useState(0);
+  return (
+    <div className="mt-8">
+      <div className="flex flex-wrap items-baseline gap-x-6 gap-y-1 justify-center md:justify-start">
+        {CITIES.map((c, i) => (
+          <CityCode key={c.code} code={c.code} name={c.name} active={active === i} onEnter={() => setActive(i)} />
+        ))}
+      </div>
+      <div className="relative h-9 mt-3 max-w-md mx-auto md:mx-0">
+        {CITIES.map((c, i) => (
+          <p
+            key={c.code}
+            className="absolute inset-x-0 top-0 text-[#B9B5AE] text-xs md:text-[13px] leading-relaxed transition-all duration-500 text-center md:text-left"
+            style={{ opacity: active === i ? 1 : 0, transform: active === i ? "translateY(0)" : "translateY(8px)" }}
+          >
+            {c.line}
+          </p>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export default function ContactSection() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -154,11 +216,6 @@ export default function ContactSection() {
             <img src="/dotted-sphere.svg" alt="" className="animate-[spin-slow_90s_linear_infinite] mt-[6vh]" style={{ width: "clamp(500px, 72vw, 1000px)", opacity: 0.1 }} />
           </div>
 
-          {/* THREE CITIES — merged in */}
-          <div className="relative z-10 mb-20 md:mb-28">
-            <ThreeCities sphere={false} />
-          </div>
-
           <div className="relative z-10 max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 items-start">
             {/* LEFT — details */}
             <div className="relative text-center md:text-left md:sticky md:top-28">
@@ -169,6 +226,9 @@ export default function ContactSection() {
                 <h3 className="font-editorial leading-[1.1] max-w-md mx-auto md:mx-0" style={{ fontSize: "clamp(1.6rem, 2.8vw, 2.4rem)" }}>
                   A consultancy for brands with appetite, edge and a reason to exist.
                 </h3>
+
+                {/* interactive city codes */}
+                <CityCodes />
 
                 {/* large contact details */}
                 <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 gap-8 text-left">
