@@ -231,11 +231,6 @@ export default function Publication() {
         </div>
       </Panel>
 
-      {/* ═══ ABOUT (woven in) ═══ */}
-      <Panel index={2} bg="ivory" minH="auto" pin={false}>
-        <AboutSection />
-      </Panel>
-
       {/* ═══ 02, NOBODY REMEMBERS NORMAL + THE MENU ═══ */}
       <Panel index={2} bg="ivory" minH="auto" pin={false} clip={false}>
         <div id="s02" className="relative">
@@ -263,6 +258,11 @@ export default function Publication() {
 
           <SectionNo n="02" />
         </div>
+      </Panel>
+
+      {/* ═══ ABOUT (woven in) ═══ */}
+      <Panel index={2} bg="ivory" minH="auto" pin={false}>
+        <AboutSection />
       </Panel>
 
       {/* ═══ 03, CLIENTS ═══ */}
