@@ -147,34 +147,35 @@ export default function ContactSection() {
           <Bear />
         </div>
 
-        <div className="relative z-20 -mt-[clamp(40px,7vw,90px)] bg-[#0A0A0A] text-[#F3F1EC] px-10 md:px-16 py-14 md:py-20 flex flex-col items-center text-center" data-cursor-color="#F3F1EC">
-          <p className="text-[10px] tracking-[0.25em] uppercase text-[#F3F1EC]/60 mb-8 flex items-center gap-3">
-            <span className="w-8 h-px bg-[#F3F1EC]/40" /> Contact Us <span className="w-8 h-px bg-[#F3F1EC]/40" />
-          </p>
-          <h3 className="font-display uppercase leading-[0.95] tracking-tight" style={{ fontSize: "clamp(1.9rem, 3.4vw, 3rem)" }}>
-            You&apos;ll find us<br />somewhere between<br />Sydney, Dubai &amp; Beirut
-          </h3>
-
-          <div className="mt-14 grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-8 w-full max-w-3xl">
-            <div className="text-center md:text-left">
-              <p className="text-[9px] tracking-[0.3em] uppercase text-[#F3F1EC]/40 mb-3">Slide into our inbox</p>
-              <a href="mailto:hello@thisisnn.com" data-cursor="Say hi" className="group font-editorial inline-flex items-center gap-2 hover:opacity-70 transition-opacity" style={{ fontSize: "clamp(1.3rem, 2.4vw, 2rem)" }}>
-                hello@thisisnn.com
-                <span aria-hidden className="text-[#FF2EC4] group-hover:-translate-x-1 transition-transform">{"↖︎"}</span>
-              </a>
+        <div className="relative z-20 -mt-[clamp(40px,7vw,90px)] bg-[#0A0A0A] text-[#F3F1EC] px-8 md:px-16 py-14 md:py-20" data-cursor-color="#F3F1EC">
+          <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 items-start">
+            {/* LEFT — find us + details */}
+            <div className="text-center md:text-left md:sticky md:top-28">
+              <p className="text-[10px] tracking-[0.25em] uppercase text-[#F3F1EC]/60 mb-8 inline-flex items-center gap-3">
+                <span className="w-8 h-px bg-[#F3F1EC]/40" /> Contact Us
+              </p>
+              <h3 className="font-display uppercase leading-[0.98] tracking-tight" style={{ fontSize: "clamp(1.9rem, 3vw, 2.8rem)" }}>
+                You&apos;ll find us somewhere between Sydney, Dubai &amp; Beirut
+              </h3>
+              <div className="mt-12">
+                <p className="text-[9px] tracking-[0.3em] uppercase text-[#F3F1EC]/40 mb-3">Slide into our inbox</p>
+                <a href="mailto:hello@thisisnn.com" data-cursor="Say hi" className="group font-editorial inline-flex items-center gap-2 hover:opacity-70 transition-opacity" style={{ fontSize: "clamp(1.3rem, 2.2vw, 1.9rem)" }}>
+                  hello@thisisnn.com
+                  <span aria-hidden className="text-[#FF2EC4] group-hover:-translate-x-1 transition-transform">{"↖︎"}</span>
+                </a>
+              </div>
+              <div className="mt-8">
+                <p className="text-[9px] tracking-[0.3em] uppercase text-[#FF2EC4] mb-3">[ Just don&apos;t leave a missed call ]</p>
+                <a href="tel:+610433714701" data-cursor="Ring ring" className="font-editorial inline-block hover:opacity-70 transition-opacity" style={{ fontSize: "clamp(1.3rem, 2.2vw, 1.9rem)" }}>
+                  +61 0433 714 701
+                </a>
+              </div>
             </div>
-            <div className="text-center md:text-right">
-              <p className="text-[9px] tracking-[0.3em] uppercase text-[#FF2EC4] mb-3">[ Just don&apos;t leave a missed call ]</p>
-              <a href="tel:+610433714701" data-cursor="Ring ring" className="font-editorial inline-block hover:opacity-70 transition-opacity" style={{ fontSize: "clamp(1.3rem, 2.4vw, 2rem)" }}>
-                +61 0433 714 701
-              </a>
-            </div>
-          </div>
 
-          {/* the form — merged into the same dark contact block */}
-          <div id="contact-form" className="w-full max-w-2xl mt-16 md:mt-20 pt-12 md:pt-16 border-t border-[#F3F1EC]/15 text-center">
-            <p className="text-[9px] tracking-[0.3em] uppercase text-[#F3F1EC]/40 mb-3">Or fill the form</p>
-            <h3 className="font-display uppercase leading-[0.95] tracking-tight mb-12" style={{ fontSize: "clamp(1.8rem, 4vw, 3rem)" }}>Wanna start something?</h3>
+            {/* RIGHT — the form */}
+            <div id="contact-form" className="text-center md:text-left">
+              <p className="text-[9px] tracking-[0.3em] uppercase text-[#F3F1EC]/40 mb-3">Or fill the form</p>
+              <h3 className="font-display uppercase leading-[0.95] tracking-tight mb-10" style={{ fontSize: "clamp(1.7rem, 3.4vw, 2.6rem)" }}>Wanna start something?</h3>
             <form onSubmit={submit} className="flex flex-col gap-8">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-left">
                 <div>
@@ -227,6 +228,7 @@ export default function ContactSection() {
                 </p>
               )}
             </form>
+            </div>
           </div>
         </div>
       </div>
