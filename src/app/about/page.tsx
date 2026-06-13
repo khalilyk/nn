@@ -71,47 +71,6 @@ export default function AboutPage() {
       {/* PARALLAX IMAGE */}
       <ParallaxImage src="/nn-f3.png" alt="Out in the city" />
 
-      {/* MANIFESTO BAND */}
-      <section className="relative bg-[#0A0A0A] text-[#F3F1EC] px-8 md:px-16 py-24 md:py-32" data-cursor-color="#F3F1EC">
-        <div className="max-w-4xl mx-auto">
-          <p className="text-[10px] tracking-[0.3em] uppercase text-[#F3F1EC]/40 mb-8">The short version</p>
-          <p className="font-editorial leading-[1.25]" style={{ fontSize: "clamp(1.6rem, 3.4vw, 2.8rem)" }}>
-            The world doesn&apos;t need more of the same. We&apos;re not an agency that follows trends, we&apos;re a
-            studio that builds brands with staying power, rooted in genuine hospitality.
-          </p>
-        </div>
-      </section>
-
-      {/* VALUES */}
-      <section className="px-8 md:px-16 py-24 md:py-32 max-w-6xl mx-auto">
-        <h2 className="font-display uppercase tracking-tight mb-14" style={{ fontSize: "clamp(1.6rem, 4vw, 3rem)" }}>
-          How we&apos;re wired
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-[#0A0A0A]/10">
-          {VALUES.map((v) => (
-            <div key={v.n} className="bg-white p-8 md:p-12">
-              <span className="font-display text-[#FF2EC4] text-2xl">{v.n}</span>
-              <h3 className="font-display uppercase tracking-tight mt-4 mb-3" style={{ fontSize: "clamp(1.2rem, 2.2vw, 1.7rem)" }}>
-                {v.t}
-              </h3>
-              <p className="text-[13px] md:text-[14px] leading-relaxed text-[#0A0A0A]/60">{v.d}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* TWO-IMAGE SPLIT — full edge to edge */}
-      <section className="grid grid-cols-1 md:grid-cols-2">
-        <div className="relative w-full aspect-[4/5] md:aspect-[3/4] overflow-hidden">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/nn-f2.png" alt="Not Normal" className="absolute inset-0 w-full h-full object-cover" />
-        </div>
-        <div className="relative w-full aspect-[4/5] md:aspect-[3/4] overflow-hidden">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/nn-f5.png" alt="Not Normal" className="absolute inset-0 w-full h-full object-cover" />
-        </div>
-      </section>
-
       {/* FOUNDER — split screen, image on the right */}
       <section className="px-8 md:px-16 py-24 md:py-32">
         <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-start">
@@ -157,6 +116,47 @@ export default function AboutPage() {
               <img src="/nn-founder.png" alt="Khalil Khouri" className="absolute inset-0 w-full h-full object-cover" />
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* MANIFESTO BAND */}
+      <section className="relative bg-[#0A0A0A] text-[#F3F1EC] px-8 md:px-16 py-24 md:py-32" data-cursor-color="#F3F1EC">
+        <div className="max-w-4xl mx-auto">
+          <p className="text-[10px] tracking-[0.3em] uppercase text-[#F3F1EC]/40 mb-8">The short version</p>
+          <p className="font-editorial leading-[1.25]" style={{ fontSize: "clamp(1.6rem, 3.4vw, 2.8rem)" }}>
+            The world doesn&apos;t need more of the same. We&apos;re not an agency that follows trends, we&apos;re a
+            studio that builds brands with staying power, rooted in genuine hospitality.
+          </p>
+        </div>
+      </section>
+
+      {/* VALUES */}
+      <section className="px-8 md:px-16 py-24 md:py-32 max-w-6xl mx-auto">
+        <h2 className="font-display uppercase tracking-tight mb-14" style={{ fontSize: "clamp(1.6rem, 4vw, 3rem)" }}>
+          How we&apos;re wired
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-[#0A0A0A]/10">
+          {VALUES.map((v) => (
+            <div key={v.n} className="bg-white p-8 md:p-12">
+              <span className="font-display text-[#FF2EC4] text-2xl">{v.n}</span>
+              <h3 className="font-display uppercase tracking-tight mt-4 mb-3" style={{ fontSize: "clamp(1.2rem, 2.2vw, 1.7rem)" }}>
+                {v.t}
+              </h3>
+              <p className="text-[13px] md:text-[14px] leading-relaxed text-[#0A0A0A]/60">{v.d}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* TWO-IMAGE SPLIT — full edge to edge */}
+      <section className="grid grid-cols-1 md:grid-cols-2">
+        <div className="relative w-full aspect-[4/5] md:aspect-[3/4] overflow-hidden">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/nn-f2.png" alt="Not Normal" className="absolute inset-0 w-full h-full object-cover" />
+        </div>
+        <div className="relative w-full aspect-[4/5] md:aspect-[3/4] overflow-hidden">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/nn-f5.png" alt="Not Normal" className="absolute inset-0 w-full h-full object-cover" />
         </div>
       </section>
 
