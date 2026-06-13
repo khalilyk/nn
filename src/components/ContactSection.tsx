@@ -224,8 +224,12 @@ export default function ContactSection() {
                   <span className="w-8 h-px bg-[#F3F1EC]/40" /> Contact Us
                 </p>
                 <h3 className="font-editorial leading-[1.1] max-w-md mx-auto md:mx-0" style={{ fontSize: "clamp(1.6rem, 2.8vw, 2.4rem)" }}>
-                  A consultancy for brands with appetite, edge and a reason to exist.
+                  Not every project is for us.
                 </h3>
+                <div className="mt-5 space-y-4 text-[#F3F1EC]/65 leading-relaxed max-w-md mx-auto md:mx-0" style={{ fontSize: "clamp(0.9rem, 1.2vw, 1rem)" }}>
+                  <p>We keep our client roster intentionally small, allowing us to stay hands-on from strategy through to execution. That means availability is limited, and most months fill quickly.</p>
+                  <p>If you&apos;re serious about building something memorable, <span className="text-[#F3F1EC]">let&apos;s talk.</span></p>
+                </div>
 
                 {/* interactive city codes */}
                 <CityCodes />
