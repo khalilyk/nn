@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import ThreeCities from "./ThreeCities";
 
 /* BE@RBRICK figure with an eye that follows the cursor (auto-detected eye box). */
 function Bear() {
@@ -147,36 +148,27 @@ export default function ContactSection() {
           <Bear />
         </div>
 
-        <div className="relative z-20 -mt-[clamp(40px,7vw,90px)] bg-[#0A0A0A] text-[#F3F1EC] px-8 md:px-16 py-14 md:py-20" data-cursor-color="#F3F1EC">
-          <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 items-start">
-            {/* LEFT — find us + details */}
-            <div className="relative text-center md:text-left md:sticky md:top-28">
-              {/* oversized faint city coordinates */}
-              <span aria-hidden className="pointer-events-none absolute -top-8 left-1/2 md:left-0 -translate-x-1/2 md:translate-x-0 font-display uppercase whitespace-nowrap leading-none select-none text-[#F3F1EC]/[0.05]" style={{ fontSize: "clamp(3.2rem, 9vw, 7.5rem)" }}>
-                SYD · DXB · BEY
-              </span>
+        <div className="relative z-20 -mt-[clamp(40px,7vw,90px)] bg-[#0A0A0A] text-[#F3F1EC] px-8 md:px-16 py-16 md:py-24 overflow-hidden" data-cursor-color="#F3F1EC">
+          {/* rotating dotted-sphere background for the whole block */}
+          <div className="absolute inset-0 z-0 flex items-start justify-center pointer-events-none">
+            <img src="/dotted-sphere.svg" alt="" className="animate-[spin-slow_90s_linear_infinite] mt-[6vh]" style={{ width: "clamp(500px, 72vw, 1000px)", opacity: 0.1 }} />
+          </div>
 
+          {/* THREE CITIES — merged in */}
+          <div className="relative z-10 mb-20 md:mb-28">
+            <ThreeCities sphere={false} />
+          </div>
+
+          <div className="relative z-10 max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 items-start">
+            {/* LEFT — details */}
+            <div className="relative text-center md:text-left md:sticky md:top-28">
               <div className="relative">
                 <p className="text-[10px] tracking-[0.25em] uppercase text-[#F3F1EC]/60 mb-6 inline-flex items-center gap-3">
                   <span className="w-8 h-px bg-[#F3F1EC]/40" /> Contact Us
                 </p>
-                <h3 className="font-display uppercase leading-[0.98] tracking-tight" style={{ fontSize: "clamp(2rem, 3.4vw, 3.1rem)" }}>
-                  You&apos;ll find us somewhere between Sydney, Dubai &amp; Beirut.
-                </h3>
-                <p className="font-editorial italic mt-5 text-[#F3F1EC]/70 max-w-md mx-auto md:mx-0" style={{ fontSize: "clamp(1rem, 1.5vw, 1.2rem)" }}>
+                <h3 className="font-editorial leading-[1.1] max-w-md mx-auto md:mx-0" style={{ fontSize: "clamp(1.6rem, 2.8vw, 2.4rem)" }}>
                   A consultancy for brands with appetite, edge and a reason to exist.
-                </p>
-
-                {/* hand-drawn route SYD → DXB → BEY */}
-                <svg viewBox="0 0 420 64" className="w-full max-w-sm mx-auto md:mx-0 mt-9 overflow-visible" aria-hidden>
-                  <path d="M16,32 C80,6 130,52 210,26 C270,8 330,50 404,28" fill="none" stroke="#F3F1EC" strokeOpacity="0.45" strokeWidth="1.6" strokeDasharray="1 7" strokeLinecap="round" />
-                  <circle cx="16" cy="32" r="4.5" fill="#FF2EC4" />
-                  <circle cx="210" cy="26" r="4.5" fill="#F3F1EC" />
-                  <circle cx="404" cy="28" r="4.5" fill="#FF2EC4" />
-                  <text x="16" y="56" fill="#F3F1EC" fontSize="13" letterSpacing="2" textAnchor="middle" className="font-display">SYD</text>
-                  <text x="210" y="50" fill="#F3F1EC" fontSize="13" letterSpacing="2" textAnchor="middle" className="font-display">DXB</text>
-                  <text x="404" y="52" fill="#F3F1EC" fontSize="13" letterSpacing="2" textAnchor="middle" className="font-display">BEY</text>
-                </svg>
+                </h3>
 
                 {/* large contact details */}
                 <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 gap-8 text-left">

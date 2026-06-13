@@ -54,7 +54,7 @@ function CityButton({
   );
 }
 
-export default function ThreeCities() {
+export default function ThreeCities({ sphere: showSphere = true }: { sphere?: boolean }) {
   const ref = useRef<HTMLDivElement>(null);
   const sphere = useRef<HTMLDivElement>(null);
   const [seen, setSeen] = useState(false);
@@ -91,15 +91,17 @@ export default function ThreeCities() {
   return (
     <div ref={ref} className="relative w-full flex flex-col items-center justify-center text-center">
       {/* Rotating dotted-sphere background */}
-      <div ref={sphere} className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none" style={{ willChange: "transform" }}>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/dotted-sphere.svg"
-          alt=""
-          className="animate-[spin-slow_90s_linear_infinite]"
-          style={{ width: "clamp(414px, 57.5vw, 782px)", opacity: 0.15 }}
-        />
-      </div>
+      {showSphere && (
+        <div ref={sphere} className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none" style={{ willChange: "transform" }}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/dotted-sphere.svg"
+            alt=""
+            className="animate-[spin-slow_90s_linear_infinite]"
+            style={{ width: "clamp(414px, 57.5vw, 782px)", opacity: 0.15 }}
+          />
+        </div>
+      )}
 
       <div
         className="relative z-10 transition-all duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)]"

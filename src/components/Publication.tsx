@@ -15,7 +15,6 @@ import Magnetic from "./Magnetic";
 import HeroMedia from "./HeroMedia";
 import ScrollDriftX from "./ScrollDriftX";
 import Testimonials from "./Testimonials";
-import ThreeCities from "./ThreeCities";
 import HoverWord from "./HoverWord";
 import Greeting from "./Greeting";
 import ScrambleText from "./ScrambleText";
@@ -352,15 +351,7 @@ Meet <span className="italic">NORM</span>, our marketing exec.<br />
         </div>
       </Panel>
 
-      {/* ═══ 09, THREE CITIES ═══ */}
-      <Panel index={9} bg="black" minH="60vh" slideFrom="left">
-        <div className="relative min-h-[60vh] flex items-center px-8 md:px-16 py-20">
-          <ThreeCities />
-          <SectionNo n="09" dark />
-        </div>
-      </Panel>
-
-      {/* ═══ CONTACT (woven in) ═══ */}
+      {/* ═══ CONTACT (woven in, now incl. Three Cities) ═══ */}
       <Panel index={10} bg="ivory" minH="auto" pin={false}>
         <ContactSection />
       </Panel>
