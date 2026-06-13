@@ -82,7 +82,8 @@ export default function MenuCarousel({
   return (
     <div
       ref={vp}
-      className="relative w-full h-[100svh] overflow-hidden touch-pan-y select-none"
+      data-cursor="Drag"
+      className="relative w-full h-[100svh] overflow-hidden touch-pan-y select-none cursor-grab active:cursor-grabbing"
       onPointerDown={onDown}
       onPointerMove={onMove}
       onPointerUp={onUp}
