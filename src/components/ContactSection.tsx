@@ -124,7 +124,7 @@ export default function ContactSection() {
   };
 
   const field =
-    "w-full bg-transparent border-b border-[#0A0A0A]/30 py-3 text-[#0A0A0A] placeholder-[#0A0A0A]/35 outline-none focus:border-[#0A0A0A] transition-colors";
+    "w-full bg-transparent border-b border-[#F3F1EC]/30 py-3 text-[#F3F1EC] placeholder-[#F3F1EC]/35 outline-none focus:border-[#F3F1EC] transition-colors";
 
   return (
     <section id="contact" className="relative scroll-mt-20 bg-white text-[#0A0A0A] overflow-hidden">
@@ -171,69 +171,64 @@ export default function ContactSection() {
             </div>
           </div>
 
-          <a href="#contact-form" className="group flex flex-col items-center gap-3 mt-14 text-[10px] tracking-[0.22em] uppercase text-[#F3F1EC]">
-            Or fill the form
-            <span aria-hidden className="text-3xl md:text-4xl leading-none animate-squiggle group-hover:text-[#FF2EC4] transition-colors">↓</span>
-          </a>
+          {/* the form — merged into the same dark contact block */}
+          <div id="contact-form" className="w-full max-w-2xl mt-16 md:mt-20 pt-12 md:pt-16 border-t border-[#F3F1EC]/15 text-center">
+            <p className="text-[9px] tracking-[0.3em] uppercase text-[#F3F1EC]/40 mb-3">Or fill the form</p>
+            <h3 className="font-display uppercase leading-[0.95] tracking-tight mb-12" style={{ fontSize: "clamp(1.8rem, 4vw, 3rem)" }}>Wanna start something?</h3>
+            <form onSubmit={submit} className="flex flex-col gap-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-left">
+                <div>
+                  <label className="block text-[9px] tracking-[0.25em] uppercase text-[#F3F1EC]/50 mb-2">Your name</label>
+                  <input className={field} value={name} onChange={(e) => setName(e.target.value)} placeholder="Tony Stark" required />
+                </div>
+                <div>
+                  <label className="block text-[9px] tracking-[0.25em] uppercase text-[#F3F1EC]/50 mb-2">Email</label>
+                  <input className={field} type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="you@you.com" required />
+                </div>
+              </div>
+              <div className="text-left">
+                <label className="block text-[9px] tracking-[0.25em] uppercase text-[#F3F1EC]/50 mb-2">Message</label>
+                <textarea className={`${field} resize-none`} rows={4} value={message} onChange={(e) => setMessage(e.target.value)} placeholder="Tell us what you're building…" required />
+              </div>
+              <div>
+                <label className="block text-[9px] tracking-[0.25em] uppercase text-[#F3F1EC]/50 mb-3">How do you take your coffee?</label>
+                <div className="flex flex-wrap justify-center gap-2.5">
+                  {coffees.map((c) => {
+                    const on = coffee === c;
+                    return (
+                      <button
+                        key={c}
+                        type="button"
+                        onClick={() => setCoffee(on ? "" : c)}
+                        className={`rounded-full border px-4 py-2 text-[11px] tracking-[0.08em] transition-colors ${
+                          on ? "border-[#F3F1EC] bg-[#F3F1EC] text-[#0A0A0A]" : "border-[#F3F1EC]/25 text-[#F3F1EC]/70 hover:border-[#F3F1EC]"
+                        }`}
+                      >
+                        {c}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+              <button
+                type="submit"
+                data-cursor="Send"
+                disabled={status === "sending" || sent}
+                className="group relative w-full overflow-hidden rounded-full border border-[#F3F1EC] py-4 mt-2 disabled:opacity-60"
+              >
+                <span className="absolute inset-0 bg-[#F3F1EC] -translate-x-full group-hover:translate-x-0 transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)]" />
+                <span className="relative z-10 text-[11px] tracking-[0.2em] uppercase font-bold text-[#F3F1EC] group-hover:text-[#0A0A0A] transition-colors duration-500">
+                  {status === "sending" ? "Sending…" : sent ? "Got it, talk soon ✦" : "Send it"}
+                </span>
+              </button>
+              {status === "error" && (
+                <p className="text-[11px] tracking-[0.05em] text-[#FF2EC4] text-center">
+                  Something went wrong. Email us directly at hello@thisisnn.com.
+                </p>
+              )}
+            </form>
+          </div>
         </div>
-      </div>
-
-      {/* FORM */}
-      <div id="contact-form" className="relative max-w-3xl mx-0 md:mx-auto mt-6 md:mt-8 mb-16 md:mb-24 px-6 md:px-14 py-14 md:py-16 rounded-none md:rounded-3xl border-y md:border border-[#0A0A0A]/15 bg-white shadow-[0_24px_60px_-24px_rgba(0,0,0,0.18)] text-center">
-        <p className="text-[9px] tracking-[0.3em] uppercase text-[#0A0A0A]/40 mb-3">The Form</p>
-        <h3 className="font-display uppercase leading-[0.95] tracking-tight mb-12" style={{ fontSize: "clamp(1.8rem, 4vw, 3rem)" }}>Wanna start something?</h3>
-        <form onSubmit={submit} className="flex flex-col gap-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div>
-              <label className="block text-[9px] tracking-[0.25em] uppercase text-[#0A0A0A]/50 mb-2">Your name</label>
-              <input className={field} value={name} onChange={(e) => setName(e.target.value)} placeholder="Tony Stark" required />
-            </div>
-            <div>
-              <label className="block text-[9px] tracking-[0.25em] uppercase text-[#0A0A0A]/50 mb-2">Email</label>
-              <input className={field} type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="you@you.com" required />
-            </div>
-          </div>
-          <div>
-            <label className="block text-[9px] tracking-[0.25em] uppercase text-[#0A0A0A]/50 mb-2">Message</label>
-            <textarea className={`${field} resize-none`} rows={4} value={message} onChange={(e) => setMessage(e.target.value)} placeholder="Tell us what you're building…" required />
-          </div>
-          <div>
-            <label className="block text-[9px] tracking-[0.25em] uppercase text-[#0A0A0A]/50 mb-3">How do you take your coffee?</label>
-            <div className="flex flex-wrap justify-center gap-2.5">
-              {coffees.map((c) => {
-                const on = coffee === c;
-                return (
-                  <button
-                    key={c}
-                    type="button"
-                    onClick={() => setCoffee(on ? "" : c)}
-                    className={`rounded-full border px-4 py-2 text-[11px] tracking-[0.08em] transition-colors ${
-                      on ? "border-[#0A0A0A] bg-[#0A0A0A] text-[#EFEDE6]" : "border-[#0A0A0A]/25 text-[#0A0A0A]/70 hover:border-[#0A0A0A]"
-                    }`}
-                  >
-                    {c}
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-          <button
-            type="submit"
-            data-cursor="Send"
-            disabled={status === "sending" || sent}
-            className="group relative w-full overflow-hidden rounded-full border border-[#0A0A0A] py-4 mt-2 disabled:opacity-60"
-          >
-            <span className="absolute inset-0 bg-[#0A0A0A] -translate-x-full group-hover:translate-x-0 transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)]" />
-            <span className="relative z-10 text-[11px] tracking-[0.2em] uppercase font-bold text-[#0A0A0A] group-hover:text-[#EFEDE6] transition-colors duration-500">
-              {status === "sending" ? "Sending…" : sent ? "Got it, talk soon ✦" : "Send it"}
-            </span>
-          </button>
-          {status === "error" && (
-            <p className="text-[11px] tracking-[0.05em] text-[#FF2EC4] text-center">
-              Something went wrong. Email us directly at hello@thisisnn.com.
-            </p>
-          )}
-        </form>
       </div>
     </section>
   );
