@@ -150,25 +150,59 @@ export default function ContactSection() {
         <div className="relative z-20 -mt-[clamp(40px,7vw,90px)] bg-[#0A0A0A] text-[#F3F1EC] px-8 md:px-16 py-14 md:py-20" data-cursor-color="#F3F1EC">
           <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 items-start">
             {/* LEFT — find us + details */}
-            <div className="text-center md:text-left md:sticky md:top-28">
-              <p className="text-[10px] tracking-[0.25em] uppercase text-[#F3F1EC]/60 mb-8 inline-flex items-center gap-3">
-                <span className="w-8 h-px bg-[#F3F1EC]/40" /> Contact Us
-              </p>
-              <h3 className="font-display uppercase leading-[0.98] tracking-tight" style={{ fontSize: "clamp(1.9rem, 3vw, 2.8rem)" }}>
-                You&apos;ll find us somewhere between Sydney, Dubai &amp; Beirut
-              </h3>
-              <div className="mt-12">
-                <p className="text-[9px] tracking-[0.3em] uppercase text-[#F3F1EC]/40 mb-3">Slide into our inbox</p>
-                <a href="mailto:hello@thisisnn.com" data-cursor="Say hi" className="group font-editorial inline-flex items-center gap-2 hover:opacity-70 transition-opacity" style={{ fontSize: "clamp(1.3rem, 2.2vw, 1.9rem)" }}>
-                  hello@thisisnn.com
-                  <span aria-hidden className="text-[#FF2EC4] group-hover:-translate-x-1 transition-transform">{"↖︎"}</span>
-                </a>
-              </div>
-              <div className="mt-8">
-                <p className="text-[9px] tracking-[0.3em] uppercase text-[#FF2EC4] mb-3">[ Just don&apos;t leave a missed call ]</p>
-                <a href="tel:+610433714701" data-cursor="Ring ring" className="font-editorial inline-block hover:opacity-70 transition-opacity" style={{ fontSize: "clamp(1.3rem, 2.2vw, 1.9rem)" }}>
-                  +61 0433 714 701
-                </a>
+            <div className="relative text-center md:text-left md:sticky md:top-28">
+              {/* oversized faint city coordinates */}
+              <span aria-hidden className="pointer-events-none absolute -top-8 left-1/2 md:left-0 -translate-x-1/2 md:translate-x-0 font-display uppercase whitespace-nowrap leading-none select-none text-[#F3F1EC]/[0.05]" style={{ fontSize: "clamp(3.2rem, 9vw, 7.5rem)" }}>
+                SYD · DXB · BEY
+              </span>
+
+              <div className="relative">
+                <p className="text-[10px] tracking-[0.25em] uppercase text-[#F3F1EC]/60 mb-6 inline-flex items-center gap-3">
+                  <span className="w-8 h-px bg-[#F3F1EC]/40" /> Contact Us
+                </p>
+                <h3 className="font-display uppercase leading-[0.98] tracking-tight" style={{ fontSize: "clamp(2rem, 3.4vw, 3.1rem)" }}>
+                  You&apos;ll find us somewhere between Sydney, Dubai &amp; Beirut.
+                </h3>
+                <p className="font-editorial italic mt-5 text-[#F3F1EC]/70 max-w-md mx-auto md:mx-0" style={{ fontSize: "clamp(1rem, 1.5vw, 1.2rem)" }}>
+                  A consultancy for brands with appetite, edge and a reason to exist.
+                </p>
+
+                {/* hand-drawn route SYD → DXB → BEY */}
+                <svg viewBox="0 0 420 64" className="w-full max-w-sm mx-auto md:mx-0 mt-9 overflow-visible" aria-hidden>
+                  <path d="M16,32 C80,6 130,52 210,26 C270,8 330,50 404,28" fill="none" stroke="#F3F1EC" strokeOpacity="0.45" strokeWidth="1.6" strokeDasharray="1 7" strokeLinecap="round" />
+                  <circle cx="16" cy="32" r="4.5" fill="#FF2EC4" />
+                  <circle cx="210" cy="26" r="4.5" fill="#F3F1EC" />
+                  <circle cx="404" cy="28" r="4.5" fill="#FF2EC4" />
+                  <text x="16" y="56" fill="#F3F1EC" fontSize="13" letterSpacing="2" textAnchor="middle" className="font-display">SYD</text>
+                  <text x="210" y="50" fill="#F3F1EC" fontSize="13" letterSpacing="2" textAnchor="middle" className="font-display">DXB</text>
+                  <text x="404" y="52" fill="#F3F1EC" fontSize="13" letterSpacing="2" textAnchor="middle" className="font-display">BEY</text>
+                </svg>
+
+                {/* one big statement */}
+                <p className="mt-9 leading-relaxed text-[#F3F1EC]/85 max-w-md mx-auto md:mx-0" style={{ fontSize: "clamp(1.05rem, 1.5vw, 1.25rem)" }}>
+                  Got an idea, a venue, a brand or a half-formed thought? Send it through.
+                </p>
+
+                {/* large contact details */}
+                <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 gap-8 text-left">
+                  <div>
+                    <p className="text-[9px] tracking-[0.3em] uppercase text-[#F3F1EC]/40 mb-2">Email</p>
+                    <a href="mailto:hello@thisisnn.com" data-cursor="Say hi" className="font-editorial inline-block leading-tight hover:text-[#FF2EC4] transition-colors break-all" style={{ fontSize: "clamp(1.2rem, 2vw, 1.7rem)" }}>hello@thisisnn.com</a>
+                  </div>
+                  <div>
+                    <p className="text-[9px] tracking-[0.3em] uppercase text-[#F3F1EC]/40 mb-2">Phone</p>
+                    <a href="tel:+61433714701" data-cursor="Ring ring" className="font-editorial inline-block leading-tight hover:text-[#FF2EC4] transition-colors" style={{ fontSize: "clamp(1.2rem, 2vw, 1.7rem)" }}>+61 433 714 701</a>
+                  </div>
+                </div>
+
+                {/* magenta "start here" arrow pointing into the form */}
+                <div className="hidden md:flex items-center gap-3 mt-14 text-[#FF2EC4]">
+                  <span className="font-marker leading-none" style={{ fontSize: "clamp(1.4rem, 2.2vw, 2rem)" }}>Start here</span>
+                  <svg width="90" height="34" viewBox="0 0 90 34" fill="none" className="overflow-visible">
+                    <path d="M2,12 C30,0 56,2 82,18" stroke="#FF2EC4" strokeWidth="2" strokeLinecap="round" />
+                    <path d="M72,8 L84,19 L70,24" stroke="#FF2EC4" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </div>
               </div>
             </div>
 
