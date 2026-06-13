@@ -195,14 +195,6 @@ export default function ContactSection() {
                   </div>
                 </div>
 
-                {/* magenta "start here" arrow pointing into the form */}
-                <div className="hidden md:flex items-center gap-3 mt-14 text-[#FF2EC4]">
-                  <span className="font-marker leading-none" style={{ fontSize: "clamp(1.4rem, 2.2vw, 2rem)" }}>Start here</span>
-                  <svg width="90" height="34" viewBox="0 0 90 34" fill="none" className="overflow-visible">
-                    <path d="M2,12 C30,0 56,2 82,18" stroke="#FF2EC4" strokeWidth="2" strokeLinecap="round" />
-                    <path d="M72,8 L84,19 L70,24" stroke="#FF2EC4" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                </div>
               </div>
             </div>
 
