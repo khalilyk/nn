@@ -61,6 +61,15 @@ img { user-select: none; -webkit-user-drag: none; }
 
 @keyframes spin-slow { to { transform: rotate(360deg); } }
 
+/* liquid blob morph for the menu masonry cards */
+@keyframes liquid-morph {
+  0%, 100% { border-radius: 30% 34% 33% 35% / 34% 31% 35% 33%; }
+  50%      { border-radius: 38% 27% 36% 30% / 27% 38% 30% 37%; }
+}
+.liquid-card { border-radius: 32% 34% 33% 35% / 34% 31% 35% 33%; animation: liquid-morph 14s ease-in-out infinite; }
+.liquid-card:hover { animation-duration: 6s; }
+@media (prefers-reduced-motion: reduce) { .liquid-card { animation: none; } }
+
 /* loader water-line wave */
 @keyframes water-wave { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 .water-wave { animation: water-wave 2.4s linear infinite; }
