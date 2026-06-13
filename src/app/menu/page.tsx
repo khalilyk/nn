@@ -5,6 +5,7 @@ import SiteFooter from "@/components/SiteFooter";
 import StarField from "@/components/StarField";
 import ServiceMindmap from "@/components/ServiceMindmap";
 import MobileMindmap from "@/components/MobileMindmap";
+import MenuCarousel from "@/components/MenuCarousel";
 
 export const metadata = {
   title: "The Menu · Not Normal",
@@ -113,6 +114,7 @@ export default function MenuPage() {
         </div>
       </header>
 
+      <MenuCarousel>
       {/* ── THE AMUSE-BOUCHÉ — pink typewriter bar menu ── */}
       <section className="relative bg-[#f09a9c] text-[#1c1012] overflow-hidden px-6 py-16 md:py-24 font-spacemono">
         <PaperTex seed={3} opacity={0.16} freq="0.7 0.8" />
@@ -337,6 +339,7 @@ export default function MenuPage() {
           </div>
         </div>
       </section>
+      </MenuCarousel>
 
       {/* WHAT WE DO — mindmap */}
       <section className="relative overflow-hidden bg-[#F3F1EC] text-[#0A0A0A] px-8 md:px-16 py-24 md:py-32">
