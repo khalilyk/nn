@@ -32,8 +32,8 @@ const POSTS = [
 /* The Journal — a simple editorial blog index. */
 export default function JournalSection() {
   return (
-    <section id="journal" className="scroll-mt-20 bg-[#F3F1EC] text-[#0A0A0A] px-8 md:px-16 py-24 md:py-32">
-      <div className="max-w-6xl mx-auto">
+    <section id="journal" className="scroll-mt-20 bg-[#E7E4DD] text-[#0A0A0A] px-4 sm:px-8 md:px-12 py-16 md:py-24">
+      <div className="max-w-6xl mx-auto rounded-[1.75rem] md:rounded-[2.5rem] bg-white px-7 sm:px-10 md:px-16 py-16 md:py-24 shadow-[0_50px_120px_-45px_rgba(0,0,0,0.55),0_18px_44px_-24px_rgba(0,0,0,0.3)]">
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-14">
           <div>
             <p className="text-[10px] tracking-[0.3em] uppercase text-[#0A0A0A]/45 mb-4">The Journal</p>
@@ -51,7 +51,7 @@ export default function JournalSection() {
             <article
               key={p.title}
               data-cursor="Read"
-              className="group relative bg-white border border-[#0A0A0A]/10 rounded-2xl p-8 md:p-10 hover:border-[#0A0A0A] transition-colors cursor-pointer"
+              className="group relative bg-[#F3F1EC] border border-[#0A0A0A]/10 rounded-2xl p-8 md:p-10 hover:border-[#0A0A0A] hover:-translate-y-1 transition-all duration-300 cursor-pointer"
             >
               <div className="flex items-center justify-between text-[9px] tracking-[0.3em] uppercase mb-6">
                 <span className="text-[#FF2EC4]">{p.cat}</span>
