@@ -178,11 +178,6 @@ export default function ContactSection() {
                   <text x="404" y="52" fill="#F3F1EC" fontSize="13" letterSpacing="2" textAnchor="middle" className="font-display">BEY</text>
                 </svg>
 
-                {/* one big statement */}
-                <p className="mt-9 leading-relaxed text-[#F3F1EC]/85 max-w-md mx-auto md:mx-0" style={{ fontSize: "clamp(1.05rem, 1.5vw, 1.25rem)" }}>
-                  Got an idea, a venue, a brand or a half-formed thought? Send it through.
-                </p>
-
                 {/* large contact details */}
                 <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 gap-8 text-left">
                   <div>
