@@ -39,7 +39,7 @@ export default function ChatLink() {
 
   return (
     <a
-      href="/contact"
+      href="/#contact"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       className="flex items-center gap-3 border border-current rounded-full px-4 py-2 hover:bg-current/5 transition-colors"

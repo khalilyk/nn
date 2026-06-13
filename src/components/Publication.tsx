@@ -23,6 +23,8 @@ import OverlapImages from "./OverlapImages";
 import MenuSplit from "./MenuSplit";
 import Postcard from "./Postcard";
 import ClientLogos from "./ClientLogos";
+import AboutSection from "./AboutSection";
+import ContactSection from "./ContactSection";
 
 /* ───────────────── STACKING PANEL ───────────────── */
 const SLIDE_OFFSET: Record<string, string> = {
@@ -230,6 +232,11 @@ export default function Publication() {
         </div>
       </Panel>
 
+      {/* ═══ ABOUT (woven in) ═══ */}
+      <Panel index={2} bg="ivory" minH="auto" pin={false}>
+        <AboutSection />
+      </Panel>
+
       {/* ═══ 02, NOBODY REMEMBERS NORMAL + THE MENU ═══ */}
       <Panel index={2} bg="ivory" minH="auto" pin={false} clip={false}>
         <div id="s02" className="relative">
@@ -351,6 +358,11 @@ Meet <span className="italic">NORM</span>, our marketing exec.<br />
           <ThreeCities />
           <SectionNo n="09" dark />
         </div>
+      </Panel>
+
+      {/* ═══ CONTACT (woven in) ═══ */}
+      <Panel index={10} bg="ivory" minH="auto" pin={false}>
+        <ContactSection />
       </Panel>
 
       {/* ═══ FOOTER, THE INVITATION ═══ */}

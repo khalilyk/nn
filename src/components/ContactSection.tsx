@@ -1,21 +1,13 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import Cursor from "@/components/Cursor";
-import Grain from "@/components/Grain";
-import SiteNav from "@/components/SiteNav";
-import SiteFooter from "@/components/SiteFooter";
 
-/* BE@RBRICK figure (image) with a single eye that follows the cursor.
-   The eye position/size is auto-detected from the image, so it stays
-   aligned no matter which bb-nn.png is used. */
+/* BE@RBRICK figure with an eye that follows the cursor (auto-detected eye box). */
 function Bear() {
   const eye = useRef<HTMLDivElement>(null);
   const pupil = useRef<HTMLDivElement>(null);
-  // detected eye box as fractions of the image: [cx, cy, w, h]
   const [box, setBox] = useState({ cx: 0.537, cy: 0.291, w: 0.12, h: 0.07 });
 
-  // Detect the white eye (a white island surrounded by the dark head)
   useEffect(() => {
     const im = new Image();
     im.crossOrigin = "anonymous";
@@ -42,7 +34,6 @@ function Bear() {
         const y = st.pop()!, x = st.pop()!;
         push(x + 1, y); push(x - 1, y); push(x, y + 1); push(x, y - 1);
       }
-      // largest non-bg white island in the top 45%
       const seen = new Uint8Array(W * H);
       let best: number[] | null = null;
       for (let y = 0; y < H * 0.45; y++) for (let x = 0; x < W; x++) {
@@ -70,8 +61,6 @@ function Bear() {
           if (a < minx) minx = a; if (a > maxx) maxx = a;
           if (b < miny) miny = b; if (b > maxy) maxy = b;
         }
-        // bbox centre, nudged slightly left, the detected box skews right
-        // from edge highlights so the iris would otherwise rest off-centre
         const w = (maxx - minx) / W;
         setBox({ cx: (minx + maxx) / 2 / W + w * 0.12, cy: (miny + maxy) / 2 / H, w, h: (maxy - miny) / H });
       }
@@ -85,10 +74,7 @@ function Bear() {
       const r = el.getBoundingClientRect();
       const cx = r.left + r.width / 2, cy = r.top + r.height / 2;
       const ang = Math.atan2(e.clientY - cy, e.clientX - cx);
-      const dx = Math.cos(ang), dy = Math.sin(ang);
-      const maxX = r.width * 0.28;
-      const maxY = r.height * 0.2;
-      p.style.transform = `translate(${dx * maxX}px, ${dy * maxY}px)`;
+      p.style.transform = `translate(${Math.cos(ang) * r.width * 0.28}px, ${Math.sin(ang) * r.height * 0.2}px)`;
     };
     window.addEventListener("mousemove", move);
     return () => window.removeEventListener("mousemove", move);
@@ -98,7 +84,6 @@ function Bear() {
     <div className="relative" style={{ width: "clamp(240px, 32vw, 400px)", aspectRatio: "1023 / 1537" }}>
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img src="/bb-nn.png" alt="" draggable={false} className="absolute inset-0 w-full h-full object-contain" />
-      {/* moving iris, centred on the detected eye */}
       <div
         ref={eye}
         className="absolute"
@@ -110,7 +95,7 @@ function Bear() {
   );
 }
 
-export default function ContactPage() {
+export default function ContactSection() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
@@ -132,10 +117,7 @@ export default function ContactPage() {
       });
       if (!res.ok) throw new Error("send failed");
       setStatus("sent");
-      setName("");
-      setEmail("");
-      setMessage("");
-      setCoffee("");
+      setName(""); setEmail(""); setMessage(""); setCoffee("");
     } catch {
       setStatus("error");
     }
@@ -145,43 +127,34 @@ export default function ContactPage() {
     "w-full bg-transparent border-b border-[#0A0A0A]/30 py-3 text-[#0A0A0A] placeholder-[#0A0A0A]/35 outline-none focus:border-[#0A0A0A] transition-colors";
 
   return (
-    <main className="relative bg-white text-[#0A0A0A] overflow-hidden">
-      <Cursor />
-      <Grain />
-      <SiteNav />
-
+    <section id="contact" className="relative scroll-mt-20 bg-white text-[#0A0A0A] overflow-hidden">
       {/* HERO */}
-      <section className="relative overflow-hidden">
-        {/* giant faint background word */}
+      <div className="relative overflow-hidden">
         <div aria-hidden className="absolute inset-x-0 top-[10%] z-[2] flex justify-center pointer-events-none select-none">
           <span className="font-display uppercase leading-none whitespace-nowrap text-[#0A0A0A]/[0.045]" style={{ fontSize: "clamp(5rem, 23vw, 22rem)" }}>
             Say Hello
           </span>
         </div>
 
-        {/* centered intro */}
-        <div className="relative z-10 flex flex-col items-center text-center px-6 pt-28 md:pt-36">
-          <h1 className="font-display uppercase leading-[0.95] tracking-tight" style={{ fontSize: "clamp(2.2rem, 6.5vw, 4.6rem)" }}>Ready to create<br />something unforgettable?</h1>
+        <div className="relative z-10 flex flex-col items-center text-center px-6 pt-24 md:pt-32">
+          <h2 className="font-display uppercase leading-[0.95] tracking-tight" style={{ fontSize: "clamp(2.2rem, 6.5vw, 4.6rem)" }}>Ready to create<br />something unforgettable?</h2>
           <p className="text-center text-[11px] md:text-[13px] tracking-[0.1em] text-[#0A0A0A]/65 mt-6 max-w-2xl leading-relaxed normal-case">
             Got an idea? A dream? A half-baked concept scribbled on a napkin? We&apos;re into that. Whether you&apos;re building from scratch or looking to shake things up, drop us a message. We&apos;re here for bold moves, real conversations, and doing things differently, one unforgettable brand at a time.
           </p>
         </div>
 
-        {/* peeking one-eyed bear */}
         <div className="relative z-[1] flex justify-center mt-6">
           <Bear />
         </div>
 
-        {/* two black panels (peek over the character) */}
-        <div className="relative z-20 -mt-[clamp(40px,7vw,90px)] bg-[#0A0A0A] text-[#F3F1EC] px-10 md:px-16 py-14 md:py-20 flex flex-col items-center text-center">
+        <div className="relative z-20 -mt-[clamp(40px,7vw,90px)] bg-[#0A0A0A] text-[#F3F1EC] px-10 md:px-16 py-14 md:py-20 flex flex-col items-center text-center" data-cursor-color="#F3F1EC">
           <p className="text-[10px] tracking-[0.25em] uppercase text-[#F3F1EC]/60 mb-8 flex items-center gap-3">
             <span className="w-8 h-px bg-[#F3F1EC]/40" /> Contact Us <span className="w-8 h-px bg-[#F3F1EC]/40" />
           </p>
-          <h2 className="font-display uppercase leading-[0.95] tracking-tight" style={{ fontSize: "clamp(1.9rem, 3.4vw, 3rem)" }}>
+          <h3 className="font-display uppercase leading-[0.95] tracking-tight" style={{ fontSize: "clamp(1.9rem, 3.4vw, 3rem)" }}>
             You&apos;ll find us<br />somewhere between<br />Sydney, Dubai &amp; Beirut
-          </h2>
+          </h3>
 
-          {/* contact details, the fun way — email left, number right */}
           <div className="mt-14 grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-8 w-full max-w-3xl">
             <div className="text-center md:text-left">
               <p className="text-[9px] tracking-[0.3em] uppercase text-[#F3F1EC]/40 mb-3">Slide into our inbox</p>
@@ -198,17 +171,17 @@ export default function ContactPage() {
             </div>
           </div>
 
-          <a href="#form" className="group flex flex-col items-center gap-3 mt-14 text-[10px] tracking-[0.22em] uppercase text-[#F3F1EC]">
+          <a href="#contact-form" className="group flex flex-col items-center gap-3 mt-14 text-[10px] tracking-[0.22em] uppercase text-[#F3F1EC]">
             Or fill the form
             <span aria-hidden className="text-3xl md:text-4xl leading-none animate-squiggle group-hover:text-[#FF2EC4] transition-colors">↓</span>
           </a>
         </div>
-      </section>
+      </div>
 
       {/* FORM */}
-      <section id="form" className="relative max-w-3xl mx-0 md:mx-auto mt-6 md:mt-8 mb-12 md:mb-20 px-6 md:px-14 py-14 md:py-16 rounded-none md:rounded-3xl border-y md:border border-[#0A0A0A]/15 bg-white shadow-[0_24px_60px_-24px_rgba(0,0,0,0.18)] text-center">
+      <div id="contact-form" className="relative max-w-3xl mx-0 md:mx-auto mt-6 md:mt-8 mb-16 md:mb-24 px-6 md:px-14 py-14 md:py-16 rounded-none md:rounded-3xl border-y md:border border-[#0A0A0A]/15 bg-white shadow-[0_24px_60px_-24px_rgba(0,0,0,0.18)] text-center">
         <p className="text-[9px] tracking-[0.3em] uppercase text-[#0A0A0A]/40 mb-3">The Form</p>
-        <h2 className="font-display uppercase leading-[0.95] tracking-tight mb-12" style={{ fontSize: "clamp(1.8rem, 4vw, 3rem)" }}>Wanna start something?</h2>
+        <h3 className="font-display uppercase leading-[0.95] tracking-tight mb-12" style={{ fontSize: "clamp(1.8rem, 4vw, 3rem)" }}>Wanna start something?</h3>
         <form onSubmit={submit} className="flex flex-col gap-8">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div>
@@ -235,9 +208,7 @@ export default function ContactPage() {
                     type="button"
                     onClick={() => setCoffee(on ? "" : c)}
                     className={`rounded-full border px-4 py-2 text-[11px] tracking-[0.08em] transition-colors ${
-                      on
-                        ? "border-[#0A0A0A] bg-[#0A0A0A] text-[#EFEDE6]"
-                        : "border-[#0A0A0A]/25 text-[#0A0A0A]/70 hover:border-[#0A0A0A]"
+                      on ? "border-[#0A0A0A] bg-[#0A0A0A] text-[#EFEDE6]" : "border-[#0A0A0A]/25 text-[#0A0A0A]/70 hover:border-[#0A0A0A]"
                     }`}
                   >
                     {c}
@@ -263,9 +234,7 @@ export default function ContactPage() {
             </p>
           )}
         </form>
-      </section>
-
-      <SiteFooter />
-    </main>
+      </div>
+    </section>
   );
 }
