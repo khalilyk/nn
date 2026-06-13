@@ -114,7 +114,7 @@ export default function MenuPage() {
         </div>
       </header>
 
-      <MenuCarousel>
+      <MenuCarousel bgs={["#f09a9c", "#d7e5db", "#f1ede2", "#0A0A0A"]}>
       {/* ── THE AMUSE-BOUCHÉ — pink typewriter bar menu ── */}
       <section className="relative bg-[#f09a9c] text-[#1c1012] overflow-hidden px-6 py-16 md:py-24 font-spacemono">
         <PaperTex seed={3} opacity={0.16} freq="0.7 0.8" />

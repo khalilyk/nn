@@ -2,83 +2,163 @@
 
 import { Children, useEffect, useRef, useState } from "react";
 
-/* Auto-looping horizontal carousel for the four course "menus".
-   Advances left → right on an interval, seamless infinite loop, pauses on hover. */
-export default function MenuCarousel({ children, interval = 6000 }: { children: React.ReactNode; interval?: number }) {
+/* Full-screen, auto-looping course carousel.
+   Each slide fills the viewport height (content auto-scaled to fit — no scrolling).
+   Advances left → right on a timer; also supports arrows and drag/swipe. */
+export default function MenuCarousel({
+  children,
+  bgs = [],
+  interval = 6000,
+}: {
+  children: React.ReactNode;
+  bgs?: string[];
+  interval?: number;
+}) {
   const slides = Children.toArray(children);
   const n = slides.length;
-  const all = n > 0 ? [...slides, slides[0]] : slides; // clone first for a seamless wrap
-  const [i, setI] = useState(0);
+  const base = n > 1 ? 1 : 0;
+  const all = n > 1 ? [slides[n - 1], ...slides, slides[0]] : slides; // clones for seamless wrap
+
+  const [pos, setPos] = useState(base);
   const [anim, setAnim] = useState(true);
-  const [paused, setPaused] = useState(false);
-  const [h, setH] = useState<number | undefined>(undefined);
-  const trackRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const [w, setW] = useState(0);
+  const [drag, setDrag] = useState(0);
+  const dragging = useRef(false);
+  const startX = useRef(0);
+  const paused = useRef(false);
+  const vp = useRef<HTMLDivElement>(null);
 
-  // auto-advance
   useEffect(() => {
-    if (paused || n <= 1) return;
-    const id = setInterval(() => setI((p) => p + 1), interval);
+    const el = vp.current;
+    if (!el) return;
+    const upd = () => setW(el.clientWidth);
+    upd();
+    const ro = new ResizeObserver(upd);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (n <= 1) return;
+    const id = setInterval(() => { if (!paused.current) { setAnim(true); setPos((p) => p + 1); } }, interval);
     return () => clearInterval(id);
-  }, [interval, paused, n]);
+  }, [interval, n]);
 
-  // seamless wrap: when the clone (index n) settles, snap back to 0 without animation
+  // seamless wrap at the clones
   useEffect(() => {
-    if (i === n && n > 0) {
-      const t = setTimeout(() => { setAnim(false); setI(0); }, 720);
-      return () => clearTimeout(t);
-    }
-  }, [i, n]);
+    if (n <= 1) return;
+    if (pos === n + 1) { const t = setTimeout(() => { setAnim(false); setPos(1); }, 720); return () => clearTimeout(t); }
+    if (pos === 0) { const t = setTimeout(() => { setAnim(false); setPos(n); }, 720); return () => clearTimeout(t); }
+  }, [pos, n]);
 
-  // re-enable animation a frame after a no-anim snap
   useEffect(() => {
-    if (!anim) {
-      const r = requestAnimationFrame(() => requestAnimationFrame(() => setAnim(true)));
-      return () => cancelAnimationFrame(r);
-    }
+    if (!anim) { const r = requestAnimationFrame(() => requestAnimationFrame(() => setAnim(true))); return () => cancelAnimationFrame(r); }
   }, [anim]);
 
-  // match viewport height to the active slide (and track its image-load/resize growth)
-  useEffect(() => {
-    const el = trackRefs.current[i];
-    if (!el) return;
-    const update = () => setH(el.offsetHeight);
-    update();
-    const ro = new ResizeObserver(update);
-    ro.observe(el);
-    window.addEventListener("resize", update);
-    return () => { ro.disconnect(); window.removeEventListener("resize", update); };
-  }, [i]);
+  const onDown = (e: React.PointerEvent) => {
+    if (n <= 1) return;
+    if ((e.target as HTMLElement).closest("button")) return; // let arrows/dots work
+    dragging.current = true;
+    startX.current = e.clientX;
+    paused.current = true;
+    setAnim(false);
+    try { e.currentTarget.setPointerCapture(e.pointerId); } catch {}
+  };
+  const onMove = (e: React.PointerEvent) => { if (dragging.current) setDrag(e.clientX - startX.current); };
+  const onUp = () => {
+    if (!dragging.current) return;
+    dragging.current = false;
+    paused.current = false;
+    const d = drag;
+    setDrag(0);
+    setAnim(true);
+    if (Math.abs(d) > Math.min(w * 0.16, 110)) setPos((p) => (d < 0 ? p + 1 : p - 1));
+  };
 
-  const dot = i % (n || 1);
+  const go = (dir: number) => { setAnim(true); setPos((p) => p + dir); };
+  const dotActive = (((pos - base) % n) + n) % n;
+  const tx = -(pos * w) + drag;
 
   return (
     <div
-      className="relative overflow-hidden"
-      style={{ height: h, transition: anim ? "height 0.6s cubic-bezier(0.7,0,0.3,1)" : "none" }}
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
+      ref={vp}
+      className="relative w-full h-[100svh] overflow-hidden touch-pan-y select-none"
+      onPointerDown={onDown}
+      onPointerMove={onMove}
+      onPointerUp={onUp}
+      onPointerCancel={onUp}
+      onMouseEnter={() => { paused.current = true; }}
+      onMouseLeave={() => { paused.current = false; }}
     >
       <div
-        className="flex items-start"
-        style={{ transform: `translateX(-${i * 100}%)`, transition: anim ? "transform 0.7s cubic-bezier(0.7,0,0.3,1)" : "none" }}
+        className="flex h-full"
+        style={{ transform: `translate3d(${tx}px,0,0)`, transition: anim && !dragging.current ? "transform 0.7s cubic-bezier(0.7,0,0.3,1)" : "none" }}
       >
-        {all.map((s, idx) => (
-          <div key={idx} ref={(el) => { trackRefs.current[idx] = el; }} className="w-full shrink-0">
-            {s}
-          </div>
-        ))}
+        {all.map((s, idx) => {
+          const real = (((idx - base) % n) + n) % n;
+          return <Slide key={idx} bg={bgs[real]}>{s}</Slide>;
+        })}
       </div>
 
-      {/* progress dots */}
+      {n > 1 && (
+        <>
+          <button
+            aria-label="Previous course"
+            onClick={() => go(-1)}
+            className="absolute left-3 md:left-6 top-1/2 -translate-y-1/2 z-30 w-11 h-11 md:w-12 md:h-12 rounded-full border border-white/70 text-white flex items-center justify-center text-2xl leading-none pb-0.5 mix-blend-difference hover:bg-white/10 transition-colors"
+          >
+            ‹
+          </button>
+          <button
+            aria-label="Next course"
+            onClick={() => go(1)}
+            className="absolute right-3 md:right-6 top-1/2 -translate-y-1/2 z-30 w-11 h-11 md:w-12 md:h-12 rounded-full border border-white/70 text-white flex items-center justify-center text-2xl leading-none pb-0.5 mix-blend-difference hover:bg-white/10 transition-colors"
+          >
+            ›
+          </button>
+        </>
+      )}
+
       <div className="absolute bottom-5 left-1/2 -translate-x-1/2 z-30 flex gap-2 mix-blend-difference">
         {slides.map((_, d) => (
           <button
             key={d}
-            aria-label={`Go to course ${d + 1}`}
-            onClick={() => { setAnim(true); setI(d); }}
-            className={`h-1.5 rounded-full bg-white transition-all duration-300 ${dot === d ? "w-7" : "w-1.5 opacity-50"}`}
+            aria-label={`Course ${d + 1}`}
+            onClick={() => { setAnim(true); setPos(d + base); }}
+            className={`h-1.5 rounded-full bg-white transition-all duration-300 ${dotActive === d ? "w-7" : "w-1.5 opacity-50"}`}
           />
         ))}
+      </div>
+    </div>
+  );
+}
+
+/* One slide: fills the viewport, scales its course down to fit (so it never scrolls). */
+function Slide({ bg, children }: { bg?: string; children: React.ReactNode }) {
+  const outer = useRef<HTMLDivElement>(null);
+  const inner = useRef<HTMLDivElement>(null);
+  const [scale, setScale] = useState(1);
+
+  useEffect(() => {
+    const fit = () => {
+      if (!outer.current || !inner.current) return;
+      const avail = outer.current.clientHeight;
+      const need = inner.current.scrollHeight; // transform doesn't affect this
+      setScale(need > avail ? avail / need : 1);
+    };
+    fit();
+    const ro = new ResizeObserver(fit);
+    if (inner.current) ro.observe(inner.current);
+    if (outer.current) ro.observe(outer.current);
+    window.addEventListener("resize", fit);
+    const t = setTimeout(fit, 400);
+    return () => { ro.disconnect(); window.removeEventListener("resize", fit); clearTimeout(t); };
+  }, []);
+
+  return (
+    <div ref={outer} className="w-full h-full shrink-0 overflow-hidden flex items-center justify-center" style={{ background: bg }}>
+      <div ref={inner} className="w-full" style={{ transform: `scale(${scale})`, transformOrigin: "center center" }}>
+        {children}
       </div>
     </div>
   );
