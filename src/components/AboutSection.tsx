@@ -1,10 +1,3 @@
-const VALUES = [
-  { n: "01", t: "Bold thinking", d: "The world doesn't need more of the same. We make the choice that makes people look twice." },
-  { n: "02", t: "Strategic clarity", d: "Taste with a reason behind it. Every decision earns its place." },
-  { n: "03", t: "Experiences people remember", d: "We build brands with staying power, not brands that chase the trend." },
-  { n: "04", t: "Rooted in hospitality", d: "We understand what makes a concept resonate and what builds genuine guest loyalty." },
-];
-
 /* The About content, woven into the one-pager. */
 export default function AboutSection() {
   return (
@@ -82,23 +75,6 @@ export default function AboutSection() {
         </div>
       </div>
 
-      {/* values */}
-      <div className="px-8 md:px-16 py-20 md:py-28 max-w-6xl mx-auto">
-        <h3 className="font-display uppercase tracking-tight mb-14" style={{ fontSize: "clamp(1.6rem, 4vw, 3rem)" }}>
-          How we&apos;re wired
-        </h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-[#0A0A0A]/10">
-          {VALUES.map((v) => (
-            <div key={v.n} className="bg-white p-8 md:p-12">
-              <span className="font-display text-[#FF2EC4] text-2xl">{v.n}</span>
-              <h4 className="font-display uppercase tracking-tight mt-4 mb-3" style={{ fontSize: "clamp(1.2rem, 2.2vw, 1.7rem)" }}>
-                {v.t}
-              </h4>
-              <p className="text-[13px] md:text-[14px] leading-relaxed text-[#0A0A0A]/60">{v.d}</p>
-            </div>
-          ))}
-        </div>
-      </div>
     </section>
   );
 }

@@ -218,7 +218,7 @@ export default function ContactSection() {
 
           <div className="relative z-10 max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 items-start">
             {/* LEFT — details */}
-            <div className="relative text-center md:text-left md:sticky md:top-28">
+            <div className="relative text-center md:text-left">
               <div className="relative">
                 <p className="text-[10px] tracking-[0.25em] uppercase text-[#F3F1EC]/60 mb-6 inline-flex items-center gap-3">
                   <span className="w-8 h-px bg-[#F3F1EC]/40" /> Contact Us

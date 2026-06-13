@@ -285,8 +285,14 @@ export default function Publication() {
 
       {/* ═══ 05, POSTCARD ═══ */}
       <Panel index={5} bg="ivory" minH="auto" pin={false} slideFrom="up">
-        <div className="relative px-8 md:px-16 py-28 md:py-36 bg-[#C0392B]">
-          <Postcard />
+        <div className="relative px-8 md:px-16 py-28 md:py-36 bg-[#C0392B] overflow-hidden">
+          {/* graffiti backdrop */}
+          <span aria-hidden className="pointer-events-none absolute inset-0 z-0 flex flex-col items-center justify-center text-center font-permanent uppercase leading-[0.78] text-[#0A0A0A]/[0.18] select-none" style={{ fontSize: "clamp(4rem, 17vw, 15rem)" }}>
+            Not The<br />Louvre
+          </span>
+          <div className="relative z-10">
+            <Postcard />
+          </div>
           <SectionNo n="05" dark />
         </div>
       </Panel>
