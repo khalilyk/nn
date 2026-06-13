@@ -210,7 +210,7 @@ export default function ContactSection() {
           <Bear />
         </div>
 
-        <div className="relative z-20 -mt-[clamp(40px,7vw,90px)] bg-[#0A0A0A] text-[#F3F1EC] px-8 md:px-16 py-16 md:py-24 overflow-hidden" data-cursor-color="#F3F1EC">
+        <div className="relative z-20 -mt-[clamp(40px,7vw,90px)] bg-[#0A0A0A] text-[#F3F1EC] px-8 md:px-16 pt-28 md:pt-44 pb-16 md:pb-24 overflow-hidden" data-cursor-color="#F3F1EC">
           {/* rotating dotted-sphere background for the whole block */}
           <div className="absolute inset-0 z-0 flex items-start justify-center pointer-events-none">
             <img src="/dotted-sphere.svg" alt="" className="animate-[spin-slow_90s_linear_infinite] mt-[6vh]" style={{ width: "clamp(500px, 72vw, 1000px)", opacity: 0.1 }} />
