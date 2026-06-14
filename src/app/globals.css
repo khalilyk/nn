@@ -60,6 +60,7 @@ main { overflow-x: clip; max-width: 100vw; }
 img { user-select: none; -webkit-user-drag: none; }
 
 @keyframes spin-slow { to { transform: rotate(360deg); } }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
 /* liquid blob morph for the menu masonry cards */
 @keyframes liquid-morph {
