@@ -197,7 +197,7 @@ export default function ContactSection() {
             </div>
 
             {/* RIGHT — the form, as a light card */}
-            <div id="contact-form" className="text-center md:text-left bg-[#F3F1EC] text-[#0A0A0A] rounded-3xl p-7 md:p-10 shadow-[0_34px_80px_-34px_rgba(0,0,0,0.7)]">
+            <div id="contact-form" data-cursor-color="#0A0A0A" className="text-center md:text-left bg-[#F3F1EC] text-[#0A0A0A] rounded-3xl p-7 md:p-10 shadow-[0_34px_80px_-34px_rgba(0,0,0,0.7)]">
               <p className="text-[9px] tracking-[0.3em] uppercase text-[#0A0A0A]/40 mb-3">Or fill the form</p>
               <h3 className="font-display uppercase leading-[0.95] tracking-tight mb-10" style={{ fontSize: "clamp(1.7rem, 3.4vw, 2.6rem)" }}>Wanna start something?</h3>
             <form onSubmit={submit} className="flex flex-col gap-8">
