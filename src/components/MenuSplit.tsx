@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import MenuLink from "./MenuLink";
 
 type Course = {
   course: string;
@@ -156,10 +155,6 @@ export default function MenuSplit() {
             </ul>
           </div>
         </div>
-      </div>
-
-      <div className="mt-14">
-        <MenuLink />
       </div>
     </div>
   );
