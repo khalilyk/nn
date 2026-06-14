@@ -21,7 +21,6 @@ import ScrambleText from "./ScrambleText";
 import OverlapImages from "./OverlapImages";
 import MenuSplit from "./MenuSplit";
 import Postcard from "./Postcard";
-import ClientLogos from "./ClientLogos";
 import AboutSection from "./AboutSection";
 import ContactSection from "./ContactSection";
 import JournalSection from "./JournalSection";
@@ -266,13 +265,10 @@ export default function Publication() {
         <AboutSection />
       </Panel>
 
-      {/* ═══ 03, CLIENTS + FEATURED PROJECTS (merged) ═══ */}
+      {/* ═══ 03, FEATURED PROJECTS ═══ */}
       <Panel index={3} bg="ivory" minH="auto" slideFrom="up">
         <div id="s04" className="relative bg-[#81D742] text-[#0A0A0A]" data-cursor-color="#F3F1EC">
-          <div className="px-8 md:px-16 pt-28 md:pt-36 pb-16 md:pb-20">
-            <ClientLogos />
-          </div>
-          <div className="relative flex items-center px-8 md:px-16 pb-28 md:pb-36 overflow-hidden">
+          <div className="relative flex items-center px-8 md:px-16 pt-28 md:pt-36 pb-28 md:pb-36 overflow-hidden">
             <ScrollDriftX range={0.07} className="w-full">
               <FeaturedCarousel />
             </ScrollDriftX>
