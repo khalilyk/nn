@@ -9,7 +9,6 @@ const LINKS = [
   { l: "About", href: "/#about", tip: "Who we are", shape: "rounded-full" },
   { l: "Projects", href: "/#s04", tip: "Selected proof", shape: "rounded-tl-xl rounded-br-xl" },
   { l: "Journal", href: "/#journal", tip: "Thinking & insights", shape: "rounded-lg" },
-  { l: "Contact", href: "/#contact", tip: "Let's chat", shape: "rounded-tr-xl rounded-bl-xl" },
 ];
 
 // staggered entrance for each stacked menu card
