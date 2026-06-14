@@ -30,6 +30,8 @@ export default function FeaturedCarousel() {
   const [open, setOpen] = useState<number | null>(null);
   const [gi, setGi] = useState(0);
   const [mounted, setMounted] = useState(false);
+  const STEP = 4;
+  const [visible, setVisible] = useState(STEP);
 
   useEffect(() => setMounted(true), []);
   useEffect(() => { setGi(0); }, [open]);
@@ -46,7 +48,7 @@ export default function FeaturedCarousel() {
     <div className="w-full select-none text-[#F3F1EC]">
       {/* all projects, stacked down the page */}
       <div className="flex flex-col gap-20 md:gap-28">
-        {projects.map((pr, i) => {
+        {projects.slice(0, visible).map((pr, i) => {
           const flip = i % 2 === 1;
           return (
             <div key={pr.name} className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-0 items-stretch">
@@ -86,6 +88,19 @@ export default function FeaturedCarousel() {
           );
         })}
       </div>
+
+      {visible < projects.length && (
+        <div className="mt-16 md:mt-20 flex justify-center">
+          <button
+            onClick={() => setVisible((v) => Math.min(v + STEP, projects.length))}
+            data-cursor="More"
+            className="group inline-flex items-center gap-4 rounded-full border border-[#F3F1EC]/30 px-8 py-4 text-[10px] tracking-[0.3em] uppercase hover:bg-[#F3F1EC] hover:text-[#0A0A0A] transition-colors"
+          >
+            Load more
+            <span className="text-[#F3F1EC]/40 group-hover:text-[#0A0A0A]/50">{visible} / {projects.length}</span>
+          </button>
+        </div>
+      )}
 
       {/* project popup — portaled to body to escape the transformed panel */}
       {mounted && doc && createPortal(
