@@ -261,7 +261,7 @@ export default function Publication() {
       </Panel>
 
       {/* ═══ 03, FEATURED PROJECTS ═══ */}
-      <Panel index={3} bg="ivory" minH="auto" pin={false} slideFrom="up">
+      <Panel index={3} bg="ivory" minH="auto" pin={false}>
         <div id="s04" className="relative bg-[#1C1C1C] text-[#F3F1EC]" data-cursor-color="#F3F1EC">
           <div className="relative px-8 md:px-16 pt-28 md:pt-36 pb-28 md:pb-36 overflow-hidden">
             <FeaturedCarousel />
