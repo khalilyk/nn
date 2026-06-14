@@ -97,8 +97,8 @@ export default function FeaturedCarousel() {
         </span>
       </div>
 
-      {/* Rows */}
-      <div>
+      {/* Rows — two columns */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 lg:gap-x-16 gap-y-2">
         {list.map((p, i) => (
           <Row key={p.name} project={p} idx={i} />
         ))}
@@ -116,37 +116,32 @@ function Row({ project, idx }: { project: Project; idx: number }) {
       data-cursor="View"
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
-      className="group grid grid-cols-1 md:grid-cols-12 items-center gap-5 md:gap-8 border-b border-[#0A0A0A]/15 py-7 md:py-9"
+      className="group flex flex-col border-b border-[#0A0A0A]/15 py-7 md:py-9"
     >
-      {/* category + name */}
-      <div className="md:col-span-5 order-2 md:order-1">
-        <p className="text-[9px] tracking-[0.3em] uppercase text-[#0A0A0A]/45 mb-3">
-          {String(idx + 1).padStart(2, "0")} — {project.cat} · {project.city}
-        </p>
-        <h3
-          className="font-display uppercase leading-[0.95] tracking-tight transition-transform duration-500 group-hover:translate-x-2"
-          style={{ fontSize: "clamp(1.8rem, 4vw, 3.2rem)" }}
-        >
-          {project.name}
-        </h3>
-      </div>
-
       {/* thumbnail */}
-      <div className="md:col-span-4 order-1 md:order-2">
-        <div className="relative aspect-[16/10] w-full overflow-hidden bg-[#0A0A0A] rounded-sm">
-          <div
-            className="absolute inset-0 bg-cover bg-center transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]"
-            style={{ backgroundImage: `url('${project.img}')`, transform: hover ? "scale(1.08)" : "scale(1)" }}
-          />
-        </div>
+      <div className="relative aspect-[16/10] w-full overflow-hidden bg-[#0A0A0A] rounded-sm mb-6">
+        <div
+          className="absolute inset-0 bg-cover bg-center transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]"
+          style={{ backgroundImage: `url('${project.img}')`, transform: hover ? "scale(1.08)" : "scale(1)" }}
+        />
       </div>
 
-      {/* view link */}
-      <div className="md:col-span-3 order-3 flex md:justify-end">
-        <span className="inline-flex items-center gap-3 text-[10px] tracking-[0.28em] uppercase text-[#0A0A0A]/70 group-hover:text-[#0A0A0A] transition-colors">
-          View the
-          <span className="inline-block w-8 h-px bg-[#0A0A0A]/40 group-hover:w-12 transition-all duration-500" />
-          Project
+      {/* category + name + view */}
+      <div className="flex items-end justify-between gap-4">
+        <div>
+          <p className="text-[9px] tracking-[0.3em] uppercase text-[#0A0A0A]/45 mb-3">
+            {String(idx + 1).padStart(2, "0")} — {project.cat} · {project.city}
+          </p>
+          <h3
+            className="font-display uppercase leading-[0.95] tracking-tight transition-transform duration-500 group-hover:translate-x-2"
+            style={{ fontSize: "clamp(1.8rem, 3.2vw, 2.8rem)" }}
+          >
+            {project.name}
+          </h3>
+        </div>
+        <span className="shrink-0 inline-flex items-center gap-2 text-[10px] tracking-[0.28em] uppercase text-[#0A0A0A]/70 group-hover:text-[#0A0A0A] transition-colors pb-1">
+          View
+          <span className="inline-block w-6 h-px bg-[#0A0A0A]/40 group-hover:w-10 transition-all duration-500" />
         </span>
       </div>
     </a>
