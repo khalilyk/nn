@@ -237,7 +237,7 @@ export default function ContactSection() {
               </div>
               <button
                 type="submit"
-                data-cursor="Send"
+                data-cursor="Press here"
                 disabled={status === "sending" || sent}
                 className="group relative w-full overflow-hidden rounded-full border border-[#0A0A0A] py-4 mt-2 disabled:opacity-60"
               >
