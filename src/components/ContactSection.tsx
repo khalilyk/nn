@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import CityCodes from "./CityCodes";
 
 /* BE@RBRICK figure with an eye that follows the cursor (auto-detected eye box). */
 function Bear() {
@@ -169,18 +170,27 @@ export default function ContactSection() {
                   <p>If you&apos;re serious about building something memorable, <span className="text-[#F3F1EC]">let&apos;s talk.</span></p>
                 </div>
 
-                {/* contact detail cards */}
-                <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 gap-4 text-left">
-                  <a href="mailto:hello@thisisnn.com" data-cursor="Say hi" className="group relative rounded-2xl border border-[#F3F1EC]/15 bg-[#F3F1EC]/[0.03] p-5 md:p-6 hover:border-[#FF2EC4]/60 hover:bg-[#F3F1EC]/[0.06] transition-colors">
-                    <span aria-hidden className="absolute top-4 right-4 text-[#F3F1EC]/40 group-hover:text-[#FF2EC4] group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-all">↗</span>
-                    <p className="text-[9px] tracking-[0.3em] uppercase text-[#F3F1EC]/40 mb-2">Email</p>
-                    <p className="font-editorial leading-tight break-all group-hover:text-[#FF2EC4] transition-colors" style={{ fontSize: "clamp(1.15rem, 1.8vw, 1.5rem)" }}>hello@thisisnn.com</p>
+                {/* contact detail cards — one line each, stacked */}
+                <div className="mt-10 flex flex-col gap-3 text-left">
+                  <a href="mailto:hello@thisisnn.com" data-cursor="Say hi" className="group flex items-center justify-between gap-4 rounded-2xl border border-[#F3F1EC]/15 bg-[#F3F1EC]/[0.03] px-5 md:px-6 py-4 hover:border-[#FF2EC4]/60 hover:bg-[#F3F1EC]/[0.06] transition-colors">
+                    <span className="flex items-baseline gap-4 min-w-0">
+                      <span className="text-[9px] tracking-[0.3em] uppercase text-[#F3F1EC]/40 shrink-0 w-14">Email</span>
+                      <span className="font-editorial leading-tight truncate group-hover:text-[#FF2EC4] transition-colors" style={{ fontSize: "clamp(1.05rem, 1.6vw, 1.35rem)" }}>hello@thisisnn.com</span>
+                    </span>
+                    <span aria-hidden className="text-[#F3F1EC]/40 group-hover:text-[#FF2EC4] group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-all shrink-0">↗</span>
                   </a>
-                  <a href="tel:+61433714701" data-cursor="Ring ring" className="group relative rounded-2xl border border-[#F3F1EC]/15 bg-[#F3F1EC]/[0.03] p-5 md:p-6 hover:border-[#FF2EC4]/60 hover:bg-[#F3F1EC]/[0.06] transition-colors">
-                    <span aria-hidden className="absolute top-4 right-4 text-[#F3F1EC]/40 group-hover:text-[#FF2EC4] group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-all">↗</span>
-                    <p className="text-[9px] tracking-[0.3em] uppercase text-[#F3F1EC]/40 mb-2">Phone</p>
-                    <p className="font-editorial leading-tight group-hover:text-[#FF2EC4] transition-colors" style={{ fontSize: "clamp(1.15rem, 1.8vw, 1.5rem)" }}>+61 433 714 701</p>
+                  <a href="tel:+61433714701" data-cursor="Ring ring" className="group flex items-center justify-between gap-4 rounded-2xl border border-[#F3F1EC]/15 bg-[#F3F1EC]/[0.03] px-5 md:px-6 py-4 hover:border-[#FF2EC4]/60 hover:bg-[#F3F1EC]/[0.06] transition-colors">
+                    <span className="flex items-baseline gap-4 min-w-0">
+                      <span className="text-[9px] tracking-[0.3em] uppercase text-[#F3F1EC]/40 shrink-0 w-14">Phone</span>
+                      <span className="font-editorial leading-tight truncate group-hover:text-[#FF2EC4] transition-colors" style={{ fontSize: "clamp(1.05rem, 1.6vw, 1.35rem)" }}>+61 433 714 701</span>
+                    </span>
+                    <span aria-hidden className="text-[#F3F1EC]/40 group-hover:text-[#FF2EC4] group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-all shrink-0">↗</span>
                   </a>
+                </div>
+
+                {/* city codes */}
+                <div className="mt-10">
+                  <CityCodes />
                 </div>
 
               </div>
