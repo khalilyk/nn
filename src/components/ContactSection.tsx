@@ -105,7 +105,7 @@ export default function ContactSection() {
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
   const sent = status === "sent";
 
-  const coffees = ["Espresso", "Cappuccino", "Long black", "Decaf", "I don't drink"];
+  const coffees = ["Espresso", "Cappuccino", "Long black", "Decaf", "I don't drink coffee"];
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
