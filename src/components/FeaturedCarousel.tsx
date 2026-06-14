@@ -74,7 +74,7 @@ export default function FeaturedCarousel() {
         <div
           onPointerDown={onDown}
           onPointerUp={onUp}
-          data-cursor="View project"
+          data-cursor="Open"
           className="md:col-span-7 relative aspect-[16/10] md:aspect-auto md:min-h-[560px] w-full overflow-hidden bg-[#0A0A0A] cursor-pointer"
         >
           {projects.map((pr, i) => (
