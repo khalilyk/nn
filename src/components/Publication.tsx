@@ -25,6 +25,7 @@ import ClientLogos from "./ClientLogos";
 import AboutSection from "./AboutSection";
 import ContactSection from "./ContactSection";
 import JournalSection from "./JournalSection";
+import CityCodes from "./CityCodes";
 
 /* ───────────────── STACKING PANEL ───────────────── */
 const SLIDE_OFFSET: Record<string, string> = {
@@ -333,6 +334,19 @@ Meet <span className="italic">NORM</span>, our marketing exec.<br />
       {/* ═══ CONTACT (woven in, now incl. Three Cities) ═══ */}
       <Panel index={10} bg="ivory" minH="auto" pin={false}>
         <ContactSection />
+      </Panel>
+
+      {/* ═══ THREE CITIES (green) ═══ */}
+      <Panel index={10} bg="ivory" minH="auto" pin={false}>
+        <div className="bg-[#81D742] text-[#0A0A0A] px-8 md:px-16 py-24 md:py-32 text-center" data-cursor-color="#0A0A0A">
+          <p className="text-[10px] tracking-[0.3em] uppercase text-[#0A0A0A]/55 mb-4">Three cities, one standard</p>
+          <h2 className="font-editorial leading-[1.1] max-w-3xl mx-auto" style={{ fontSize: "clamp(1.6rem, 3.4vw, 2.8rem)" }}>
+            No matter where you are, we&apos;d love to work with you.
+          </h2>
+          <div className="flex justify-center">
+            <CityCodes center activeColor="#0A0A0A" idleColor="rgba(10,10,10,0.3)" lineColor="rgba(10,10,10,0.65)" />
+          </div>
+        </div>
       </Panel>
 
       {/* ═══ FOOTER, THE INVITATION ═══ */}
