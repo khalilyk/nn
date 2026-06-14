@@ -92,7 +92,7 @@ export default function FeaturedCarousel() {
         <div className="fixed inset-0 z-[300] flex items-center justify-center p-4 md:p-8" data-cursor="Close" onClick={() => setOpen(null)}>
           <div className="absolute inset-0 bg-[#0A0A0A]/70 backdrop-blur-sm" />
           <div
-            className="relative w-full max-w-4xl max-h-[88vh] flex flex-col md:grid md:grid-cols-2 overflow-hidden rounded-3xl bg-[#161513] text-[#F3F1EC] shadow-[0_50px_140px_-40px_rgba(0,0,0,0.8)]"
+            className="relative w-full max-w-4xl max-h-[88vh] flex flex-col md:grid md:grid-cols-2 overflow-y-auto md:overflow-hidden overscroll-contain rounded-3xl bg-[#161513] text-[#F3F1EC] shadow-[0_50px_140px_-40px_rgba(0,0,0,0.8)]"
             onClick={(e) => e.stopPropagation()}
             data-cursor=""
           >
@@ -106,7 +106,7 @@ export default function FeaturedCarousel() {
               ];
               return (
                 <>
-                  <div className="relative aspect-[4/3] md:aspect-auto md:min-h-[420px] overflow-hidden bg-[#0A0A0A]" data-cursor="grab">
+                  <div className="relative shrink-0 aspect-[4/3] md:aspect-auto md:min-h-[420px] overflow-hidden bg-[#0A0A0A]" data-cursor="grab">
                     {gallery.map((src, i) => (
                       <div
                         key={src + i}
@@ -123,7 +123,7 @@ export default function FeaturedCarousel() {
                     </div>
                   </div>
                   {/* details */}
-                  <div className="flex flex-col p-7 md:p-10 overflow-y-auto max-h-[50vh] md:max-h-[88vh]">
+                  <div className="flex flex-col p-7 md:p-10 md:overflow-y-auto md:max-h-[88vh]">
                     <p className="text-[10px] tracking-[0.3em] uppercase text-[#F3F1EC]/45 mb-4">{doc.cat} · {doc.city} · {doc.year}</p>
                     <h3 className="font-sans font-bold tracking-tight leading-none mb-3" style={{ fontSize: "clamp(2rem, 4vw, 3rem)" }}>{doc.name}</h3>
                     <p className="font-editorial italic text-[#F3F1EC]/70 mb-6" style={{ fontSize: "clamp(1.05rem, 1.5vw, 1.3rem)" }}>{doc.sub}</p>
