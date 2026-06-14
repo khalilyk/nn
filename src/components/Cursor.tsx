@@ -52,7 +52,7 @@ export default function Cursor() {
   return (
     <div
       ref={dot}
-      className="fixed top-0 left-0 z-[200] pointer-events-none hidden md:flex items-center justify-center rounded-full"
+      className="fixed top-0 left-0 z-[400] pointer-events-none hidden md:flex items-center justify-center rounded-full"
       style={{
         background: color,
         width: hovering ? 64 : 10,
