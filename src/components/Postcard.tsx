@@ -119,7 +119,7 @@ export default function Postcard() {
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src="/postcard-art-2.png" alt="" draggable={false} className="absolute inset-0 w-full h-full object-cover pointer-events-none" />
-                <div className="absolute inset-0 flex items-start justify-start px-[9%] pt-[10%] pb-[16%] pointer-events-none">
+                <div className="absolute inset-0 flex items-start justify-start pl-[3.5%] pr-[8%] pt-[10%] pb-[16%] pointer-events-none">
                   <div className="font-editorial text-[#0A0A0A] leading-relaxed space-y-2.5 max-w-md text-left" style={{ fontSize: "clamp(0.6rem, 1.15vw, 0.85rem)" }}>
                     {MESSAGE.map((p, i) => <p key={i}>{p}</p>)}
                   </div>
