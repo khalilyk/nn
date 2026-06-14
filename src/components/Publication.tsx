@@ -204,25 +204,21 @@ export default function Publication() {
             </h1>
           </div>
 
-          {/* Supporting copy bottom-right */}
-          <div className="absolute bottom-24 right-8 md:right-16 max-w-[170px] text-left">
-            <Reveal delay={0.3}>
-              <p className="text-[11px] leading-relaxed text-[#B9B5AE]">
-                A Hospitality Brand<br />Advisory For Those<br />That Refuse to Blend In
-              </p>
-            </Reveal>
-          </div>
-
-          {/* Availability, bottom-left, opposite the supporting copy */}
-          <div className="absolute bottom-24 left-8 md:left-16">
+          {/* Bottom meta row — stacks on mobile, opposite corners on desktop */}
+          <div className="absolute bottom-20 md:bottom-24 left-8 right-8 md:left-16 md:right-16 flex flex-col-reverse md:flex-row md:items-end md:justify-between gap-5">
             <Reveal delay={0.3}>
               <span className="flex items-center gap-2">
-                <span className="relative flex h-2 w-2">
+                <span className="relative flex h-2 w-2 shrink-0">
                   <span className="absolute inline-flex h-full w-full rounded-full bg-[#4ADE80] opacity-75 animate-ping" />
                   <span className="relative inline-flex h-2 w-2 rounded-full bg-[#4ADE80] shadow-[0_0_8px_2px_rgba(74,222,128,0.7)]" />
                 </span>
                 <span className="text-[10px] tracking-[0.18em] uppercase text-[#4ADE80]">2 spots left this month</span>
               </span>
+            </Reveal>
+            <Reveal delay={0.3}>
+              <p className="text-[11px] leading-relaxed text-[#B9B5AE] md:text-right md:max-w-[170px]">
+                A Hospitality Brand Advisory<br className="hidden md:block" /> For Those That Refuse to Blend In
+              </p>
             </Reveal>
           </div>
 

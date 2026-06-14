@@ -1,43 +1,52 @@
 "use client";
 
 import { useEffect, useRef, useState, useCallback } from "react";
+import { createPortal } from "react-dom";
 
 type Project = {
   name: string;
   sub: string;
   city: string;
   year: string;
+  cat: string;
+  desc: string;
   img: string;
 };
 
 const projects: Project[] = [
-  { name: "3FILS", sub: "Reimagining a Waterfront Icon", city: "Dubai", year: "2019", img: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1800&q=80" },
-  { name: "Revolver", sub: "A Neighbourhood Bar, Reborn", city: "Sydney", year: "2021", img: "https://images.unsplash.com/photo-1470337458703-46ad1756a187?auto=format&fit=crop&w=1800&q=80" },
-  { name: "Maison Dali", sub: "Surrealism, Served", city: "Beirut", year: "2022", img: "https://images.unsplash.com/photo-1424847651672-bf20a4b0982b?auto=format&fit=crop&w=1800&q=80" },
-  { name: "Oakberry", sub: "A Healthy Habit Made Iconic", city: "Dubai", year: "2023", img: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=1800&q=80" },
-  { name: "Benny's", sub: "A Room You Never Leave", city: "Sydney", year: "2024", img: "https://images.unsplash.com/photo-1551218808-94e220e084d2?auto=format&fit=crop&w=1800&q=80" },
-  { name: "Print Paradise", sub: "Editorial Meets Hospitality", city: "Beirut", year: "2025", img: "https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&w=1800&q=80" },
-  { name: "Kinoya", sub: "An Izakaya With a Soul", city: "Dubai", year: "2022", img: "https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=1800&q=80" },
-  { name: "Tony's Woodfire", sub: "Fire, Smoke & Story", city: "Sydney", year: "2023", img: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1800&q=80" },
-  { name: "Shanghai Me", sub: "Old-World Glamour, Rebuilt", city: "Dubai", year: "2021", img: "https://images.unsplash.com/photo-1552566626-52f8b828add9?auto=format&fit=crop&w=1800&q=80" },
-  { name: "Mimi Kakushi", sub: "1920s Osaka, Reborn in Dubai", city: "Dubai", year: "2024", img: "https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?auto=format&fit=crop&w=1800&q=80" },
+  { name: "3FILS", sub: "Reimagining a Waterfront Icon", city: "Dubai", year: "2019", cat: "Branding", desc: "From a bold idea to a dining experience that redefined a category. We built more than a brand, we built obsession — every plate and touchpoint designed to be remembered.", img: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1800&q=80" },
+  { name: "Revolver", sub: "A Neighbourhood Bar, Reborn", city: "Sydney", year: "2021", cat: "Identity", desc: "A neighbourhood bar reimagined as a cultural anchor. Quiet rebellion designed into every detail, from the identity to the room people never want to leave.", img: "https://images.unsplash.com/photo-1470337458703-46ad1756a187?auto=format&fit=crop&w=1800&q=80" },
+  { name: "Maison Dali", sub: "Surrealism, Served", city: "Beirut", year: "2022", cat: "Branding", desc: "Surrealism on a plate. We built a world, not a logo — each touchpoint a different act in the same play, designed to surprise and seduce in equal measure.", img: "https://images.unsplash.com/photo-1424847651672-bf20a4b0982b?auto=format&fit=crop&w=1800&q=80" },
+  { name: "Oakberry", sub: "A Healthy Habit Made Iconic", city: "Dubai", year: "2023", cat: "Content", desc: "Visual direction that turned a healthy habit into a status symbol. Crave-worthy frame by frame, built to be screenshot, shared and remembered.", img: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=1800&q=80" },
+  { name: "Benny's", sub: "A Room You Never Leave", city: "Sydney", year: "2024", cat: "Identity", desc: "Concept, identity and energy for a room people don't want to leave. A brand built around the feeling of a great night that never quite ends.", img: "https://images.unsplash.com/photo-1551218808-94e220e084d2?auto=format&fit=crop&w=1800&q=80" },
+  { name: "Print Paradise", sub: "Editorial Meets Hospitality", city: "Beirut", year: "2025", cat: "Print", desc: "Where editorial meets hospitality. A brand that reads like a magazine and tastes like a memory, printed across every surface worth touching.", img: "https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&w=1800&q=80" },
+  { name: "Kinoya", sub: "An Izakaya With a Soul", city: "Dubai", year: "2022", cat: "Branding", desc: "An izakaya with a soul — a warm, lived-in identity that carries the intimacy of a Tokyo back-alley into a Dubai dining room.", img: "https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=1800&q=80" },
+  { name: "Tony's Woodfire", sub: "Fire, Smoke & Story", city: "Sydney", year: "2023", cat: "Content", desc: "Fire, smoke and story. A bold, tactile brand built around the primal pull of cooking over open flame.", img: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1800&q=80" },
+  { name: "Shanghai Me", sub: "Old-World Glamour, Rebuilt", city: "Dubai", year: "2021", cat: "Identity", desc: "Old-world glamour, rebuilt for today. A cinematic identity steeped in 1930s Shanghai, dialled up for a modern fine-dining stage.", img: "https://images.unsplash.com/photo-1552566626-52f8b828add9?auto=format&fit=crop&w=1800&q=80" },
+  { name: "Mimi Kakushi", sub: "1920s Osaka, Reborn in Dubai", city: "Dubai", year: "2024", cat: "Branding", desc: "1920s Osaka reborn in Dubai. A richly detailed world of jazz-age Japan, translated into every plate, menu and surface.", img: "https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?auto=format&fit=crop&w=1800&q=80" },
 ];
 
 export default function FeaturedCarousel() {
   const [index, setIndex] = useState(0);
+  const [open, setOpen] = useState<number | null>(null);
+  const [mounted, setMounted] = useState(false);
   const drag = useRef({ startX: 0, active: false });
 
   const clamp = (n: number) => (n + projects.length) % projects.length;
   const go = useCallback((dir: number) => setIndex((i) => clamp(i + dir)), []);
 
+  useEffect(() => setMounted(true), []);
+
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") { setOpen(null); return; }
+      if (open !== null) return;
       if (e.key === "ArrowRight") go(1);
       if (e.key === "ArrowLeft") go(-1);
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [go]);
+  }, [go, open]);
 
   const onDown = (e: React.PointerEvent) => {
     drag.current = { startX: e.clientX, active: true };
@@ -49,9 +58,11 @@ export default function FeaturedCarousel() {
     const dx = e.clientX - drag.current.startX;
     if (dx < -60) go(1);
     else if (dx > 60) go(-1);
+    else setOpen(index); // a click (not a drag) opens the project
   };
 
   const p = projects[index];
+  const doc = open !== null ? projects[open] : null;
 
   return (
     <div className="w-full select-none text-[#F3F1EC]">
@@ -61,8 +72,8 @@ export default function FeaturedCarousel() {
         <div
           onPointerDown={onDown}
           onPointerUp={onUp}
-          data-cursor="grab"
-          className="md:col-span-7 relative aspect-[16/10] md:aspect-auto md:min-h-[560px] w-full overflow-hidden bg-[#0A0A0A] cursor-grab active:cursor-grabbing"
+          data-cursor="Open"
+          className="md:col-span-7 relative aspect-[16/10] md:aspect-auto md:min-h-[560px] w-full overflow-hidden bg-[#0A0A0A] cursor-pointer"
         >
           {projects.map((pr, i) => (
             <div
@@ -87,6 +98,14 @@ export default function FeaturedCarousel() {
             {p.sub}
           </p>
 
+          <button
+            onClick={() => setOpen(index)}
+            data-cursor="Open"
+            className="mt-6 self-start inline-flex items-center gap-3 text-[10px] tracking-[0.25em] uppercase border-b border-[#F3F1EC] pb-1 hover:opacity-60 transition-opacity"
+          >
+            View Project <span>→</span>
+          </button>
+
           {/* controls */}
           <div className="flex items-center gap-5 mt-10">
             <button onClick={() => go(-1)} aria-label="Previous" className="w-10 h-10 rounded-full border border-[#F3F1EC]/30 flex items-center justify-center text-sm hover:bg-[#F3F1EC] hover:text-[#1C1C1C] transition-colors">←</button>
@@ -97,6 +116,40 @@ export default function FeaturedCarousel() {
           </div>
         </div>
       </div>
+
+      {/* project popup — portaled to body to escape the transformed panel */}
+      {mounted && doc && createPortal(
+        <div className="fixed inset-0 z-[300] flex items-center justify-center p-4 md:p-8" data-cursor="Close" onClick={() => setOpen(null)}>
+          <div className="absolute inset-0 bg-[#0A0A0A]/70 backdrop-blur-sm" />
+          <div
+            className="relative w-full max-w-4xl max-h-[88vh] flex flex-col md:grid md:grid-cols-2 overflow-hidden rounded-3xl bg-[#161513] text-[#F3F1EC] shadow-[0_50px_140px_-40px_rgba(0,0,0,0.8)]"
+            onClick={(e) => e.stopPropagation()}
+            data-cursor=""
+          >
+            {/* image */}
+            <div className="relative aspect-[4/3] md:aspect-auto md:min-h-[420px] bg-cover bg-center" style={{ backgroundImage: `url('${doc.img}')` }} />
+            {/* details */}
+            <div className="flex flex-col justify-center p-7 md:p-10 overflow-y-auto">
+              <p className="text-[10px] tracking-[0.3em] uppercase text-[#F3F1EC]/45 mb-4">{doc.cat} · {doc.city} · {doc.year}</p>
+              <h3 className="font-sans font-bold tracking-tight leading-none mb-3" style={{ fontSize: "clamp(2rem, 4vw, 3rem)" }}>{doc.name}</h3>
+              <p className="font-editorial italic text-[#F3F1EC]/70 mb-6" style={{ fontSize: "clamp(1.05rem, 1.5vw, 1.3rem)" }}>{doc.sub}</p>
+              <p className="text-[14px] leading-relaxed text-[#F3F1EC]/70">{doc.desc}</p>
+              <a href="#contact" onClick={() => setOpen(null)} data-cursor="tap" className="mt-8 self-start inline-flex items-center gap-3 text-[10px] tracking-[0.25em] uppercase border-b border-[#F3F1EC] pb-1 hover:opacity-60 transition-opacity">
+                Start a project like this <span>→</span>
+              </a>
+            </div>
+            {/* close */}
+            <button
+              onClick={() => setOpen(null)}
+              aria-label="Close"
+              className="absolute top-4 right-4 z-10 w-9 h-9 rounded-full border border-[#F3F1EC]/30 bg-[#0A0A0A]/40 backdrop-blur-sm flex items-center justify-center text-sm hover:bg-[#F3F1EC] hover:text-[#1C1C1C] transition-colors"
+            >
+              ✕
+            </button>
+          </div>
+        </div>,
+        document.body
+      )}
     </div>
   );
 }

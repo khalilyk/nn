@@ -158,7 +158,7 @@ export default function SiteNav() {
           <img
             src="/nn-panda.png"
             alt="Not Normal"
-            className="pointer-events-none absolute left-1/2 -translate-x-1/2 bottom-0 z-20 w-[112%] max-w-none h-auto"
+            className="pointer-events-none absolute left-1/2 -translate-x-1/2 bottom-0 z-20 h-[90%] w-auto max-w-none"
           />
         </div>
       </div>
