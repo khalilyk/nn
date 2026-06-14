@@ -96,8 +96,7 @@ export default function FeaturedCarousel() {
             data-cursor="More"
             className="group inline-flex items-center gap-4 rounded-full border border-[#F3F1EC]/30 px-8 py-4 text-[10px] tracking-[0.3em] uppercase hover:bg-[#F3F1EC] hover:text-[#0A0A0A] transition-colors"
           >
-            Load more
-            <span className="text-[#F3F1EC]/40 group-hover:text-[#0A0A0A]/50">{visible} / {projects.length}</span>
+            Load more <span aria-hidden>→</span>
           </button>
         </div>
       )}
