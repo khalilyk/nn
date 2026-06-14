@@ -55,8 +55,7 @@ const COURSES: Course[] = [
     course: "The Desserts",
     title: "PR & Brand Visibility",
     intro: [
-      "A great brand deserves to be discovered. We help businesses earn attention through strategic storytelling, media relationships, content creation and meaningful collaborations that put brands in front of the right audience.",
-      "Whether launching a new venue, promoting a campaign or building long-term awareness, we create visibility that feels authentic and drives real impact.",
+      "A great brand deserves to be discovered — through storytelling, media relationships, content and collaborations that put it in front of the right audience.",
     ],
     items: [
       "Public Relations (PR)",
@@ -71,88 +70,114 @@ const COURSES: Course[] = [
   },
 ];
 
+const LETTERS = ["A", "B", "C", "D"];
+
+const PALETTE = [
+  { bg: "#EFE7D6", fg: "#0A0A0A" },
+  { bg: "#E4DAF6", fg: "#0A0A0A" },
+  { bg: "#C9A227", fg: "#0A0A0A" },
+  { bg: "#FF6A3D", fg: "#0A0A0A" },
+  { bg: "#F2EBA0", fg: "#0A0A0A" },
+  { bg: "#BFE3C6", fg: "#0A0A0A" },
+  { bg: "#F7C8DD", fg: "#0A0A0A" },
+  { bg: "#BCD6F5", fg: "#0A0A0A" },
+];
+
+// scatter positions (desktop) — top/left in %, slight rotation
+const SCATTER = [
+  { top: "14%", left: "34%", rot: -3 },
+  { top: "30%", left: "16%", rot: 2 },
+  { top: "44%", left: "42%", rot: -2 },
+  { top: "40%", left: "70%", rot: 3 },
+  { top: "56%", left: "22%", rot: -2 },
+  { top: "60%", left: "52%", rot: 2 },
+  { top: "24%", left: "60%", rot: -1 },
+  { top: "70%", left: "38%", rot: 3 },
+];
+
 export default function MenuSplit() {
   const [active, setActive] = useState(0);
   const cur = COURSES[active];
 
   return (
-    <div>
-      <p className="text-[9px] tracking-[0.3em] uppercase text-[#0A0A0A]/40 mb-6">The Menu, What We Do</p>
-      <h3 className="font-editorial leading-[1.05] max-w-3xl" style={{ fontSize: "clamp(2rem, 4vw, 3.4rem)" }}>
-        Four ways we make brands <span className="italic">unforgettable</span>.
-      </h3>
+    <div className="-mx-8 md:-mx-16 bg-[#161513] text-[#F3F1EC] rounded-none md:rounded-[2rem] overflow-hidden" data-cursor-color="#F3F1EC">
+      <div className="px-8 md:px-16 py-16 md:py-24">
+        {/* heading */}
+        <p className="text-[9px] tracking-[0.3em] uppercase text-[#F3F1EC]/40 mb-6">The Menu, What We Do</p>
+        <h3 className="font-editorial leading-[1.05] max-w-3xl mb-12 md:mb-16" style={{ fontSize: "clamp(2rem, 4vw, 3.4rem)" }}>
+          Four ways we make brands <span className="italic">unforgettable</span>.
+        </h3>
 
-      <div className="mt-12 md:mt-16 grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-16 items-start">
-        {/* LEFT — the courses */}
-        <div className="md:col-span-5 md:sticky md:top-28">
-          <ul>
+        {/* layered list + scattered pills */}
+        <div className="relative">
+          <ul className="relative z-10">
             {COURSES.map((c, i) => {
               const on = i === active;
               return (
-                <li key={c.title} className="border-b border-[#0A0A0A]/15 first:border-t">
+                <li key={c.title}>
                   <button
                     onClick={() => setActive(i)}
                     onMouseEnter={() => setActive(i)}
                     data-cursor="View"
-                    className="group w-full text-left py-5 md:py-6 flex items-baseline gap-4"
+                    className="group w-full text-left flex items-baseline gap-5 md:gap-10 py-1.5 md:py-2"
                   >
-                    <span
-                      className={`font-display tracking-tight shrink-0 transition-colors duration-300 ${on ? "text-[#FF2EC4]" : "text-[#0A0A0A]/30"}`}
-                      style={{ fontSize: "0.95rem" }}
-                    >
-                      0{i + 1}
+                    <span className={`shrink-0 text-[11px] md:text-sm tracking-[0.2em] transition-colors duration-300 ${on ? "text-[#F3F1EC]" : "text-[#F3F1EC]/30"}`}>
+                      {LETTERS[i]}
                     </span>
-                    <span className="flex-1">
-                      <span className="block text-[8px] tracking-[0.3em] uppercase text-[#0A0A0A]/40 mb-2">
+                    <span className="flex flex-col">
+                      <span className={`block text-[8px] md:text-[9px] tracking-[0.3em] uppercase mb-1 transition-colors duration-300 ${on ? "text-[#FF2EC4]" : "text-[#F3F1EC]/25"}`}>
                         [ {c.course} ]
                       </span>
                       <span
-                        className={`font-editorial leading-[1.05] transition-all duration-300 ${on ? "text-[#0A0A0A] translate-x-1" : "text-[#0A0A0A]/45"} inline-block`}
-                        style={{ fontSize: "clamp(1.4rem, 2.6vw, 2.1rem)" }}
+                        className={`font-editorial leading-[0.92] transition-colors duration-300 ${on ? "text-[#F3F1EC]" : "text-[#F3F1EC]/30 group-hover:text-[#F3F1EC]/50"}`}
+                        style={{ fontSize: "clamp(2rem, 6vw, 5.5rem)" }}
                       >
                         {c.title}
                       </span>
-                    </span>
-                    <span
-                      className={`shrink-0 self-center transition-all duration-300 ${on ? "opacity-100 translate-x-0 text-[#FF2EC4]" : "opacity-0 -translate-x-2"}`}
-                    >
-                      →
                     </span>
                   </button>
                 </li>
               );
             })}
           </ul>
+
+          {/* scattered pills (desktop overlay) */}
+          <div className="hidden md:block pointer-events-none absolute inset-0 z-20">
+            {cur.items.map((it, i) => {
+              const pos = SCATTER[i % SCATTER.length];
+              const col = PALETTE[i % PALETTE.length];
+              return (
+                <span
+                  key={it}
+                  className="absolute whitespace-nowrap rounded-full px-5 py-2.5 text-[13px] font-medium shadow-[0_10px_30px_-10px_rgba(0,0,0,0.6)] animate-[fadeUp_0.45s_ease] will-change-transform"
+                  style={{
+                    top: pos.top,
+                    left: pos.left,
+                    transform: `rotate(${pos.rot}deg)`,
+                    background: col.bg,
+                    color: col.fg,
+                    animationDelay: `${i * 0.04}s`,
+                  }}
+                >
+                  {it}
+                </span>
+              );
+            })}
+          </div>
         </div>
 
-        {/* RIGHT — the selected course's list */}
-        <div className="md:col-span-7" key={active}>
-          <div className="animate-[fadeUp_0.5s_ease]">
-            <span className="block text-[9px] tracking-[0.3em] uppercase text-[#0A0A0A]/40 mb-3">
-              [ {cur.course} ]
-            </span>
-            <h4 className="font-editorial leading-[1.05] mb-7" style={{ fontSize: "clamp(1.8rem, 3.4vw, 2.8rem)" }}>
-              {cur.title}
-            </h4>
-
-            {cur.intro && (
-              <div className="space-y-4 text-[#0A0A0A]/65 leading-relaxed max-w-xl mb-8" style={{ fontSize: "clamp(0.95rem, 1.2vw, 1.05rem)" }}>
-                {cur.intro.map((p, i) => <p key={i}>{p}</p>)}
-              </div>
-            )}
-
-            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-0">
-              {cur.items.map((it) => (
-                <li
-                  key={it}
-                  className="flex items-baseline gap-3 border-b border-[#0A0A0A]/10 py-3 text-[#0A0A0A]/80"
-                  style={{ fontSize: "clamp(0.9rem, 1.15vw, 1rem)" }}
-                >
-                  <span className="text-[#FF2EC4] text-xs">✦</span>
+        {/* mobile: active services as wrapped pills */}
+        <div className="md:hidden mt-8">
+          {cur.intro && <p className="text-[#F3F1EC]/60 text-sm leading-relaxed mb-5">{cur.intro[0]}</p>}
+          <div className="flex flex-wrap gap-2.5">
+            {cur.items.map((it, i) => {
+              const col = PALETTE[i % PALETTE.length];
+              return (
+                <span key={it} className="rounded-full px-4 py-2 text-[12px] font-medium" style={{ background: col.bg, color: col.fg }}>
                   {it}
-                </li>
-              ))}
-            </ul>
+                </span>
+              );
+            })}
           </div>
         </div>
       </div>
