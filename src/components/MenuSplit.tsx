@@ -100,11 +100,11 @@ export default function MenuSplit() {
   const cur = COURSES[active];
 
   return (
-    <div className="-mx-8 md:-mx-16 bg-[#161513] text-[#F3F1EC] rounded-none md:rounded-[2rem] overflow-hidden" data-cursor-color="#F3F1EC">
-      <div className="px-8 md:px-16 py-16 md:py-24">
+    <div className="overflow-hidden">
+      <div className="py-4 md:py-6">
         {/* heading */}
-        <p className="text-[9px] tracking-[0.3em] uppercase text-[#F3F1EC]/40 mb-6">The Menu, What We Do</p>
-        <h3 className="font-editorial leading-[1.05] max-w-3xl mb-12 md:mb-16" style={{ fontSize: "clamp(2rem, 4vw, 3.4rem)" }}>
+        <p className="text-[9px] tracking-[0.3em] uppercase text-[#0A0A0A]/40 mb-6">The Menu, What We Do</p>
+        <h3 className="font-editorial leading-[1.05] max-w-3xl mb-12 md:mb-16 text-[#0A0A0A]" style={{ fontSize: "clamp(2rem, 4vw, 3.4rem)" }}>
           Four ways we make brands <span className="italic">unforgettable</span>.
         </h3>
 
@@ -121,15 +121,15 @@ export default function MenuSplit() {
                     data-cursor="View"
                     className="group w-full text-left flex items-baseline gap-5 md:gap-10 py-1.5 md:py-2"
                   >
-                    <span className={`shrink-0 text-[11px] md:text-sm tracking-[0.2em] transition-colors duration-300 ${on ? "text-[#F3F1EC]" : "text-[#F3F1EC]/30"}`}>
+                    <span className={`shrink-0 text-[11px] md:text-sm tracking-[0.2em] transition-colors duration-300 ${on ? "text-[#0A0A0A]" : "text-[#0A0A0A]/30"}`}>
                       {LETTERS[i]}
                     </span>
                     <span className="flex flex-col">
-                      <span className={`block text-[8px] md:text-[9px] tracking-[0.3em] uppercase mb-1 transition-colors duration-300 ${on ? "text-[#FF2EC4]" : "text-[#F3F1EC]/25"}`}>
+                      <span className={`block text-[8px] md:text-[9px] tracking-[0.3em] uppercase mb-1 transition-colors duration-300 ${on ? "text-[#FF2EC4]" : "text-[#0A0A0A]/25"}`}>
                         [ {c.course} ]
                       </span>
                       <span
-                        className={`font-editorial leading-[0.92] transition-colors duration-300 ${on ? "text-[#F3F1EC]" : "text-[#F3F1EC]/30 group-hover:text-[#F3F1EC]/50"}`}
+                        className={`font-editorial leading-[0.92] transition-colors duration-300 ${on ? "text-[#0A0A0A]" : "text-[#0A0A0A]/25 group-hover:text-[#0A0A0A]/45"}`}
                         style={{ fontSize: "clamp(2rem, 6vw, 5.5rem)" }}
                       >
                         {c.title}
@@ -168,7 +168,7 @@ export default function MenuSplit() {
 
         {/* mobile: active services as wrapped pills */}
         <div className="md:hidden mt-8">
-          {cur.intro && <p className="text-[#F3F1EC]/60 text-sm leading-relaxed mb-5">{cur.intro[0]}</p>}
+          {cur.intro && <p className="text-[#0A0A0A]/60 text-sm leading-relaxed mb-5">{cur.intro[0]}</p>}
           <div className="flex flex-wrap gap-2.5">
             {cur.items.map((it, i) => {
               const col = PALETTE[i % PALETTE.length];
