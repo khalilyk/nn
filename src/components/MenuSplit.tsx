@@ -70,8 +70,6 @@ const COURSES: Course[] = [
   },
 ];
 
-const LETTERS = ["A", "B", "C", "D"];
-
 const PALETTE = [
   { bg: "#EFE7D6", fg: "#0A0A0A" },
   { bg: "#E4DAF6", fg: "#0A0A0A" },
@@ -103,8 +101,8 @@ export default function MenuSplit() {
     <div className="overflow-hidden">
       <div className="py-4 md:py-6">
         {/* heading */}
-        <p className="text-[9px] tracking-[0.3em] uppercase text-[#0A0A0A]/40 mb-6">The Menu, What We Do</p>
-        <h3 className="font-editorial leading-[1.05] max-w-3xl mb-12 md:mb-16 text-[#0A0A0A]" style={{ fontSize: "clamp(2rem, 4vw, 3.4rem)" }}>
+        <p className="text-[9px] tracking-[0.3em] uppercase text-[#0A0A0A]/40 mb-6 text-center">The Menu, What We Do</p>
+        <h3 className="font-editorial leading-[1.05] max-w-3xl mx-auto text-center mb-12 md:mb-16 text-[#0A0A0A]" style={{ fontSize: "clamp(2rem, 4vw, 3.4rem)" }}>
           Four ways we make brands <span className="italic">unforgettable</span>.
         </h3>
 
@@ -119,12 +117,9 @@ export default function MenuSplit() {
                     onClick={() => setActive(i)}
                     onMouseEnter={() => setActive(i)}
                     data-cursor="View"
-                    className="group w-full text-left flex items-baseline gap-5 md:gap-10 py-1.5 md:py-2"
+                    className="group w-full text-center flex flex-col items-center py-1.5 md:py-2"
                   >
-                    <span className={`shrink-0 text-[11px] md:text-sm tracking-[0.2em] transition-colors duration-300 ${on ? "text-[#0A0A0A]" : "text-[#0A0A0A]/30"}`}>
-                      {LETTERS[i]}
-                    </span>
-                    <span className="flex flex-col">
+                    <span className="flex flex-col items-center">
                       <span className={`block text-[8px] md:text-[9px] tracking-[0.3em] uppercase mb-1 transition-colors duration-300 ${on ? "text-[#FF2EC4]" : "text-[#0A0A0A]/25"}`}>
                         [ {c.course} ]
                       </span>
@@ -149,7 +144,7 @@ export default function MenuSplit() {
               return (
                 <span
                   key={it}
-                  className="absolute whitespace-nowrap rounded-full px-5 py-2.5 text-[13px] font-medium shadow-[0_10px_30px_-10px_rgba(0,0,0,0.6)] animate-[fadeUp_0.45s_ease] will-change-transform"
+                  className="absolute whitespace-nowrap rounded-md px-5 py-2.5 text-[13px] font-medium shadow-[0_10px_30px_-10px_rgba(0,0,0,0.6)] animate-[fadeUp_0.45s_ease] will-change-transform"
                   style={{
                     top: pos.top,
                     left: pos.left,
@@ -173,7 +168,7 @@ export default function MenuSplit() {
             {cur.items.map((it, i) => {
               const col = PALETTE[i % PALETTE.length];
               return (
-                <span key={it} className="rounded-full px-4 py-2 text-[12px] font-medium" style={{ background: col.bg, color: col.fg }}>
+                <span key={it} className="rounded-md px-4 py-2 text-[12px] font-medium" style={{ background: col.bg, color: col.fg }}>
                   {it}
                 </span>
               );
