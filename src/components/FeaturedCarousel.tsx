@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, useCallback } from "react";
+import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 
 type Project = {
@@ -27,96 +27,64 @@ const projects: Project[] = [
 ];
 
 export default function FeaturedCarousel() {
-  const [index, setIndex] = useState(0);
   const [open, setOpen] = useState<number | null>(null);
   const [gi, setGi] = useState(0);
   const [mounted, setMounted] = useState(false);
-  const drag = useRef({ startX: 0, active: false });
-
-  const clamp = (n: number) => (n + projects.length) % projects.length;
-  const go = useCallback((dir: number) => setIndex((i) => clamp(i + dir)), []);
 
   useEffect(() => setMounted(true), []);
   useEffect(() => { setGi(0); }, [open]);
 
   useEffect(() => {
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") { setOpen(null); return; }
-      if (open !== null) return;
-      if (e.key === "ArrowRight") go(1);
-      if (e.key === "ArrowLeft") go(-1);
-    };
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setOpen(null); };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [go, open]);
+  }, []);
 
-  const onDown = (e: React.PointerEvent) => {
-    drag.current = { startX: e.clientX, active: true };
-    (e.target as HTMLElement).setPointerCapture?.(e.pointerId);
-  };
-  const onUp = (e: React.PointerEvent) => {
-    if (!drag.current.active) return;
-    drag.current.active = false;
-    const dx = e.clientX - drag.current.startX;
-    if (dx < -60) go(1);
-    else if (dx > 60) go(-1);
-    else setOpen(index); // a click (not a drag) opens the project
-  };
-
-  const p = projects[index];
   const doc = open !== null ? projects[open] : null;
 
   return (
     <div className="w-full select-none text-[#F3F1EC]">
-      {/* slide */}
-      <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-0 items-stretch">
-        {/* image + overlaid name */}
-        <div
-          onPointerDown={onDown}
-          onPointerUp={onUp}
-          data-cursor="Open"
-          className="md:col-span-7 relative aspect-[16/10] md:aspect-auto md:min-h-[560px] w-full overflow-hidden bg-[#0A0A0A] cursor-pointer"
-        >
-          {projects.map((pr, i) => (
-            <div
-              key={pr.name}
-              className="absolute inset-0 bg-cover bg-center transition-opacity duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]"
-              style={{ backgroundImage: `url('${pr.img}')`, opacity: i === index ? 1 : 0 }}
-            />
-          ))}
-          <h3
-            key={p.name}
-            className="absolute left-8 md:left-12 top-1/2 -translate-y-1/2 text-white font-sans font-bold tracking-tight leading-[0.95] animate-[fadeUp_0.5s_ease] drop-shadow-[0_4px_24px_rgba(0,0,0,0.45)]"
-            style={{ fontSize: "clamp(1.8rem, 4vw, 3.6rem)" }}
-          >
-            {p.name}
-          </h3>
-        </div>
+      {/* all projects, stacked down the page */}
+      <div className="flex flex-col gap-20 md:gap-28">
+        {projects.map((pr, i) => {
+          const flip = i % 2 === 1;
+          return (
+            <div key={pr.name} className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-0 items-stretch">
+              {/* image + overlaid name */}
+              <div
+                onClick={() => setOpen(i)}
+                data-cursor="Open"
+                className={`md:col-span-7 relative aspect-[16/10] md:aspect-auto md:min-h-[480px] w-full overflow-hidden bg-[#0A0A0A] cursor-pointer group ${flip ? "md:order-2" : ""}`}
+              >
+                <div className="absolute inset-0 bg-cover bg-center transition-transform duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.04]" style={{ backgroundImage: `url('${pr.img}')` }} />
+                <h3
+                  className="absolute left-8 md:left-12 top-1/2 -translate-y-1/2 text-white font-sans font-bold tracking-tight leading-[0.95] drop-shadow-[0_4px_24px_rgba(0,0,0,0.45)]"
+                  style={{ fontSize: "clamp(1.8rem, 4vw, 3.6rem)" }}
+                >
+                  {pr.name}
+                </h3>
+              </div>
 
-        {/* caption on dark */}
-        <div className="md:col-span-5 flex flex-col justify-center px-2 md:px-12">
-          <p key={`${p.name}-c`} className="font-sans leading-snug animate-[fadeUp_0.55s_ease]" style={{ fontSize: "clamp(1.15rem, 1.6vw, 1.5rem)" }}>
-            {p.name}<br />
-            {p.sub}
-          </p>
-
-          <button
-            onClick={() => setOpen(index)}
-            data-cursor="Open"
-            className="mt-6 self-start inline-flex items-center gap-3 text-[10px] tracking-[0.25em] uppercase border-b border-[#F3F1EC] pb-1 hover:opacity-60 transition-opacity"
-          >
-            View Project <span>→</span>
-          </button>
-
-          {/* controls */}
-          <div className="flex items-center gap-5 mt-10">
-            <button onClick={() => go(-1)} aria-label="Previous" className="w-10 h-10 rounded-full border border-[#F3F1EC]/30 flex items-center justify-center text-sm hover:bg-[#F3F1EC] hover:text-[#1C1C1C] transition-colors">←</button>
-            <button onClick={() => go(1)} aria-label="Next" className="w-10 h-10 rounded-full border border-[#F3F1EC]/30 flex items-center justify-center text-sm hover:bg-[#F3F1EC] hover:text-[#1C1C1C] transition-colors">→</button>
-            <span className="text-[10px] tracking-[0.3em] uppercase text-[#F3F1EC]/40 ml-2">
-              {String(index + 1).padStart(2, "0")} / {String(projects.length).padStart(2, "0")}
-            </span>
-          </div>
-        </div>
+              {/* caption */}
+              <div className={`md:col-span-5 flex flex-col justify-center px-2 md:px-12 ${flip ? "md:order-1" : ""}`}>
+                <p className="text-[10px] tracking-[0.3em] uppercase text-[#F3F1EC]/45 mb-4">
+                  {String(i + 1).padStart(2, "0")} — {pr.cat} · {pr.city} · {pr.year}
+                </p>
+                <p className="font-sans leading-snug" style={{ fontSize: "clamp(1.15rem, 1.6vw, 1.5rem)" }}>
+                  {pr.name}<br />
+                  <span className="text-[#F3F1EC]/60">{pr.sub}</span>
+                </p>
+                <button
+                  onClick={() => setOpen(i)}
+                  data-cursor="Open"
+                  className="mt-6 self-start inline-flex items-center gap-3 text-[10px] tracking-[0.25em] uppercase border-b border-[#F3F1EC] pb-1 hover:opacity-60 transition-opacity"
+                >
+                  View Project <span>→</span>
+                </button>
+              </div>
+            </div>
+          );
+        })}
       </div>
 
       {/* project popup — portaled to body to escape the transformed panel */}
