@@ -46,7 +46,7 @@ export default function AboutSection() {
       </div>
 
       {/* manifesto */}
-      <div className="relative bg-[#0A0A0A] text-[#F3F1EC] px-8 md:px-16 py-20 md:py-28" data-cursor-color="#F3F1EC">
+      <div className="relative bg-[#0A0A0A] text-[#F3F1EC] px-8 md:px-16 py-20 md:py-28" data-cursor-color="#81D742">
         <div className="max-w-4xl mx-auto">
           <p className="text-[10px] tracking-[0.3em] uppercase text-[#F3F1EC]/40 mb-8">The short version</p>
           <p className="font-editorial leading-[1.25]" style={{ fontSize: "clamp(1.6rem, 3.4vw, 2.8rem)" }}>
