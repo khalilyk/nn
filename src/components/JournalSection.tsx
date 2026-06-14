@@ -33,7 +33,7 @@ const POSTS = [
 export default function JournalSection() {
   return (
     <section id="journal" className="scroll-mt-20 bg-[#E7E4DD] text-[#0A0A0A] px-4 sm:px-8 md:px-12 py-16 md:py-24">
-      <div className="max-w-6xl mx-auto rounded-[1.75rem] md:rounded-[2.5rem] bg-white px-7 sm:px-10 md:px-16 py-16 md:py-24 shadow-[0_50px_120px_-45px_rgba(0,0,0,0.55),0_18px_44px_-24px_rgba(0,0,0,0.3)]">
+      <div className="max-w-6xl mx-auto rounded-[1.75rem] md:rounded-[2.5rem] bg-white/75 px-7 sm:px-10 md:px-16 py-16 md:py-24 shadow-[0_50px_120px_-45px_rgba(0,0,0,0.55),0_18px_44px_-24px_rgba(0,0,0,0.3)]">
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-14">
           <div>
             <p className="text-[10px] tracking-[0.3em] uppercase text-[#0A0A0A]/45 mb-4">The Journal</p>
