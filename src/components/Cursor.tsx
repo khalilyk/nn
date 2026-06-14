@@ -61,7 +61,7 @@ export default function Cursor() {
       }}
     >
       {hovering && label && (
-        <span className="text-[8px] tracking-[0.2em] uppercase text-[#0A0A0A] font-sans">{label}</span>
+        <span className="text-[8px] tracking-[0.2em] uppercase font-sans" style={{ color: color === "#0A0A0A" ? "#F3F1EC" : "#0A0A0A" }}>{label}</span>
       )}
     </div>
   );
