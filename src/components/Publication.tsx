@@ -13,7 +13,6 @@ import Preloader from "./Preloader";
 import ScrollProgress from "./ScrollProgress";
 import Magnetic from "./Magnetic";
 import HeroMedia from "./HeroMedia";
-import ScrollDriftX from "./ScrollDriftX";
 import Testimonials from "./Testimonials";
 import HoverWord from "./HoverWord";
 import Greeting from "./Greeting";
@@ -264,10 +263,8 @@ export default function Publication() {
       {/* ═══ 03, FEATURED PROJECTS ═══ */}
       <Panel index={3} bg="ivory" minH="auto" slideFrom="up">
         <div id="s04" className="relative bg-[#1C1C1C] text-[#F3F1EC]" data-cursor-color="#F3F1EC">
-          <div className="relative flex items-center px-8 md:px-16 pt-28 md:pt-36 pb-28 md:pb-36 overflow-hidden">
-            <ScrollDriftX range={0.07} className="w-full">
-              <FeaturedCarousel />
-            </ScrollDriftX>
+          <div className="relative px-8 md:px-16 pt-28 md:pt-36 pb-28 md:pb-36 overflow-hidden">
+            <FeaturedCarousel />
           </div>
           <SectionNo n="03" />
         </div>
