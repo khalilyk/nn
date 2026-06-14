@@ -266,21 +266,18 @@ export default function Publication() {
         <AboutSection />
       </Panel>
 
-      {/* ═══ 03, CLIENTS ═══ */}
+      {/* ═══ 03, CLIENTS + FEATURED PROJECTS (merged) ═══ */}
       <Panel index={3} bg="ivory" minH="auto" slideFrom="up">
-        <div className="relative px-8 md:px-16 py-28 md:py-36 bg-[#81D742] text-[#0A0A0A]" data-cursor-color="#F3F1EC">
-          <ClientLogos />
+        <div id="s04" className="relative bg-[#81D742] text-[#0A0A0A]" data-cursor-color="#F3F1EC">
+          <div className="px-8 md:px-16 pt-28 md:pt-36 pb-16 md:pb-20">
+            <ClientLogos />
+          </div>
+          <div className="relative flex items-center px-8 md:px-16 pb-28 md:pb-36 overflow-hidden">
+            <ScrollDriftX range={0.07} className="w-full">
+              <FeaturedCarousel />
+            </ScrollDriftX>
+          </div>
           <SectionNo n="03" />
-        </div>
-      </Panel>
-
-      {/* ═══ 04, FEATURED PROJECTS (draggable carousel) ═══ */}
-      <Panel index={4} bg="ivory" minH="80vh" slideFrom="right">
-        <div id="s04" className="relative min-h-[80vh] flex items-center px-8 md:px-16 py-20 overflow-hidden">
-          <ScrollDriftX range={0.07} className="w-full">
-            <FeaturedCarousel />
-          </ScrollDriftX>
-          <SectionNo n="04" />
         </div>
       </Panel>
 
