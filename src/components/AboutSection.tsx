@@ -2,27 +2,8 @@
 export default function AboutSection() {
   return (
     <section id="about" className="relative scroll-mt-20 bg-white text-[#0A0A0A] overflow-hidden">
-      {/* statement */}
-      <div className="relative px-6 pt-24 md:pt-32 pb-16 md:pb-24">
-        <div aria-hidden className="absolute inset-x-0 top-[24%] z-0 flex justify-center pointer-events-none select-none">
-          <span className="font-display uppercase leading-none whitespace-nowrap text-[#0A0A0A]/[0.04]" style={{ fontSize: "clamp(5rem, 22vw, 22rem)" }}>
-            Not Normal
-          </span>
-        </div>
-        <div className="relative z-10 max-w-5xl mx-auto text-center">
-          <p className="text-[10px] tracking-[0.3em] uppercase text-[#0A0A0A]/45 mb-6">Who we are</p>
-          <h2 className="font-display uppercase leading-[0.92] tracking-tight" style={{ fontSize: "clamp(2.2rem, 7.5vw, 5.6rem)" }}>
-            We&apos;re about indulging<br />in the extraordinary.
-          </h2>
-          <p className="font-editorial mt-8 mx-auto max-w-2xl leading-[1.5] text-[#0A0A0A]/70" style={{ fontSize: "clamp(1.05rem, 1.9vw, 1.5rem)" }}>
-            From restaurants to cafés, lifestyle concepts to pop-ups — we build identities, campaigns, content and
-            experiences that make people stop, feel and remember.
-          </p>
-        </div>
-      </div>
-
       {/* founder */}
-      <div className="px-8 md:px-16 py-20 md:py-28">
+      <div className="px-8 md:px-16 pt-28 md:pt-36 pb-20 md:pb-28">
         <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-start">
           <div>
             <p className="text-[10px] tracking-[0.3em] uppercase text-[#0A0A0A]/45 mb-6">The founder</p>

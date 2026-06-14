@@ -231,9 +231,6 @@ export default function ContactSection() {
                   <p>If you&apos;re serious about building something memorable, <span className="text-[#F3F1EC]">let&apos;s talk.</span></p>
                 </div>
 
-                {/* interactive city codes */}
-                <CityCodes />
-
                 {/* contact detail cards */}
                 <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 gap-4 text-left">
                   <a href="mailto:hello@thisisnn.com" data-cursor="Say hi" className="group relative rounded-2xl border border-[#F3F1EC]/15 bg-[#F3F1EC]/[0.03] p-5 md:p-6 hover:border-[#FF2EC4]/60 hover:bg-[#F3F1EC]/[0.06] transition-colors">
@@ -247,6 +244,9 @@ export default function ContactSection() {
                     <p className="font-editorial leading-tight group-hover:text-[#FF2EC4] transition-colors" style={{ fontSize: "clamp(1.15rem, 1.8vw, 1.5rem)" }}>+61 433 714 701</p>
                   </a>
                 </div>
+
+                {/* interactive city codes */}
+                <CityCodes />
 
               </div>
             </div>
