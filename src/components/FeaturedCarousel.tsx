@@ -92,9 +92,9 @@ export default function FeaturedCarousel() {
         <div className="fixed inset-0 z-[300] flex items-center justify-center p-4 md:p-8" data-cursor="Close" onClick={() => setOpen(null)}>
           <div className="absolute inset-0 bg-[#0A0A0A]/70 backdrop-blur-sm" />
           <div
-            className="relative w-full max-w-4xl max-h-[88vh] flex flex-col md:grid md:grid-cols-2 overflow-y-auto md:overflow-hidden overscroll-contain rounded-3xl bg-[#161513] text-[#F3F1EC] shadow-[0_50px_140px_-40px_rgba(0,0,0,0.8)]"
+            className="relative w-full max-w-4xl max-h-[88vh] flex flex-col md:grid md:grid-cols-2 overflow-y-auto md:overflow-hidden overscroll-contain rounded-3xl bg-[#F3F1EC] text-[#0A0A0A] shadow-[0_50px_140px_-40px_rgba(0,0,0,0.8)]"
             onClick={(e) => e.stopPropagation()}
-            data-cursor=""
+            data-cursor-color="#0A0A0A"
           >
             {/* image carousel */}
             {(() => {
@@ -124,10 +124,10 @@ export default function FeaturedCarousel() {
                   </div>
                   {/* details */}
                   <div className="flex flex-col p-7 md:p-10 md:overflow-y-auto md:max-h-[88vh]">
-                    <p className="text-[10px] tracking-[0.3em] uppercase text-[#F3F1EC]/45 mb-4">{doc.cat} · {doc.city} · {doc.year}</p>
+                    <p className="text-[10px] tracking-[0.3em] uppercase text-[#0A0A0A]/45 mb-4">{doc.cat} · {doc.city} · {doc.year}</p>
                     <h3 className="font-sans font-bold tracking-tight leading-none mb-3" style={{ fontSize: "clamp(2rem, 4vw, 3rem)" }}>{doc.name}</h3>
-                    <p className="font-editorial italic text-[#F3F1EC]/70 mb-6" style={{ fontSize: "clamp(1.05rem, 1.5vw, 1.3rem)" }}>{doc.sub}</p>
-                    <div className="space-y-4 text-[14px] leading-relaxed text-[#F3F1EC]/70">
+                    <p className="font-editorial italic text-[#0A0A0A]/60 mb-6" style={{ fontSize: "clamp(1.05rem, 1.5vw, 1.3rem)" }}>{doc.sub}</p>
+                    <div className="space-y-4 text-[14px] leading-relaxed text-[#0A0A0A]/70">
                       {body.map((para, i) => <p key={i}>{para}</p>)}
                     </div>
                   </div>
@@ -138,7 +138,7 @@ export default function FeaturedCarousel() {
             <button
               onClick={() => setOpen(null)}
               aria-label="Close"
-              className="absolute top-4 right-4 z-10 w-9 h-9 rounded-full border border-[#F3F1EC]/30 bg-[#0A0A0A]/40 backdrop-blur-sm flex items-center justify-center text-sm hover:bg-[#F3F1EC] hover:text-[#1C1C1C] transition-colors"
+              className="absolute top-4 right-4 z-10 w-9 h-9 rounded-full border border-[#0A0A0A]/30 bg-[#F3F1EC]/70 backdrop-blur-sm flex items-center justify-center text-sm hover:bg-[#0A0A0A] hover:text-[#F3F1EC] transition-colors"
             >
               ✕
             </button>
