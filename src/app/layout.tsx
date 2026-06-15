@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Playfair_Display, Space_Grotesk, Anton, Caveat, Special_Elite, Permanent_Marker, Rock_Salt, Zilla_Slab, Reenie_Beanie, Space_Mono, DM_Serif_Display, Mansalva, Kalam, Old_Standard_TT, Yellowtail, Imperial_Script } from "next/font/google";
 import "./globals.css";
+import { Analytics } from "@vercel/analytics/next";
 
 const caveat = Caveat({
   subsets: ["latin"],
@@ -112,7 +113,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${playfair.variable} ${grotesk.variable} ${anton.variable} ${caveat.variable} ${typewriter.variable} ${permanentMarker.variable} ${rockSalt.variable} ${zillaSlab.variable} ${reenie.variable} ${spaceMono.variable} ${dmSerif.variable} ${mansalva.variable} ${kalam.variable} ${oldStandard.variable} ${yellowtail.variable} ${imperialScript.variable}`}>
-      <body className="bg-[#0A0A0A] text-[#F3F1EC]">{children}</body>
+      <body className="bg-[#0A0A0A] text-[#F3F1EC]">{children}<Analytics /></body>
     </html>
   );
 }

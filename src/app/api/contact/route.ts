@@ -1,6 +1,6 @@
 import { Resend } from "resend";
 import { db, hasDb } from "@/lib/db";
-import { submissions } from "@/lib/db/schema";
+import { submissions, events } from "@/lib/db/schema";
 
 export const runtime = "nodejs";
 
@@ -21,6 +21,7 @@ export async function POST(request: Request) {
     if (hasDb) {
       try {
         await db.insert(submissions).values({ name, email, message, coffee: coffee || null });
+        await db.insert(events).values({ type: "contact_submit", label: name, path: "/" });
       } catch {
         /* non-fatal */
       }

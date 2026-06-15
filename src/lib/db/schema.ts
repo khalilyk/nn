@@ -20,3 +20,14 @@ export const submissions = pgTable("submissions", {
 });
 
 export type SubmissionRow = typeof submissions.$inferSelect;
+
+/** Lightweight analytics events. */
+export const events = pgTable("events", {
+  id: serial("id").primaryKey(),
+  type: text("type").notNull(), // page_view | project_open | note_open | contact_submit | cta_click
+  label: text("label"), // e.g. project name, path
+  path: text("path"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+export type EventRow = typeof events.$inferSelect;

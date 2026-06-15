@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import type { Project } from "@/lib/content/types";
 import { DEFAULT_CONTENT } from "@/lib/content/defaults";
+import { track } from "@/lib/track";
 
 export default function FeaturedCarousel({ projects = DEFAULT_CONTENT.projects }: { projects?: Project[] }) {
   const [open, setOpen] = useState<number | null>(null);
@@ -33,7 +34,7 @@ export default function FeaturedCarousel({ projects = DEFAULT_CONTENT.projects }
             <div key={pr.name} className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-0 items-stretch">
               {/* image + overlaid name */}
               <div
-                onClick={() => setOpen(i)}
+                onClick={() => { setOpen(i); track("project_open", pr.name); }}
                 data-cursor="Open"
                 className={`md:col-span-7 relative aspect-[16/10] md:aspect-auto md:min-h-[480px] w-full overflow-hidden bg-[#0A0A0A] cursor-pointer group ${flip ? "md:order-2" : ""}`}
               >
@@ -56,7 +57,7 @@ export default function FeaturedCarousel({ projects = DEFAULT_CONTENT.projects }
                   <span className="text-[#F3F1EC]/60">{pr.sub}</span>
                 </p>
                 <button
-                  onClick={() => setOpen(i)}
+                  onClick={() => { setOpen(i); track("project_open", pr.name); }}
                   data-cursor="Open"
                   className="mt-6 self-start inline-flex items-center gap-3 text-[10px] tracking-[0.25em] uppercase border-b border-[#F3F1EC] pb-1 hover:opacity-60 transition-opacity"
                 >
