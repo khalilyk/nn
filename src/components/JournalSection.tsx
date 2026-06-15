@@ -107,13 +107,6 @@ const WEATHER = [
   { stain1: "60% 8%", stain2: "22% 70%", stainO: 0.5, fade: "82% 82%", crease: 12, tear: "tr" },
 ];
 
-const TEAR_POS: Record<string, string> = {
-  tl: "top-0 left-0 -translate-x-1/2 -translate-y-1/2",
-  tr: "top-0 right-0 translate-x-1/2 -translate-y-1/2",
-  bl: "bottom-0 left-0 -translate-x-1/2 translate-y-1/2",
-  br: "bottom-0 right-0 translate-x-1/2 translate-y-1/2",
-};
-
 // each poster peels off the wall a little differently
 const LIFTS = [
   { rot: -5, x: -14, y: -26, origin: "bottom right" },
@@ -167,8 +160,6 @@ function Poster({ p, idx }: { p: Post; idx: number }) {
         <span aria-hidden className="pointer-events-none absolute inset-0 z-20 mix-blend-overlay opacity-50" style={{ background: `radial-gradient(circle at ${W.fade}, rgba(255,255,255,0.85), transparent 55%)` }} />
         {/* weathering: crease */}
         <span aria-hidden className="pointer-events-none absolute inset-0 z-20 mix-blend-soft-light opacity-70" style={{ background: `linear-gradient(${W.crease}deg, transparent 47%, rgba(0,0,0,0.25) 49%, rgba(255,255,255,0.3) 51%, transparent 53%)` }} />
-        {/* weathering: torn corner revealing the wall */}
-        <span aria-hidden className={`pointer-events-none absolute z-30 w-12 h-12 rotate-45 bg-[#1A1714] shadow-[0_0_10px_rgba(0,0,0,0.5)] ${TEAR_POS[W.tear]}`} />
 
         {/* ── SPLIT: word / image / word ── */}
         {p.variant === "split" && (
