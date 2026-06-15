@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import type { Client, Invoice, InvoiceItem, InvoiceSettings, RecurInterval } from "@/lib/invoice/types";
 import { computeTotals, lineAmount, money } from "@/lib/invoice/types";
+import InvoicePreview from "./InvoicePreview";
 
 const input = "w-full rounded-lg border border-black/10 bg-white px-3 py-2 text-[13px] text-[#0A0A0A]";
 const lab = "block text-[11px] tracking-[0.12em] uppercase text-black/45 mb-1";
@@ -210,6 +211,14 @@ export default function InvoiceEditor({ id }: { id: number }) {
           </div>
         </div>
       </div>
+
+      {/* live preview */}
+      {settings && (
+        <div className="mt-8">
+          <h3 className="text-[12px] font-semibold text-black/45 uppercase tracking-wide mb-3">Live preview</h3>
+          <InvoicePreview inv={inv} cfg={settings} />
+        </div>
+      )}
 
       {sendOpen && settings && <SendModal inv={inv} settings={settings} onClose={() => setSendOpen(false)} onSent={() => { setSendOpen(false); set({ status: inv.status === "draft" ? "sent" : inv.status }); }} />}
     </div>

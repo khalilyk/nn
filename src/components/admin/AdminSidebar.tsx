@@ -56,36 +56,43 @@ export default function AdminSidebar() {
   };
 
   return (
-    <nav className="group flex md:flex-col gap-1.5 rounded-[26px] bg-white p-2.5 shadow-sm self-start md:sticky md:top-5 overflow-x-auto md:w-[200px]">
-      <Item href="/admin" k="dashboard" label="Dashboard" />
+    <div className="flex md:flex-col gap-3 self-start md:sticky md:top-5 md:w-[200px]">
+      <nav className="flex md:flex-col gap-1.5 rounded-[26px] bg-white p-2.5 shadow-sm overflow-x-auto">
+        <Item href="/admin" k="dashboard" label="Dashboard" />
 
-      {/* Sections toggle */}
-      <button
-        onClick={() => setOpen((o) => !o)}
-        title="Sections"
-        className={`flex items-center gap-3 h-11 rounded-2xl shrink-0 transition-colors ${onSection ? "bg-black/[0.06]" : "hover:bg-black/[0.05]"}`}
-      >
-        <span className="grid place-items-center w-11 h-11 shrink-0">
-          <Icon d={ICONS.sections} active={false} />
-        </span>
-        <span className="hidden md:flex items-center justify-between flex-1 pr-3">
-          <span className="text-[13px] text-[#0A0A0A]/75">Sections</span>
-          <span className="text-[10px] text-[#0A0A0A]/40">{open ? "▾" : "▸"}</span>
-        </span>
-      </button>
+        {/* Sections toggle */}
+        <button
+          onClick={() => setOpen((o) => !o)}
+          title="Sections"
+          className={`flex items-center gap-3 h-11 rounded-2xl shrink-0 transition-colors ${onSection ? "bg-black/[0.06]" : "hover:bg-black/[0.05]"}`}
+        >
+          <span className="grid place-items-center w-11 h-11 shrink-0">
+            <Icon d={ICONS.sections} active={false} />
+          </span>
+          <span className="hidden md:flex items-center justify-between flex-1 pr-3">
+            <span className="text-[13px] text-[#0A0A0A]/75">Sections</span>
+            <span className="text-[10px] text-[#0A0A0A]/40">{open ? "▾" : "▸"}</span>
+          </span>
+        </button>
 
-      {open && SECTIONS.map((s) => <Item key={s.key} href={`/admin/${s.key}`} k={s.key} label={s.label} indent />)}
+        {open && SECTIONS.map((s) => <Item key={s.key} href={`/admin/${s.key}`} k={s.key} label={s.label} indent />)}
 
-      <Item href="/admin/invoices" k="invoices" label="Invoices" />
-      <Item href="/admin/clients" k="clients" label="Clients" />
-      <Item href="/admin/media" k="media" label="Media" />
-      <Item href="/admin/submissions" k="submissions" label="Submissions" />
-      <Item href="/admin/analytics" k="analytics" label="Analytics" />
+        <Item href="/admin/media" k="media" label="Media" />
+        <Item href="/admin/submissions" k="submissions" label="Submissions" />
+        <Item href="/admin/analytics" k="analytics" label="Analytics" />
 
-      <Link href="/admin/settings" title="Account settings" className={`flex items-center gap-3 h-11 rounded-2xl shrink-0 md:mt-2 transition-colors ${path === "/admin/settings" ? "bg-[#0A0A0A]" : "hover:bg-black/[0.05]"}`}>
-        <span className={`grid place-items-center w-11 h-11 rounded-full shrink-0 text-[13px] font-bold ${path === "/admin/settings" ? "bg-white text-[#0A0A0A]" : "bg-[#E8E8EA] text-[#0A0A0A]"}`}>K</span>
-        <span className={`hidden md:block text-[13px] whitespace-nowrap ${path === "/admin/settings" ? "text-white" : "text-[#0A0A0A]/60"}`}>Account</span>
-      </Link>
-    </nav>
+        <Link href="/admin/settings" title="Account settings" className={`flex items-center gap-3 h-11 rounded-2xl shrink-0 md:mt-2 transition-colors ${path === "/admin/settings" ? "bg-[#0A0A0A]" : "hover:bg-black/[0.05]"}`}>
+          <span className={`grid place-items-center w-11 h-11 rounded-full shrink-0 text-[13px] font-bold ${path === "/admin/settings" ? "bg-white text-[#0A0A0A]" : "bg-[#E8E8EA] text-[#0A0A0A]"}`}>K</span>
+          <span className={`hidden md:block text-[13px] whitespace-nowrap ${path === "/admin/settings" ? "text-white" : "text-[#0A0A0A]/60"}`}>Account</span>
+        </Link>
+      </nav>
+
+      {/* Business: invoicing + CRM, in its own box */}
+      <nav className="flex md:flex-col gap-1.5 rounded-[26px] bg-white p-2.5 shadow-sm overflow-x-auto">
+        <span className="hidden md:block text-[10px] tracking-[0.14em] uppercase text-[#0A0A0A]/35 px-3 pt-1 pb-0.5">Business</span>
+        <Item href="/admin/invoices" k="invoices" label="Invoices" />
+        <Item href="/admin/clients" k="clients" label="Clients" />
+      </nav>
+    </div>
   );
 }
