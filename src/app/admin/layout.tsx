@@ -11,7 +11,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         <div className="flex-1 min-w-0">
           {/* toolbar */}
           <div className="flex items-center justify-between gap-3 rounded-[22px] bg-white shadow-sm px-5 py-3 mb-4">
-            <span className="font-bold tracking-tight text-[15px]">Not Normal · Studio</span>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/notnormal-logoblack.png" alt="Not Normal" className="h-4 w-auto" />
             <div className="flex items-center gap-2">
               <a href="/" target="_blank" className="rounded-full bg-[#F1F1F3] hover:bg-[#E6E6E9] px-4 py-2 text-[12px] text-[#0A0A0A]/70 transition-colors">View site ↗</a>
               <form action="/api/admin/logout" method="post">

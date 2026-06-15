@@ -37,12 +37,16 @@ export default function AdminSidebar() {
   ];
 
   return (
-    <nav className="flex md:flex-col items-center gap-1.5 rounded-[26px] bg-white p-2.5 shadow-sm self-start md:sticky md:top-5 overflow-x-auto">
+    <nav className="group flex md:flex-col gap-1.5 rounded-[26px] bg-white p-2.5 shadow-sm self-start md:sticky md:top-5 overflow-x-auto md:overflow-hidden md:w-[64px] md:hover:w-[212px] transition-[width] duration-300 ease-out">
       {/* brand tile */}
-      <div className="grid place-items-center w-11 h-11 rounded-2xl bg-[#2D6BFF] text-white shrink-0 mb-1">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/notnormal-iconoutline.png" alt="" className="h-5 w-auto" style={{ filter: "invert(1)" }} />
+      <div className="flex items-center gap-3 shrink-0 mb-1">
+        <div className="grid place-items-center w-11 h-11 rounded-2xl bg-[#2D6BFF] shrink-0">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/notnormal-iconoutline.png" alt="" className="h-5 w-auto" style={{ filter: "invert(1)" }} />
+        </div>
+        <span className="hidden md:block text-[13px] font-bold tracking-tight whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-200">Not Normal</span>
       </div>
+
       {links.map((l) => {
         const active = l.href === "/admin" ? path === "/admin" : path === l.href;
         return (
@@ -50,18 +54,24 @@ export default function AdminSidebar() {
             key={l.href}
             href={l.href}
             title={l.label}
-            className={`group relative grid place-items-center w-11 h-11 rounded-2xl shrink-0 transition-colors ${
+            className={`group/item flex items-center gap-3 h-11 rounded-2xl shrink-0 transition-colors ${
               active ? "bg-[#0A0A0A]" : "hover:bg-black/[0.05]"
             }`}
           >
-            <Icon d={ICONS[l.key] || ICONS.dashboard} active={active} />
-            <span className="pointer-events-none absolute left-[calc(100%+8px)] top-1/2 -translate-y-1/2 whitespace-nowrap rounded-lg bg-[#0A0A0A] text-white text-[11px] px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity z-20 hidden md:block">
+            <span className="grid place-items-center w-11 h-11 shrink-0">
+              <Icon d={ICONS[l.key] || ICONS.dashboard} active={active} />
+            </span>
+            <span className={`hidden md:block text-[13px] whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-200 ${active ? "text-white" : "text-[#0A0A0A]/75"}`}>
               {l.label}
             </span>
           </Link>
         );
       })}
-      <span className="grid place-items-center w-11 h-11 rounded-full bg-[#E8E8EA] text-[#0A0A0A] text-[13px] font-bold shrink-0 md:mt-2">K</span>
+
+      <div className="flex items-center gap-3 shrink-0 md:mt-2">
+        <span className="grid place-items-center w-11 h-11 rounded-full bg-[#E8E8EA] text-[#0A0A0A] text-[13px] font-bold shrink-0">K</span>
+        <span className="hidden md:block text-[13px] whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-200 text-[#0A0A0A]/60">Khalil</span>
+      </div>
     </nav>
   );
 }
