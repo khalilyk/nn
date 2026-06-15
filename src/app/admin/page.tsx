@@ -28,6 +28,7 @@ export default async function AdminDashboard() {
   const outstanding = pending.reduce((sum, i) => sum + computeTotals(i).total, 0);
 
   let views14 = 0;
+  let daily: { day: string; count: number }[] = [];
   if (hasDb) {
     try {
       const [r] = await db
@@ -35,8 +36,24 @@ export default async function AdminDashboard() {
         .from(events)
         .where(sql`${events.type} = 'page_view' and ${events.createdAt} > now() - interval '14 days'`);
       views14 = r?.c ?? 0;
+      daily = (await db
+        .select({ day: sql<string>`to_char(${events.createdAt}, 'DD Mon')`, count: sql<number>`count(*)::int` })
+        .from(events)
+        .where(sql`${events.type} = 'page_view' and ${events.createdAt} > now() - interval '14 days'`)
+        .groupBy(sql`to_char(${events.createdAt}, 'DD Mon'), date_trunc('day', ${events.createdAt})`)
+        .orderBy(sql`date_trunc('day', ${events.createdAt})`)) as { day: string; count: number }[];
     } catch { /* ignore */ }
   }
+  const maxDay = Math.max(1, ...daily.map((d) => d.count));
+
+  // invoices by status (excludes templates)
+  const real = invoices.filter((i) => !i.isTemplate);
+  const byStatus = (["draft", "sent", "overdue", "paid"] as const).map((st) => ({
+    status: st,
+    count: real.filter((i) => i.status === st).length,
+    total: real.filter((i) => i.status === st).reduce((s, i) => s + computeTotals(i).total, 0),
+  }));
+  const maxStatus = Math.max(1, ...byStatus.map((b) => b.total));
 
   const recentClients = clients.slice(0, 6);
   const currency = pending[0]?.currency || "AUD";
@@ -67,6 +84,53 @@ export default async function AdminDashboard() {
             <div className="mt-3 text-[11px] tracking-[0.12em] uppercase text-[#0A0A0A]/50">{s.label}</div>
           </div>
         ))}
+      </div>
+
+      {/* graphs */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 mb-3">
+        {/* page views over 14 days */}
+        <div className="rounded-3xl bg-white shadow-sm p-5">
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-[13px] font-semibold text-[#0A0A0A]">Page views · last 14 days</h2>
+            <Link href="/admin/analytics" className="text-[12px] text-black/45 hover:text-black">Analytics →</Link>
+          </div>
+          {daily.length === 0 ? (
+            <p className="text-[12px] text-black/40">No views recorded yet.</p>
+          ) : (
+            <div className="flex items-end gap-1.5 h-32">
+              {daily.map((d, i) => (
+                <div key={i} className="flex-1 flex flex-col items-center gap-1 group">
+                  <span className="text-[9px] text-black/45 opacity-0 group-hover:opacity-100">{d.count}</span>
+                  <div className="w-full rounded-t bg-[#0A0A0A]" style={{ height: `${Math.max(3, (d.count / maxDay) * 100)}%` }} title={`${d.day}: ${d.count}`} />
+                  <span className="text-[8px] text-black/35 whitespace-nowrap">{d.day.split(" ")[0]}</span>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+
+        {/* invoices by status */}
+        <div className="rounded-3xl bg-white shadow-sm p-5">
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-[13px] font-semibold text-[#0A0A0A]">Invoices by status</h2>
+            <Link href="/admin/invoices" className="text-[12px] text-black/45 hover:text-black">Invoices →</Link>
+          </div>
+          {real.length === 0 ? (
+            <p className="text-[12px] text-black/40">No invoices yet.</p>
+          ) : (
+            <div className="space-y-3 pt-1">
+              {byStatus.map((b) => (
+                <div key={b.status} className="flex items-center gap-3">
+                  <span className="text-[11px] uppercase tracking-wide text-black/55 w-16 shrink-0">{b.status}</span>
+                  <div className="flex-1 h-5 rounded-full bg-black/[0.05] overflow-hidden">
+                    <div className="h-full rounded-full" style={{ width: `${(b.total / maxStatus) * 100}%`, background: b.status === "paid" ? "#1f9d55" : b.status === "overdue" ? "#c0392b" : b.status === "sent" ? "#2D6BFF" : "#9A9A9A" }} />
+                  </div>
+                  <span className="text-[12px] text-[#0A0A0A] w-24 text-right shrink-0">{money(b.total)} <span className="text-black/35">({b.count})</span></span>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
