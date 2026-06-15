@@ -14,7 +14,12 @@ export async function GET(req: Request, ctx: { params: Promise<{ id: string }> }
   if (!p) return NextResponse.json({ error: "not found" }, { status: 404 });
 
   const origin = new URL(req.url).origin;
-  const pdf = await renderProposalPdf(p, origin);
+  let pdf: Buffer;
+  try {
+    pdf = await renderProposalPdf(p, origin);
+  } catch (e) {
+    return NextResponse.json({ error: "pdf failed", detail: String(e instanceof Error ? e.stack || e.message : e) }, { status: 500 });
+  }
 
   const inline = new URL(req.url).searchParams.get("inline") === "1";
   const name = `${p.title.replace(/\s+/g, "-").toLowerCase()}.pdf`;
