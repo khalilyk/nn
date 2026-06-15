@@ -107,19 +107,15 @@ const WEATHER = [
   { stain1: "60% 8%", stain2: "22% 70%", stainO: 0.5, fade: "82% 82%", crease: 12, tear: "tr" },
 ];
 
-// large soft crumpled-paper folds, unique per poster (low-frequency relief)
+// real creased-paper photo, positioned uniquely per poster
 const PAPER = [
-  { seed: 7, freq: "0.004 0.006" },
-  { seed: 23, freq: "0.005 0.004" },
-  { seed: 44, freq: "0.0035 0.006" },
-  { seed: 61, freq: "0.006 0.0045" },
-  { seed: 88, freq: "0.0045 0.0055" },
+  { pos: "0% 0%", scale: 1.1, flip: false },
+  { pos: "100% 15%", scale: 1.2, flip: true },
+  { pos: "40% 100%", scale: 1.28, flip: false },
+  { pos: "90% 95%", scale: 1.15, flip: true },
+  { pos: "20% 55%", scale: 1.22, flip: false },
 ];
-
-function crumpleURI(seed: number, freq: string) {
-  const svg = `<svg xmlns='http://www.w3.org/2000/svg' width='440' height='580'><filter id='f'><feTurbulence type='fractalNoise' baseFrequency='${freq}' numOctaves='3' seed='${seed}' stitchTiles='stitch' result='n'/><feDiffuseLighting in='n' lighting-color='#ffffff' surfaceScale='3' diffuseConstant='1'><feDistantLight azimuth='225' elevation='52'/></feDiffuseLighting></filter><rect width='100%' height='100%' filter='url(#f)'/></svg>`;
-  return `data:image/svg+xml,${encodeURIComponent(svg)}`;
-}
+const PAPER_SRC = "/creased.jpg";
 
 // each poster peels off the wall a little differently
 const LIFTS = [
@@ -173,8 +169,9 @@ function Poster({ p, idx }: { p: Post; idx: number }) {
         <span aria-hidden className="pointer-events-none absolute inset-0 z-20 mix-blend-multiply" style={{ opacity: W.stainO, background: `radial-gradient(ellipse at ${W.stain1}, rgba(74,55,32,0.55), transparent 55%), radial-gradient(circle at ${W.stain2}, rgba(40,32,22,0.5), transparent 50%)` }} />
         {/* weathering: sun-faded patch */}
         <span aria-hidden className="pointer-events-none absolute inset-0 z-20 mix-blend-overlay opacity-50" style={{ background: `radial-gradient(circle at ${W.fade}, rgba(255,255,255,0.85), transparent 55%)` }} />
-        {/* crumpled-paper folds — soft-light relief, unique per poster */}
-        <span aria-hidden className="pointer-events-none absolute inset-0 z-20 mix-blend-soft-light" style={{ opacity: 0.85, backgroundImage: `url("${crumpleURI(P.seed, P.freq)}")`, backgroundSize: "cover" }} />
+        {/* real creased-paper photo — shadows (multiply) + highlights (screen), unique per poster */}
+        <span aria-hidden className="pointer-events-none absolute inset-0 z-20 mix-blend-multiply" style={{ opacity: 0.6, backgroundImage: `url("${PAPER_SRC}")`, backgroundSize: "cover", backgroundPosition: P.pos, transform: `scale(${P.scale})${P.flip ? " scaleX(-1)" : ""}` }} />
+        <span aria-hidden className="pointer-events-none absolute inset-0 z-20 mix-blend-screen" style={{ opacity: 0.25, backgroundImage: `url("${PAPER_SRC}")`, backgroundSize: "cover", backgroundPosition: P.pos, transform: `scale(${P.scale})${P.flip ? " scaleX(-1)" : ""}` }} />
 
         {/* ── SPLIT: word / image / word ── */}
         {p.variant === "split" && (
