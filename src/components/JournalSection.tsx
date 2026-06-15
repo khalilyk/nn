@@ -1,6 +1,8 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import type { Notes } from "@/lib/content/types";
+import { DEFAULT_CONTENT } from "@/lib/content/defaults";
 
 type Base = {
   cat: string;
@@ -33,62 +35,6 @@ type BlahPost = Base & {
 };
 
 type Post = SplitPost | TypePost | BlahPost;
-
-const POSTS: Post[] = [
-  {
-    variant: "split",
-    cat: "Branding",
-    date: "May 2026",
-    title: "Why Nobody Remembers Normal",
-    read: "5 min read",
-    bg: "#BBD9F2",
-    ink: "#0A0A0A",
-    rotate: "-2deg",
-    top: "BRANDS NOT",
-    bottom: "BACKGROUND",
-    img: "https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=900&q=80",
-  },
-  {
-    variant: "type",
-    cat: "Hospitality",
-    date: "Apr 2026",
-    title: "Menus That Actually Sell",
-    read: "6 min read",
-    bg: "#D8F24A",
-    ink: "#0A0A0A",
-    rotate: "1.5deg",
-    eyebrow: "Quality over noise",
-    lines: ["MENUS", "THAT MAKE", "MONEY…"],
-    footer: "Without the crafty bullshit",
-  },
-  {
-    variant: "blah",
-    cat: "Content",
-    date: "Mar 2026",
-    title: "Say Something Worth Hearing",
-    read: "4 min read",
-    bg: "#ECE7DA",
-    ink: "#0A0A0A",
-    rotate: "-1deg",
-    word: "BLAH",
-    rows: 5,
-    line: "Stop sounding like everyone else.",
-    img: "https://images.unsplash.com/photo-1569529465841-dfecdab7503b?auto=format&fit=crop&w=700&q=80",
-  },
-  {
-    variant: "type",
-    cat: "Experience",
-    date: "Feb 2026",
-    title: "The First 90 Seconds",
-    read: "5 min read",
-    bg: "#81D742",
-    ink: "#0A0A0A",
-    rotate: "2deg",
-    eyebrow: "First impressions",
-    lines: ["THE", "FIRST 90", "SECONDS"],
-    footer: "Decide everything",
-  },
-];
 
 function Badge({ ink }: { ink: string }) {
   return (
@@ -219,7 +165,8 @@ function Poster({ p, idx }: { p: Post; idx: number }) {
 }
 
 /* The Journal - a draggable, looping wall of pasted posters. */
-export default function JournalSection() {
+export default function JournalSection({ notes = DEFAULT_CONTENT.notes }: { notes?: Notes }) {
+  const POSTS = notes.posts;
   const track = useRef<HTMLDivElement>(null);
   const setW = useRef(0);
   const x = useRef(0);
@@ -290,9 +237,9 @@ export default function JournalSection() {
       {/* header (padded) */}
       <div className="relative px-6 sm:px-10 md:px-16">
         <div className="text-center mb-14 md:mb-20">
-          <p className="text-[10px] tracking-[0.3em] uppercase text-white/45 mb-4">Thinking out loud</p>
-          <h2 className="font-display uppercase tracking-tight leading-[0.92] text-white" style={{ fontSize: "clamp(2rem, 5vw, 4rem)" }}>
-            Notes we&apos;ve<br />scribbled down
+          <p className="text-[10px] tracking-[0.3em] uppercase text-white/45 mb-4">{notes.eyebrow}</p>
+          <h2 className="font-display uppercase tracking-tight leading-[0.92] text-white max-w-[12ch] mx-auto" style={{ fontSize: "clamp(2rem, 5vw, 4rem)" }}>
+            {notes.heading}
           </h2>
         </div>
       </div>

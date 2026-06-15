@@ -1,4 +1,6 @@
 import { Resend } from "resend";
+import { db, hasDb } from "@/lib/db";
+import { submissions } from "@/lib/db/schema";
 
 export const runtime = "nodejs";
 
@@ -13,6 +15,15 @@ export async function POST(request: Request) {
 
     if (!name || !email || !message) {
       return Response.json({ error: "Missing required fields." }, { status: 400 });
+    }
+
+    // Capture the submission first, so nothing is lost even if email fails.
+    if (hasDb) {
+      try {
+        await db.insert(submissions).values({ name, email, message, coffee: coffee || null });
+      } catch {
+        /* non-fatal */
+      }
     }
 
     const apiKey = process.env.RESEND_API_KEY;

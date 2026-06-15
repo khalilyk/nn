@@ -1,85 +1,8 @@
 "use client";
 
 import { useState } from "react";
-
-type Course = {
-  course: string;
-  title: string;
-  intro?: string[];
-  items: string[];
-};
-
-const COURSES: Course[] = [
-  {
-    course: "The Amuse Bouche",
-    title: "Branding & Identity",
-    items: [
-      "Naming & Tagline Development",
-      "Brand Strategy & Positioning",
-      "Logo & Identity Design",
-      "Visual Identity Systems",
-      "Tone of Voice & Messaging",
-      "Brand Guidelines",
-      "Menu Design",
-      "Packaging Concepts",
-    ],
-  },
-  {
-    course: "The Appetizers",
-    title: "Web Design & Development",
-    items: [
-      "Website Design",
-      "Website Development",
-      "UX & User Journey Mapping",
-      "Mobile Optimisation",
-      "Booking & Reservation Integrations",
-      "E-Commerce Solutions",
-      "SEO Foundations",
-      "Website Management & Updates",
-    ],
-  },
-  {
-    course: "The Mains",
-    title: "Print & Production",
-    items: [
-      "Signage & Environmental Graphics",
-      "Packaging Production",
-      "Menus & Printed Collateral",
-      "Uniform Design & Manufacture",
-      "Promotional Merchandise",
-      "Exhibition & Event Displays",
-      "Large Format Printing",
-    ],
-  },
-  {
-    course: "The Desserts",
-    title: "PR & Brand Visibility",
-    intro: [
-      "A great brand deserves to be discovered through storytelling, media relationships, content and collaborations that put it in front of the right audience.",
-    ],
-    items: [
-      "Public Relations (PR)",
-      "Media Outreach & Press Releases",
-      "Launch Strategies & Campaigns",
-      "Influencer & Ambassador Partnerships",
-      "Social Media Strategy",
-      "Content Creation",
-      "Photography & Videography",
-      "Community Management",
-    ],
-  },
-];
-
-const PALETTE = [
-  { bg: "#EFE7D6", fg: "#0A0A0A" },
-  { bg: "#E4DAF6", fg: "#0A0A0A" },
-  { bg: "#C9A227", fg: "#0A0A0A" },
-  { bg: "#FF6A3D", fg: "#0A0A0A" },
-  { bg: "#F2EBA0", fg: "#0A0A0A" },
-  { bg: "#BFE3C6", fg: "#0A0A0A" },
-  { bg: "#F7C8DD", fg: "#0A0A0A" },
-  { bg: "#BCD6F5", fg: "#0A0A0A" },
-];
+import type { Menu } from "@/lib/content/types";
+import { DEFAULT_CONTENT } from "@/lib/content/defaults";
 
 // scatter positions (desktop) - top/left in %, slight rotation
 const SCATTER = [
@@ -93,7 +16,9 @@ const SCATTER = [
   { top: "70%", left: "38%", rot: 3 },
 ];
 
-export default function MenuSplit() {
+export default function MenuSplit({ menu = DEFAULT_CONTENT.menu }: { menu?: Menu }) {
+  const COURSES = menu.courses;
+  const PALETTE = menu.palette;
   const [active, setActive] = useState(0);
   const cur = COURSES[active];
 
@@ -101,9 +26,9 @@ export default function MenuSplit() {
     <div className="overflow-hidden">
       <div className="py-4 md:py-6">
         {/* heading */}
-        <p className="text-[9px] tracking-[0.3em] uppercase text-[#0A0A0A]/40 mb-6 text-center">The Menu, What We Do</p>
+        <p className="text-[9px] tracking-[0.3em] uppercase text-[#0A0A0A]/40 mb-6 text-center">{menu.eyebrow}</p>
         <h3 className="font-editorial leading-[1.05] max-w-3xl mx-auto text-center mb-12 md:mb-16 text-[#0A0A0A]" style={{ fontSize: "clamp(2rem, 4vw, 3.4rem)" }}>
-          Four ways we make brands <span className="italic">unforgettable</span>.
+          {menu.heading}
         </h3>
 
         {/* layered list + scattered pills */}

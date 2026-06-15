@@ -2,6 +2,8 @@
 
 import { useEffect, useRef, useState } from "react";
 import CityCodes from "./CityCodes";
+import type { Contact } from "@/lib/content/types";
+import { DEFAULT_CONTENT } from "@/lib/content/defaults";
 
 /* BE@RBRICK figure with an eye that follows the cursor (auto-detected eye box). */
 function Bear() {
@@ -97,7 +99,7 @@ function Bear() {
 }
 
 /* Compact interactive city codes - types out the full name on hover. */
-export default function ContactSection() {
+export default function ContactSection({ contact = DEFAULT_CONTENT.contact }: { contact?: Contact }) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
@@ -105,7 +107,7 @@ export default function ContactSection() {
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
   const sent = status === "sent";
 
-  const coffees = ["Espresso", "Cappuccino", "Long black", "Decaf", "I don't drink coffee"];
+  const coffees = contact.coffeeOptions;
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -139,9 +141,9 @@ export default function ContactSection() {
         </div>
 
         <div className="relative z-10 flex flex-col items-center text-center px-6 pt-24 md:pt-32">
-          <h2 className="font-display uppercase leading-[0.95] tracking-tight" style={{ fontSize: "clamp(2.2rem, 6.5vw, 4.6rem)" }}>Ready to create<br />something unforgettable?</h2>
+          <h2 className="font-display uppercase leading-[0.95] tracking-tight max-w-3xl" style={{ fontSize: "clamp(2.2rem, 6.5vw, 4.6rem)" }}>{contact.heading}</h2>
           <p className="text-center text-[11px] md:text-[13px] tracking-[0.1em] text-[#0A0A0A]/65 mt-6 max-w-2xl leading-relaxed normal-case">
-            Got an idea? A dream? A half-baked concept scribbled on a napkin? We&apos;re into that. Whether you&apos;re building from scratch or looking to shake things up, drop us a message. We&apos;re here for bold moves, real conversations, and doing things differently, one unforgettable brand at a time.
+            {contact.intro}
           </p>
         </div>
 
@@ -160,29 +162,28 @@ export default function ContactSection() {
             <div className="relative text-center md:text-left">
               <div className="relative">
                 <p className="text-[10px] tracking-[0.25em] uppercase text-[#F3F1EC]/60 mb-6 inline-flex items-center gap-3">
-                  <span className="w-8 h-px bg-[#F3F1EC]/40" /> Contact Us
+                  <span className="w-8 h-px bg-[#F3F1EC]/40" /> {contact.detailEyebrow}
                 </p>
                 <h3 className="font-editorial leading-[1.1] max-w-md mx-auto md:mx-0" style={{ fontSize: "clamp(1.6rem, 2.8vw, 2.4rem)" }}>
-                  A limited number of projects.<br />A lot of attention.
+                  {contact.detailHeading}
                 </h3>
                 <div className="mt-5 space-y-4 text-[#F3F1EC]/65 leading-relaxed max-w-md mx-auto md:mx-0" style={{ fontSize: "clamp(0.9rem, 1.2vw, 1rem)" }}>
-                  <p>We keep our client roster intentionally small, allowing us to stay hands-on from strategy through to execution. That means availability is limited, and most months fill quickly.</p>
-                  <p>If you&apos;re serious about building something memorable, <span className="text-[#F3F1EC]">let&apos;s talk.</span></p>
+                  {contact.detailBody.map((p, i) => <p key={i}>{p}</p>)}
                 </div>
 
                 {/* contact detail cards - one line each, stacked */}
                 <div className="mt-10 flex flex-col gap-3 text-left">
-                  <a href="mailto:hello@thisisnn.com" data-cursor="Say hi" className="group flex items-center justify-between gap-4 rounded-2xl border border-[#F3F1EC]/15 bg-[#F3F1EC]/[0.03] px-5 md:px-6 py-4 hover:border-[#FF2EC4]/60 hover:bg-[#F3F1EC]/[0.06] transition-colors">
+                  <a href={`mailto:${contact.email}`} data-cursor="Say hi" className="group flex items-center justify-between gap-4 rounded-2xl border border-[#F3F1EC]/15 bg-[#F3F1EC]/[0.03] px-5 md:px-6 py-4 hover:border-[#FF2EC4]/60 hover:bg-[#F3F1EC]/[0.06] transition-colors">
                     <span className="flex items-baseline gap-4 min-w-0">
                       <span className="text-[9px] tracking-[0.3em] uppercase text-[#F3F1EC]/40 shrink-0 w-14">Email</span>
-                      <span className="font-editorial leading-tight truncate group-hover:text-[#FF2EC4] transition-colors" style={{ fontSize: "clamp(1.05rem, 1.6vw, 1.35rem)" }}>hello@thisisnn.com</span>
+                      <span className="font-editorial leading-tight truncate group-hover:text-[#FF2EC4] transition-colors" style={{ fontSize: "clamp(1.05rem, 1.6vw, 1.35rem)" }}>{contact.email}</span>
                     </span>
                     <span aria-hidden className="text-[#F3F1EC]/40 group-hover:text-[#FF2EC4] group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-all shrink-0">↗</span>
                   </a>
-                  <a href="tel:+61433714701" data-cursor="Ring ring" className="group flex items-center justify-between gap-4 rounded-2xl border border-[#F3F1EC]/15 bg-[#F3F1EC]/[0.03] px-5 md:px-6 py-4 hover:border-[#FF2EC4]/60 hover:bg-[#F3F1EC]/[0.06] transition-colors">
+                  <a href={`tel:${contact.phone.replace(/[^+\d]/g, "")}`} data-cursor="Ring ring" className="group flex items-center justify-between gap-4 rounded-2xl border border-[#F3F1EC]/15 bg-[#F3F1EC]/[0.03] px-5 md:px-6 py-4 hover:border-[#FF2EC4]/60 hover:bg-[#F3F1EC]/[0.06] transition-colors">
                     <span className="flex items-baseline gap-4 min-w-0">
                       <span className="text-[9px] tracking-[0.3em] uppercase text-[#F3F1EC]/40 shrink-0 w-14">Phone</span>
-                      <span className="font-editorial leading-tight truncate group-hover:text-[#FF2EC4] transition-colors" style={{ fontSize: "clamp(1.05rem, 1.6vw, 1.35rem)" }}>+61 433 714 701</span>
+                      <span className="font-editorial leading-tight truncate group-hover:text-[#FF2EC4] transition-colors" style={{ fontSize: "clamp(1.05rem, 1.6vw, 1.35rem)" }}>{contact.phone}</span>
                     </span>
                     <span aria-hidden className="text-[#F3F1EC]/40 group-hover:text-[#FF2EC4] group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-all shrink-0">↗</span>
                   </a>
@@ -198,8 +199,8 @@ export default function ContactSection() {
 
             {/* RIGHT - the form, as a light card */}
             <div id="contact-form" data-cursor-color="#0A0A0A" className="text-center md:text-left bg-[#F3F1EC] text-[#0A0A0A] rounded-3xl p-7 md:p-10 shadow-[0_34px_80px_-34px_rgba(0,0,0,0.7)]">
-              <p className="text-[9px] tracking-[0.3em] uppercase text-[#0A0A0A]/40 mb-3">Or fill the form</p>
-              <h3 className="font-display uppercase leading-[0.95] tracking-tight mb-10" style={{ fontSize: "clamp(1.7rem, 3.4vw, 2.6rem)" }}>Wanna start something?</h3>
+              <p className="text-[9px] tracking-[0.3em] uppercase text-[#0A0A0A]/40 mb-3">{contact.formEyebrow}</p>
+              <h3 className="font-display uppercase leading-[0.95] tracking-tight mb-10" style={{ fontSize: "clamp(1.7rem, 3.4vw, 2.6rem)" }}>{contact.formHeading}</h3>
             <form onSubmit={submit} className="flex flex-col gap-8">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-left">
                 <div>

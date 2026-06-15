@@ -3,13 +3,8 @@
 import { useEffect, useState } from "react";
 import Magnetic from "./Magnetic";
 import ChatLink from "./ChatLink";
-
-const LINKS = [
-  { l: "The Menu", href: "/#s02", tip: "What we do", shape: "rounded-none" },
-  { l: "About", href: "/#about", tip: "Who we are", shape: "rounded-full" },
-  { l: "Projects", href: "/#s04", tip: "Selected proof", shape: "rounded-tl-xl rounded-br-xl" },
-  { l: "Notes", href: "/#journal", tip: "Thinking & insights", shape: "rounded-lg" },
-];
+import type { NavLink } from "@/lib/content/types";
+import { DEFAULT_CONTENT } from "@/lib/content/defaults";
 
 // staggered entrance for each stacked menu card
 const card = (open: boolean, i: number) => ({
@@ -18,7 +13,8 @@ const card = (open: boolean, i: number) => ({
   transition: `opacity 0.5s cubic-bezier(0.16,1,0.3,1) ${open ? 0.1 + i * 0.08 : 0}s, transform 0.5s cubic-bezier(0.16,1,0.3,1) ${open ? 0.1 + i * 0.08 : 0}s`,
 });
 
-export default function SiteNav() {
+export default function SiteNav({ links = DEFAULT_CONTENT.nav }: { links?: NavLink[] }) {
+  const LINKS = links;
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 

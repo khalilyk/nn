@@ -23,6 +23,8 @@ import Postcard from "./Postcard";
 import AboutSection from "./AboutSection";
 import ContactSection from "./ContactSection";
 import JournalSection from "./JournalSection";
+import type { SiteContent } from "@/lib/content/types";
+import { DEFAULT_CONTENT } from "@/lib/content/defaults";
 
 /* ───────────────── STACKING PANEL ───────────────── */
 const SLIDE_OFFSET: Record<string, string> = {
@@ -137,7 +139,8 @@ function SectionNo({ n, side = "left", dark }: { n: string; side?: "left" | "rig
 }
 
 /* ───────────────── PUBLICATION ───────────────── */
-export default function Publication() {
+export default function Publication({ initialContent }: { initialContent?: SiteContent }) {
+  const c = initialContent ?? DEFAULT_CONTENT;
   const [loading, setLoading] = useState(true);
   const lenisRef = useRef<Lenis | null>(null);
 
@@ -173,7 +176,7 @@ export default function Publication() {
       <Cursor />
       <Grain />
       <ScrollProgress total={9} />
-      <SiteNav />
+      <SiteNav links={c.nav} />
 
       {/* ═══ 01, HERO ═══ */}
       <Panel index={1} bg="black">
@@ -190,16 +193,16 @@ export default function Publication() {
           <div className="absolute left-8 md:left-16 top-[18%] bottom-[30%] hidden md:flex flex-col items-center gap-4">
             <span className="w-px flex-1 bg-[#B9B5AE]/30" />
             <p className="text-[8px] tracking-[0.3em] uppercase text-[#B9B5AE]/60" style={{ writingMode: "vertical-rl", transform: "rotate(180deg)" }}>
-              Branding, Marketing, Experience
+              {c.hero.verticalLabel}
             </p>
           </div>
 
           {/* Giant title, centred, justified */}
           <div className="relative z-10 w-full flex justify-center">
             <h1 className="font-display uppercase leading-[0.95] tracking-tight text-[#F3F1EC] w-full max-w-4xl" style={{ fontSize: "clamp(2rem, 6vw, 5.5rem)" }}>
-              <span className="block overflow-hidden"><Reveal as="span" className="block text-justify [text-align-last:justify]"><ScrambleText text="Let Them Savour," /></Reveal></span>
-              <span className="block overflow-hidden"><Reveal as="span" delay={0.08} className="block text-justify [text-align-last:justify]"><ScrambleText text="Sip and Live" /></Reveal></span>
-              <span className="block overflow-hidden"><Reveal as="span" delay={0.16} className="block text-justify [text-align-last:justify]"><ScrambleText text="Your Story." /></Reveal></span>
+              {c.hero.titleLines.map((line, i) => (
+                <span key={i} className="block overflow-hidden"><Reveal as="span" delay={i * 0.08} className="block text-justify [text-align-last:justify]"><ScrambleText text={line} /></Reveal></span>
+              ))}
             </h1>
           </div>
 
@@ -211,12 +214,12 @@ export default function Publication() {
                   <span className="absolute inline-flex h-full w-full rounded-full bg-[#4ADE80] opacity-75 animate-ping" />
                   <span className="relative inline-flex h-2 w-2 rounded-full bg-[#4ADE80] shadow-[0_0_8px_2px_rgba(74,222,128,0.7)]" />
                 </span>
-                <span className="text-[10px] tracking-[0.18em] uppercase text-[#4ADE80]">2 spots left this month</span>
+                <span className="text-[10px] tracking-[0.18em] uppercase text-[#4ADE80]">{c.hero.spotsLeftBadge}</span>
               </span>
             </Reveal>
             <Reveal delay={0.3}>
               <p className="text-[11px] leading-relaxed text-[#B9B5AE] md:text-right md:max-w-[170px]">
-                A Hospitality Brand Advisory<br className="hidden md:block" /> For Those That Refuse to Blend In
+                {c.hero.supportingCopy}
               </p>
             </Reveal>
           </div>
@@ -248,7 +251,7 @@ export default function Publication() {
           {/* The Menu, split screen, sticky left + scrolling services.
               No Reveal wrapper here - its transform would break the sticky column. */}
           <div className="px-8 md:px-16 pb-24 md:pb-28">
-            <MenuSplit />
+            <MenuSplit menu={c.menu} />
           </div>
 
           <SectionNo n="02" />
@@ -257,14 +260,14 @@ export default function Publication() {
 
       {/* ═══ ABOUT (woven in) ═══ */}
       <Panel index={2} bg="ivory" minH="auto" pin={false}>
-        <AboutSection />
+        <AboutSection about={c.about} />
       </Panel>
 
       {/* ═══ 03, FEATURED PROJECTS ═══ */}
       <Panel index={3} bg="ivory" minH="auto" pin={false}>
         <div id="s04" className="relative bg-[#0A0A0A] text-[#F3F1EC]" data-cursor-color="#F3F1EC">
           <div className="relative px-8 md:px-16 pt-28 md:pt-36 pb-28 md:pb-36 overflow-hidden">
-            <FeaturedCarousel />
+            <FeaturedCarousel projects={c.projects} />
           </div>
           <SectionNo n="03" />
         </div>
@@ -306,24 +309,24 @@ Meet <span className="italic">NORM</span>, our marketing exec.<br />
       {/* ═══ 07, TESTIMONIALS ═══ */}
       <Panel index={7} bg="black" minH="85vh" pin={false}>
         <div className="relative min-h-[85vh] overflow-hidden">
-          <Testimonials />
+          <Testimonials items={c.testimonials} />
         </div>
       </Panel>
 
 
       {/* ═══ JOURNAL (blog) ═══ */}
       <Panel index={9} bg="ivory" minH="auto" pin={false}>
-        <JournalSection />
+        <JournalSection notes={c.notes} />
       </Panel>
 
       {/* ═══ CONTACT (woven in, now incl. Three Cities) ═══ */}
       <Panel index={10} bg="ivory" minH="auto" pin={false}>
-        <ContactSection />
+        <ContactSection contact={c.contact} />
       </Panel>
 
       {/* ═══ FOOTER, THE INVITATION ═══ */}
       <Panel index={10} bg="ivory" minH="auto" slideFrom="up">
-        <SiteFooter />
+        <SiteFooter footer={c.footer} />
       </Panel>
     </div>
   );

@@ -1,9 +1,10 @@
-"use client";
+import { getSiteContent } from "@/lib/content/get";
+import PublicationLoader from "@/components/PublicationLoader";
 
-import dynamic from "next/dynamic";
+// Always read the latest published content (cheap single query; falls back to defaults).
+export const dynamic = "force-dynamic";
 
-const Publication = dynamic(() => import("@/components/Publication"), { ssr: false });
-
-export default function Home() {
-  return <Publication />;
+export default async function Home() {
+  const content = await getSiteContent();
+  return <PublicationLoader initialContent={content} />;
 }

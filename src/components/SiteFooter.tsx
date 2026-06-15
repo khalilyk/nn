@@ -5,38 +5,13 @@ import { createPortal } from "react-dom";
 import Reveal from "./Reveal";
 import RotatingWord from "./RotatingWord";
 import PacMan from "./PacMan";
+import type { Footer } from "@/lib/content/types";
+import { DEFAULT_CONTENT } from "@/lib/content/defaults";
 
-const LEGAL: Record<string, { title: string; body: string[] }> = {
-  privacy: {
-    title: "Privacy Policy",
-    body: [
-      "Not Normal (“we”, “us”) respects your privacy. This policy explains what we collect, why, and how we look after it.",
-      "What we collect. When you reach out through our contact form or by email, we collect the details you choose to share, typically your name, email, phone number and a description of your project. We don’t collect anything you don’t hand us.",
-      "How we use it. We use your information solely to respond to your enquiry, scope potential work, and stay in touch about your project. We do not sell, rent or trade your data to anyone.",
-      "Storage. Your details are stored securely and kept only as long as needed to serve your enquiry or meet our legal obligations.",
-      "Third parties. We rely on a small number of trusted providers (for email and hosting) who process data on our behalf under their own safeguards. We never share more than necessary.",
-      "Your rights. You can ask us at any time to see, correct or delete the information we hold about you. Just email hello@thisisnn.com.",
-      "Updates. We may revise this policy from time to time. The latest version always lives here.",
-    ],
-  },
-  terms: {
-    title: "Terms of Use",
-    body: [
-      "By using this website you agree to the terms below. If you don’t agree, please don’t use the site.",
-      "Our content. All copy, design, imagery and brand work on this site belongs to Not Normal unless stated otherwise. You’re welcome to view and share it, but not to copy, reproduce or repurpose it without our written permission.",
-      "Your enquiry. Sending an enquiry doesn’t create a contract or guarantee that we’ll take on your project. Any engagement is confirmed separately in a signed proposal or agreement.",
-      "No warranty. The site is provided “as is”. While we keep it accurate and current, we make no guarantees that it’ll be error-free or always available.",
-      "Liability. To the extent permitted by law, Not Normal isn’t liable for any loss arising from your use of this site or reliance on its content.",
-      "External links. Where we link out to other sites, we’re not responsible for their content or practices.",
-      "Governing law. These terms are governed by the laws of New South Wales, Australia.",
-    ],
-  },
-};
-
-export default function SiteFooter() {
+export default function SiteFooter({ footer = DEFAULT_CONTENT.footer }: { footer?: Footer }) {
   const [legal, setLegal] = useState<null | "privacy" | "terms">(null);
   const [mounted, setMounted] = useState(false);
-  const doc = legal ? LEGAL[legal] : null;
+  const doc = legal ? footer.legal[legal] : null;
 
   useEffect(() => setMounted(true), []);
   useEffect(() => {
@@ -55,11 +30,12 @@ export default function SiteFooter() {
         </Reveal>
         <Reveal delay={0.06}>
           <div className="space-y-1.5 text-center">
-            <a href="mailto:hello@thisisnn.com" className="block text-[11px] tracking-[0.1em] uppercase hover:opacity-60 transition-opacity">hello@thisisnn.com</a>
-            <a href="tel:+61433714701" className="block text-[11px] tracking-[0.1em] hover:opacity-60 transition-opacity">+61 433 714 701</a>
+            <a href={`mailto:${footer.email}`} className="block text-[11px] tracking-[0.1em] uppercase hover:opacity-60 transition-opacity">{footer.email}</a>
+            <a href={`tel:${footer.phone.replace(/[^+\d]/g, "")}`} className="block text-[11px] tracking-[0.1em] hover:opacity-60 transition-opacity">{footer.phone}</a>
             <div className="pt-4 flex items-center justify-center gap-6">
-              <a href="#" className="block text-[11px] tracking-[0.1em] uppercase hover:opacity-60 transition-opacity">Instagram</a>
-              <a href="#" className="block text-[11px] tracking-[0.1em] uppercase hover:opacity-60 transition-opacity">LinkedIn</a>
+              {footer.socials.map((s) => (
+                <a key={s.label} href={s.href} className="block text-[11px] tracking-[0.1em] uppercase hover:opacity-60 transition-opacity">{s.label}</a>
+              ))}
             </div>
           </div>
         </Reveal>
@@ -71,7 +47,7 @@ export default function SiteFooter() {
 
       <div className="border-t border-[#0A0A0A]/15 pt-6 flex flex-col md:flex-row items-center md:justify-between gap-4 text-[9px] tracking-[0.2em] uppercase text-[#0A0A0A]/50">
         <span>© {new Date().getFullYear()} Not Normal</span>
-        <span>Sydney, Dubai, Beirut</span>
+        <span>{footer.locations}</span>
         <div className="flex gap-6">
           <button type="button" onClick={() => setLegal("privacy")} className="uppercase tracking-[0.2em] hover:text-[#0A0A0A] transition-colors">Privacy</button>
           <button type="button" onClick={() => setLegal("terms")} className="uppercase tracking-[0.2em] hover:text-[#0A0A0A] transition-colors">Terms</button>
@@ -80,12 +56,12 @@ export default function SiteFooter() {
 
       <div className="mt-10 mx-auto max-w-xl rounded-xl border border-[#0A0A0A]/15 px-6 py-5">
         <p className="text-center text-[9px] leading-relaxed tracking-[0.12em] uppercase text-[#0A0A0A]/40">
-          We acknowledge the Gadigal, the traditional custodians of the Country on which Not Normal and its brands stands.
+          {footer.landAck}
         </p>
       </div>
 
       <p className="mt-10 text-center text-[9px] tracking-[0.25em] uppercase text-[#0A0A0A]/35">
-        Nobody Remembers Normal.™
+        {footer.trademark}
       </p>
 
       <PacMan />
