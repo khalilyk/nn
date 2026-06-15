@@ -36,10 +36,20 @@ export default function AboutSection() {
               </p>
             </div>
           </div>
-          <div>
+          <div className="relative">
             <div className="relative w-full aspect-square overflow-hidden rounded-2xl">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src="/nn-founder.png" alt="Khalil Khouri" className="absolute inset-0 w-full h-full object-cover" />
+            </div>
+
+            {/* animated thought bubble above the head */}
+            <div className="pointer-events-none absolute left-[34%] -top-3 md:-top-5 z-10 animate-[bob_3.5s_ease-in-out_infinite]">
+              <div className="relative bg-white text-[#0A0A0A] rounded-[1.4rem] px-5 py-3 shadow-[0_12px_30px_-10px_rgba(0,0,0,0.45)]">
+                <span className="font-marker leading-none whitespace-nowrap" style={{ fontSize: "clamp(1.1rem, 1.8vw, 1.5rem)" }}>What&apos;s for lunch?</span>
+                {/* thought tail */}
+                <span className="absolute -bottom-2.5 left-5 w-3.5 h-3.5 rounded-full bg-white shadow-[0_6px_14px_-6px_rgba(0,0,0,0.4)]" />
+                <span className="absolute -bottom-5 left-2.5 w-2 h-2 rounded-full bg-white shadow-[0_6px_14px_-6px_rgba(0,0,0,0.4)]" />
+              </div>
             </div>
           </div>
         </div>
