@@ -48,7 +48,6 @@ export default function AboutSection() {
       {/* manifesto */}
       <div className="relative bg-[#81D742] text-[#0A0A0A] px-8 md:px-16 py-20 md:py-28" data-cursor-color="#0A0A0A">
         <div className="max-w-3xl mx-auto text-center">
-          <p className="text-[10px] tracking-[0.3em] uppercase text-[#0A0A0A]/50 mb-8">The short version</p>
           <p className="font-sans leading-[1.4]" style={{ fontSize: "clamp(1.05rem, 2vw, 1.6rem)" }}>
             &ldquo;Food is everything we are. It&apos;s an extension of nationalist feeling, ethnic feeling, your
             personal history, your province, your region, your tribe, your grandma. It&apos;s inseparable from those
