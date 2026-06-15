@@ -20,6 +20,8 @@ const ICONS: Record<string, string> = {
   media: "M4 6h16v12H4zM4 16l5-5 4 4 3-3 4 4M9.5 9a1.2 1.2 0 1 1 0-.01",
   submissions: "M4 6h16v12H4zM4 12h5l2 3h2l2-3h5",
   analytics: "M5 19V9M10 19V5M15 19v-7M20 19v-11",
+  invoices: "M6 3h12v18l-3-2-3 2-3-2-3 2zM9 8h6M9 12h6M9 16h4",
+  clients: "M9 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM3 20c0-3 2.7-5 6-5s6 2 6 5M17 7a2.5 2.5 0 1 1 0 5M19 20c0-2-1-3.6-2.5-4.4",
 };
 
 function Icon({ d, active }: { d: string; active: boolean }) {
@@ -74,6 +76,8 @@ export default function AdminSidebar() {
 
       {open && SECTIONS.map((s) => <Item key={s.key} href={`/admin/${s.key}`} k={s.key} label={s.label} indent />)}
 
+      <Item href="/admin/invoices" k="invoices" label="Invoices" />
+      <Item href="/admin/clients" k="clients" label="Clients" />
       <Item href="/admin/media" k="media" label="Media" />
       <Item href="/admin/submissions" k="submissions" label="Submissions" />
       <Item href="/admin/analytics" k="analytics" label="Analytics" />
