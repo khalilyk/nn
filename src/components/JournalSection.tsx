@@ -101,7 +101,7 @@ function Poster({ p }: { p: Post }) {
       className="group relative cursor-pointer transition-[transform,z-index] duration-300 hover:z-20 hover:-translate-y-2"
     >
       <div
-        className="relative flex flex-col aspect-[3/4] overflow-hidden ring-1 ring-black/20 shadow-[8px_0_24px_-8px_rgba(0,0,0,0.55)]"
+        className="relative flex flex-col aspect-[3/4] overflow-hidden ring-1 ring-black/25 shadow-[10px_0_30px_-6px_rgba(0,0,0,0.6),0_24px_50px_-12px_rgba(0,0,0,0.65)]"
         style={{ background: p.bg, color: p.ink }}
       >
         {/* paper grain */}
@@ -155,10 +155,11 @@ function Poster({ p }: { p: Post }) {
 /* The Journal — a wall of pasted posters, one per article. */
 export default function JournalSection() {
   return (
-    <section id="journal" className="scroll-mt-20 relative bg-[#1A1714] text-[#F3F1EC] px-6 sm:px-10 md:px-16 py-20 md:py-28 overflow-hidden" data-cursor-color="#F3F1EC">
+    <section id="journal" className="scroll-mt-20 relative bg-[#1A1714] text-[#F3F1EC] pt-20 md:pt-28 overflow-hidden" data-cursor-color="#F3F1EC">
       <span aria-hidden className="pointer-events-none absolute inset-0 opacity-[0.05]" style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='b'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.012 0.04' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23b)'/%3E%3C/svg%3E\")" }} />
 
-      <div className="relative max-w-6xl mx-auto">
+      {/* header (padded) */}
+      <div className="relative px-6 sm:px-10 md:px-16">
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-14 md:mb-20">
           <div>
             <p className="text-[10px] tracking-[0.3em] uppercase text-[#F3F1EC]/45 mb-4">The Journal</p>
@@ -170,12 +171,13 @@ export default function JournalSection() {
             Pasted up like posters. Thinking out loud on brand, hospitality and not-normal ideas.
           </p>
         </div>
+      </div>
 
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-0 shadow-[0_40px_90px_-40px_rgba(0,0,0,0.8)]">
-          {POSTS.map((p) => (
-            <Poster key={p.title} p={p} />
-          ))}
-        </div>
+      {/* full-bleed poster wall, flush to side + bottom edges */}
+      <div className="relative grid grid-cols-2 lg:grid-cols-4 gap-0 shadow-[0_-30px_80px_-30px_rgba(0,0,0,0.9)]">
+        {POSTS.map((p) => (
+          <Poster key={p.title} p={p} />
+        ))}
       </div>
     </section>
   );
