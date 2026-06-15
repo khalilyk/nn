@@ -270,7 +270,7 @@ export default function JournalSection() {
       <div className="relative px-6 sm:px-10 md:px-16">
         <div className="text-center mb-14 md:mb-20">
           <p className="text-[10px] tracking-[0.3em] uppercase text-white/45 mb-4">Thinking out loud</p>
-          <h2 className="font-marker text-white leading-[1.05]" style={{ fontSize: "clamp(2.6rem, 6.5vw, 5.5rem)" }}>
+          <h2 className="font-display uppercase tracking-tight leading-[0.92] text-white" style={{ fontSize: "clamp(2rem, 5vw, 4rem)" }}>
             Notes we&apos;ve<br />scribbled down
           </h2>
         </div>
