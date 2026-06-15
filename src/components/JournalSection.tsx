@@ -102,10 +102,10 @@ function Poster({ p }: { p: Post }) {
   return (
     <article
       data-cursor="Read"
-      className="group relative cursor-pointer transition-[transform,z-index] duration-300 hover:z-20 hover:-translate-y-2"
+      className="group relative z-0 cursor-pointer transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] origin-bottom-left hover:z-30 hover:-translate-y-4 hover:-rotate-[2.5deg] hover:scale-[1.05]"
     >
       <div
-        className="relative flex flex-col aspect-[3/4] overflow-hidden ring-1 ring-black/25 shadow-[10px_0_30px_-6px_rgba(0,0,0,0.6),0_24px_50px_-12px_rgba(0,0,0,0.65)]"
+        className="relative flex flex-col aspect-[3/4] overflow-hidden ring-1 ring-black/25 transition-shadow duration-300 shadow-[10px_0_30px_-6px_rgba(0,0,0,0.6),0_24px_50px_-12px_rgba(0,0,0,0.65)] group-hover:shadow-[0_40px_80px_-20px_rgba(0,0,0,0.85)]"
         style={{ background: p.bg, color: p.ink }}
       >
         {/* paper grain */}
