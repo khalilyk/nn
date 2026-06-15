@@ -38,14 +38,10 @@ export default function LoginPage() {
         <div className="absolute top-7 left-7 md:top-9 md:left-9 text-[15px] font-semibold tracking-tight">
           Not Normal<sup className="text-[9px] top-[-0.7em]">®</sup>
         </div>
-        {/* smiley */}
+        {/* smiley (same mark as the nav) */}
         <div className="absolute inset-0 grid place-items-center">
-          <svg width="150" height="150" viewBox="0 0 100 100" fill="none" stroke="#fff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-            <circle cx="50" cy="50" r="36" />
-            <circle cx="38" cy="42" r="1.6" fill="#fff" stroke="none" />
-            <circle cx="62" cy="42" r="1.6" fill="#fff" stroke="none" />
-            <path d="M36 60c4 6 24 6 28 0" />
-          </svg>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/notnormal-iconoutline.png" alt="Not Normal" className="w-[130px] h-auto" style={{ filter: "invert(1)" }} />
         </div>
         {/* copyright */}
         <div className="absolute bottom-7 left-7 md:bottom-9 md:left-9 text-[11px] text-white/40">
