@@ -96,7 +96,7 @@ function Bear() {
   );
 }
 
-/* Compact interactive city codes — types out the full name on hover. */
+/* Compact interactive city codes - types out the full name on hover. */
 export default function ContactSection() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -156,7 +156,7 @@ export default function ContactSection() {
           </div>
 
           <div className="relative z-10 max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 items-start">
-            {/* LEFT — details */}
+            {/* LEFT - details */}
             <div className="relative text-center md:text-left">
               <div className="relative">
                 <p className="text-[10px] tracking-[0.25em] uppercase text-[#F3F1EC]/60 mb-6 inline-flex items-center gap-3">
@@ -170,7 +170,7 @@ export default function ContactSection() {
                   <p>If you&apos;re serious about building something memorable, <span className="text-[#F3F1EC]">let&apos;s talk.</span></p>
                 </div>
 
-                {/* contact detail cards — one line each, stacked */}
+                {/* contact detail cards - one line each, stacked */}
                 <div className="mt-10 flex flex-col gap-3 text-left">
                   <a href="mailto:hello@thisisnn.com" data-cursor="Say hi" className="group flex items-center justify-between gap-4 rounded-2xl border border-[#F3F1EC]/15 bg-[#F3F1EC]/[0.03] px-5 md:px-6 py-4 hover:border-[#FF2EC4]/60 hover:bg-[#F3F1EC]/[0.06] transition-colors">
                     <span className="flex items-baseline gap-4 min-w-0">
@@ -196,7 +196,7 @@ export default function ContactSection() {
               </div>
             </div>
 
-            {/* RIGHT — the form, as a light card */}
+            {/* RIGHT - the form, as a light card */}
             <div id="contact-form" data-cursor-color="#0A0A0A" className="text-center md:text-left bg-[#F3F1EC] text-[#0A0A0A] rounded-3xl p-7 md:p-10 shadow-[0_34px_80px_-34px_rgba(0,0,0,0.7)]">
               <p className="text-[9px] tracking-[0.3em] uppercase text-[#0A0A0A]/40 mb-3">Or fill the form</p>
               <h3 className="font-display uppercase leading-[0.95] tracking-tight mb-10" style={{ fontSize: "clamp(1.7rem, 3.4vw, 2.6rem)" }}>Wanna start something?</h3>

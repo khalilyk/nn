@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 
-/* Scroll-driven parallax image band (native scroll — no Lenis on this page). */
+/* Scroll-driven parallax image band (native scroll - no Lenis on this page). */
 export default function ParallaxImage({
   src,
   alt = "",

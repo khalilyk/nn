@@ -16,7 +16,7 @@ const STOIC_QUOTES = [
   { text: "We suffer more in imagination than in reality.", author: "Seneca" },
   { text: "First say to yourself what you would be; and then do what you have to do.", author: "Epictetus" },
   { text: "The whole future lies in uncertainty: live immediately.", author: "Seneca" },
-  { text: "Amor fati — love your fate, which is in fact your life.", author: "Nietzsche" },
+  { text: "Amor fati: love your fate, which is in fact your life.", author: "Nietzsche" },
   { text: "Perfection of character is this: to live each day as if it were your last.", author: "Marcus Aurelius" },
   { text: "If it is not right, do not do it; if it is not true, do not say it.", author: "Marcus Aurelius" },
   { text: "Luck is what happens when preparation meets opportunity.", author: "Seneca" },
@@ -293,7 +293,7 @@ function Timer() {
 
       {/* Controls */}
       <div className="flex items-center gap-5 mt-8">
-        {/* START / PAUSE / RESET — prominent */}
+        {/* START / PAUSE / RESET - prominent */}
         <button
           onClick={toggleRun}
           className="transition-all duration-200 hover:scale-105 active:scale-95"
@@ -492,7 +492,7 @@ export default function Screensaver() {
           &ldquo;{STOIC_QUOTES[quoteIndex].text}&rdquo;
         </p>
         <p className="text-white/30 mt-2 tracking-widest uppercase" style={{ fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif", fontSize: "10px" }}>
-          — {STOIC_QUOTES[quoteIndex].author}
+          {STOIC_QUOTES[quoteIndex].author}
         </p>
       </div>
 

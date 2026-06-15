@@ -14,13 +14,13 @@ type Project = {
 };
 
 const projects: Project[] = [
-  { name: "3FILS", sub: "Reimagining a Waterfront Icon", city: "Dubai", year: "2019", cat: "Branding", desc: "From a bold idea to a dining experience that redefined a category. We built more than a brand, we built obsession — every plate and touchpoint designed to be remembered.", img: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1800&q=80" },
+  { name: "3FILS", sub: "Reimagining a Waterfront Icon", city: "Dubai", year: "2019", cat: "Branding", desc: "From a bold idea to a dining experience that redefined a category. We built more than a brand, we built obsession, with every plate and touchpoint designed to be remembered.", img: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1800&q=80" },
   { name: "Revolver", sub: "A Neighbourhood Bar, Reborn", city: "Sydney", year: "2021", cat: "Identity", desc: "A neighbourhood bar reimagined as a cultural anchor. Quiet rebellion designed into every detail, from the identity to the room people never want to leave.", img: "https://images.unsplash.com/photo-1470337458703-46ad1756a187?auto=format&fit=crop&w=1800&q=80" },
-  { name: "Maison Dali", sub: "Surrealism, Served", city: "Beirut", year: "2022", cat: "Branding", desc: "Surrealism on a plate. We built a world, not a logo — each touchpoint a different act in the same play, designed to surprise and seduce in equal measure.", img: "https://images.unsplash.com/photo-1424847651672-bf20a4b0982b?auto=format&fit=crop&w=1800&q=80" },
+  { name: "Maison Dali", sub: "Surrealism, Served", city: "Beirut", year: "2022", cat: "Branding", desc: "Surrealism on a plate. We built a world, not a logo. Each touchpoint a different act in the same play, designed to surprise and seduce in equal measure.", img: "https://images.unsplash.com/photo-1424847651672-bf20a4b0982b?auto=format&fit=crop&w=1800&q=80" },
   { name: "Oakberry", sub: "A Healthy Habit Made Iconic", city: "Dubai", year: "2023", cat: "Content", desc: "Visual direction that turned a healthy habit into a status symbol. Crave-worthy frame by frame, built to be screenshot, shared and remembered.", img: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=1800&q=80" },
   { name: "Benny's", sub: "A Room You Never Leave", city: "Sydney", year: "2024", cat: "Identity", desc: "Concept, identity and energy for a room people don't want to leave. A brand built around the feeling of a great night that never quite ends.", img: "https://images.unsplash.com/photo-1551218808-94e220e084d2?auto=format&fit=crop&w=1800&q=80" },
   { name: "Print Paradise", sub: "Editorial Meets Hospitality", city: "Beirut", year: "2025", cat: "Print", desc: "Where editorial meets hospitality. A brand that reads like a magazine and tastes like a memory, printed across every surface worth touching.", img: "https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&w=1800&q=80" },
-  { name: "Kinoya", sub: "An Izakaya With a Soul", city: "Dubai", year: "2022", cat: "Branding", desc: "An izakaya with a soul — a warm, lived-in identity that carries the intimacy of a Tokyo back-alley into a Dubai dining room.", img: "https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=1800&q=80" },
+  { name: "Kinoya", sub: "An Izakaya With a Soul", city: "Dubai", year: "2022", cat: "Branding", desc: "An izakaya with a soul. A warm, lived-in identity that carries the intimacy of a Tokyo back-alley into a Dubai dining room.", img: "https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=1800&q=80" },
   { name: "Tony's Woodfire", sub: "Fire, Smoke & Story", city: "Sydney", year: "2023", cat: "Content", desc: "Fire, smoke and story. A bold, tactile brand built around the primal pull of cooking over open flame.", img: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1800&q=80" },
   { name: "Shanghai Me", sub: "Old-World Glamour, Rebuilt", city: "Dubai", year: "2021", cat: "Identity", desc: "Old-world glamour, rebuilt for today. A cinematic identity steeped in 1930s Shanghai, dialled up for a modern fine-dining stage.", img: "https://images.unsplash.com/photo-1552566626-52f8b828add9?auto=format&fit=crop&w=1800&q=80" },
   { name: "Mimi Kakushi", sub: "1920s Osaka, Reborn in Dubai", city: "Dubai", year: "2024", cat: "Branding", desc: "1920s Osaka reborn in Dubai. A richly detailed world of jazz-age Japan, translated into every plate, menu and surface.", img: "https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?auto=format&fit=crop&w=1800&q=80" },
@@ -70,7 +70,7 @@ export default function FeaturedCarousel() {
               {/* caption */}
               <div className={`md:col-span-5 flex flex-col justify-center px-2 md:px-12 ${flip ? "md:order-1" : ""}`}>
                 <p className="text-[10px] tracking-[0.3em] uppercase text-[#F3F1EC]/45 mb-4">
-                  {String(i + 1).padStart(2, "0")} — {pr.cat} · {pr.city} · {pr.year}
+                  {String(i + 1).padStart(2, "0")} · {pr.cat} · {pr.city} · {pr.year}
                 </p>
                 <p className="font-sans leading-snug" style={{ fontSize: "clamp(1.15rem, 1.6vw, 1.5rem)" }}>
                   {pr.name}<br />
@@ -101,7 +101,7 @@ export default function FeaturedCarousel() {
         </div>
       )}
 
-      {/* project popup — portaled to body to escape the transformed panel */}
+      {/* project popup - portaled to body to escape the transformed panel */}
       {mounted && doc && createPortal(
         <div className="fixed inset-0 z-[300] flex items-center justify-center p-4 md:p-8" data-cursor="Close" onClick={() => setOpen(null)}>
           <div className="absolute inset-0 bg-[#0A0A0A]/70 backdrop-blur-sm" />
@@ -115,7 +115,7 @@ export default function FeaturedCarousel() {
               const gallery = [doc.img, projects[(open! + 3) % projects.length].img, projects[(open! + 6) % projects.length].img];
               const body = [
                 doc.desc,
-                `Working across ${doc.city}, we shaped every touchpoint — identity, environment and content — into one coherent story that feels unmistakably ${doc.name}.`,
+                `Working across ${doc.city}, we shaped every touchpoint, identity, environment and content, into one coherent story that feels unmistakably ${doc.name}.`,
                 `The result: a ${doc.cat.toLowerCase()}-led brand that earns attention, drives footfall and keeps people coming back. Not normal, by design.`,
               ];
               return (

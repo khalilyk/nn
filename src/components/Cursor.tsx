@@ -18,7 +18,7 @@ export default function Cursor() {
     const onMove = (e: MouseEvent) => {
       target.x = e.clientX;
       target.y = e.clientY;
-      // e.target isn't always an Element (e.g. SVG-internal nodes) — guard closest()
+      // e.target isn't always an Element (e.g. SVG-internal nodes) - guard closest()
       const t = e.target instanceof Element ? e.target : null;
       const el = t?.closest<HTMLElement>("[data-cursor]");
       if (el) {

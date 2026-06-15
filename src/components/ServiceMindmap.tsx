@@ -95,13 +95,13 @@ export default function ServiceMindmap({ dark = false }: { dark?: boolean }) {
       const rx = Math.min(r.width * 0.43, 480);
       const ry = r.height * 0.4;
 
-      // main map — always live
+      // main map - always live
       for (let i = 0; i < BRANCHES.length; i++) {
         const ang = (i / BRANCHES.length) * Math.PI * 2 - Math.PI / 2;
         place(mainNodes.current[i], mainLines.current[i], ang, rx, ry, i % 2 === 0 ? 1 : 0.66, cx, cy, 0.5 + (i % 3) * 0.3, i * 1.7, time, 1);
       }
 
-      // detail map — only the active branch
+      // detail map - only the active branch
       const a = activeRef.current;
       if (a !== null) {
         const count = BRANCHES[a].items.length;

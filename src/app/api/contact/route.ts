@@ -27,7 +27,7 @@ export async function POST(request: Request) {
       to: TO,
       replyTo: email,
       subject: `New enquiry from ${name}`,
-      text: `${message}\n\nCoffee order: ${coffee || "—"}\n\nName: ${name}\nEmail: ${email}`,
+      text: `${message}\n\nCoffee order: ${coffee || "-"}\n\nName: ${name}\nEmail: ${email}`,
     });
 
     if (error) {

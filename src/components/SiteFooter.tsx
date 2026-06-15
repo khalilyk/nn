@@ -11,11 +11,11 @@ const LEGAL: Record<string, { title: string; body: string[] }> = {
     title: "Privacy Policy",
     body: [
       "Not Normal (“we”, “us”) respects your privacy. This policy explains what we collect, why, and how we look after it.",
-      "What we collect. When you reach out through our contact form or by email, we collect the details you choose to share — typically your name, email, phone number and a description of your project. We don’t collect anything you don’t hand us.",
+      "What we collect. When you reach out through our contact form or by email, we collect the details you choose to share, typically your name, email, phone number and a description of your project. We don’t collect anything you don’t hand us.",
       "How we use it. We use your information solely to respond to your enquiry, scope potential work, and stay in touch about your project. We do not sell, rent or trade your data to anyone.",
       "Storage. Your details are stored securely and kept only as long as needed to serve your enquiry or meet our legal obligations.",
       "Third parties. We rely on a small number of trusted providers (for email and hosting) who process data on our behalf under their own safeguards. We never share more than necessary.",
-      "Your rights. You can ask us at any time to see, correct or delete the information we hold about you — just email hello@thisisnn.com.",
+      "Your rights. You can ask us at any time to see, correct or delete the information we hold about you. Just email hello@thisisnn.com.",
       "Updates. We may revise this policy from time to time. The latest version always lives here.",
     ],
   },
@@ -90,7 +90,7 @@ export default function SiteFooter() {
 
       <PacMan />
 
-      {/* Legal modal — toggles, with inner scroll. Portaled to body so it escapes the transformed panel. */}
+      {/* Legal modal - toggles, with inner scroll. Portaled to body so it escapes the transformed panel. */}
       {mounted && doc && createPortal(
         <div
           className="fixed inset-0 z-[300] flex items-center justify-center p-4 md:p-8"

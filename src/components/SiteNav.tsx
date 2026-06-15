@@ -91,7 +91,7 @@ export default function SiteNav() {
 
       {/* ─── MOBILE MENU OVERLAY (3 stacked cards) ─── */}
       <div className={`fixed inset-0 z-[110] lg:hidden bg-[#0A0A0A] flex flex-col gap-2.5 p-2.5 pt-12 transition-opacity duration-[450ms] ease-in-out ${menuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}>
-        {/* 0 — close bar */}
+        {/* 0 - close bar */}
         <button
           aria-label="Close menu"
           onClick={() => setMenuOpen(false)}
@@ -110,7 +110,7 @@ export default function SiteNav() {
           </span>
         </button>
 
-        {/* 1 — navigation card */}
+        {/* 1 - navigation card */}
         <div
           className="relative flex-1 overflow-hidden rounded-[26px] bg-[#C5E8B7] text-[#0A0A0A] flex flex-col justify-center items-center px-6 py-6"
           style={card(menuOpen, 1)}
@@ -130,7 +130,7 @@ export default function SiteNav() {
           </nav>
         </div>
 
-        {/* 2 — ring ring band */}
+        {/* 2 - ring ring band */}
         <a
           href="tel:+610433714701"
           onClick={() => setMenuOpen(false)}
@@ -149,7 +149,7 @@ export default function SiteNav() {
           </span>
         </a>
 
-        {/* 3 — mascot / chat card */}
+        {/* 3 - mascot / chat card */}
         <div
           className="relative z-10 flex-[1.3] overflow-hidden rounded-[26px] bg-[#F9CEDF] text-[#0A0A0A]"
           style={card(menuOpen, 3)}

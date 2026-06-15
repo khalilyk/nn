@@ -3,7 +3,7 @@
 import { Children, useEffect, useRef, useState } from "react";
 
 /* Full-screen, auto-looping course carousel.
-   Each slide fills the viewport height (content auto-scaled to fit — no scrolling).
+   Each slide fills the viewport height (content auto-scaled to fit - no scrolling).
    Advances left → right on a timer; also supports arrows and drag/swipe. */
 export default function MenuCarousel({
   children,

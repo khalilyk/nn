@@ -55,7 +55,7 @@ const COURSES: Course[] = [
     course: "The Desserts",
     title: "PR & Brand Visibility",
     intro: [
-      "A great brand deserves to be discovered — through storytelling, media relationships, content and collaborations that put it in front of the right audience.",
+      "A great brand deserves to be discovered through storytelling, media relationships, content and collaborations that put it in front of the right audience.",
     ],
     items: [
       "Public Relations (PR)",
@@ -81,7 +81,7 @@ const PALETTE = [
   { bg: "#BCD6F5", fg: "#0A0A0A" },
 ];
 
-// scatter positions (desktop) — top/left in %, slight rotation
+// scatter positions (desktop) - top/left in %, slight rotation
 const SCATTER = [
   { top: "14%", left: "34%", rot: -3 },
   { top: "30%", left: "16%", rot: 2 },

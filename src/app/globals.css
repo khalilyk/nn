@@ -9,7 +9,7 @@
 html {
   scroll-behavior: auto;
   -webkit-font-smoothing: antialiased;
-  /* clamp on html too — iOS Safari ignores overflow-x:hidden on body alone,
+  /* clamp on html too - iOS Safari ignores overflow-x:hidden on body alone,
      which let horizontal overflow (marquees) scroll html and show the black
      body bg on the right behind fixed overlays */
   overflow-x: hidden;
@@ -20,7 +20,7 @@ body {
   position: relative;
   background: var(--black);
   color: var(--ivory);
-  /* NOTE: do not set overflow-x here — it turns body into a scroll container and
+  /* NOTE: do not set overflow-x here - it turns body into a scroll container and
      breaks position: sticky page-wide. Horizontal overflow is clamped on html. */
   font-family: var(--font-grotesk), system-ui, sans-serif;
 }

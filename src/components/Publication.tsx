@@ -203,7 +203,7 @@ export default function Publication() {
             </h1>
           </div>
 
-          {/* Bottom meta row — stacks on mobile, opposite corners on desktop */}
+          {/* Bottom meta row - stacks on mobile, opposite corners on desktop */}
           <div className="absolute bottom-20 md:bottom-24 left-8 right-8 md:left-16 md:right-16 flex flex-col-reverse md:flex-row md:items-end md:justify-between gap-5">
             <Reveal delay={0.3}>
               <span className="flex items-center gap-2">
@@ -246,7 +246,7 @@ export default function Publication() {
           </div>
 
           {/* The Menu, split screen, sticky left + scrolling services.
-              No Reveal wrapper here — its transform would break the sticky column. */}
+              No Reveal wrapper here - its transform would break the sticky column. */}
           <div className="px-8 md:px-16 pb-24 md:pb-28">
             <MenuSplit />
           </div>
