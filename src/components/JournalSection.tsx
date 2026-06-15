@@ -117,7 +117,7 @@ const PAPER = [
 ];
 
 function crumpleURI(seed: number, freq: string) {
-  const svg = `<svg xmlns='http://www.w3.org/2000/svg' width='400' height='520'><filter id='f'><feTurbulence type='fractalNoise' baseFrequency='${freq}' numOctaves='5' seed='${seed}' stitchTiles='stitch'/><feDiffuseLighting lighting-color='#ffffff' surfaceScale='2.4' diffuseConstant='1.15'><feDistantLight azimuth='235' elevation='55'/></feDiffuseLighting></filter><rect width='100%' height='100%' filter='url(#f)'/></svg>`;
+  const svg = `<svg xmlns='http://www.w3.org/2000/svg' width='420' height='560'><filter id='f'><feTurbulence type='fractalNoise' baseFrequency='${freq}' numOctaves='4' seed='${seed}' stitchTiles='stitch' result='n'/><feDiffuseLighting in='n' lighting-color='#ffffff' surfaceScale='9' diffuseConstant='1'><feDistantLight azimuth='235' elevation='34'/></feDiffuseLighting></filter><rect width='100%' height='100%' filter='url(#f)'/></svg>`;
   return `data:image/svg+xml,${encodeURIComponent(svg)}`;
 }
 
@@ -174,7 +174,8 @@ function Poster({ p, idx }: { p: Post; idx: number }) {
         {/* weathering: sun-faded patch */}
         <span aria-hidden className="pointer-events-none absolute inset-0 z-20 mix-blend-overlay opacity-50" style={{ background: `radial-gradient(circle at ${W.fade}, rgba(255,255,255,0.85), transparent 55%)` }} />
         {/* crumpled-paper relief (unique per poster) */}
-        <span aria-hidden className="pointer-events-none absolute inset-0 z-20 mix-blend-overlay" style={{ opacity: 0.55, backgroundImage: `url("${crumpleURI(P.seed, P.freq)}")`, backgroundSize: "cover" }} />
+        <span aria-hidden className="pointer-events-none absolute inset-0 z-20 mix-blend-soft-light" style={{ opacity: 0.9, backgroundImage: `url("${crumpleURI(P.seed, P.freq)}")`, backgroundSize: "cover" }} />
+        <span aria-hidden className="pointer-events-none absolute inset-0 z-20 mix-blend-overlay" style={{ opacity: 0.4, backgroundImage: `url("${crumpleURI(P.seed, P.freq)}")`, backgroundSize: "cover" }} />
         {/* fold lines */}
         <span aria-hidden className="pointer-events-none absolute inset-0 z-20 mix-blend-soft-light opacity-70" style={{ background: `linear-gradient(90deg, transparent calc(${P.foldX} - 1.5px), rgba(0,0,0,0.22) ${P.foldX}, rgba(255,255,255,0.32) calc(${P.foldX} + 1.5px), transparent calc(${P.foldX} + 3px)), linear-gradient(0deg, transparent calc(${P.foldY} - 1.5px), rgba(0,0,0,0.2) ${P.foldY}, rgba(255,255,255,0.28) calc(${P.foldY} + 1.5px), transparent calc(${P.foldY} + 3px))` }} />
 
