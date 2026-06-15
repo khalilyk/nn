@@ -11,7 +11,9 @@ export default function SlidePreview({ slide, clientTag, page }: { slide: Slide;
       {/* chrome */}
       {slide.layout !== "cover" && slide.layout !== "closing" && (
         <>
+          <span style={{ position: "absolute", right: "3.1cqw", top: "2.2cqw", bottom: "2.2cqw", width: 1, background: "#DDDDDD" }} />
           {clientTag && <span style={edge("top")}>{clientTag}</span>}
+          <img src="/notnormal-iconoutline.png" alt="" style={{ position: "absolute", right: "0.9cqw", top: "47%", width: "1.5cqw", height: "1.5cqw" }} />
           <span style={{ ...edge("bottom"), color: "#9A9A9A" }}>nobody remembers normal</span>
           <span style={{ position: "absolute", left: "2.4cqw", bottom: "2.4cqw", fontSize: "1.1cqw", color: "#9A9A9A" }}>{page}</span>
         </>

@@ -24,8 +24,11 @@ export async function POST(req: Request, ctx: { params: Promise<{ id: string }> 
   if (!apiKey) return NextResponse.json({ error: "Email service not configured." }, { status: 500 });
 
   const origin = new URL(req.url).origin;
-  const wordmark = await fetchLogoDataUri("/notnormal-logoblack.png", origin);
-  const pdf = await renderProposalPdf(p, wordmark);
+  const [wordmark, smiley] = await Promise.all([
+    fetchLogoDataUri("/notnormal-logoblack.png", origin),
+    fetchLogoDataUri("/notnormal-iconoutline.png", origin),
+  ]);
+  const pdf = await renderProposalPdf(p, wordmark, smiley);
   const filename = `${p.title.replace(/\s+/g, "-").toLowerCase()}.pdf`;
 
   const subject = (body.subject || `${p.title} — Not Normal`).trim();

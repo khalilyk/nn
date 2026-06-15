@@ -14,9 +14,12 @@ export async function GET(req: Request, ctx: { params: Promise<{ id: string }> }
   if (!p) return NextResponse.json({ error: "not found" }, { status: 404 });
 
   const origin = new URL(req.url).origin;
-  // closing/cover slides use the black wordmark on white
-  const wordmark = await fetchLogoDataUri("/notnormal-logoblack.png", origin);
-  const pdf = await renderProposalPdf(p, wordmark);
+  // closing/cover slides use the black wordmark; content slides show the smiley on the edge
+  const [wordmark, smiley] = await Promise.all([
+    fetchLogoDataUri("/notnormal-logoblack.png", origin),
+    fetchLogoDataUri("/notnormal-iconoutline.png", origin),
+  ]);
+  const pdf = await renderProposalPdf(p, wordmark, smiley);
 
   const inline = new URL(req.url).searchParams.get("inline") === "1";
   const name = `${p.title.replace(/\s+/g, "-").toLowerCase()}.pdf`;

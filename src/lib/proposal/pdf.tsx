@@ -8,9 +8,11 @@ const DIM = "#8A8A8A";
 
 const s = StyleSheet.create({
   page: { backgroundColor: "#FFFFFF", color: INK, fontFamily: "Courier", fontSize: 9, paddingVertical: 34, paddingHorizontal: 40 },
-  // right edge vertical labels
+  // right edge vertical labels + smiley + divider (matches the deck)
   edgeTag: { position: "absolute", right: 18, top: 40, fontSize: 8, color: INK, transform: "rotate(90deg)", transformOrigin: "right top" },
   edgeFoot: { position: "absolute", right: 18, bottom: 40, fontSize: 8, color: DIM, transform: "rotate(90deg)", transformOrigin: "right bottom" },
+  edgeSmiley: { position: "absolute", right: 13, top: "47%", width: 15, height: 15 },
+  edgeRule: { position: "absolute", right: 42, top: 30, bottom: 30, width: 0.7, backgroundColor: "#DDDDDD" },
   pageNo: { position: "absolute", left: 26, bottom: 26, fontSize: 9, color: DIM },
   // columns
   twoCol: { flexDirection: "row", gap: 24, height: "100%" },
@@ -36,10 +38,12 @@ const s = StyleSheet.create({
   botLabel: { position: "absolute", bottom: 26, left: 0, right: 0, textAlign: "center", fontSize: 9, color: DIM },
 });
 
-function Chrome({ tag, page }: { tag: string; page: number }) {
+function Chrome({ tag, page, smiley }: { tag: string; page: number; smiley?: string }) {
   return (
     <>
+      <View style={s.edgeRule} />
       {tag ? <Text style={s.edgeTag}>{tag}</Text> : null}
+      {smiley ? <Image src={smiley} style={s.edgeSmiley} /> : null}
       <Text style={s.edgeFoot}>nobody remembers normal</Text>
       <Text style={s.pageNo}>{page}</Text>
     </>
@@ -54,8 +58,8 @@ function Paras({ body }: { body: string }) {
   return <>{body.split("\n\n").map((p, i) => <Text key={i} style={s.para}>{p}</Text>)}</>;
 }
 
-function SlidePage({ slide, tag, n, wordmark }: { slide: Slide; tag: string; n: number; wordmark?: string }) {
-  const chrome = <Chrome tag={tag} page={n} />;
+function SlidePage({ slide, tag, n, wordmark, smiley }: { slide: Slide; tag: string; n: number; wordmark?: string; smiley?: string }) {
+  const chrome = <Chrome tag={tag} page={n} smiley={smiley} />;
 
   if (slide.layout === "cover") {
     return (
@@ -131,16 +135,16 @@ function SlidePage({ slide, tag, n, wordmark }: { slide: Slide; tag: string; n: 
   );
 }
 
-export function ProposalDoc({ proposal, wordmark }: { proposal: Proposal; wordmark?: string }) {
+export function ProposalDoc({ proposal, wordmark, smiley }: { proposal: Proposal; wordmark?: string; smiley?: string }) {
   return (
     <Document>
       {proposal.slides.map((slide, i) => (
-        <SlidePage key={slide.id} slide={slide} tag={proposal.clientTag} n={i + 1} wordmark={wordmark} />
+        <SlidePage key={slide.id} slide={slide} tag={proposal.clientTag} n={i + 1} wordmark={wordmark} smiley={smiley} />
       ))}
     </Document>
   );
 }
 
-export async function renderProposalPdf(proposal: Proposal, wordmark?: string): Promise<Buffer> {
-  return renderToBuffer(<ProposalDoc proposal={proposal} wordmark={wordmark} />);
+export async function renderProposalPdf(proposal: Proposal, wordmark?: string, smiley?: string): Promise<Buffer> {
+  return renderToBuffer(<ProposalDoc proposal={proposal} wordmark={wordmark} smiley={smiley} />);
 }
