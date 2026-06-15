@@ -263,14 +263,14 @@ export default function JournalSection() {
   const items = [...POSTS, ...POSTS, ...POSTS];
 
   return (
-    <section id="journal" className="scroll-mt-20 relative bg-[#1A1714] text-[#F3F1EC] pt-20 md:pt-28 pb-10 overflow-x-clip" data-cursor-color="#F3F1EC">
+    <section id="journal" className="scroll-mt-20 relative bg-black text-white pt-20 md:pt-28 pb-10 overflow-x-clip" data-cursor-color="#F3F1EC">
       <span aria-hidden className="pointer-events-none absolute inset-0 opacity-[0.05]" style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='b'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.012 0.04' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23b)'/%3E%3C/svg%3E\")" }} />
 
       {/* header (padded) */}
       <div className="relative px-6 sm:px-10 md:px-16">
         <div className="text-center mb-14 md:mb-20">
-          <p className="text-[10px] tracking-[0.3em] uppercase text-[#F3F1EC]/45 mb-4">Thinking out loud</p>
-          <h2 className="font-rocksalt leading-[1.5]" style={{ fontSize: "clamp(1.5rem, 3.6vw, 3rem)" }}>
+          <p className="text-[10px] tracking-[0.3em] uppercase text-white/45 mb-4">Thinking out loud</p>
+          <h2 className="font-marker text-white leading-[1.05]" style={{ fontSize: "clamp(2.6rem, 6.5vw, 5.5rem)" }}>
             Notes we&apos;ve<br />scribbled down
           </h2>
         </div>
