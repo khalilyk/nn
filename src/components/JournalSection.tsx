@@ -224,7 +224,27 @@ export default function JournalSection() {
   const setW = useRef(0);
   const x = useRef(0);
   const drag = useRef<{ active: boolean; startX: number; startVal: number; moved: boolean }>({ active: false, startX: 0, startVal: 0, moved: false });
+  const sectionRef = useRef<HTMLElement>(null);
+  const bgRef = useRef<HTMLSpanElement>(null);
   const [, force] = useState(0);
+
+  // parallax the scribbles backdrop
+  useEffect(() => {
+    let raf = 0;
+    const onScroll = () => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        const sec = sectionRef.current, bg = bgRef.current;
+        if (!sec || !bg) return;
+        const r = sec.getBoundingClientRect();
+        const progress = (window.innerHeight - r.top) / (window.innerHeight + r.height); // 0→1 through view
+        bg.style.transform = `translate3d(0, ${(progress - 0.5) * 22}%, 0)`;
+      });
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+    return () => { window.removeEventListener("scroll", onScroll); cancelAnimationFrame(raf); };
+  }, []);
 
   // measure one set's width (track holds 3 copies)
   useEffect(() => {
@@ -263,9 +283,9 @@ export default function JournalSection() {
   const items = [...POSTS, ...POSTS, ...POSTS];
 
   return (
-    <section id="journal" className="scroll-mt-20 relative bg-black text-white pt-20 md:pt-28 pb-10 overflow-x-clip" data-cursor-color="#F3F1EC">
-      {/* scribbled-notes backdrop */}
-      <span aria-hidden className="pointer-events-none absolute inset-0 z-0 bg-cover bg-center opacity-70" style={{ backgroundImage: "url('/scribbles.png')" }} />
+    <section ref={sectionRef} id="journal" className="scroll-mt-20 relative bg-black text-white pt-20 md:pt-28 pb-10 overflow-x-clip" data-cursor-color="#F3F1EC">
+      {/* scribbled-notes backdrop (parallax) */}
+      <span ref={bgRef} aria-hidden className="pointer-events-none absolute -top-[20%] left-0 right-0 h-[140%] z-0 bg-cover bg-center opacity-70 will-change-transform" style={{ backgroundImage: "url('/scribbles.png')" }} />
 
       {/* header (padded) */}
       <div className="relative px-6 sm:px-10 md:px-16">
