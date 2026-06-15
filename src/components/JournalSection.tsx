@@ -1,71 +1,94 @@
-type Post = {
+type Base = {
   cat: string;
   date: string;
   title: string;
-  excerpt: string;
   read: string;
   bg: string;
   ink: string;
-  accent: string;
   rotate: string;
-  variant: "type" | "repeat" | "solid";
 };
+
+type SplitPost = Base & {
+  variant: "split";
+  top: string;
+  bottom: string;
+  img: string;
+};
+type TypePost = Base & {
+  variant: "type";
+  eyebrow: string;
+  lines: string[];
+  footer: string;
+};
+type BlahPost = Base & {
+  variant: "blah";
+  word: string;
+  rows: number;
+  line: string;
+  img: string;
+};
+
+type Post = SplitPost | TypePost | BlahPost;
 
 const POSTS: Post[] = [
   {
+    variant: "split",
     cat: "Branding",
     date: "May 2026",
     title: "Why Nobody Remembers Normal",
-    excerpt: "The case for building brands with staying power instead of chasing the trend.",
     read: "5 min read",
-    bg: "#D8F24A",
+    bg: "#BBD9F2",
     ink: "#0A0A0A",
-    accent: "#0A0A0A",
     rotate: "-2deg",
-    variant: "type",
+    top: "BRANDS NOT",
+    bottom: "BACKGROUND",
+    img: "https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=900&q=80",
   },
   {
+    variant: "type",
     cat: "Hospitality",
     date: "Apr 2026",
     title: "Menus That Actually Sell",
-    excerpt: "How layout, language and a little psychology turn a menu into a revenue tool.",
     read: "6 min read",
-    bg: "#BBD9F2",
+    bg: "#D8F24A",
     ink: "#0A0A0A",
-    accent: "#FF2EC4",
     rotate: "1.5deg",
-    variant: "solid",
+    eyebrow: "Quality over noise",
+    lines: ["MENUS", "THAT MAKE", "MONEY…"],
+    footer: "Without the crafty bullshit",
   },
   {
-    cat: "Experience",
-    date: "Mar 2026",
-    title: "The First 90 Seconds",
-    excerpt: "First impressions in hospitality, and why they quietly decide everything.",
-    read: "4 min read",
-    bg: "#EFEbe0",
-    ink: "#0A0A0A",
-    accent: "#0A0A0A",
-    rotate: "-1deg",
-    variant: "repeat",
-  },
-  {
+    variant: "blah",
     cat: "Content",
+    date: "Mar 2026",
+    title: "Say Something Worth Hearing",
+    read: "4 min read",
+    bg: "#ECE7DA",
+    ink: "#0A0A0A",
+    rotate: "-1deg",
+    word: "BLAH",
+    rows: 5,
+    line: "Stop sounding like everyone else.",
+    img: "https://images.unsplash.com/photo-1569529465841-dfecdab7503b?auto=format&fit=crop&w=700&q=80",
+  },
+  {
+    variant: "type",
+    cat: "Experience",
     date: "Feb 2026",
-    title: "Design For The Photo",
-    excerpt: "In the age of social, your venue is competing on camera too.",
+    title: "The First 90 Seconds",
     read: "5 min read",
     bg: "#81D742",
     ink: "#0A0A0A",
-    accent: "#0A0A0A",
     rotate: "2deg",
-    variant: "type",
+    eyebrow: "First impressions",
+    lines: ["THE", "FIRST 90", "SECONDS"],
+    footer: "Decide everything",
   },
 ];
 
-/* Little East-London-style circular badge */
 function Badge({ ink }: { ink: string }) {
   return (
-    <span className="inline-flex items-center justify-center rounded-full border w-9 h-9 text-[11px] font-display tracking-tight" style={{ borderColor: ink, color: ink }}>
+    <span className="inline-flex items-center justify-center rounded-full border w-9 h-9 text-[10px] font-display tracking-tight shrink-0" style={{ borderColor: ink, color: ink }}>
       NN
     </span>
   );
@@ -79,43 +102,57 @@ function Poster({ p }: { p: Post }) {
       style={{ transform: `rotate(${p.rotate})` }}
     >
       <div
-        className="relative flex flex-col aspect-[3/4] overflow-hidden p-6 md:p-7 shadow-[0_30px_60px_-25px_rgba(0,0,0,0.7)]"
+        className="relative flex flex-col aspect-[3/4] overflow-hidden shadow-[0_30px_60px_-25px_rgba(0,0,0,0.75)]"
         style={{ background: p.bg, color: p.ink }}
       >
         {/* paper grain */}
-        <span aria-hidden className="pointer-events-none absolute inset-0 opacity-[0.06] mix-blend-multiply" style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")" }} />
+        <span aria-hidden className="pointer-events-none absolute inset-0 z-20 opacity-[0.07] mix-blend-multiply" style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")" }} />
 
-        {/* top row */}
-        <div className="relative flex items-center justify-between text-[9px] tracking-[0.3em] uppercase">
-          <span style={{ color: p.accent }}>{p.cat}</span>
-          <span className="opacity-50">{p.date}</span>
-        </div>
+        {/* ── SPLIT: word / image / word ── */}
+        {p.variant === "split" && (
+          <div className="relative z-10 flex flex-col h-full p-5">
+            <h3 className="font-sans font-bold uppercase tracking-tight leading-[0.9]" style={{ fontSize: "clamp(1.5rem, 2.4vw, 2.1rem)" }}>{p.top}</h3>
+            <div className="relative flex-1 my-4 overflow-hidden">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={p.img} alt="" className="absolute inset-0 w-full h-full object-cover" />
+              <span className="absolute left-2 bottom-2"><Badge ink={p.ink} /></span>
+            </div>
+            <h3 className="font-sans font-bold uppercase tracking-tight leading-[0.9]" style={{ fontSize: "clamp(1.5rem, 2.4vw, 2.1rem)" }}>{p.bottom}</h3>
+          </div>
+        )}
 
-        {/* centre */}
-        <div className="relative flex-1 flex flex-col justify-center py-6">
-          {p.variant === "repeat" && (
-            <span aria-hidden className="pointer-events-none absolute inset-x-0 top-0 font-display uppercase leading-[0.82] opacity-[0.08] select-none" style={{ fontSize: "clamp(3rem, 9vw, 6rem)" }}>
-              Wow<br />Wow<br />Wow
-            </span>
-          )}
-          <p className="relative text-[9px] tracking-[0.3em] uppercase opacity-60 mb-3">From the studio</p>
-          <h3
-            className="relative font-display uppercase tracking-tight leading-[0.9]"
-            style={{ fontSize: "clamp(1.6rem, 2.6vw, 2.4rem)" }}
-          >
-            {p.title}
-          </h3>
-          <p className="relative mt-4 text-[12px] leading-snug opacity-70 max-w-[26ch]">{p.excerpt}</p>
-        </div>
+        {/* ── TYPE: eyebrow / big slogan / footer ── */}
+        {p.variant === "type" && (
+          <div className="relative z-10 flex flex-col h-full p-6 text-center">
+            <p className="text-[9px] tracking-[0.35em] uppercase opacity-70">{p.eyebrow}</p>
+            <div className="flex-1 flex flex-col justify-center">
+              <h3 className="font-sans font-bold uppercase tracking-tight leading-[0.95]" style={{ fontSize: "clamp(1.7rem, 2.8vw, 2.6rem)" }}>
+                {p.lines.map((l, i) => <span key={i} className="block">{l}</span>)}
+              </h3>
+            </div>
+            <p className="text-[9px] tracking-[0.3em] uppercase opacity-70">{p.footer}</p>
+          </div>
+        )}
 
-        {/* bottom row */}
-        <div className="relative flex items-end justify-between">
-          <Badge ink={p.ink} />
-          <span className="inline-flex items-center gap-2 text-[9px] tracking-[0.28em] uppercase">
-            Read
-            <span className="transition-transform duration-300 group-hover:translate-x-1.5">→</span>
-          </span>
-        </div>
+        {/* ── BLAH: repeated word + product image ── */}
+        {p.variant === "blah" && (
+          <div className="relative z-10 h-full overflow-hidden">
+            <div className="absolute inset-0 flex flex-col justify-center -ml-2">
+              {Array.from({ length: p.rows }).map((_, i) => (
+                <span key={i} className="font-sans font-bold uppercase tracking-tight leading-[0.92] whitespace-nowrap" style={{ fontSize: "clamp(2.4rem, 4vw, 3.4rem)" }}>{p.word}</span>
+              ))}
+            </div>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={p.img} alt="" className="absolute right-0 bottom-0 h-[78%] w-auto object-contain drop-shadow-[0_12px_30px_rgba(0,0,0,0.35)]" />
+            <span className="absolute left-4 top-1/2 -translate-y-1/2"><Badge ink={p.ink} /></span>
+          </div>
+        )}
+
+      </div>
+      {/* caption under the poster, like a gallery label */}
+      <div className="mt-3 flex items-center justify-between text-[8px] tracking-[0.3em] uppercase text-[#F3F1EC]/45">
+        <span>{p.cat}</span>
+        <span>{p.read}</span>
       </div>
     </article>
   );
@@ -125,7 +162,6 @@ function Poster({ p }: { p: Post }) {
 export default function JournalSection() {
   return (
     <section id="journal" className="scroll-mt-20 relative bg-[#1A1714] text-[#F3F1EC] px-6 sm:px-10 md:px-16 py-20 md:py-28 overflow-hidden" data-cursor-color="#F3F1EC">
-      {/* faint brick wall texture */}
       <span aria-hidden className="pointer-events-none absolute inset-0 opacity-[0.05]" style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='b'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.012 0.04' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23b)'/%3E%3C/svg%3E\")" }} />
 
       <div className="relative max-w-6xl mx-auto">
