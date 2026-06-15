@@ -26,7 +26,7 @@ export default async function SubmissionsPage() {
 
       <div className="space-y-3">
         {rows.map((r) => (
-          <div key={r.id} className="rounded-xl border border-black/10 bg-white p-4">
+          <div key={r.id} className="rounded-2xl bg-white shadow-sm p-4">
             <div className="flex items-center justify-between gap-4 mb-2">
               <div className="flex items-baseline gap-3">
                 <span className="font-medium">{r.name}</span>

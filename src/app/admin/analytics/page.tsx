@@ -61,7 +61,7 @@ export default async function AnalyticsPage() {
         <>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-7">
             {cards.map((t, i) => (
-              <div key={t} className={`rounded-2xl p-4 ${i === 0 ? "bg-[#F4C84B]" : "bg-white/70"}`}>
+              <div key={t} className={`rounded-3xl p-5 shadow-sm ${i === 0 ? "bg-[#D7F23A]" : "bg-white"}`}>
                 <div className="text-[28px] font-semibold leading-none text-[#0A0A0A]">{totalFor(t)}</div>
                 <div className="mt-2 text-[11px] tracking-[0.12em] uppercase text-[#0A0A0A]/55">{TYPE_LABELS[t]}</div>
               </div>
@@ -70,7 +70,7 @@ export default async function AnalyticsPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
             {/* page views chart */}
-            <div className="rounded-3xl bg-white/70 p-5">
+            <div className="rounded-3xl bg-white shadow-sm p-5">
               <h2 className="text-[13px] font-semibold mb-4 text-[#0A0A0A]">Page views · last 14 days</h2>
               {last14.length === 0 ? (
                 <p className="text-[12px] text-[#0A0A0A]/45">No views yet.</p>
@@ -87,7 +87,7 @@ export default async function AnalyticsPage() {
             </div>
 
             {/* top projects */}
-            <div className="rounded-3xl bg-white/70 p-5">
+            <div className="rounded-3xl bg-white shadow-sm p-5">
               <h2 className="text-[13px] font-semibold mb-4 text-[#0A0A0A]">Most-opened projects</h2>
               {topProjects.length === 0 ? (
                 <p className="text-[12px] text-[#0A0A0A]/45">No project opens yet.</p>
@@ -105,7 +105,7 @@ export default async function AnalyticsPage() {
           </div>
 
           {/* recent events */}
-          <div className="rounded-3xl bg-white/70 p-5 mt-3">
+          <div className="rounded-3xl bg-white shadow-sm p-5 mt-3">
             <h2 className="text-[13px] font-semibold mb-3 text-[#0A0A0A]">Recent activity</h2>
             <div className="divide-y divide-black/5">
               {recent.map((e) => (

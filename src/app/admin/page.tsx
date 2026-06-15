@@ -30,18 +30,18 @@ export default async function AdminDashboard() {
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8">
         {stats.map((s, i) => (
-          <div key={s.label} className={`rounded-2xl p-4 ${i === 1 ? "bg-[#F4C84B]" : "bg-white/70"}`}>
-            <div className="text-[28px] font-semibold leading-none text-[#0A0A0A]">{s.value}</div>
-            <div className="mt-2 text-[11px] tracking-[0.12em] uppercase text-[#0A0A0A]/55">{s.label}</div>
+          <div key={s.label} className={`rounded-3xl p-5 shadow-sm ${i === 1 ? "bg-[#D7F23A]" : "bg-white"}`}>
+            <div className="text-[34px] font-bold leading-none tracking-tight text-[#0A0A0A]">{s.value}</div>
+            <div className="mt-3 text-[11px] tracking-[0.12em] uppercase text-[#0A0A0A]/50">{s.label}</div>
           </div>
         ))}
       </div>
 
       <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
         {SECTIONS.map((s) => (
-          <Link key={s.key} href={`/admin/${s.key}`} className="rounded-2xl bg-white/70 hover:bg-white p-5 transition-colors">
-            <div className="text-[15px] font-medium text-[#0A0A0A]">{s.label}</div>
-            <div className="text-[12px] text-[#0A0A0A]/45 mt-1">Edit →</div>
+          <Link key={s.key} href={`/admin/${s.key}`} className="group rounded-3xl bg-white hover:shadow-md shadow-sm p-5 transition-shadow">
+            <div className="text-[15px] font-semibold text-[#0A0A0A]">{s.label}</div>
+            <div className="text-[12px] text-[#0A0A0A]/45 mt-1 group-hover:translate-x-0.5 transition-transform">Edit →</div>
           </Link>
         ))}
       </div>

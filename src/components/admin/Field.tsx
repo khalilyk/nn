@@ -53,7 +53,7 @@ function ImageField({ value, onChange }: { value: string; onChange: (v: string) 
         <input
           value={value}
           onChange={(e) => onChange(e.target.value)}
-          className="w-full bg-white border border-black/15 rounded px-2 py-1.5 text-[13px]"
+          className="w-full bg-white border border-black/10 rounded-lg px-2 py-1.5 text-[13px]"
           placeholder="image URL"
         />
         <label className="mt-1 inline-block text-[11px] text-black/50 cursor-pointer hover:text-black">
@@ -81,21 +81,21 @@ export default function Field({
       return (
         <div className="flex items-center gap-2">
           <input type="color" value={value} onChange={(e) => onChange(e.target.value)} className="w-9 h-9 rounded border border-black/15 bg-white p-0.5 cursor-pointer" />
-          <input value={value} onChange={(e) => onChange(e.target.value)} className="w-28 bg-white border border-black/15 rounded px-2 py-1.5 text-[13px] font-mono" />
+          <input value={value} onChange={(e) => onChange(e.target.value)} className="w-28 bg-white border border-black/10 rounded-lg px-2 py-1.5 text-[13px] font-mono" />
         </div>
       );
     }
     const long = value.length > 70 || value.includes("\n");
     return long ? (
-      <textarea value={value} onChange={(e) => onChange(e.target.value)} rows={3} className="w-full bg-white border border-black/15 rounded px-2.5 py-2 text-[13px] leading-relaxed resize-y" />
+      <textarea value={value} onChange={(e) => onChange(e.target.value)} rows={3} className="w-full bg-white border border-black/10 rounded-lg px-2.5 py-2 text-[13px] leading-relaxed resize-y" />
     ) : (
-      <input value={value} onChange={(e) => onChange(e.target.value)} className="w-full bg-white border border-black/15 rounded px-2.5 py-1.5 text-[13px]" />
+      <input value={value} onChange={(e) => onChange(e.target.value)} className="w-full bg-white border border-black/10 rounded-lg px-2.5 py-1.5 text-[13px]" />
     );
   }
 
   // number
   if (typeof value === "number") {
-    return <input type="number" value={value} onChange={(e) => onChange(Number(e.target.value))} className="w-28 bg-white border border-black/15 rounded px-2.5 py-1.5 text-[13px]" />;
+    return <input type="number" value={value} onChange={(e) => onChange(Number(e.target.value))} className="w-28 bg-white border border-black/10 rounded-lg px-2.5 py-1.5 text-[13px]" />;
   }
 
   // boolean

@@ -36,7 +36,7 @@ export default function SectionEditor({
       <h1 className="text-[22px] font-semibold text-[#0A0A0A] mb-1">{label}</h1>
       <p className="text-[13px] text-[#0A0A0A]/50 mb-6">Edit this section, then Publish.</p>
 
-      <div className="rounded-3xl bg-white/70 p-5 md:p-7">
+      <div className="rounded-3xl bg-white shadow-sm p-5 md:p-7">
         <Field k={sectionKey} value={content[sectionKey]} onChange={(v) => setContent((c) => ({ ...c, [sectionKey]: v }))} />
       </div>
 
