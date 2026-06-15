@@ -107,6 +107,20 @@ const WEATHER = [
   { stain1: "60% 8%", stain2: "22% 70%", stainO: 0.5, fade: "82% 82%", crease: 12, tear: "tr" },
 ];
 
+// unique crumpled-paper relief per poster (seed + frequency + fold positions)
+const PAPER = [
+  { seed: 7, freq: "0.012 0.016", foldX: "37%", foldY: "56%" },
+  { seed: 23, freq: "0.014 0.011", foldX: "63%", foldY: "41%" },
+  { seed: 44, freq: "0.011 0.018", foldX: "49%", foldY: "61%" },
+  { seed: 61, freq: "0.016 0.013", foldX: "44%", foldY: "47%" },
+  { seed: 88, freq: "0.013 0.017", foldX: "58%", foldY: "52%" },
+];
+
+function crumpleURI(seed: number, freq: string) {
+  const svg = `<svg xmlns='http://www.w3.org/2000/svg' width='400' height='520'><filter id='f'><feTurbulence type='fractalNoise' baseFrequency='${freq}' numOctaves='5' seed='${seed}' stitchTiles='stitch'/><feDiffuseLighting lighting-color='#ffffff' surfaceScale='2.4' diffuseConstant='1.15'><feDistantLight azimuth='235' elevation='55'/></feDiffuseLighting></filter><rect width='100%' height='100%' filter='url(#f)'/></svg>`;
+  return `data:image/svg+xml,${encodeURIComponent(svg)}`;
+}
+
 // each poster peels off the wall a little differently
 const LIFTS = [
   { rot: -5, x: -14, y: -26, origin: "bottom right" },
@@ -120,6 +134,7 @@ function Poster({ p, idx }: { p: Post; idx: number }) {
   const [hover, setHover] = useState(false);
   const L = LIFTS[idx % LIFTS.length];
   const W = WEATHER[idx % WEATHER.length];
+  const P = PAPER[idx % PAPER.length];
   return (
     <article
       data-cursor="Read"
@@ -158,8 +173,10 @@ function Poster({ p, idx }: { p: Post; idx: number }) {
         <span aria-hidden className="pointer-events-none absolute inset-0 z-20 mix-blend-multiply" style={{ opacity: W.stainO, background: `radial-gradient(ellipse at ${W.stain1}, rgba(74,55,32,0.55), transparent 55%), radial-gradient(circle at ${W.stain2}, rgba(40,32,22,0.5), transparent 50%)` }} />
         {/* weathering: sun-faded patch */}
         <span aria-hidden className="pointer-events-none absolute inset-0 z-20 mix-blend-overlay opacity-50" style={{ background: `radial-gradient(circle at ${W.fade}, rgba(255,255,255,0.85), transparent 55%)` }} />
-        {/* weathering: crease */}
-        <span aria-hidden className="pointer-events-none absolute inset-0 z-20 mix-blend-soft-light opacity-70" style={{ background: `linear-gradient(${W.crease}deg, transparent 47%, rgba(0,0,0,0.25) 49%, rgba(255,255,255,0.3) 51%, transparent 53%)` }} />
+        {/* crumpled-paper relief (unique per poster) */}
+        <span aria-hidden className="pointer-events-none absolute inset-0 z-20 mix-blend-overlay" style={{ opacity: 0.55, backgroundImage: `url("${crumpleURI(P.seed, P.freq)}")`, backgroundSize: "cover" }} />
+        {/* fold lines */}
+        <span aria-hidden className="pointer-events-none absolute inset-0 z-20 mix-blend-soft-light opacity-70" style={{ background: `linear-gradient(90deg, transparent calc(${P.foldX} - 1.5px), rgba(0,0,0,0.22) ${P.foldX}, rgba(255,255,255,0.32) calc(${P.foldX} + 1.5px), transparent calc(${P.foldX} + 3px)), linear-gradient(0deg, transparent calc(${P.foldY} - 1.5px), rgba(0,0,0,0.2) ${P.foldY}, rgba(255,255,255,0.28) calc(${P.foldY} + 1.5px), transparent calc(${P.foldY} + 3px))` }} />
 
         {/* ── SPLIT: word / image / word ── */}
         {p.variant === "split" && (
@@ -234,8 +251,6 @@ export default function JournalSection() {
 
   useEffect(() => { apply(); });
 
-  const move = useCallback((dx: number) => { x.current += dx; apply(); }, [apply]);
-
   const onDown = (e: React.PointerEvent) => {
     drag.current = { active: true, startX: e.clientX, startVal: x.current, moved: false };
     (e.target as HTMLElement).setPointerCapture?.(e.pointerId);
@@ -249,14 +264,6 @@ export default function JournalSection() {
     apply();
   };
   const onUp = () => { drag.current.active = false; };
-
-  // arrow nav, one poster-ish step
-  const step = (dir: number) => {
-    if (track.current) track.current.style.transition = "transform 0.6s cubic-bezier(0.16,1,0.3,1)";
-    const itemW = setW.current ? setW.current / POSTS.length : 320;
-    move(dir * -itemW);
-    window.setTimeout(() => { if (track.current) track.current.style.transition = "none"; }, 620);
-  };
 
   const items = [...POSTS, ...POSTS, ...POSTS];
 
@@ -272,15 +279,6 @@ export default function JournalSection() {
             <h2 className="font-display uppercase tracking-tight leading-[0.92]" style={{ fontSize: "clamp(2rem, 5vw, 4rem)" }}>
               Notes from<br />the studio
             </h2>
-          </div>
-          <div className="flex flex-col md:items-end gap-5">
-            <p className="font-editorial italic text-[#F3F1EC]/55 max-w-xs md:text-right" style={{ fontSize: "clamp(1rem, 1.5vw, 1.2rem)" }}>
-              Pasted up like posters. Drag to flick through.
-            </p>
-            <div className="flex items-center gap-3">
-              <button onClick={() => step(-1)} aria-label="Previous" className="w-10 h-10 rounded-full border border-[#F3F1EC]/30 flex items-center justify-center text-sm hover:bg-[#F3F1EC] hover:text-[#1A1714] transition-colors">←</button>
-              <button onClick={() => step(1)} aria-label="Next" className="w-10 h-10 rounded-full border border-[#F3F1EC]/30 flex items-center justify-center text-sm hover:bg-[#F3F1EC] hover:text-[#1A1714] transition-colors">→</button>
-            </div>
           </div>
         </div>
       </div>
