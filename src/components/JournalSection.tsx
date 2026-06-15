@@ -107,17 +107,17 @@ const WEATHER = [
   { stain1: "60% 8%", stain2: "22% 70%", stainO: 0.5, fade: "82% 82%", crease: 12, tear: "tr" },
 ];
 
-// unique crumpled-paper relief per poster (seed + frequency + fold positions)
+// large soft crumpled-paper folds, unique per poster (low-frequency relief)
 const PAPER = [
-  { seed: 7, freq: "0.012 0.016", foldX: "37%", foldY: "56%" },
-  { seed: 23, freq: "0.014 0.011", foldX: "63%", foldY: "41%" },
-  { seed: 44, freq: "0.011 0.018", foldX: "49%", foldY: "61%" },
-  { seed: 61, freq: "0.016 0.013", foldX: "44%", foldY: "47%" },
-  { seed: 88, freq: "0.013 0.017", foldX: "58%", foldY: "52%" },
+  { seed: 7, freq: "0.004 0.006" },
+  { seed: 23, freq: "0.005 0.004" },
+  { seed: 44, freq: "0.0035 0.006" },
+  { seed: 61, freq: "0.006 0.0045" },
+  { seed: 88, freq: "0.0045 0.0055" },
 ];
 
 function crumpleURI(seed: number, freq: string) {
-  const svg = `<svg xmlns='http://www.w3.org/2000/svg' width='420' height='560'><filter id='f'><feTurbulence type='fractalNoise' baseFrequency='${freq}' numOctaves='4' seed='${seed}' stitchTiles='stitch' result='n'/><feDiffuseLighting in='n' lighting-color='#ffffff' surfaceScale='4' diffuseConstant='1'><feDistantLight azimuth='235' elevation='48'/></feDiffuseLighting></filter><rect width='100%' height='100%' filter='url(#f)'/></svg>`;
+  const svg = `<svg xmlns='http://www.w3.org/2000/svg' width='440' height='580'><filter id='f'><feTurbulence type='fractalNoise' baseFrequency='${freq}' numOctaves='3' seed='${seed}' stitchTiles='stitch' result='n'/><feDiffuseLighting in='n' lighting-color='#ffffff' surfaceScale='3' diffuseConstant='1'><feDistantLight azimuth='225' elevation='52'/></feDiffuseLighting></filter><rect width='100%' height='100%' filter='url(#f)'/></svg>`;
   return `data:image/svg+xml,${encodeURIComponent(svg)}`;
 }
 
@@ -173,10 +173,8 @@ function Poster({ p, idx }: { p: Post; idx: number }) {
         <span aria-hidden className="pointer-events-none absolute inset-0 z-20 mix-blend-multiply" style={{ opacity: W.stainO, background: `radial-gradient(ellipse at ${W.stain1}, rgba(74,55,32,0.55), transparent 55%), radial-gradient(circle at ${W.stain2}, rgba(40,32,22,0.5), transparent 50%)` }} />
         {/* weathering: sun-faded patch */}
         <span aria-hidden className="pointer-events-none absolute inset-0 z-20 mix-blend-overlay opacity-50" style={{ background: `radial-gradient(circle at ${W.fade}, rgba(255,255,255,0.85), transparent 55%)` }} />
-        {/* crumpled-paper relief (unique per poster) — subtle */}
-        <span aria-hidden className="pointer-events-none absolute inset-0 z-20 mix-blend-soft-light" style={{ opacity: 0.4, backgroundImage: `url("${crumpleURI(P.seed, P.freq)}")`, backgroundSize: "cover" }} />
-        {/* fold lines */}
-        <span aria-hidden className="pointer-events-none absolute inset-0 z-20 mix-blend-soft-light opacity-70" style={{ background: `linear-gradient(90deg, transparent calc(${P.foldX} - 1.5px), rgba(0,0,0,0.22) ${P.foldX}, rgba(255,255,255,0.32) calc(${P.foldX} + 1.5px), transparent calc(${P.foldX} + 3px)), linear-gradient(0deg, transparent calc(${P.foldY} - 1.5px), rgba(0,0,0,0.2) ${P.foldY}, rgba(255,255,255,0.28) calc(${P.foldY} + 1.5px), transparent calc(${P.foldY} + 3px))` }} />
+        {/* crumpled-paper folds — soft-light relief, unique per poster */}
+        <span aria-hidden className="pointer-events-none absolute inset-0 z-20 mix-blend-soft-light" style={{ opacity: 0.85, backgroundImage: `url("${crumpleURI(P.seed, P.freq)}")`, backgroundSize: "cover" }} />
 
         {/* ── SPLIT: word / image / word ── */}
         {p.variant === "split" && (
