@@ -98,11 +98,10 @@ function Poster({ p }: { p: Post }) {
   return (
     <article
       data-cursor="Read"
-      className="group relative origin-center transition-transform duration-300 hover:!rotate-0 hover:-translate-y-2 cursor-pointer"
-      style={{ transform: `rotate(${p.rotate})` }}
+      className="group relative cursor-pointer transition-[transform,z-index] duration-300 hover:z-20 hover:-translate-y-2"
     >
       <div
-        className="relative flex flex-col aspect-[3/4] overflow-hidden shadow-[0_30px_60px_-25px_rgba(0,0,0,0.75)]"
+        className="relative flex flex-col aspect-[3/4] overflow-hidden ring-1 ring-black/20 shadow-[8px_0_24px_-8px_rgba(0,0,0,0.55)]"
         style={{ background: p.bg, color: p.ink }}
       >
         {/* paper grain */}
@@ -149,11 +148,6 @@ function Poster({ p }: { p: Post }) {
         )}
 
       </div>
-      {/* caption under the poster, like a gallery label */}
-      <div className="mt-3 flex items-center justify-between text-[8px] tracking-[0.3em] uppercase text-[#F3F1EC]/45">
-        <span>{p.cat}</span>
-        <span>{p.read}</span>
-      </div>
     </article>
   );
 }
@@ -177,7 +171,7 @@ export default function JournalSection() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-7 md:gap-8">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-0 shadow-[0_40px_90px_-40px_rgba(0,0,0,0.8)]">
           {POSTS.map((p) => (
             <Poster key={p.title} p={p} />
           ))}
