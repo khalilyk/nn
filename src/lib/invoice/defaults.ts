@@ -7,7 +7,7 @@ export const DEFAULT_SETTINGS: InvoiceSettings = {
   email: "hello@thisisnn.com",
   phone: "+61 000 000 000",
   abn: "00 000 000 000",
-  logoUrl: "/notnormal-logoblack.png",
+  logoUrl: "/notnormal-nn-white.png",
   bankName: "Bank Transfer",
   bsb: "000 000",
   accName: "Not Normal Pty Ltd",

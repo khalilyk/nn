@@ -1,5 +1,5 @@
 import React from "react";
-import { Document, Page, Text, View, StyleSheet, renderToBuffer } from "@react-pdf/renderer";
+import { Document, Page, Text, View, StyleSheet, Image, renderToBuffer } from "@react-pdf/renderer";
 import type { Invoice, InvoiceSettings } from "./types";
 import { computeTotals, lineAmount, money } from "./types";
 
@@ -9,6 +9,7 @@ const C = { bg: "#0A0A0A", fg: "#FFFFFF", dim: "#9A9A9A", line: "#333333" };
 const s = StyleSheet.create({
   page: { backgroundColor: C.bg, color: C.fg, padding: 40, fontSize: 9, fontFamily: "Helvetica" },
   brand: { fontSize: 34, fontFamily: "Helvetica-Bold", letterSpacing: -1, marginBottom: 56 },
+  logo: { height: 40, marginBottom: 52, objectFit: "contain", alignSelf: "flex-start" },
   topRow: { flexDirection: "row", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 34 },
   metaBlock: { flexDirection: "row", gap: 36 },
   metaCol: { gap: 2 },
@@ -62,12 +63,14 @@ function Totals({ inv }: { inv: Invoice }) {
   );
 }
 
-export function InvoiceDoc({ inv, cfg }: { inv: Invoice; cfg: InvoiceSettings }) {
+export function InvoiceDoc({ inv, cfg, logoSrc }: { inv: Invoice; cfg: InvoiceSettings; logoSrc?: string }) {
   const heading = inv.docType === "quote" ? "QUOTE" : "INVOICE";
   return (
     <Document>
       <Page size="A4" style={s.page}>
-        <Text style={s.brand}>[{cfg.companyName}]</Text>
+        {logoSrc
+          ? <Image src={logoSrc} style={s.logo} />
+          : <Text style={s.brand}>[{cfg.companyName}]</Text>}
 
         <View style={s.topRow}>
           <View style={s.metaBlock}>
@@ -144,6 +147,22 @@ export function InvoiceDoc({ inv, cfg }: { inv: Invoice; cfg: InvoiceSettings })
   );
 }
 
-export async function renderInvoicePdf(inv: Invoice, cfg: InvoiceSettings): Promise<Buffer> {
-  return renderToBuffer(<InvoiceDoc inv={inv} cfg={cfg} />);
+/** Fetch a logo (absolute URL or site-relative path) and return a base64 data URI. */
+export async function fetchLogoDataUri(logoUrl: string, origin: string): Promise<string | undefined> {
+  if (!logoUrl) return undefined;
+  try {
+    const url = logoUrl.startsWith("http") ? logoUrl : `${origin}${logoUrl.startsWith("/") ? "" : "/"}${logoUrl}`;
+    const res = await fetch(url);
+    if (!res.ok) return undefined;
+    const buf = Buffer.from(await res.arrayBuffer());
+    const ext = url.split(".").pop()?.toLowerCase();
+    const mime = ext === "jpg" || ext === "jpeg" ? "image/jpeg" : "image/png";
+    return `data:${mime};base64,${buf.toString("base64")}`;
+  } catch {
+    return undefined;
+  }
+}
+
+export async function renderInvoicePdf(inv: Invoice, cfg: InvoiceSettings, logoSrc?: string): Promise<Buffer> {
+  return renderToBuffer(<InvoiceDoc inv={inv} cfg={cfg} logoSrc={logoSrc} />);
 }

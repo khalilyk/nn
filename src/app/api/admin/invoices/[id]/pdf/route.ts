@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { isAuthed } from "@/lib/auth/session";
 import { getInvoice, getSettings } from "@/lib/invoice/store";
-import { renderInvoicePdf } from "@/lib/invoice/pdf";
+import { renderInvoicePdf, fetchLogoDataUri } from "@/lib/invoice/pdf";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -12,7 +12,9 @@ export async function GET(req: Request, ctx: { params: Promise<{ id: string }> }
   const inv = await getInvoice(Number(id));
   if (!inv) return NextResponse.json({ error: "not found" }, { status: 404 });
   const cfg = await getSettings();
-  const pdf = await renderInvoicePdf(inv, cfg);
+  const origin = new URL(req.url).origin;
+  const logo = await fetchLogoDataUri(cfg.logoUrl, origin);
+  const pdf = await renderInvoicePdf(inv, cfg, logo);
 
   const inline = new URL(req.url).searchParams.get("inline") === "1";
   const name = `${inv.docType}-${inv.number.replace("#", "")}.pdf`;

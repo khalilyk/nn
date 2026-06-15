@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { Resend } from "resend";
 import { isAuthed } from "@/lib/auth/session";
 import { getInvoice, getSettings, updateInvoice } from "@/lib/invoice/store";
-import { renderInvoicePdf } from "@/lib/invoice/pdf";
+import { renderInvoicePdf, fetchLogoDataUri } from "@/lib/invoice/pdf";
 import { computeTotals, money } from "@/lib/invoice/types";
 
 export const runtime = "nodejs";
@@ -40,7 +40,9 @@ export async function POST(req: Request, ctx: { params: Promise<{ id: string }> 
   const subject = fill(body.subject || cfg.emailSubject, vars);
   const text = fill(body.message || cfg.emailBody, vars);
 
-  const pdf = await renderInvoicePdf(inv, cfg);
+  const origin = new URL(req.url).origin;
+  const logo = await fetchLogoDataUri(cfg.logoUrl, origin);
+  const pdf = await renderInvoicePdf(inv, cfg, logo);
   const filename = `${inv.docType}-${inv.number.replace("#", "")}.pdf`;
 
   const resend = new Resend(apiKey);

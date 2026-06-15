@@ -68,7 +68,7 @@ export default function InvoiceSettingsEditor() {
           <div>
             <label className={lab}>Logo</label>
             <div className="flex items-center gap-3">
-              {s.logoUrl && <span className="rounded-lg bg-[#0A0A0A] p-2"><img src={s.logoUrl} alt="logo" className="h-5 w-auto" style={{ filter: "invert(1)" }} /></span>}
+              {s.logoUrl && <span className="rounded-lg bg-[#0A0A0A] p-2 grid place-items-center"><img src={s.logoUrl} alt="logo" className="h-6 w-auto" /></span>}
               <label className="rounded-full bg-black/[0.05] hover:bg-black/[0.08] px-3 py-1.5 text-[12px] cursor-pointer">
                 {uploading ? "Uploading…" : "Upload"}
                 <input type="file" accept="image/*" className="hidden" onChange={(e) => e.target.files?.[0] && uploadLogo(e.target.files[0])} />

@@ -11,7 +11,9 @@ export default function InvoicePreview({ inv, cfg }: { inv: Invoice; cfg: Invoic
   return (
     <div className="bg-[#0A0A0A] text-white rounded-xl mx-auto w-full" style={{ maxWidth: 720, aspectRatio: "1 / 1.414", padding: "5%" }}>
       <div className="h-full flex flex-col" style={{ fontFamily: "Helvetica, Arial, sans-serif" }}>
-        <div className="font-bold tracking-tight" style={{ fontSize: "min(5vw, 34px)", marginBottom: "8%" }}>[{cfg.companyName}]</div>
+        {cfg.logoUrl
+          ? <img src={cfg.logoUrl} alt={cfg.companyName} style={{ height: 40, width: "auto", objectFit: "contain", alignSelf: "flex-start", marginBottom: "8%" }} />
+          : <div className="font-bold tracking-tight" style={{ fontSize: "min(5vw, 34px)", marginBottom: "8%" }}>[{cfg.companyName}]</div>}
 
         <div className="flex items-start justify-between" style={{ marginBottom: "6%" }}>
           <div className="flex gap-8">
