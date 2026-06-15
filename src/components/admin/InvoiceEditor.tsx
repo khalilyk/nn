@@ -80,7 +80,6 @@ export default function InvoiceEditor({ id }: { id: number }) {
         </div>
         <div className="flex flex-wrap items-center gap-2">
           {savedAt && <span className="text-[11px] text-black/35">saved {savedAt}</span>}
-          <a href={`/api/admin/invoices/${id}/pdf?inline=1`} target="_blank" rel="noopener" className="rounded-full bg-white shadow-sm hover:shadow-md px-4 py-2 text-[12px] text-[#0A0A0A]/80">Preview PDF</a>
           <a href={`/api/admin/invoices/${id}/pdf`} className="rounded-full bg-white shadow-sm hover:shadow-md px-4 py-2 text-[12px] text-[#0A0A0A]/80">Download</a>
           <button onClick={() => setSendOpen(true)} className="rounded-full bg-white shadow-sm hover:shadow-md px-4 py-2 text-[12px] text-[#0A0A0A]/80">Email…</button>
           <button onClick={del} className="rounded-full bg-white shadow-sm hover:shadow-md px-4 py-2 text-[12px] text-[#c0392b]/80">Delete</button>
