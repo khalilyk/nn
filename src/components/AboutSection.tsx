@@ -46,8 +46,21 @@ export default function AboutSection() {
       </div>
 
       {/* manifesto */}
-      <div className="relative bg-[#81D742] text-[#0A0A0A] px-8 md:px-16 py-20 md:py-28" data-cursor-color="#0A0A0A">
-        <div className="max-w-3xl mx-auto text-center">
+      <div className="relative bg-[#81D742] text-[#0A0A0A] px-8 md:px-16 py-20 md:py-28 overflow-hidden" data-cursor-color="#0A0A0A">
+        {/* background video */}
+        <video
+          className="absolute inset-0 z-0 w-full h-full object-cover"
+          autoPlay
+          muted
+          loop
+          playsInline
+          aria-hidden
+        >
+          <source src="/cooking.mp4" type="video/mp4" />
+        </video>
+        {/* 50% green overlay */}
+        <span aria-hidden className="absolute inset-0 z-10 bg-[#81D742]/50" />
+        <div className="relative z-20 max-w-3xl mx-auto text-center">
           <p className="font-sans leading-[1.4]" style={{ fontSize: "clamp(1.05rem, 2vw, 1.6rem)" }}>
             &ldquo;Food is everything we are. It&apos;s an extension of nationalist feeling, ethnic feeling, your
             personal history, your province, your region, your tribe, your grandma. It&apos;s inseparable from those

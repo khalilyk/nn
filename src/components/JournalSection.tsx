@@ -264,7 +264,8 @@ export default function JournalSection() {
 
   return (
     <section id="journal" className="scroll-mt-20 relative bg-black text-white pt-20 md:pt-28 pb-10 overflow-x-clip" data-cursor-color="#F3F1EC">
-      <span aria-hidden className="pointer-events-none absolute inset-0 opacity-[0.05]" style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='b'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.012 0.04' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23b)'/%3E%3C/svg%3E\")" }} />
+      {/* scribbled-notes backdrop */}
+      <span aria-hidden className="pointer-events-none absolute inset-0 z-0 bg-cover bg-center opacity-70" style={{ backgroundImage: "url('/scribbles.png')" }} />
 
       {/* header (padded) */}
       <div className="relative px-6 sm:px-10 md:px-16">
