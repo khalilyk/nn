@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Field from "./Field";
 import type { Notes, Note } from "@/lib/content/types";
 
@@ -8,6 +9,8 @@ const lab = "block text-[11px] tracking-[0.12em] uppercase text-black/45 mb-1";
 
 export default function NotesEditor({ value, onChange }: { value: Notes; onChange: (v: Notes) => void }) {
   const posts = value.posts;
+  const [open, setOpen] = useState<number | null>(0);
+  const toggle = (i: number) => setOpen((cur) => (cur === i ? null : i));
   const setPost = (i: number, patch: Partial<Note>) => {
     const next = posts.map((p, j) => (j === i ? ({ ...p, ...patch } as Note) : p));
     onChange({ ...value, posts: next });
@@ -27,6 +30,7 @@ export default function NotesEditor({ value, onChange }: { value: Notes; onChang
       eyebrow: "", lines: ["NEW", "POST"], footer: "",
     };
     onChange({ ...value, posts: [blank, ...posts] });
+    setOpen(0);
   };
 
   return (
@@ -51,14 +55,19 @@ export default function NotesEditor({ value, onChange }: { value: Notes; onChang
       {posts.map((p, i) => (
         <article key={i} className="rounded-2xl border border-black/10 bg-white p-4 space-y-3">
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
+            <button onClick={() => toggle(i)} className="flex items-center gap-2 flex-1 min-w-0 text-left" title={open === i ? "Collapse" : "Expand"}>
+              <span className="text-black/40 text-[10px] w-3 shrink-0">{open === i ? "▾" : "▸"}</span>
+              <span className="text-[11px] text-black/40 uppercase tracking-wide shrink-0">{p.cat || "Post"}</span>
+              <span className="text-[12px] text-[#0A0A0A]/70 truncate">— {p.title || "Untitled"}</span>
+            </button>
+            <div className="flex items-center gap-2 shrink-0 pl-2">
               <button onClick={() => move(i, -1)} className="text-black/40 hover:text-black text-xs" title="Up">▲</button>
               <button onClick={() => move(i, 1)} className="text-black/40 hover:text-black text-xs" title="Down">▼</button>
-              <span className="text-[11px] text-black/40 uppercase tracking-wide">{p.cat || "Post"}</span>
+              <button onClick={() => remove(i)} className="text-black/40 hover:text-[#c0392b] text-sm" title="Delete post">✕</button>
             </div>
-            <button onClick={() => remove(i)} className="text-black/40 hover:text-[#c0392b] text-sm" title="Delete post">✕</button>
           </div>
 
+          {open === i && <>
           <div>
             <label className={lab}>Title</label>
             <input className={input} value={p.title} onChange={(e) => setPost(i, { title: e.target.value })} />
@@ -83,6 +92,7 @@ export default function NotesEditor({ value, onChange }: { value: Notes; onChang
               <Field k="post" value={p} onChange={(v) => onChange({ ...value, posts: posts.map((q, j) => (j === i ? (v as Note) : q)) })} />
             </div>
           </details>
+          </>}
         </article>
       ))}
     </div>
