@@ -132,6 +132,7 @@ export default function FeaturedCarousel({ projects = DEFAULT_CONTENT.projects }
             <button
               onClick={() => setOpen(null)}
               aria-label="Close"
+              data-cursor="Close"
               className="absolute top-4 right-4 z-10 w-9 h-9 rounded-full border border-[#0A0A0A]/30 bg-[#F3F1EC]/70 backdrop-blur-sm flex items-center justify-center text-sm hover:bg-[#0A0A0A] hover:text-[#F3F1EC] transition-colors"
             >
               ✕

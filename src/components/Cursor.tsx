@@ -14,6 +14,7 @@ export default function Cursor() {
     const pos = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
     const target = { ...pos };
     let raf = 0;
+    let clearTimer = 0;
 
     const onMove = (e: MouseEvent) => {
       target.x = e.clientX;
@@ -23,12 +24,18 @@ export default function Cursor() {
       const el = t?.closest<HTMLElement>("[data-cursor]");
       if (el) {
         const val = el.dataset.cursor || "";
+        // entering a target cancels any pending shrink (prevents flicker across gaps)
+        if (clearTimer) { clearTimeout(clearTimer); clearTimer = 0; }
         setHovering(true);
         // grab/tap no longer swap to an emoji, just the dot
         setLabel(val === "grab" || val === "tap" ? "" : val);
-      } else {
-        setHovering(false);
-        setLabel("");
+      } else if (!clearTimer) {
+        // brief gaps between posters shouldn't collapse the cursor - debounce the reset
+        clearTimer = window.setTimeout(() => {
+          clearTimer = 0;
+          setHovering(false);
+          setLabel("");
+        }, 90);
       }
       // optional per-section cursor colour
       const colorEl = t?.closest<HTMLElement>("[data-cursor-color]");
@@ -45,6 +52,7 @@ export default function Cursor() {
     window.addEventListener("mousemove", onMove);
     return () => {
       cancelAnimationFrame(raf);
+      if (clearTimer) clearTimeout(clearTimer);
       window.removeEventListener("mousemove", onMove);
     };
   }, []);

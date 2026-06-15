@@ -89,6 +89,7 @@ export default function SiteFooter({ footer = DEFAULT_CONTENT.footer }: { footer
                 type="button"
                 onClick={() => setLegal(null)}
                 aria-label="Close"
+                data-cursor="Close"
                 className="shrink-0 w-9 h-9 rounded-full border border-[#0A0A0A]/25 flex items-center justify-center text-sm hover:bg-[#0A0A0A] hover:text-[#F3F1EC] transition-colors"
               >
                 ✕

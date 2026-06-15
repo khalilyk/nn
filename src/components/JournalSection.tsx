@@ -284,7 +284,7 @@ export default function JournalSection({ notes = DEFAULT_CONTENT.notes }: { note
         <div className="fixed inset-0 z-[300] flex items-center justify-center p-4 md:p-8" data-cursor="Close" onClick={() => setOpenPost(null)}>
           <div className="absolute inset-0 bg-[#0A0A0A]/70 backdrop-blur-sm" />
           <div className="relative w-full max-w-2xl max-h-[85vh] overflow-y-auto rounded-3xl bg-[#F3F1EC] text-[#0A0A0A] shadow-[0_50px_140px_-40px_rgba(0,0,0,0.8)] p-7 md:p-10" onClick={(e) => e.stopPropagation()} data-cursor="">
-            <button onClick={() => setOpenPost(null)} aria-label="Close" className="absolute top-4 right-4 w-9 h-9 rounded-full border border-[#0A0A0A]/25 grid place-items-center text-sm hover:bg-[#0A0A0A] hover:text-[#F3F1EC] transition-colors">✕</button>
+            <button onClick={() => setOpenPost(null)} aria-label="Close" data-cursor="Close" className="absolute top-4 right-4 w-9 h-9 rounded-full border border-[#0A0A0A]/25 grid place-items-center text-sm hover:bg-[#0A0A0A] hover:text-[#F3F1EC] transition-colors">✕</button>
             <p className="text-[10px] tracking-[0.3em] uppercase text-[#0A0A0A]/45 mb-3">{openPost.cat} · {openPost.date} · {openPost.read}</p>
             <h3 className="font-editorial leading-tight mb-5" style={{ fontSize: "clamp(1.8rem, 4vw, 3rem)" }}>{openPost.title}</h3>
             {openPost.body
