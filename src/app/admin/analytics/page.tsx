@@ -51,8 +51,16 @@ export default async function AnalyticsPage() {
 
   return (
     <div className="pb-10">
-      <h1 className="text-[22px] font-semibold text-[#0A0A0A] mb-1">Analytics</h1>
-      <p className="text-[13px] text-[#0A0A0A]/50 mb-6">Live activity on the site.</p>
+      <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
+        <div>
+          <h1 className="text-[22px] font-semibold text-[#0A0A0A] mb-1">Analytics</h1>
+          <p className="text-[13px] text-[#0A0A0A]/50">Live activity on the site.</p>
+        </div>
+        <div className="flex items-center gap-2">
+          <a href="https://analytics.google.com/analytics/web/" target="_blank" rel="noopener" className="rounded-full bg-white shadow-sm hover:shadow-md px-4 py-2 text-[12px] text-[#0A0A0A]/80 transition-shadow">Google Analytics ↗</a>
+          <a href="https://vercel.com/khalilykhouri-3876s-projects/nn/analytics" target="_blank" rel="noopener" className="rounded-full bg-white shadow-sm hover:shadow-md px-4 py-2 text-[12px] text-[#0A0A0A]/80 transition-shadow">Vercel Analytics ↗</a>
+        </div>
+      </div>
 
       {!hasDb && <p className="text-[13px] text-[#0A0A0A]/50">Connect Postgres to start collecting analytics.</p>}
       {hasDb && !ok && <p className="text-[13px] text-[#c0392b]">Could not read analytics.</p>}
