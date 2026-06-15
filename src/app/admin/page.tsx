@@ -25,7 +25,9 @@ export default async function AdminDashboard() {
         <h1 className="text-[#0A0A0A]" style={{ fontSize: "clamp(1.8rem, 4vw, 2.6rem)", fontWeight: 600, letterSpacing: "-0.02em" }}>
           {greeting()}, <span className="text-[#0A0A0A]/45">Khalil</span>
         </h1>
-        <p className="text-[13px] text-[#0A0A0A]/50">Pick a section to edit.</p>
+        <Link href="/admin/preview" className="rounded-full bg-[#0A0A0A] text-white px-5 py-2.5 text-[12px] tracking-[0.12em] uppercase hover:opacity-80 transition-opacity">
+          Open live editor →
+        </Link>
       </div>
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8">

@@ -1,6 +1,6 @@
 "use client";
 
-import { Fragment, useRef, useState } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
 
 const CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ#%&*";
 
@@ -8,6 +8,9 @@ const CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ#%&*";
 function Word({ word }: { word: string }) {
   const [display, setDisplay] = useState(word);
   const timer = useRef<ReturnType<typeof setInterval> | undefined>(undefined);
+
+  // keep in sync when the word prop changes (e.g. live editor)
+  useEffect(() => { setDisplay(word); }, [word]);
 
   const run = () => {
     clearInterval(timer.current);
