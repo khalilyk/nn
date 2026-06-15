@@ -24,8 +24,9 @@ export default function SiteFooter({ footer = DEFAULT_CONTENT.footer }: { footer
     <footer id="footer" className="bg-[#F3F1EC] text-[#0A0A0A] px-8 md:px-16 pt-24 pb-10 md:pb-14">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-12 items-center mb-20 text-center md:text-left">
         <Reveal>
-          <h2 className="font-editorial leading-[1.2]" style={{ fontSize: "clamp(1.8rem, 3.2vw, 2.8rem)" }}>
-            to be not normal<br />is to be <RotatingWord />
+          <h2 className="font-editorial leading-[1.2] flex flex-col justify-center" style={{ fontSize: "clamp(1.6rem, 2.8vw, 2.4rem)", minHeight: "3.6em" }}>
+            <span>to be not normal</span>
+            <span>is to be <RotatingWord /></span>
           </h2>
         </Reveal>
         <Reveal delay={0.06}>
