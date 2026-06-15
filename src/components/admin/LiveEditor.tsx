@@ -6,9 +6,9 @@ import Field from "./Field";
 import { SECTIONS } from "@/lib/content/sections";
 import type { SiteContent } from "@/lib/content/types";
 
-export default function LiveEditor({ initial }: { initial: SiteContent }) {
+export default function LiveEditor({ initial, initialSection = "hero" }: { initial: SiteContent; initialSection?: keyof SiteContent }) {
   const [content, setContent] = useState<SiteContent>(initial);
-  const [active, setActive] = useState<keyof SiteContent>("hero");
+  const [active, setActive] = useState<keyof SiteContent>(initialSection);
   const [status, setStatus] = useState<"idle" | "saving" | "saved" | "error">("idle");
   const [ready, setReady] = useState(false);
   const iframe = useRef<HTMLIFrameElement>(null);
