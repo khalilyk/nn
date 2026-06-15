@@ -98,16 +98,49 @@ function Badge({ ink }: { ink: string }) {
   );
 }
 
-function Poster({ p }: { p: Post }) {
+// each poster peels off the wall a little differently
+const LIFTS = [
+  { rot: -5, x: -14, y: -26, origin: "bottom right" },
+  { rot: 4, x: 12, y: -20, origin: "bottom left" },
+  { rot: -3.5, x: -8, y: -30, origin: "bottom center" },
+  { rot: 6, x: 16, y: -16, origin: "bottom left" },
+  { rot: 3, x: 10, y: -28, origin: "bottom right" },
+];
+
+function Poster({ p, idx }: { p: Post; idx: number }) {
+  const [hover, setHover] = useState(false);
+  const L = LIFTS[idx % LIFTS.length];
   return (
     <article
       data-cursor="Read"
-      className="group relative z-0 cursor-pointer transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] origin-bottom-left hover:z-30 hover:-translate-y-4 hover:-rotate-[2.5deg] hover:scale-[1.05]"
+      onPointerEnter={() => setHover(true)}
+      onPointerLeave={() => setHover(false)}
+      className="group relative cursor-pointer transition-transform duration-[450ms] ease-[cubic-bezier(0.22,1,0.36,1)]"
+      style={{
+        zIndex: hover ? 40 : 1,
+        transformOrigin: L.origin,
+        transform: hover ? `translate(${L.x}px, ${L.y}px) rotate(${L.rot}deg) scale(1.06)` : "translate(0,0) rotate(0deg) scale(1)",
+      }}
     >
       <div
-        className="relative flex flex-col aspect-[3/4] overflow-hidden ring-1 ring-black/25 transition-shadow duration-300 shadow-[10px_0_30px_-6px_rgba(0,0,0,0.6),0_24px_50px_-12px_rgba(0,0,0,0.65)] group-hover:shadow-[0_40px_80px_-20px_rgba(0,0,0,0.85)]"
-        style={{ background: p.bg, color: p.ink }}
+        className="relative flex flex-col aspect-[3/4] overflow-hidden ring-1 ring-black/25 transition-shadow duration-[450ms]"
+        style={{
+          background: p.bg,
+          color: p.ink,
+          boxShadow: hover
+            ? "0 50px 90px -20px rgba(0,0,0,0.85), 0 12px 28px -8px rgba(0,0,0,0.6)"
+            : "10px 0 30px -6px rgba(0,0,0,0.55), 0 18px 40px -14px rgba(0,0,0,0.55)",
+        }}
       >
+        {/* lifted-corner sheen — sells the peel */}
+        <span
+          aria-hidden
+          className="pointer-events-none absolute inset-0 z-30 transition-opacity duration-[450ms]"
+          style={{
+            opacity: hover ? 1 : 0,
+            background: "linear-gradient(135deg, rgba(255,255,255,0.28) 0%, rgba(255,255,255,0) 22%, rgba(0,0,0,0) 78%, rgba(0,0,0,0.22) 100%)",
+          }}
+        />
         {/* paper grain */}
         <span aria-hidden className="pointer-events-none absolute inset-0 z-20 opacity-[0.07] mix-blend-multiply" style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")" }} />
 
@@ -211,7 +244,7 @@ export default function JournalSection() {
   const items = [...POSTS, ...POSTS, ...POSTS];
 
   return (
-    <section id="journal" className="scroll-mt-20 relative bg-[#1A1714] text-[#F3F1EC] pt-20 md:pt-28 overflow-hidden" data-cursor-color="#F3F1EC">
+    <section id="journal" className="scroll-mt-20 relative bg-[#1A1714] text-[#F3F1EC] pt-20 md:pt-28 pb-10 overflow-x-clip" data-cursor-color="#F3F1EC">
       <span aria-hidden className="pointer-events-none absolute inset-0 opacity-[0.05]" style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='b'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.012 0.04' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23b)'/%3E%3C/svg%3E\")" }} />
 
       {/* header (padded) */}
@@ -237,7 +270,7 @@ export default function JournalSection() {
 
       {/* draggable, looping poster track */}
       <div
-        className="relative overflow-hidden cursor-grab active:cursor-grabbing touch-pan-y shadow-[0_-30px_80px_-30px_rgba(0,0,0,0.9)]"
+        className="relative overflow-x-clip overflow-y-visible cursor-grab active:cursor-grabbing touch-pan-y shadow-[0_-30px_80px_-30px_rgba(0,0,0,0.9)]"
         data-cursor="Drag"
         onPointerDown={onDown}
         onPointerMove={onMove}
@@ -252,7 +285,7 @@ export default function JournalSection() {
               className="shrink-0 w-[72vw] sm:w-[44vw] md:w-[320px] lg:w-[360px]"
               onClickCapture={(e) => { if (drag.current.moved) { e.preventDefault(); e.stopPropagation(); } }}
             >
-              <Poster p={p} />
+              <Poster p={p} idx={i} />
             </div>
           ))}
         </div>
