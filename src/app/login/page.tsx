@@ -35,8 +35,9 @@ export default function LoginPage() {
         <span aria-hidden className="absolute left-1/2 top-0 bottom-0 w-px bg-white/10" />
         <span aria-hidden className="absolute top-1/2 left-0 right-0 h-px bg-white/10" />
         {/* brand */}
-        <div className="absolute top-7 left-7 md:top-9 md:left-9 text-[15px] font-semibold tracking-tight">
-          Not Normal<sup className="text-[9px] top-[-0.7em]">®</sup>
+        <div className="absolute top-7 left-7 md:top-9 md:left-9">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/notnormal-logoblack.png" alt="Not Normal" className="h-4 w-auto" style={{ filter: "invert(1)" }} />
         </div>
         {/* smiley (same mark as the nav) */}
         <div className="absolute inset-0 grid place-items-center">
