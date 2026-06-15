@@ -4,7 +4,7 @@ export const metadata = { title: "Not Normal — Admin" };
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="min-h-screen bg-[#D9DBDD] p-3 md:p-5" style={{ fontFamily: "system-ui, -apple-system, sans-serif" }}>
+    <div className="admin-surface min-h-screen bg-[#D9DBDD] p-3 md:p-5" style={{ fontFamily: "system-ui, -apple-system, sans-serif" }}>
       <div className="mx-auto max-w-6xl rounded-[28px] bg-gradient-to-b from-[#F7F2E7] to-[#F1E6C9] shadow-[0_30px_80px_-30px_rgba(0,0,0,0.4)] overflow-hidden">
         {/* top bar */}
         <div className="flex items-center justify-between gap-4 px-5 md:px-8 py-4">

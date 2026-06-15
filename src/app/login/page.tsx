@@ -24,7 +24,7 @@ export default function LoginPage() {
   };
 
   return (
-    <main className="min-h-screen bg-[#0A0A0A] text-[#F3F1EC] flex items-center justify-center px-6">
+    <main className="admin-surface min-h-screen bg-[#0A0A0A] text-[#F3F1EC] flex items-center justify-center px-6">
       <form onSubmit={submit} className="w-full max-w-sm">
         <p className="text-[10px] tracking-[0.3em] uppercase text-[#F3F1EC]/45 mb-3">Not Normal</p>
         <h1 className="font-display uppercase tracking-tight leading-none mb-8" style={{ fontSize: "clamp(2rem, 6vw, 3rem)" }}>

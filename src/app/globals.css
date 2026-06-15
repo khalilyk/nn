@@ -128,6 +128,10 @@ img { user-select: none; -webkit-user-drag: none; }
 /* Hide native cursor only where the custom cursor actually renders (fine pointer, md+) */
 @media (pointer: fine) and (min-width: 768px) {
   * { cursor: none !important; }
+  /* …but keep the real cursor on admin/login (no custom cursor there) */
+  .admin-surface, .admin-surface * { cursor: auto !important; }
+  .admin-surface a, .admin-surface button, .admin-surface label, .admin-surface [role="button"] { cursor: pointer !important; }
+  .admin-surface input, .admin-surface textarea { cursor: text !important; }
 }
 
 @media (prefers-reduced-motion: reduce) {
