@@ -22,6 +22,7 @@ const ICONS: Record<string, string> = {
   analytics: "M5 19V9M10 19V5M15 19v-7M20 19v-11",
   invoices: "M6 3h12v18l-3-2-3 2-3-2-3 2zM9 8h6M9 12h6M9 16h4",
   clients: "M9 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM3 20c0-3 2.7-5 6-5s6 2 6 5M17 7a2.5 2.5 0 1 1 0 5M19 20c0-2-1-3.6-2.5-4.4",
+  proposals: "M4 4h16v16H4zM4 9h16M8 4v5M8 13h8M8 16h5",
 };
 
 function Icon({ d, active }: { d: string; active: boolean }) {
@@ -91,6 +92,7 @@ export default function AdminSidebar() {
       <nav className="flex md:flex-col gap-1.5 rounded-[26px] bg-white p-2.5 shadow-sm overflow-x-auto">
         <span className="hidden md:block text-[10px] tracking-[0.14em] uppercase text-[#0A0A0A]/35 px-3 pt-1 pb-0.5">Business</span>
         <Item href="/admin/invoices" k="invoices" label="Invoices" />
+        <Item href="/admin/proposals" k="proposals" label="Proposals" />
         <Item href="/admin/clients" k="clients" label="Clients" />
       </nav>
     </div>

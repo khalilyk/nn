@@ -48,7 +48,19 @@ async function main() {
       updated_at timestamp DEFAULT now() NOT NULL
     );
   `);
-  console.log("✓ invoicing tables ensured (clients, invoices, invoice_settings)");
+  await sql.query(`
+    CREATE TABLE IF NOT EXISTS proposals (
+      id serial PRIMARY KEY,
+      title text DEFAULT 'Proposal' NOT NULL,
+      kind text DEFAULT 'website' NOT NULL,
+      client_tag text DEFAULT '' NOT NULL,
+      client jsonb NOT NULL,
+      slides jsonb NOT NULL,
+      created_at timestamp DEFAULT now() NOT NULL,
+      updated_at timestamp DEFAULT now() NOT NULL
+    );
+  `);
+  console.log("✓ tables ensured (clients, invoices, invoice_settings, proposals)");
 }
 
 main().then(() => process.exit(0)).catch((e) => { console.error(e); process.exit(1); });

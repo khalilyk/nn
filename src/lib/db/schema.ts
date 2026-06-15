@@ -1,6 +1,7 @@
 import { pgTable, serial, jsonb, timestamp, text, boolean, integer, doublePrecision } from "drizzle-orm/pg-core";
 import type { SiteContent } from "@/lib/content/types";
 import type { InvoiceItem, InvoiceSettings as InvoiceSettingsT } from "@/lib/invoice/types";
+import type { Slide as ProposalSlide } from "@/lib/proposal/types";
 
 /** The whole editable site, one row per published version (latest id wins). */
 export const siteContent = pgTable("site_content", {
@@ -89,3 +90,17 @@ export const invoiceSettings = pgTable("invoice_settings", {
   data: jsonb("data").$type<InvoiceSettingsT>().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });
+
+/** Slide-deck proposals (the proposal generator). */
+export const proposals = pgTable("proposals", {
+  id: serial("id").primaryKey(),
+  title: text("title").default("Proposal").notNull(),
+  kind: text("kind").default("website").notNull(), // branding | website | social | mix
+  clientTag: text("client_tag").default("").notNull(),
+  client: jsonb("client").$type<{ name: string; company: string; email: string }>().notNull(),
+  slides: jsonb("slides").$type<ProposalSlide[]>().notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});
+
+export type ProposalRow = typeof proposals.$inferSelect;
