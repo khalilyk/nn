@@ -1,6 +1,7 @@
 import { desc, sql } from "drizzle-orm";
 import { db, hasDb } from "@/lib/db";
 import { events } from "@/lib/db/schema";
+import { getGaStats, gaConfigured } from "@/lib/ga";
 
 export const dynamic = "force-dynamic";
 
@@ -45,9 +46,12 @@ export default async function AnalyticsPage() {
     }
   }
 
+  const ga = await getGaStats();
+
   const totalFor = (t: string) => totals.find((x) => x.type === t)?.count ?? 0;
   const cards = ["page_view", "project_open", "contact_submit", "cta_click"];
   const maxDay = Math.max(1, ...last14.map((d) => d.count));
+  const gaMax = Math.max(1, ...(ga?.daily.map((d) => d.views) ?? [1]));
 
   return (
     <div className="pb-10">
@@ -62,7 +66,59 @@ export default async function AnalyticsPage() {
         </div>
       </div>
 
-      {!hasDb && <p className="text-[13px] text-[#0A0A0A]/50">Connect Postgres to start collecting analytics.</p>}
+      {/* ── Google Analytics (live, last 14 days) ── */}
+      <div className="mb-8">
+        <h2 className="text-[13px] font-semibold text-[#0A0A0A] mb-3">Google Analytics · last 14 days</h2>
+        {!ga ? (
+          <div className="rounded-3xl bg-white shadow-sm p-5 text-[13px] text-[#0A0A0A]/55">
+            {gaConfigured
+              ? "Couldn’t reach Google Analytics — check the service-account access and property ID."
+              : "Not connected yet. Add a Google service account with access to the GA4 property and set GA_PROPERTY_ID, GA_CLIENT_EMAIL, GA_PRIVATE_KEY."}
+          </div>
+        ) : (
+          <>
+            <div className="grid grid-cols-3 gap-3 mb-3">
+              {[
+                { label: "Visitors", value: ga.totals.users },
+                { label: "Page views", value: ga.totals.views },
+                { label: "Sessions", value: ga.totals.sessions },
+              ].map((s, i) => (
+                <div key={s.label} className={`rounded-3xl p-5 shadow-sm ${i === 0 ? "bg-[#D7F23A]" : "bg-white"}`}>
+                  <div className="text-[28px] font-bold leading-none text-[#0A0A0A]">{s.value.toLocaleString()}</div>
+                  <div className="mt-2 text-[11px] tracking-[0.12em] uppercase text-[#0A0A0A]/55">{s.label}</div>
+                </div>
+              ))}
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+              <div className="rounded-3xl bg-white shadow-sm p-5">
+                <h3 className="text-[12px] font-semibold mb-4 text-[#0A0A0A]">Page views</h3>
+                <div className="flex items-end gap-1.5 h-28">
+                  {ga.daily.map((d, i) => (
+                    <div key={i} className="flex-1 flex flex-col items-center gap-1">
+                      <div className="w-full rounded-t bg-[#2D6BFF]" style={{ height: `${(d.views / gaMax) * 100}%` }} title={`${d.day}: ${d.views}`} />
+                      <span className="text-[8px] text-[#0A0A0A]/40">{d.day.split("/")[1]}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div className="rounded-3xl bg-white shadow-sm p-5">
+                <h3 className="text-[12px] font-semibold mb-4 text-[#0A0A0A]">Top pages</h3>
+                <ul className="space-y-2">
+                  {ga.topPages.map((p) => (
+                    <li key={p.path} className="flex items-center justify-between text-[13px]">
+                      <span className="text-[#0A0A0A]/75 truncate mr-3">{p.path}</span>
+                      <span className="font-semibold text-[#0A0A0A]">{p.views}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </>
+        )}
+      </div>
+
+      <h2 className="text-[13px] font-semibold text-[#0A0A0A] mb-3">On-site events</h2>
+      {!hasDb && <p className="text-[13px] text-[#0A0A0A]/50">Connect Postgres to start collecting on-site events.</p>}
       {hasDb && !ok && <p className="text-[13px] text-[#c0392b]">Could not read analytics.</p>}
 
       {ok && (
