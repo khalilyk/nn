@@ -50,9 +50,11 @@ export default function AboutSection() {
         <div className="max-w-3xl mx-auto text-center">
           <p className="text-[10px] tracking-[0.3em] uppercase text-[#0A0A0A]/50 mb-8">The short version</p>
           <p className="font-sans leading-[1.4]" style={{ fontSize: "clamp(1.05rem, 2vw, 1.6rem)" }}>
-            The world doesn&apos;t need more of the same. We&apos;re not an agency that follows trends, we&apos;re a
-            studio that builds brands with staying power, rooted in genuine hospitality.
+            &ldquo;Food is everything we are. It&apos;s an extension of nationalist feeling, ethnic feeling, your
+            personal history, your province, your region, your tribe, your grandma. It&apos;s inseparable from those
+            from the get-go.&rdquo;
           </p>
+          <p className="mt-6 text-[10px] tracking-[0.3em] uppercase text-[#0A0A0A]/55">— Anthony Bourdain</p>
         </div>
       </div>
 
