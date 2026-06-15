@@ -41,7 +41,7 @@ export default function Postcard() {
                 style={{ aspectRatio: "1599 / 1127", boxShadow: CARD_SHADOW }}
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="/postcard-art.png" alt="" draggable={false} className="absolute inset-0 w-full h-full object-cover pointer-events-none" />
+                <img src="/postcard-art.jpg" alt="" draggable={false} className="absolute inset-0 w-full h-full object-cover pointer-events-none" />
               </div>
             ))}
           </div>
@@ -53,7 +53,7 @@ export default function Postcard() {
             data-cursor="Close"
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/postcard-art.png" alt="" draggable={false} className="w-full rounded-[3px]" style={{ aspectRatio: "1599 / 1127", objectFit: "cover" }} />
+            <img src="/postcard-art.jpg" alt="" draggable={false} className="w-full rounded-[3px]" style={{ aspectRatio: "1599 / 1127", objectFit: "cover" }} />
             <div className="font-editorial leading-relaxed space-y-4" style={{ fontSize: "clamp(1rem, 4.2vw, 1.2rem)" }}>
               {MESSAGE.map((p, i) => <p key={i}>{p}</p>)}
             </div>
@@ -109,7 +109,7 @@ export default function Postcard() {
                 style={{ backfaceVisibility: "hidden", WebkitBackfaceVisibility: "hidden", boxShadow: CARD_SHADOW }}
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="/postcard-art.png" alt="" draggable={false} className="absolute inset-0 w-full h-full object-cover pointer-events-none" />
+                <img src="/postcard-art.jpg" alt="" draggable={false} className="absolute inset-0 w-full h-full object-cover pointer-events-none" />
               </div>
 
               {/* BACK */}
@@ -118,7 +118,7 @@ export default function Postcard() {
                 style={{ backfaceVisibility: "hidden", WebkitBackfaceVisibility: "hidden", transform: "rotateY(180deg)", boxShadow: CARD_SHADOW }}
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="/postcard-art-2.png" alt="" draggable={false} className="absolute inset-0 w-full h-full object-cover pointer-events-none" />
+                <img src="/postcard-art-2.jpg" alt="" draggable={false} className="absolute inset-0 w-full h-full object-cover pointer-events-none" />
                 <div className="absolute inset-0 flex items-start justify-start pl-[3.5%] pr-[8%] pt-[10%] pb-[16%] pointer-events-none">
                   <div className="font-editorial text-[#0A0A0A] leading-relaxed space-y-2.5 max-w-md text-left" style={{ fontSize: "clamp(0.6rem, 1.15vw, 0.85rem)" }}>
                     {MESSAGE.map((p, i) => <p key={i}>{p}</p>)}

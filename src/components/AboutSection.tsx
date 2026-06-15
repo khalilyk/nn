@@ -39,7 +39,7 @@ export default function AboutSection() {
           <div className="relative">
             <div className="relative w-full aspect-square overflow-hidden rounded-2xl">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/nn-founder.png" alt="Khalil Khouri" className="absolute inset-0 w-full h-full object-cover" />
+              <img src="/nn-founder.jpg" alt="Khalil Khouri" className="absolute inset-0 w-full h-full object-cover" />
             </div>
 
             {/* animated thought bubble above the head */}

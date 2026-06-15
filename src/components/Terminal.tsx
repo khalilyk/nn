@@ -120,19 +120,6 @@ export default function Terminal() {
   const bodyRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  // best-effort live headlines
-  useEffect(() => {
-    ["https://www.hospitalitynet.org/rss/4.rss", "https://www.thedrum.com/rss.xml"].forEach((feed) => {
-      fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feed)}&count=8`)
-        .then((r) => (r.ok ? r.json() : null))
-        .then((d) => {
-          const items: string[] = (d?.items || []).map((it: { title?: string }) => (it.title || "").trim()).filter(Boolean);
-          if (items.length) headlines.current.push(...items);
-        })
-        .catch(() => {});
-    });
-  }, []);
-
   useEffect(() => {
     if (bodyRef.current) bodyRef.current.scrollTop = bodyRef.current.scrollHeight;
   }, [msgs, typingLine, thinking]);

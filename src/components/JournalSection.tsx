@@ -285,7 +285,7 @@ export default function JournalSection() {
   return (
     <section ref={sectionRef} id="journal" className="scroll-mt-20 relative bg-black text-white pt-20 md:pt-28 pb-10 overflow-x-clip" data-cursor-color="#F3F1EC">
       {/* scribbled-notes backdrop (parallax) */}
-      <span ref={bgRef} aria-hidden className="pointer-events-none absolute -top-[20%] left-0 right-0 h-[140%] z-0 bg-cover bg-center opacity-70 will-change-transform" style={{ backgroundImage: "url('/scribbles.png')" }} />
+      <span ref={bgRef} aria-hidden className="pointer-events-none absolute -top-[20%] left-0 right-0 h-[140%] z-0 bg-cover bg-center opacity-70 will-change-transform" style={{ backgroundImage: "url('/scribbles.jpg')" }} />
 
       {/* header (padded) */}
       <div className="relative px-6 sm:px-10 md:px-16">
