@@ -6,8 +6,7 @@ const nextConfig: NextConfig = {
   serverExternalPackages: ["puppeteer-core", "@sparticuz/chromium"],
   // the chromium binary (bin/*.br) is read from disk at runtime, so file-tracing must include it
   outputFileTracingIncludes: {
-    "/api/admin/proposals/[id]/pdf": ["./node_modules/@sparticuz/chromium/bin/**"],
-    "/api/admin/proposals/[id]/send": ["./node_modules/@sparticuz/chromium/bin/**"],
+    "/api/admin/proposals/**": ["./node_modules/@sparticuz/chromium/bin/**"],
   },
   images: {
     remotePatterns: [
