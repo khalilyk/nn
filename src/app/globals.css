@@ -137,3 +137,9 @@ img { user-select: none; -webkit-user-drag: none; }
 @media (prefers-reduced-motion: reduce) {
   * { animation: none !important; transition-duration: 0.01ms !important; }
 }
+
+/* Admin form inputs: solid dark text */
+.admin-surface input,
+.admin-surface textarea,
+.admin-surface select { color: #0A0A0A; -webkit-text-fill-color: #0A0A0A; }
+.admin-surface ::placeholder { color: rgba(10,10,10,0.4); -webkit-text-fill-color: rgba(10,10,10,0.4); }
