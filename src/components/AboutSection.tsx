@@ -47,9 +47,9 @@ export default function AboutSection() {
 
       {/* manifesto */}
       <div className="relative bg-[#81D742] text-[#0A0A0A] px-8 md:px-16 py-20 md:py-28" data-cursor-color="#0A0A0A">
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-3xl mx-auto text-center">
           <p className="text-[10px] tracking-[0.3em] uppercase text-[#0A0A0A]/50 mb-8">The short version</p>
-          <p className="font-editorial leading-[1.25]" style={{ fontSize: "clamp(1.6rem, 3.4vw, 2.8rem)" }}>
+          <p className="font-sans leading-[1.4]" style={{ fontSize: "clamp(1.05rem, 2vw, 1.6rem)" }}>
             The world doesn&apos;t need more of the same. We&apos;re not an agency that follows trends, we&apos;re a
             studio that builds brands with staying power, rooted in genuine hospitality.
           </p>
