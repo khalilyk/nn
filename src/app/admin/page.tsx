@@ -3,13 +3,20 @@ import ContentEditor from "@/components/admin/ContentEditor";
 
 export const dynamic = "force-dynamic";
 
+function greeting() {
+  const h = new Date().getHours();
+  if (h < 12) return "Good morning";
+  if (h < 18) return "Good afternoon";
+  return "Good evening";
+}
+
 export default async function AdminPage() {
   const content = await getSiteContent();
-  return (
-    <>
-      <h1 className="text-[22px] font-bold mb-1">Edit content</h1>
-      <p className="text-[13px] text-black/50 mb-6">Make changes, then Publish. The live site updates immediately.</p>
-      <ContentEditor initial={content} />
-    </>
-  );
+  const stats = [
+    { label: "Projects", value: content.projects.length },
+    { label: "Notes", value: content.notes.posts.length },
+    { label: "Testimonials", value: content.testimonials.length },
+    { label: "Menu items", value: content.menu.courses.reduce((n, c) => n + c.items.length, 0) },
+  ];
+  return <ContentEditor initial={content} greeting={greeting()} stats={stats} />;
 }
