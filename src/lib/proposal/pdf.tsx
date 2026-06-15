@@ -1,90 +1,69 @@
 import React from "react";
-import { Document, Page, Text, View, StyleSheet, Image, renderToBuffer } from "@react-pdf/renderer";
+import { Document, Page, Text, View, Image, renderToBuffer } from "@react-pdf/renderer";
 import type { Proposal, Slide } from "./types";
+import { resolveStyle } from "./types";
 
-// Monospace, white pages — the "nobody remembers normal" deck style.
-const INK = "#0A0A0A";
-const DIM = "#8A8A8A";
+const PDF_FONT: Record<string, string> = { mono: "Courier", sans: "Helvetica", serif: "Times-Roman" };
 
-const s = StyleSheet.create({
-  page: { backgroundColor: "#FFFFFF", color: INK, fontFamily: "Courier", fontSize: 9, paddingVertical: 34, paddingHorizontal: 40 },
-  // right edge vertical labels + smiley + divider (matches the deck)
-  edgeTag: { position: "absolute", right: 18, top: 40, fontSize: 8, color: INK, transform: "rotate(90deg)", transformOrigin: "right top" },
-  edgeFoot: { position: "absolute", right: 18, bottom: 40, fontSize: 8, color: DIM, transform: "rotate(90deg)", transformOrigin: "right bottom" },
-  edgeSmiley: { position: "absolute", right: 13, top: "47%", width: 15, height: 15 },
-  edgeRule: { position: "absolute", right: 42, top: 30, bottom: 30, width: 0.7, backgroundColor: "#DDDDDD" },
-  pageNo: { position: "absolute", left: 26, bottom: 26, fontSize: 9, color: DIM },
-  // columns
-  twoCol: { flexDirection: "row", gap: 24, height: "100%" },
-  imgCol: { width: "46%" },
-  img: { width: "100%", height: "100%", objectFit: "cover" },
-  imgPlaceholder: { width: "100%", height: "100%", backgroundColor: "#ECECEC" },
-  textCol: { flex: 1, paddingRight: 30, justifyContent: "center" },
-  heading: { fontSize: 10, fontWeight: "bold", letterSpacing: 0.5, marginBottom: 12 },
-  para: { fontSize: 9, lineHeight: 1.7, marginBottom: 8 },
-  // sections
-  secTitle: { fontSize: 9, fontWeight: "bold", marginTop: 12, marginBottom: 6 },
-  secIntro: { fontSize: 9, lineHeight: 1.6, marginBottom: 6 },
-  bulletRow: { flexDirection: "row", marginBottom: 3, paddingLeft: 10 },
-  bulletDot: { width: 12, fontSize: 9 },
-  bulletTxt: { flex: 1, fontSize: 9, lineHeight: 1.5 },
-  // cover / closing
-  coverWrap: { flexDirection: "row", height: "100%", gap: 24 },
-  coverImg: { width: "62%" },
-  coverText: { flex: 1, justifyContent: "flex-end", paddingBottom: 6 },
-  brandBig: { fontSize: 30, fontWeight: "bold", letterSpacing: -1 },
-  centerWrap: { height: "100%", alignItems: "center", justifyContent: "center" },
-  topLabel: { position: "absolute", top: 34, left: 0, right: 0, textAlign: "center", fontSize: 9 },
-  botLabel: { position: "absolute", bottom: 26, left: 0, right: 0, textAlign: "center", fontSize: 9, color: DIM },
-});
+/** Build the per-slide style tokens from its design overrides. */
+function tokens(slide: Slide) {
+  const r = resolveStyle(slide.style);
+  const font = PDF_FONT[r.font];
+  const dim = r.dark ? "rgba(255,255,255,0.5)" : "#8A8A8A";
+  const rule = r.dark ? "rgba(255,255,255,0.25)" : "#DDDDDD";
+  const z = (n: number) => n * r.scale;
+  return { ...r, font, dim, rule, z };
+}
 
-function Chrome({ tag, page, smiley }: { tag: string; page: number; smiley?: string }) {
+function Chrome({ tag, page, smiley, t }: { tag: string; page: number; smiley?: string; t: ReturnType<typeof tokens> }) {
   return (
     <>
-      <View style={s.edgeRule} />
-      {tag ? <Text style={s.edgeTag}>{tag}</Text> : null}
-      {smiley ? <Image src={smiley} style={s.edgeSmiley} /> : null}
-      <Text style={s.edgeFoot}>nobody remembers normal</Text>
-      <Text style={s.pageNo}>{page}</Text>
+      <View style={{ position: "absolute", right: 42, top: 30, bottom: 30, width: 0.7, backgroundColor: t.rule }} />
+      {tag ? <Text style={{ position: "absolute", right: 18, top: 40, fontSize: 8, color: t.fg, transform: "rotate(90deg)", transformOrigin: "right top", fontFamily: t.font }}>{tag}</Text> : null}
+      {smiley && !t.dark ? <Image src={smiley} style={{ position: "absolute", right: 13, top: "47%", width: 15, height: 15 }} /> : null}
+      <Text style={{ position: "absolute", right: 18, bottom: 40, fontSize: 8, color: t.dim, transform: "rotate(90deg)", transformOrigin: "right bottom", fontFamily: t.font }}>nobody remembers normal</Text>
+      <Text style={{ position: "absolute", left: 26, bottom: 26, fontSize: 9, color: t.dim, fontFamily: t.font }}>{page}</Text>
     </>
   );
 }
 
-function Img({ src }: { src?: string }) {
-  return src ? <Image src={src} style={s.img} /> : <View style={s.imgPlaceholder} />;
-}
-
-function Paras({ body }: { body: string }) {
-  return <>{body.split("\n\n").map((p, i) => <Text key={i} style={s.para}>{p}</Text>)}</>;
+function Img({ src, dark }: { src?: string; dark: boolean }) {
+  const img = { width: "100%", height: "100%", objectFit: "cover" as const };
+  return src ? <Image src={src} style={img} /> : <View style={{ width: "100%", height: "100%", backgroundColor: dark ? "rgba(255,255,255,0.12)" : "#ECECEC" }} />;
 }
 
 function SlidePage({ slide, tag, n, wordmark, smiley }: { slide: Slide; tag: string; n: number; wordmark?: string; smiley?: string }) {
-  const chrome = <Chrome tag={tag} page={n} smiley={smiley} />;
+  const t = tokens(slide);
+  const page = { backgroundColor: t.bg, color: t.fg, fontFamily: t.font, fontSize: t.z(9), paddingVertical: 34, paddingHorizontal: 40 };
+  const heading = { fontSize: t.z(10), fontWeight: "bold" as const, letterSpacing: 0.5, marginBottom: t.z(12), color: t.fg, textAlign: t.align };
+  const para = { fontSize: t.z(9), lineHeight: 1.7, marginBottom: t.z(8), color: t.fg, textAlign: t.align };
+  const chrome = <Chrome tag={tag} page={n} smiley={smiley} t={t} />;
+  const Paras = ({ body }: { body: string }) => <>{body.split("\n\n").map((p, i) => <Text key={i} style={para}>{p}</Text>)}</>;
 
   if (slide.layout === "cover") {
     return (
-      <Page size="A4" orientation="landscape" wrap={false} style={s.page}>
-        <View style={s.coverWrap}>
-          <View style={s.coverImg}><Img src={slide.image} /></View>
-          <View style={s.coverText}>
-            <Text style={{ fontSize: 9 }}>{slide.eyebrow}</Text>
-            <Text style={{ fontSize: 11, fontWeight: "bold", marginVertical: 2 }}>{slide.titleStrong}</Text>
-            <Text style={{ fontSize: 9 }}>{slide.titleRest}</Text>
+      <Page size="A4" orientation="landscape" wrap={false} style={page}>
+        <View style={{ flexDirection: "row", height: "100%", gap: 24 }}>
+          <View style={{ width: "62%" }}><Img src={slide.image} dark={t.dark} /></View>
+          <View style={{ flex: 1, justifyContent: "flex-end", paddingBottom: 6 }}>
+            <Text style={{ fontSize: t.z(9) }}>{slide.eyebrow}</Text>
+            <Text style={{ fontSize: t.z(11), fontWeight: "bold", marginVertical: 2 }}>{slide.titleStrong}</Text>
+            <Text style={{ fontSize: t.z(9) }}>{slide.titleRest}</Text>
           </View>
         </View>
-        {chrome}
+        <Text style={{ position: "absolute", right: 18, top: 40, fontSize: 8, color: t.dim, transform: "rotate(90deg)", transformOrigin: "right top" }}>2026 © not normal</Text>
       </Page>
     );
   }
 
   if (slide.layout === "closing") {
     return (
-      <Page size="A4" orientation="landscape" wrap={false} style={s.page}>
-        <Text style={s.topLabel}>{slide.topLabel}</Text>
-        <View style={s.centerWrap}>
-          {wordmark ? <Image src={wordmark} style={{ width: 320 }} /> : <Text style={s.brandBig}>NOT NORMAL</Text>}
+      <Page size="A4" orientation="landscape" wrap={false} style={page}>
+        <Text style={{ position: "absolute", top: 34, left: 0, right: 0, textAlign: "center", fontSize: t.z(9) }}>{slide.topLabel}</Text>
+        <View style={{ height: "100%", alignItems: "center", justifyContent: "center" }}>
+          {wordmark ? <Image src={wordmark} style={{ width: 320 }} /> : <Text style={{ fontSize: t.z(30), fontWeight: "bold" }}>NOT NORMAL</Text>}
         </View>
-        <Text style={s.botLabel}>nobody remembers normal</Text>
+        <Text style={{ position: "absolute", bottom: 26, left: 0, right: 0, textAlign: "center", fontSize: t.z(9), color: t.dim }}>nobody remembers normal</Text>
         <Text style={{ position: "absolute", left: 22, top: "44%", fontSize: 8, transform: "rotate(90deg)", transformOrigin: "left top" }}>{slide.email}</Text>
         <Text style={{ position: "absolute", right: 22, top: "42%", fontSize: 8, transform: "rotate(90deg)", transformOrigin: "right top" }}>{slide.sideLabel}</Text>
       </Page>
@@ -93,9 +72,9 @@ function SlidePage({ slide, tag, n, wordmark, smiley }: { slide: Slide; tag: str
 
   if (slide.layout === "statement") {
     return (
-      <Page size="A4" orientation="landscape" wrap={false} style={s.page}>
-        <View style={{ width: "55%", height: "100%", justifyContent: "center" }}>
-          <Text style={s.heading}>{slide.heading}</Text>
+      <Page size="A4" orientation="landscape" wrap={false} style={page}>
+        <View style={{ width: t.align === "center" ? "100%" : "55%", height: "100%", justifyContent: "center" }}>
+          <Text style={heading}>{slide.heading}</Text>
           <Paras body={slide.body} />
         </View>
         {chrome}
@@ -104,25 +83,30 @@ function SlidePage({ slide, tag, n, wordmark, smiley }: { slide: Slide; tag: str
   }
 
   // imageText / imageSections
+  const secTitle = { fontSize: t.z(9), fontWeight: "bold" as const, marginTop: t.z(12), marginBottom: t.z(6), color: t.fg };
+  const secIntro = { fontSize: t.z(9), lineHeight: 1.6, marginBottom: t.z(6), color: t.fg };
   return (
-    <Page size="A4" orientation="landscape" wrap={false} style={s.page}>
-      <View style={s.twoCol}>
-        <View style={s.imgCol}><Img src={slide.image} /></View>
-        <View style={s.textCol}>
+    <Page size="A4" orientation="landscape" wrap={false} style={page}>
+      <View style={{ flexDirection: "row", gap: 24, height: "100%" }}>
+        <View style={{ width: "46%" }}><Img src={slide.image} dark={t.dark} /></View>
+        <View style={{ flex: 1, paddingRight: 30, justifyContent: "center" }}>
           {slide.layout === "imageText" ? (
             <>
-              <Text style={s.heading}>{slide.heading}</Text>
+              <Text style={heading}>{slide.heading}</Text>
               <Paras body={slide.body} />
             </>
           ) : (
             <>
-              <Text style={s.heading}>{slide.heading}</Text>
+              <Text style={heading}>{slide.heading}</Text>
               {slide.sections.map((sec, i) => (
                 <View key={i}>
-                  <Text style={s.secTitle}>{sec.title}</Text>
-                  {sec.intro ? <Text style={s.secIntro}>{sec.intro}</Text> : null}
+                  <Text style={secTitle}>{sec.title}</Text>
+                  {sec.intro ? <Text style={secIntro}>{sec.intro}</Text> : null}
                   {sec.bullets.map((b, j) => (
-                    <View key={j} style={s.bulletRow}><Text style={s.bulletDot}>●</Text><Text style={s.bulletTxt}>{b}</Text></View>
+                    <View key={j} style={{ flexDirection: "row", marginBottom: t.z(3), paddingLeft: 10 }}>
+                      <Text style={{ width: 12, fontSize: t.z(9), color: t.fg }}>●</Text>
+                      <Text style={{ flex: 1, fontSize: t.z(9), lineHeight: 1.5, color: t.fg }}>{b}</Text>
+                    </View>
                   ))}
                 </View>
               ))}
