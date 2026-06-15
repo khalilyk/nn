@@ -46,7 +46,7 @@ export default function AdminSidebar() {
         <span className="grid place-items-center w-11 h-11 shrink-0" style={indent ? { transform: "scale(0.82)" } : undefined}>
           <Icon d={ICONS[k] || ICONS.dashboard} active={active} />
         </span>
-        <span className={`hidden md:block text-[13px] whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-200 ${active ? "text-white" : "text-[#0A0A0A]/75"} ${indent ? "font-normal" : ""}`}>
+        <span className={`hidden md:block text-[13px] whitespace-nowrap ${active ? "text-white" : "text-[#0A0A0A]/75"} ${indent ? "font-normal" : ""}`}>
           {label}
         </span>
       </Link>
@@ -54,7 +54,7 @@ export default function AdminSidebar() {
   };
 
   return (
-    <nav className="group flex md:flex-col gap-1.5 rounded-[26px] bg-white p-2.5 shadow-sm self-start md:sticky md:top-5 overflow-x-auto md:overflow-hidden md:w-[64px] md:hover:w-[212px] transition-[width] duration-300 ease-out">
+    <nav className="group flex md:flex-col gap-1.5 rounded-[26px] bg-white p-2.5 shadow-sm self-start md:sticky md:top-5 overflow-x-auto md:w-[200px]">
       <Item href="/admin" k="dashboard" label="Dashboard" />
 
       {/* Sections toggle */}
@@ -66,7 +66,7 @@ export default function AdminSidebar() {
         <span className="grid place-items-center w-11 h-11 shrink-0">
           <Icon d={ICONS.sections} active={false} />
         </span>
-        <span className="hidden md:flex items-center justify-between flex-1 pr-3 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+        <span className="hidden md:flex items-center justify-between flex-1 pr-3">
           <span className="text-[13px] text-[#0A0A0A]/75">Sections</span>
           <span className="text-[10px] text-[#0A0A0A]/40">{open ? "▾" : "▸"}</span>
         </span>
@@ -80,7 +80,7 @@ export default function AdminSidebar() {
 
       <Link href="/admin/settings" title="Account settings" className={`flex items-center gap-3 h-11 rounded-2xl shrink-0 md:mt-2 transition-colors ${path === "/admin/settings" ? "bg-[#0A0A0A]" : "hover:bg-black/[0.05]"}`}>
         <span className={`grid place-items-center w-11 h-11 rounded-full shrink-0 text-[13px] font-bold ${path === "/admin/settings" ? "bg-white text-[#0A0A0A]" : "bg-[#E8E8EA] text-[#0A0A0A]"}`}>K</span>
-        <span className={`hidden md:block text-[13px] whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-200 ${path === "/admin/settings" ? "text-white" : "text-[#0A0A0A]/60"}`}>Account</span>
+        <span className={`hidden md:block text-[13px] whitespace-nowrap ${path === "/admin/settings" ? "text-white" : "text-[#0A0A0A]/60"}`}>Account</span>
       </Link>
     </nav>
   );
