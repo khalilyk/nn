@@ -4,6 +4,11 @@ const nextConfig: NextConfig = {
   devIndicators: false,
   // keep the headless-chromium packages out of the bundle (loaded at runtime in the PDF route)
   serverExternalPackages: ["puppeteer-core", "@sparticuz/chromium"],
+  // the chromium binary (bin/*.br) is read from disk at runtime, so file-tracing must include it
+  outputFileTracingIncludes: {
+    "/api/admin/proposals/[id]/pdf": ["./node_modules/@sparticuz/chromium/bin/**"],
+    "/api/admin/proposals/[id]/send": ["./node_modules/@sparticuz/chromium/bin/**"],
+  },
   images: {
     remotePatterns: [
       { protocol: "https", hostname: "images.unsplash.com" },
