@@ -109,11 +109,11 @@ const WEATHER = [
 
 // real creased-paper photo, positioned uniquely per poster
 const PAPER = [
-  { pos: "0% 0%", scale: 1.1, flip: false },
-  { pos: "100% 15%", scale: 1.2, flip: true },
-  { pos: "40% 100%", scale: 1.28, flip: false },
-  { pos: "90% 95%", scale: 1.15, flip: true },
-  { pos: "20% 55%", scale: 1.22, flip: false },
+  { pos: "10% 12%", scale: 1.5, flip: false, rot: 0 },
+  { pos: "85% 20%", scale: 1.7, flip: true, rot: 90 },
+  { pos: "45% 90%", scale: 1.6, flip: false, rot: 180 },
+  { pos: "70% 70%", scale: 1.75, flip: true, rot: 270 },
+  { pos: "25% 50%", scale: 1.9, flip: false, rot: 135 },
 ];
 const PAPER_SRC = "/creased.jpg";
 
@@ -170,8 +170,8 @@ function Poster({ p, idx }: { p: Post; idx: number }) {
         {/* weathering: sun-faded patch */}
         <span aria-hidden className="pointer-events-none absolute inset-0 z-20 mix-blend-overlay opacity-50" style={{ background: `radial-gradient(circle at ${W.fade}, rgba(255,255,255,0.85), transparent 55%)` }} />
         {/* real creased-paper photo — shadows (multiply) + highlights (screen), unique per poster */}
-        <span aria-hidden className="pointer-events-none absolute inset-0 z-20 mix-blend-multiply" style={{ opacity: 0.6, backgroundImage: `url("${PAPER_SRC}")`, backgroundSize: "cover", backgroundPosition: P.pos, transform: `scale(${P.scale})${P.flip ? " scaleX(-1)" : ""}` }} />
-        <span aria-hidden className="pointer-events-none absolute inset-0 z-20 mix-blend-screen" style={{ opacity: 0.25, backgroundImage: `url("${PAPER_SRC}")`, backgroundSize: "cover", backgroundPosition: P.pos, transform: `scale(${P.scale})${P.flip ? " scaleX(-1)" : ""}` }} />
+        <span aria-hidden className="pointer-events-none absolute inset-0 z-20 mix-blend-multiply" style={{ opacity: 0.6, backgroundImage: `url("${PAPER_SRC}")`, backgroundSize: "cover", backgroundPosition: P.pos, transform: `rotate(${P.rot}deg) scale(${P.scale})${P.flip ? " scaleX(-1)" : ""}` }} />
+        <span aria-hidden className="pointer-events-none absolute inset-0 z-20 mix-blend-screen" style={{ opacity: 0.25, backgroundImage: `url("${PAPER_SRC}")`, backgroundSize: "cover", backgroundPosition: P.pos, transform: `rotate(${P.rot}deg) scale(${P.scale})${P.flip ? " scaleX(-1)" : ""}` }} />
 
         {/* ── SPLIT: word / image / word ── */}
         {p.variant === "split" && (
