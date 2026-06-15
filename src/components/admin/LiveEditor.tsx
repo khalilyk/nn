@@ -32,6 +32,22 @@ export default function LiveEditor({ initial, initialSection = "hero" }: { initi
     return () => clearTimeout(id);
   }, [content, ready]);
 
+  // scroll the preview to the section being edited
+  const ANCHORS: Record<string, string> = {
+    hero: "#top", menu: "#s02", about: "#about", projects: "#s04",
+    notes: "#journal", contact: "#contact", footer: "#footer", nav: "#top",
+  };
+  useEffect(() => {
+    if (!ready) return;
+    const anchor = ANCHORS[active as string];
+    if (!anchor) return;
+    const id = setTimeout(() => {
+      iframe.current?.contentWindow?.postMessage({ type: "nn-scroll", anchor }, window.location.origin);
+    }, 200);
+    return () => clearTimeout(id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [active, ready]);
+
   const save = async () => {
     setStatus("saving");
     try {

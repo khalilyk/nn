@@ -20,6 +20,10 @@ export default function PublicationLoader({ initialContent }: { initialContent: 
     const onMsg = (e: MessageEvent) => {
       if (e.origin !== window.location.origin) return;
       if (e.data?.type === "nn-preview" && e.data.content) setContent(e.data.content as SiteContent);
+      if (e.data?.type === "nn-scroll" && e.data.anchor) {
+        const el = document.querySelector(e.data.anchor as string);
+        if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
     };
     window.addEventListener("message", onMsg);
     window.parent?.postMessage({ type: "nn-preview-ready" }, window.location.origin);
