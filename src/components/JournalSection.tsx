@@ -98,6 +98,22 @@ function Badge({ ink }: { ink: string }) {
   );
 }
 
+// each poster weathers differently — stains, fade, crease, a torn corner
+const WEATHER = [
+  { stain1: "18% 82%", stain2: "86% 14%", stainO: 0.5, fade: "72% 18%", crease: 17, tear: "tr" },
+  { stain1: "82% 76%", stain2: "10% 22%", stainO: 0.42, fade: "24% 72%", crease: -13, tear: "bl" },
+  { stain1: "48% 92%", stain2: "90% 44%", stainO: 0.55, fade: "38% 14%", crease: 7, tear: "tl" },
+  { stain1: "14% 26%", stain2: "76% 86%", stainO: 0.46, fade: "62% 62%", crease: -23, tear: "br" },
+  { stain1: "60% 8%", stain2: "22% 70%", stainO: 0.5, fade: "82% 82%", crease: 12, tear: "tr" },
+];
+
+const TEAR_POS: Record<string, string> = {
+  tl: "top-0 left-0 -translate-x-1/2 -translate-y-1/2",
+  tr: "top-0 right-0 translate-x-1/2 -translate-y-1/2",
+  bl: "bottom-0 left-0 -translate-x-1/2 translate-y-1/2",
+  br: "bottom-0 right-0 translate-x-1/2 translate-y-1/2",
+};
+
 // each poster peels off the wall a little differently
 const LIFTS = [
   { rot: -5, x: -14, y: -26, origin: "bottom right" },
@@ -110,6 +126,7 @@ const LIFTS = [
 function Poster({ p, idx }: { p: Post; idx: number }) {
   const [hover, setHover] = useState(false);
   const L = LIFTS[idx % LIFTS.length];
+  const W = WEATHER[idx % WEATHER.length];
   return (
     <article
       data-cursor="Read"
@@ -143,6 +160,15 @@ function Poster({ p, idx }: { p: Post; idx: number }) {
         />
         {/* paper grain */}
         <span aria-hidden className="pointer-events-none absolute inset-0 z-20 opacity-[0.07] mix-blend-multiply" style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")" }} />
+
+        {/* weathering: discolour stains */}
+        <span aria-hidden className="pointer-events-none absolute inset-0 z-20 mix-blend-multiply" style={{ opacity: W.stainO, background: `radial-gradient(ellipse at ${W.stain1}, rgba(74,55,32,0.55), transparent 55%), radial-gradient(circle at ${W.stain2}, rgba(40,32,22,0.5), transparent 50%)` }} />
+        {/* weathering: sun-faded patch */}
+        <span aria-hidden className="pointer-events-none absolute inset-0 z-20 mix-blend-overlay opacity-50" style={{ background: `radial-gradient(circle at ${W.fade}, rgba(255,255,255,0.85), transparent 55%)` }} />
+        {/* weathering: crease */}
+        <span aria-hidden className="pointer-events-none absolute inset-0 z-20 mix-blend-soft-light opacity-70" style={{ background: `linear-gradient(${W.crease}deg, transparent 47%, rgba(0,0,0,0.25) 49%, rgba(255,255,255,0.3) 51%, transparent 53%)` }} />
+        {/* weathering: torn corner revealing the wall */}
+        <span aria-hidden className={`pointer-events-none absolute z-30 w-12 h-12 rotate-45 bg-[#1A1714] shadow-[0_0_10px_rgba(0,0,0,0.5)] ${TEAR_POS[W.tear]}`} />
 
         {/* ── SPLIT: word / image / word ── */}
         {p.variant === "split" && (
