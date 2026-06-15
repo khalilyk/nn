@@ -42,15 +42,6 @@ export default function AdminSidebar() {
 
   return (
     <nav className="group flex md:flex-col gap-1.5 rounded-[26px] bg-white p-2.5 shadow-sm self-start md:sticky md:top-5 overflow-x-auto md:overflow-hidden md:w-[64px] md:hover:w-[212px] transition-[width] duration-300 ease-out">
-      {/* brand tile */}
-      <div className="flex items-center gap-3 shrink-0 mb-1">
-        <div className="grid place-items-center w-11 h-11 rounded-2xl bg-[#2D6BFF] shrink-0">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/notnormal-iconoutline.png" alt="" className="h-5 w-auto" style={{ filter: "invert(1)" }} />
-        </div>
-        <span className="hidden md:block text-[13px] font-bold tracking-tight whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-200">Not Normal</span>
-      </div>
-
       {links.map((l) => {
         const active = l.href === "/admin" ? path === "/admin" : path === l.href;
         return (
