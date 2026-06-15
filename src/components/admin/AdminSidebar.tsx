@@ -17,6 +17,7 @@ const ICONS: Record<string, string> = {
   footer: "M4 5h16v14H4zM4 15h16",
   submissions: "M4 6h16v12H4zM4 12h5l2 3h2l2-3h5",
   analytics: "M5 19V9M10 19V5M15 19v-7M20 19v-11",
+  media: "M4 6h16v12H4zM4 16l5-5 4 4 3-3 4 4M9.5 9a1.2 1.2 0 1 1 0-.01",
 };
 
 function Icon({ d, active }: { d: string; active: boolean }) {
@@ -32,6 +33,7 @@ export default function AdminSidebar() {
   const links: { href: string; key: string; label: string }[] = [
     { href: "/admin", key: "dashboard", label: "Dashboard" },
     ...SECTIONS.map((s) => ({ href: `/admin/${s.key}`, key: s.key, label: s.label })),
+    { href: "/admin/media", key: "media", label: "Media" },
     { href: "/admin/submissions", key: "submissions", label: "Submissions" },
     { href: "/admin/analytics", key: "analytics", label: "Analytics" },
   ];
