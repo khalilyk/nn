@@ -53,6 +53,8 @@ interface NoteBase {
   date: string;
   title: string;
   read: string;
+  excerpt?: string;
+  body?: string;
   bg: string;
   ink: string;
   rotate: string;

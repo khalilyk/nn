@@ -31,3 +31,11 @@ export const events = pgTable("events", {
 });
 
 export type EventRow = typeof events.$inferSelect;
+
+/** Single admin account (editable email + password). Falls back to env if absent. */
+export const adminUser = pgTable("admin_user", {
+  id: serial("id").primaryKey(),
+  email: text("email").notNull(),
+  passwordHash: text("password_hash").notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});

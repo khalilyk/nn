@@ -3,8 +3,9 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Field from "./Field";
+import NotesEditor from "./NotesEditor";
 import { SECTIONS } from "@/lib/content/sections";
-import type { SiteContent } from "@/lib/content/types";
+import type { SiteContent, Notes } from "@/lib/content/types";
 
 export default function LiveEditor({ initial, initialSection = "hero" }: { initial: SiteContent; initialSection?: keyof SiteContent }) {
   const [content, setContent] = useState<SiteContent>(initial);
@@ -98,7 +99,11 @@ export default function LiveEditor({ initial, initialSection = "hero" }: { initi
             </select>
           </div>
           <div className="flex-1 overflow-y-auto p-3 text-[#0A0A0A]">
-            <Field k={active} value={content[active]} onChange={(v) => setContent((c) => ({ ...c, [active]: v }))} />
+            {active === "notes" ? (
+              <NotesEditor value={content.notes} onChange={(n: Notes) => setContent((c) => ({ ...c, notes: n }))} />
+            ) : (
+              <Field k={active} value={content[active]} onChange={(v) => setContent((c) => ({ ...c, [active]: v }))} />
+            )}
           </div>
         </div>
 

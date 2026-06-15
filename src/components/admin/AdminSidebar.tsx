@@ -63,10 +63,10 @@ export default function AdminSidebar() {
         );
       })}
 
-      <div className="flex items-center gap-3 shrink-0 md:mt-2">
-        <span className="grid place-items-center w-11 h-11 rounded-full bg-[#E8E8EA] text-[#0A0A0A] text-[13px] font-bold shrink-0">K</span>
-        <span className="hidden md:block text-[13px] whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-200 text-[#0A0A0A]/60">Khalil</span>
-      </div>
+      <Link href="/admin/settings" title="Account settings" className={`group/item flex items-center gap-3 h-11 rounded-2xl shrink-0 md:mt-2 transition-colors ${path === "/admin/settings" ? "bg-[#0A0A0A]" : "hover:bg-black/[0.05]"}`}>
+        <span className={`grid place-items-center w-11 h-11 rounded-full shrink-0 text-[13px] font-bold ${path === "/admin/settings" ? "bg-white text-[#0A0A0A]" : "bg-[#E8E8EA] text-[#0A0A0A]"}`}>K</span>
+        <span className={`hidden md:block text-[13px] whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-200 ${path === "/admin/settings" ? "text-white" : "text-[#0A0A0A]/60"}`}>Khalil</span>
+      </Link>
     </nav>
   );
 }
