@@ -1,3 +1,7 @@
+"use client";
+
+import { useCallback, useEffect, useRef, useState } from "react";
+
 type Base = {
   cat: string;
   date: string;
@@ -152,8 +156,60 @@ function Poster({ p }: { p: Post }) {
   );
 }
 
-/* The Journal — a wall of pasted posters, one per article. */
+/* The Journal — a draggable, looping wall of pasted posters. */
 export default function JournalSection() {
+  const track = useRef<HTMLDivElement>(null);
+  const setW = useRef(0);
+  const x = useRef(0);
+  const drag = useRef<{ active: boolean; startX: number; startVal: number; moved: boolean }>({ active: false, startX: 0, startVal: 0, moved: false });
+  const [, force] = useState(0);
+
+  // measure one set's width (track holds 3 copies)
+  useEffect(() => {
+    const measure = () => {
+      if (track.current) setW.current = track.current.scrollWidth / 3;
+      force((n) => n + 1);
+    };
+    measure();
+    window.addEventListener("resize", measure);
+    return () => window.removeEventListener("resize", measure);
+  }, []);
+
+  const apply = useCallback(() => {
+    const el = track.current;
+    if (!el || !setW.current) return;
+    const m = ((x.current % setW.current) + setW.current) % setW.current; // [0, setW)
+    el.style.transform = `translate3d(${m - setW.current}px,0,0)`; // [-setW, 0)
+  }, []);
+
+  useEffect(() => { apply(); });
+
+  const move = useCallback((dx: number) => { x.current += dx; apply(); }, [apply]);
+
+  const onDown = (e: React.PointerEvent) => {
+    drag.current = { active: true, startX: e.clientX, startVal: x.current, moved: false };
+    (e.target as HTMLElement).setPointerCapture?.(e.pointerId);
+    if (track.current) track.current.style.transition = "none";
+  };
+  const onMove = (e: React.PointerEvent) => {
+    if (!drag.current.active) return;
+    const d = e.clientX - drag.current.startX;
+    if (Math.abs(d) > 4) drag.current.moved = true;
+    x.current = drag.current.startVal + d;
+    apply();
+  };
+  const onUp = () => { drag.current.active = false; };
+
+  // arrow nav, one poster-ish step
+  const step = (dir: number) => {
+    if (track.current) track.current.style.transition = "transform 0.6s cubic-bezier(0.16,1,0.3,1)";
+    const itemW = setW.current ? setW.current / POSTS.length : 320;
+    move(dir * -itemW);
+    window.setTimeout(() => { if (track.current) track.current.style.transition = "none"; }, 620);
+  };
+
+  const items = [...POSTS, ...POSTS, ...POSTS];
+
   return (
     <section id="journal" className="scroll-mt-20 relative bg-[#1A1714] text-[#F3F1EC] pt-20 md:pt-28 overflow-hidden" data-cursor-color="#F3F1EC">
       <span aria-hidden className="pointer-events-none absolute inset-0 opacity-[0.05]" style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='b'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.012 0.04' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23b)'/%3E%3C/svg%3E\")" }} />
@@ -167,17 +223,39 @@ export default function JournalSection() {
               Notes from<br />the studio
             </h2>
           </div>
-          <p className="font-editorial italic text-[#F3F1EC]/55 max-w-xs md:text-right" style={{ fontSize: "clamp(1rem, 1.5vw, 1.2rem)" }}>
-            Pasted up like posters. Thinking out loud on brand, hospitality and not-normal ideas.
-          </p>
+          <div className="flex flex-col md:items-end gap-5">
+            <p className="font-editorial italic text-[#F3F1EC]/55 max-w-xs md:text-right" style={{ fontSize: "clamp(1rem, 1.5vw, 1.2rem)" }}>
+              Pasted up like posters. Drag to flick through.
+            </p>
+            <div className="flex items-center gap-3">
+              <button onClick={() => step(-1)} aria-label="Previous" className="w-10 h-10 rounded-full border border-[#F3F1EC]/30 flex items-center justify-center text-sm hover:bg-[#F3F1EC] hover:text-[#1A1714] transition-colors">←</button>
+              <button onClick={() => step(1)} aria-label="Next" className="w-10 h-10 rounded-full border border-[#F3F1EC]/30 flex items-center justify-center text-sm hover:bg-[#F3F1EC] hover:text-[#1A1714] transition-colors">→</button>
+            </div>
+          </div>
         </div>
       </div>
 
-      {/* full-bleed poster wall, flush to side + bottom edges */}
-      <div className="relative grid grid-cols-2 lg:grid-cols-4 gap-0 shadow-[0_-30px_80px_-30px_rgba(0,0,0,0.9)]">
-        {POSTS.map((p) => (
-          <Poster key={p.title} p={p} />
-        ))}
+      {/* draggable, looping poster track */}
+      <div
+        className="relative overflow-hidden cursor-grab active:cursor-grabbing touch-pan-y shadow-[0_-30px_80px_-30px_rgba(0,0,0,0.9)]"
+        data-cursor="Drag"
+        onPointerDown={onDown}
+        onPointerMove={onMove}
+        onPointerUp={onUp}
+        onPointerCancel={onUp}
+        onPointerLeave={onUp}
+      >
+        <div ref={track} className="flex w-max select-none">
+          {items.map((p, i) => (
+            <div
+              key={`${p.title}-${i}`}
+              className="shrink-0 w-[72vw] sm:w-[44vw] md:w-[320px] lg:w-[360px]"
+              onClickCapture={(e) => { if (drag.current.moved) { e.preventDefault(); e.stopPropagation(); } }}
+            >
+              <Poster p={p} />
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );
