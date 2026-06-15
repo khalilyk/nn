@@ -11,6 +11,24 @@ export function esc(s: string): string {
   return (s || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 }
 
+/** Convert legacy structured slides (imageText/imageSections/statement) to the new rich layout. */
+export function normalizeSlide(s: unknown): Slide {
+  const o = s as Record<string, unknown> & { layout?: string };
+  if (!o || (o.layout === "cover" || o.layout === "closing" || o.layout === "rich")) return s as Slide;
+  let html = "";
+  if (typeof o.heading === "string" && o.heading) html += `<h3>${esc(o.heading)}</h3>`;
+  if (o.layout === "imageSections" && Array.isArray(o.sections)) {
+    for (const sec of o.sections as { title?: string; intro?: string; bullets?: string[] }[]) {
+      if (sec.title) html += `<p><strong>${esc(sec.title)}</strong></p>`;
+      if (sec.intro) html += `<p>${esc(sec.intro)}</p>`;
+      if (Array.isArray(sec.bullets) && sec.bullets.length) html += `<ul>${sec.bullets.map((b) => `<li>${esc(b)}</li>`).join("")}</ul>`;
+    }
+  } else if (typeof o.body === "string") {
+    html += o.body.split("\n\n").map((p) => `<p>${esc(p)}</p>`).join("");
+  }
+  return { id: String(o.id), style: o.style as Slide["style"], layout: "rich", image: (o.image as string) || "", html };
+}
+
 /** Styles for the rich (TinyMCE) HTML content — shared by preview and PDF. */
 export const RICH_CSS = `
 .pr-rich{font-size:calc(1.15cqw * var(--sc,1));line-height:1.7}

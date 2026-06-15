@@ -2,6 +2,7 @@ import { desc, eq } from "drizzle-orm";
 import { db, hasDb } from "@/lib/db";
 import { proposals } from "@/lib/db/schema";
 import type { Proposal } from "./types";
+import { normalizeSlide } from "./markup";
 
 export async function listProposals(): Promise<Proposal[]> {
   if (!hasDb) return [];
@@ -36,7 +37,7 @@ export async function deleteProposal(id: number): Promise<void> {
 function toProposal(r: typeof proposals.$inferSelect): Proposal {
   return {
     id: r.id, title: r.title, kind: r.kind as Proposal["kind"], clientTag: r.clientTag,
-    client: r.client, slides: r.slides,
+    client: r.client, slides: (r.slides as unknown[]).map(normalizeSlide),
     createdAt: r.createdAt.toISOString(), updatedAt: r.updatedAt.toISOString(),
   };
 }
