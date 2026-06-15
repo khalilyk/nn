@@ -273,13 +273,11 @@ export default function JournalSection() {
 
       {/* header (padded) */}
       <div className="relative px-6 sm:px-10 md:px-16">
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-14 md:mb-20">
-          <div>
-            <p className="text-[10px] tracking-[0.3em] uppercase text-[#F3F1EC]/45 mb-4">Notes</p>
-            <h2 className="font-display uppercase tracking-tight leading-[0.92]" style={{ fontSize: "clamp(2rem, 5vw, 4rem)" }}>
-              Notes from<br />the studio
-            </h2>
-          </div>
+        <div className="text-center mb-14 md:mb-20">
+          <p className="text-[10px] tracking-[0.3em] uppercase text-[#F3F1EC]/45 mb-4">Notes</p>
+          <h2 className="font-display uppercase tracking-tight leading-[0.92]" style={{ fontSize: "clamp(2rem, 5vw, 4rem)" }}>
+            Notes from<br />the studio
+          </h2>
         </div>
       </div>
 
