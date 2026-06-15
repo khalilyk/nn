@@ -28,7 +28,7 @@ export default function LoginPage() {
   const field = "w-full bg-transparent border-b border-white/25 pb-2 text-[15px] text-white placeholder-white/30 outline-none focus:border-white transition-colors";
 
   return (
-    <main className="min-h-screen bg-black text-white flex flex-col md:flex-row" style={{ fontFamily: "system-ui, -apple-system, sans-serif" }}>
+    <main className="admin-surface login-surface min-h-screen bg-black text-white flex flex-col md:flex-row" style={{ fontFamily: "system-ui, -apple-system, sans-serif" }}>
       {/* left brand panel */}
       <div className="relative flex-1 min-h-[34vh] md:min-h-screen overflow-hidden">
         {/* crosshair grid */}

@@ -143,3 +143,7 @@ img { user-select: none; -webkit-user-drag: none; }
 .admin-surface textarea,
 .admin-surface select { color: #0A0A0A; -webkit-text-fill-color: #0A0A0A; }
 .admin-surface ::placeholder { color: rgba(10,10,10,0.4); -webkit-text-fill-color: rgba(10,10,10,0.4); }
+/* login is dark — keep its inputs white */
+.login-surface input,
+.login-surface textarea { color: #fff; -webkit-text-fill-color: #fff; }
+.login-surface ::placeholder { color: rgba(255,255,255,0.3); -webkit-text-fill-color: rgba(255,255,255,0.3); }
