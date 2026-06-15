@@ -81,19 +81,26 @@ export default function AdminSidebar() {
         <Item href="/admin/media" k="media" label="Media" />
         <Item href="/admin/submissions" k="submissions" label="Submissions" />
         <Item href="/admin/analytics" k="analytics" label="Analytics" />
-
-        <Link href="/admin/settings" title="Account settings" className={`flex items-center gap-3 h-11 rounded-2xl shrink-0 md:mt-2 transition-colors ${path === "/admin/settings" ? "bg-[#0A0A0A]" : "hover:bg-black/[0.05]"}`}>
-          <span className={`grid place-items-center w-11 h-11 rounded-full shrink-0 text-[13px] font-bold ${path === "/admin/settings" ? "bg-white text-[#0A0A0A]" : "bg-[#E8E8EA] text-[#0A0A0A]"}`}>K</span>
-          <span className={`hidden md:block text-[13px] whitespace-nowrap ${path === "/admin/settings" ? "text-white" : "text-[#0A0A0A]/60"}`}>Account</span>
-        </Link>
       </nav>
 
       {/* Business: invoicing + CRM, in its own box */}
       <nav className="flex md:flex-col gap-1.5 rounded-[26px] bg-white p-2.5 shadow-sm overflow-x-auto">
         <span className="hidden md:block text-[10px] tracking-[0.14em] uppercase text-[#0A0A0A]/35 px-3 pt-1 pb-0.5">Business</span>
         <Item href="/admin/invoices" k="invoices" label="Invoices" />
-        <Item href="/admin/proposals" k="proposals" label="Proposals" />
         <Item href="/admin/clients" k="clients" label="Clients" />
+      </nav>
+
+      {/* Proposals, in its own box */}
+      <nav className="flex md:flex-col gap-1.5 rounded-[26px] bg-white p-2.5 shadow-sm overflow-x-auto">
+        <Item href="/admin/proposals" k="proposals" label="Proposals" />
+      </nav>
+
+      {/* Account, in its own box at the bottom */}
+      <nav className="flex md:flex-col gap-1.5 rounded-[26px] bg-white p-2.5 shadow-sm overflow-x-auto md:mt-auto">
+        <Link href="/admin/settings" title="Account settings" className={`flex items-center gap-3 h-11 rounded-2xl shrink-0 transition-colors ${path === "/admin/settings" ? "bg-[#0A0A0A]" : "hover:bg-black/[0.05]"}`}>
+          <span className={`grid place-items-center w-11 h-11 rounded-full shrink-0 text-[13px] font-bold ${path === "/admin/settings" ? "bg-white text-[#0A0A0A]" : "bg-[#E8E8EA] text-[#0A0A0A]"}`}>K</span>
+          <span className={`hidden md:block text-[13px] whitespace-nowrap ${path === "/admin/settings" ? "text-white" : "text-[#0A0A0A]/60"}`}>Account</span>
+        </Link>
       </nav>
     </div>
   );
