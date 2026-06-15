@@ -2,10 +2,10 @@ import { NextResponse } from "next/server";
 import { isAuthed } from "@/lib/auth/session";
 import { getProposal } from "@/lib/proposal/store";
 import { renderProposalPdf } from "@/lib/proposal/pdf";
-import { fetchLogoDataUri } from "@/lib/invoice/pdf";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
+export const maxDuration = 60;
 
 export async function GET(req: Request, ctx: { params: Promise<{ id: string }> }) {
   if (!(await isAuthed())) return NextResponse.json({ error: "unauthorized" }, { status: 401 });
@@ -14,12 +14,7 @@ export async function GET(req: Request, ctx: { params: Promise<{ id: string }> }
   if (!p) return NextResponse.json({ error: "not found" }, { status: 404 });
 
   const origin = new URL(req.url).origin;
-  // closing/cover slides use the black wordmark; content slides show the smiley on the edge
-  const [wordmark, smiley] = await Promise.all([
-    fetchLogoDataUri("/notnormal-logoblack.png", origin),
-    fetchLogoDataUri("/notnormal-iconoutline.png", origin),
-  ]);
-  const pdf = await renderProposalPdf(p, wordmark, smiley);
+  const pdf = await renderProposalPdf(p, origin);
 
   const inline = new URL(req.url).searchParams.get("inline") === "1";
   const name = `${p.title.replace(/\s+/g, "-").toLowerCase()}.pdf`;

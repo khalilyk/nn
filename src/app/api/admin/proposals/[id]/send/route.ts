@@ -3,10 +3,10 @@ import { Resend } from "resend";
 import { isAuthed } from "@/lib/auth/session";
 import { getProposal } from "@/lib/proposal/store";
 import { renderProposalPdf } from "@/lib/proposal/pdf";
-import { fetchLogoDataUri } from "@/lib/invoice/pdf";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
+export const maxDuration = 60;
 
 const FROM = process.env.CONTACT_FROM || "Not Normal <onboarding@resend.dev>";
 
@@ -24,11 +24,7 @@ export async function POST(req: Request, ctx: { params: Promise<{ id: string }> 
   if (!apiKey) return NextResponse.json({ error: "Email service not configured." }, { status: 500 });
 
   const origin = new URL(req.url).origin;
-  const [wordmark, smiley] = await Promise.all([
-    fetchLogoDataUri("/notnormal-logoblack.png", origin),
-    fetchLogoDataUri("/notnormal-iconoutline.png", origin),
-  ]);
-  const pdf = await renderProposalPdf(p, wordmark, smiley);
+  const pdf = await renderProposalPdf(p, origin);
   const filename = `${p.title.replace(/\s+/g, "-").toLowerCase()}.pdf`;
 
   const subject = (body.subject || `${p.title} — Not Normal`).trim();

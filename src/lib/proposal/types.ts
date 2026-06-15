@@ -31,9 +31,7 @@ type SlideBase = { id: string; style?: SlideStyle };
 
 export type Slide = SlideBase & (
   | { layout: "cover"; image: string; eyebrow: string; titleStrong: string; titleRest: string }
-  | { layout: "imageText"; image: string; heading: string; body: string }
-  | { layout: "imageSections"; image: string; heading: string; sections: Section[] }
-  | { layout: "statement"; heading: string; body: string; image: string }
+  | { layout: "rich"; image: string; html: string }
   | { layout: "closing"; topLabel: string; email: string; sideLabel: string }
 );
 
@@ -74,8 +72,6 @@ export function resolveStyle(style?: SlideStyle) {
 
 export const LAYOUT_LABELS: Record<SlideLayout, string> = {
   cover: "Cover",
-  imageText: "Image + text",
-  imageSections: "Image + bullet sections",
-  statement: "Statement",
+  rich: "Content",
   closing: "Closing / contact",
 };

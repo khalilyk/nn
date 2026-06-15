@@ -3,14 +3,15 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import SlidePreview from "./SlidePreview";
-import type { Proposal, ProposalKind, Section, Slide, SlideLayout, SlideStyle } from "@/lib/proposal/types";
+import RichTextEditor from "./RichTextEditor";
+import type { Proposal, ProposalKind, Slide, SlideLayout, SlideStyle } from "@/lib/proposal/types";
 import { KIND_LABELS, LAYOUT_LABELS, FONT_LABELS } from "@/lib/proposal/types";
 import { blankSlide, templateFor } from "@/lib/proposal/templates";
 
 const input = "w-full rounded-lg border border-black/10 bg-white px-3 py-2 text-[13px] text-[#0A0A0A]";
 const lab = "block text-[11px] tracking-[0.12em] uppercase text-black/45 mb-1";
 const KINDS: ProposalKind[] = ["website", "branding", "social", "mix"];
-const LAYOUTS: SlideLayout[] = ["cover", "imageText", "imageSections", "statement", "closing"];
+const LAYOUTS: SlideLayout[] = ["cover", "rich", "closing"];
 const uid = () => (globalThis.crypto?.randomUUID?.() ?? `s-${Date.now()}-${Math.round(Math.random() * 1e6)}`);
 
 export default function ProposalEditor({ id }: { id: number }) {
@@ -219,44 +220,14 @@ function Inspector({ slide, patch, onUpload }: { slide: Slide; patch: (p: Partia
     </>
   );
 
-  if (slide.layout === "statement") return (
-    <>
-      <div><label className={lab}>Heading</label><input className={input} value={slide.heading} onChange={(e) => patch({ heading: e.target.value })} /></div>
-      <div><label className={lab}>Body (blank line = new paragraph)</label><textarea className={`${input} resize-y`} rows={8} value={slide.body} onChange={(e) => patch({ body: e.target.value })} /></div>
-    </>
-  );
-
-  if (slide.layout === "imageText") return (
-    <>
-      <ImageField />
-      <div><label className={lab}>Heading</label><input className={input} value={slide.heading} onChange={(e) => patch({ heading: e.target.value })} /></div>
-      <div><label className={lab}>Body (blank line = new paragraph)</label><textarea className={`${input} resize-y`} rows={8} value={slide.body} onChange={(e) => patch({ body: e.target.value })} /></div>
-    </>
-  );
-
-  // imageSections
-  const setSection = (i: number, patchSec: Partial<Section>) => patch({ sections: slide.sections.map((s, j) => (j === i ? { ...s, ...patchSec } : s)) } as Partial<Slide>);
+  // rich
   return (
     <>
       <ImageField />
-      <div><label className={lab}>Heading</label><input className={input} value={slide.heading} onChange={(e) => patch({ heading: e.target.value })} /></div>
-      {slide.sections.map((sec, i) => (
-        <div key={i} className="rounded-xl border border-black/10 p-3 space-y-2">
-          <div className="flex items-center gap-2">
-            <input className={`${input} font-semibold`} value={sec.title} onChange={(e) => setSection(i, { title: e.target.value })} placeholder="Group title" />
-            <button onClick={() => patch({ sections: slide.sections.filter((_, j) => j !== i) } as Partial<Slide>)} className="text-black/30 hover:text-[#c0392b] text-sm px-1">✕</button>
-          </div>
-          <textarea className={`${input} resize-y`} rows={2} value={sec.intro || ""} onChange={(e) => setSection(i, { intro: e.target.value })} placeholder="Optional intro line" />
-          {sec.bullets.map((b, j) => (
-            <div key={j} className="flex gap-2 pl-3">
-              <input className={input} value={b} onChange={(e) => setSection(i, { bullets: sec.bullets.map((x, k) => (k === j ? e.target.value : x)) })} />
-              <button onClick={() => setSection(i, { bullets: sec.bullets.filter((_, k) => k !== j) })} className="text-black/30 hover:text-[#c0392b] text-sm px-1">✕</button>
-            </div>
-          ))}
-          <button onClick={() => setSection(i, { bullets: [...sec.bullets, ""] })} className="text-[11px] text-black/45 hover:text-black pl-3">+ bullet</button>
-        </div>
-      ))}
-      <button onClick={() => patch({ sections: [...slide.sections, { title: "NEW GROUP", bullets: [""] }] } as Partial<Slide>)} className="rounded-full bg-[#0A0A0A] text-white text-[12px] px-4 py-1.5 hover:opacity-80">+ Section</button>
+      <div>
+        <label className={lab}>Content</label>
+        <RichTextEditor value={slide.html} onChange={(html) => patch({ html } as Partial<Slide>)} />
+      </div>
     </>
   );
 }
