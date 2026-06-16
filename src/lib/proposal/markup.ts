@@ -85,7 +85,6 @@ export function slideMarkup(slide: Slide, clientTag: string, page: number): stri
       </div>`;
   } else {
     // rich
-    const hasImg = !!slide.image;
     const chrome = `
       ${ruleEl}
       ${clientTag ? `<span style="position:absolute;right:1.6cqw;top:3.6cqw;font-size:${f(1)};writing-mode:vertical-rl;letter-spacing:0.1em">${esc(clientTag)}</span>` : ""}
@@ -94,7 +93,7 @@ export function slideMarkup(slide: Slide, clientTag: string, page: number): stri
       <span style="position:absolute;left:2.4cqw;bottom:2.4cqw;font-size:${f(1.1)};color:${dim}">${page}</span>`;
     body = `
       <div style="${pad};display:flex;gap:2.4cqw">
-        ${hasImg ? `<div style="width:46%">${img(slide.image)}</div>` : ""}
+        <div style="width:46%">${img(slide.image)}</div>
         <div class="pr-rich" style="flex:1;display:flex;flex-direction:column;justify-content:center;padding-right:3cqw">
           <div>${slide.html || ""}</div>
         </div>

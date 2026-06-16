@@ -4,8 +4,8 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import SlidePreview from "./SlidePreview";
 import RichTextEditor from "./RichTextEditor";
-import type { Proposal, ProposalKind, Slide, SlideLayout, SlideStyle } from "@/lib/proposal/types";
-import { KIND_LABELS, LAYOUT_LABELS, FONT_LABELS } from "@/lib/proposal/types";
+import type { Proposal, ProposalKind, Slide, SlideLayout } from "@/lib/proposal/types";
+import { KIND_LABELS, LAYOUT_LABELS } from "@/lib/proposal/types";
 import { blankSlide, templateFor } from "@/lib/proposal/templates";
 
 const input = "w-full rounded-lg border border-black/10 bg-white px-3 py-2 text-[13px] text-[#0A0A0A]";
@@ -127,8 +127,6 @@ export default function ProposalEditor({ id }: { id: number }) {
             <h3 className="text-[13px] font-semibold text-[#0A0A0A]">Edit slide</h3>
             <Inspector slide={cur} patch={patchSlide} onUpload={uploadImage} />
           </div>
-
-          <DesignPanel slide={cur} patch={patchSlide} />
         </div>
       </div>
 
@@ -137,59 +135,6 @@ export default function ProposalEditor({ id }: { id: number }) {
   );
 }
 
-const SWATCHES = ["#FFFFFF", "#F3F1EC", "#0A0A0A", "#111827", "#D7F23A", "#BFE3FF", "#FF2EC4", "#1f9d55"];
-
-function DesignPanel({ slide, patch }: { slide: Slide; patch: (p: Partial<Slide>) => void }) {
-  const st = slide.style || {};
-  const setStyle = (s: Partial<SlideStyle>) => patch({ style: { ...st, ...s } } as Partial<Slide>);
-  const Swatches = ({ value, onPick }: { value?: string; onPick: (c: string) => void }) => (
-    <div className="flex items-center gap-1.5 flex-wrap">
-      {SWATCHES.map((c) => (
-        <button key={c} onClick={() => onPick(c)} title={c} className={`w-6 h-6 rounded-full border ${value === c ? "ring-2 ring-[#0A0A0A] ring-offset-1" : "border-black/15"}`} style={{ background: c }} />
-      ))}
-      <input type="color" value={value || "#000000"} onChange={(e) => onPick(e.target.value)} className="w-6 h-6 rounded-full overflow-hidden cursor-pointer border border-black/15 p-0" title="Custom colour" />
-    </div>
-  );
-  const Seg = ({ options, value, onPick }: { options: { v: string; label: string }[]; value: string; onPick: (v: string) => void }) => (
-    <div className="inline-flex rounded-lg border border-black/10 overflow-hidden">
-      {options.map((o) => (
-        <button key={o.v} onClick={() => onPick(o.v)} className={`px-3 py-1.5 text-[12px] ${value === o.v ? "bg-[#0A0A0A] text-white" : "text-black/60 hover:bg-black/[0.04]"}`}>{o.label}</button>
-      ))}
-    </div>
-  );
-
-  return (
-    <div className="rounded-2xl bg-white shadow-sm p-5 space-y-4">
-      <h3 className="text-[13px] font-semibold text-[#0A0A0A]">Design</h3>
-      <div className="grid grid-cols-2 gap-4">
-        <div className="space-y-2">
-          <label className={lab}>Font</label>
-          <Seg value={st.font || "mono"} onPick={(v) => setStyle({ font: v as SlideStyle["font"] })}
-            options={(["mono", "sans", "serif"] as const).map((f) => ({ v: f, label: FONT_LABELS[f] }))} />
-        </div>
-        <div className="space-y-2">
-          <label className={lab}>Text size</label>
-          <Seg value={st.size || "m"} onPick={(v) => setStyle({ size: v as SlideStyle["size"] })}
-            options={[{ v: "s", label: "S" }, { v: "m", label: "M" }, { v: "l", label: "L" }]} />
-        </div>
-        <div className="space-y-2">
-          <label className={lab}>Alignment</label>
-          <Seg value={st.align || "left"} onPick={(v) => setStyle({ align: v as SlideStyle["align"] })}
-            options={[{ v: "left", label: "Left" }, { v: "center", label: "Center" }]} />
-        </div>
-      </div>
-      <div className="space-y-2">
-        <label className={lab}>Background</label>
-        <Swatches value={st.bg} onPick={(c) => setStyle({ bg: c })} />
-      </div>
-      <div className="space-y-2">
-        <label className={lab}>Text colour</label>
-        <Swatches value={st.fg} onPick={(c) => setStyle({ fg: c })} />
-      </div>
-      <button onClick={() => patch({ style: undefined } as Partial<Slide>)} className="text-[12px] text-black/45 hover:text-black">Reset design to default</button>
-    </div>
-  );
-}
 
 function Inspector({ slide, patch, onUpload }: { slide: Slide; patch: (p: Partial<Slide>) => void; onUpload: (f: File) => void }) {
   const ImageField = () => (
