@@ -31,8 +31,8 @@ export default function MenuSplit({ menu = DEFAULT_CONTENT.menu }: { menu?: Menu
           {menu.heading}
         </h3>
 
-        {/* layered list + scattered pills */}
-        <div className="relative">
+        {/* layered list + scattered pills (desktop) */}
+        <div className="relative hidden md:block">
           <ul className="relative z-10">
             {COURSES.map((c, i) => {
               const on = i === active;
@@ -86,19 +86,27 @@ export default function MenuSplit({ menu = DEFAULT_CONTENT.menu }: { menu?: Menu
           </div>
         </div>
 
-        {/* mobile: active services as wrapped pills */}
-        <div className="md:hidden mt-8">
-          {cur.intro && <p className="text-[#0A0A0A]/60 text-sm leading-relaxed mb-5">{cur.intro[0]}</p>}
-          <div className="flex flex-wrap gap-2.5">
-            {cur.items.map((it, i) => {
-              const col = PALETTE[i % PALETTE.length];
-              return (
-                <span key={it} className="rounded-md px-4 py-2 text-[12px] font-medium" style={{ background: col.bg, color: col.fg }}>
-                  {it}
-                </span>
-              );
-            })}
-          </div>
+        {/* mobile: each course title with its own pills centered beneath */}
+        <div className="md:hidden space-y-12">
+          {COURSES.map((c) => (
+            <div key={c.title} className="text-center">
+              <span className="block text-[8px] tracking-[0.3em] uppercase mb-1.5 text-[#FF2EC4]">[ {c.course} ]</span>
+              <h4 className="font-editorial leading-[0.95] text-[#0A0A0A] mb-4" style={{ fontSize: "clamp(1.9rem, 9vw, 3rem)" }}>
+                {c.title}
+              </h4>
+              {c.intro && <p className="text-[#0A0A0A]/60 text-sm leading-relaxed mb-5 max-w-sm mx-auto">{c.intro[0]}</p>}
+              <div className="flex flex-wrap justify-center gap-2.5">
+                {c.items.map((it, i) => {
+                  const col = PALETTE[i % PALETTE.length];
+                  return (
+                    <span key={it} className="rounded-md px-4 py-2 text-[12px] font-medium" style={{ background: col.bg, color: col.fg }}>
+                      {it}
+                    </span>
+                  );
+                })}
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </div>
