@@ -20,6 +20,7 @@ export default function MenuSplit({ menu = DEFAULT_CONTENT.menu }: { menu?: Menu
   const COURSES = menu.courses;
   const PALETTE = menu.palette;
   const [active, setActive] = useState(0);
+  const [open, setOpen] = useState<number | null>(null); // mobile: which course's pills are revealed
   const cur = COURSES[active];
 
   return (
@@ -86,27 +87,36 @@ export default function MenuSplit({ menu = DEFAULT_CONTENT.menu }: { menu?: Menu
           </div>
         </div>
 
-        {/* mobile: each course title with its own pills centered beneath */}
-        <div className="md:hidden space-y-12">
-          {COURSES.map((c) => (
-            <div key={c.title} className="text-center">
-              <span className="block text-[8px] tracking-[0.3em] uppercase mb-1.5 text-[#FF2EC4]">[ {c.course} ]</span>
-              <h4 className="font-editorial leading-[0.95] text-[#0A0A0A] mb-4" style={{ fontSize: "clamp(1.9rem, 9vw, 3rem)" }}>
-                {c.title}
-              </h4>
-              {c.intro && <p className="text-[#0A0A0A]/60 text-sm leading-relaxed mb-5 max-w-sm mx-auto">{c.intro[0]}</p>}
-              <div className="flex flex-wrap justify-center gap-2.5">
-                {c.items.map((it, i) => {
-                  const col = PALETTE[i % PALETTE.length];
-                  return (
-                    <span key={it} className="rounded-md px-4 py-2 text-[12px] font-medium" style={{ background: col.bg, color: col.fg }}>
-                      {it}
-                    </span>
-                  );
-                })}
+        {/* mobile: tap a course to reveal its pills centered beneath it */}
+        <div className="md:hidden space-y-6">
+          {COURSES.map((c, ci) => {
+            const on = open === ci;
+            return (
+              <div key={c.title} className="text-center">
+                <button onClick={() => setOpen(on ? null : ci)} data-cursor="View" className="w-full flex flex-col items-center">
+                  <span className={`block text-[8px] tracking-[0.3em] uppercase mb-1.5 transition-colors ${on ? "text-[#FF2EC4]" : "text-[#0A0A0A]/30"}`}>[ {c.course} ]</span>
+                  <h4 className={`font-editorial leading-[0.95] transition-colors ${on ? "text-[#0A0A0A]" : "text-[#0A0A0A]/30"}`} style={{ fontSize: "clamp(1.9rem, 9vw, 3rem)" }}>
+                    {c.title}
+                  </h4>
+                </button>
+                {on && (
+                  <div className="mt-4 animate-[fadeUp_0.4s_ease]">
+                    {c.intro && <p className="text-[#0A0A0A]/60 text-sm leading-relaxed mb-5 max-w-sm mx-auto">{c.intro[0]}</p>}
+                    <div className="flex flex-wrap justify-center gap-2.5">
+                      {c.items.map((it, i) => {
+                        const col = PALETTE[i % PALETTE.length];
+                        return (
+                          <span key={it} className="rounded-md px-4 py-2 text-[12px] font-medium" style={{ background: col.bg, color: col.fg }}>
+                            {it}
+                          </span>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </div>
