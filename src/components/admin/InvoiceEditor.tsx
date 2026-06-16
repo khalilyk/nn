@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { AnimatePresence, motion } from "framer-motion";
 import type { Client, Invoice, InvoiceItem, InvoiceSettings, RecurInterval } from "@/lib/invoice/types";
 import { computeTotals, lineAmount, money } from "@/lib/invoice/types";
 import InvoicePreview from "./InvoicePreview";
@@ -219,7 +220,9 @@ export default function InvoiceEditor({ id }: { id: number }) {
         </div>
       )}
 
-      {sendOpen && settings && <SendModal inv={inv} settings={settings} onClose={() => setSendOpen(false)} onSent={() => { setSendOpen(false); set({ status: inv.status === "draft" ? "sent" : inv.status }); }} />}
+      <AnimatePresence>
+        {sendOpen && settings && <SendModal key="send" inv={inv} settings={settings} onClose={() => setSendOpen(false)} onSent={() => { setSendOpen(false); set({ status: inv.status === "draft" ? "sent" : inv.status }); }} />}
+      </AnimatePresence>
     </div>
   );
 }
@@ -242,9 +245,11 @@ function SendModal({ inv, settings, onClose, onSent }: { inv: Invoice; settings:
   };
 
   return (
-    <div className="fixed inset-0 z-[200] flex items-center justify-center p-4" onClick={onClose}>
+    <motion.div className="fixed inset-0 z-[200] flex items-center justify-center p-4" onClick={onClose}
+      initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }}>
       <div className="absolute inset-0 bg-black/40" />
-      <div className="relative w-full max-w-lg rounded-3xl bg-white p-6 shadow-xl" onClick={(e) => e.stopPropagation()}>
+      <motion.div className="relative w-full max-w-lg rounded-3xl bg-white p-6 shadow-xl" onClick={(e) => e.stopPropagation()}
+        initial={{ opacity: 0, y: 14, scale: 0.98 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: 14, scale: 0.98 }} transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}>
         <h2 className="text-[16px] font-semibold text-[#0A0A0A] mb-1">Email {inv.docType}</h2>
         <p className="text-[11px] text-black/45 mb-4">PDF attached automatically. Placeholders: {"{{client}} {{number}} {{subject}} {{total}} {{due}}"}.</p>
         <div className="space-y-3">
@@ -257,7 +262,7 @@ function SendModal({ inv, settings, onClose, onSent }: { inv: Invoice; settings:
           <button onClick={onClose} className="rounded-full px-4 py-2 text-[12px] text-black/55 hover:text-black">Cancel</button>
           <button onClick={send} disabled={sending || !to} className="rounded-full bg-[#0A0A0A] text-white text-[12px] px-5 py-2 hover:opacity-80 disabled:opacity-50">{sending ? "Sending…" : "Send"}</button>
         </div>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 }

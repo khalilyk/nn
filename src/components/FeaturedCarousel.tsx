@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
+import { AnimatePresence, motion } from "framer-motion";
 import type { Project } from "@/lib/content/types";
 import { DEFAULT_CONTENT } from "@/lib/content/defaults";
 import { track } from "@/lib/track";
@@ -82,13 +83,17 @@ export default function FeaturedCarousel({ projects = DEFAULT_CONTENT.projects }
       )}
 
       {/* project popup - portaled to body to escape the transformed panel */}
-      {mounted && doc && createPortal(
-        <div className="fixed inset-0 z-[300] flex items-center justify-center p-4 md:p-8" data-cursor="Close" onClick={() => setOpen(null)}>
+      {mounted && createPortal(
+        <AnimatePresence>
+        {doc && (
+        <motion.div className="fixed inset-0 z-[300] flex items-center justify-center p-4 md:p-8" data-cursor="Close" onClick={() => setOpen(null)}
+          initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.25 }}>
           <div className="absolute inset-0 bg-[#0A0A0A]/70 backdrop-blur-sm" />
-          <div
+          <motion.div
             className="relative w-full max-w-4xl max-h-[88vh] flex flex-col md:grid md:grid-cols-2 overflow-y-auto md:overflow-hidden overscroll-contain rounded-3xl bg-[#F3F1EC] text-[#0A0A0A] shadow-[0_50px_140px_-40px_rgba(0,0,0,0.8)]"
             onClick={(e) => e.stopPropagation()}
             data-cursor-color="#0A0A0A"
+            initial={{ opacity: 0, y: 16, scale: 0.985 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: 16, scale: 0.985 }} transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
           >
             {/* image carousel */}
             {(() => {
@@ -137,8 +142,10 @@ export default function FeaturedCarousel({ projects = DEFAULT_CONTENT.projects }
             >
               ✕
             </button>
-          </div>
-        </div>,
+          </motion.div>
+        </motion.div>
+        )}
+        </AnimatePresence>,
         document.body
       )}
     </div>

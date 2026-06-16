@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { AnimatePresence, motion } from "framer-motion";
 import SlidePreview from "./SlidePreview";
 import RichTextEditor from "./RichTextEditor";
 import type { Proposal, ProposalKind, Slide, SlideLayout } from "@/lib/proposal/types";
@@ -130,7 +131,9 @@ export default function ProposalEditor({ id }: { id: number }) {
         </div>
       </div>
 
-      {sendOpen && <SendModal proposal={p} onClose={() => setSendOpen(false)} />}
+      <AnimatePresence>
+        {sendOpen && <SendModal key="send" proposal={p} onClose={() => setSendOpen(false)} />}
+      </AnimatePresence>
     </div>
   );
 }
@@ -192,9 +195,11 @@ function SendModal({ proposal, onClose }: { proposal: Proposal; onClose: () => v
   };
 
   return (
-    <div className="fixed inset-0 z-[200] flex items-center justify-center p-4" onClick={onClose}>
+    <motion.div className="fixed inset-0 z-[200] flex items-center justify-center p-4" onClick={onClose}
+      initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }}>
       <div className="absolute inset-0 bg-black/40" />
-      <div className="relative w-full max-w-lg rounded-3xl bg-white p-6 shadow-xl" onClick={(e) => e.stopPropagation()}>
+      <motion.div className="relative w-full max-w-lg rounded-3xl bg-white p-6 shadow-xl" onClick={(e) => e.stopPropagation()}
+        initial={{ opacity: 0, y: 14, scale: 0.98 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: 14, scale: 0.98 }} transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}>
         <h2 className="text-[16px] font-semibold text-[#0A0A0A] mb-1">Email proposal</h2>
         <p className="text-[11px] text-black/45 mb-4">PDF attached automatically.</p>
         <div className="space-y-3">
@@ -207,7 +212,7 @@ function SendModal({ proposal, onClose }: { proposal: Proposal; onClose: () => v
           <button onClick={onClose} className="rounded-full px-4 py-2 text-[12px] text-black/55 hover:text-black">Cancel</button>
           <button onClick={send} disabled={sending || !to} className="rounded-full bg-[#0A0A0A] text-white text-[12px] px-5 py-2 hover:opacity-80 disabled:opacity-50">{sending ? "Sending…" : "Send"}</button>
         </div>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 }

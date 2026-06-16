@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import type { Client } from "@/lib/invoice/types";
 
 const input = "w-full rounded-lg border border-black/10 bg-white px-3 py-2 text-[13px] text-[#0A0A0A]";
@@ -74,10 +75,13 @@ export default function ClientsManager() {
         </div>
       )}
 
+      <AnimatePresence>
       {editing && (
-        <div className="fixed inset-0 z-[200] flex items-center justify-center p-4" onClick={() => setEditing(null)}>
+        <motion.div className="fixed inset-0 z-[200] flex items-center justify-center p-4" onClick={() => setEditing(null)}
+          initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }}>
           <div className="absolute inset-0 bg-black/40" />
-          <div className="relative w-full max-w-lg max-h-[88vh] overflow-y-auto rounded-3xl bg-white p-6 shadow-xl" onClick={(e) => e.stopPropagation()}>
+          <motion.div className="relative w-full max-w-lg max-h-[88vh] overflow-y-auto rounded-3xl bg-white p-6 shadow-xl" onClick={(e) => e.stopPropagation()}
+            initial={{ opacity: 0, y: 14, scale: 0.98 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: 14, scale: 0.98 }} transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}>
             <h2 className="text-[16px] font-semibold text-[#0A0A0A] mb-4">{editing.id ? "Edit client" : "New client"}</h2>
             <div className="space-y-3">
               <div className="grid grid-cols-2 gap-3">
@@ -96,9 +100,10 @@ export default function ClientsManager() {
               <button onClick={() => setEditing(null)} className="rounded-full px-4 py-2 text-[12px] text-black/55 hover:text-black">Cancel</button>
               <button onClick={save} disabled={saving} className="rounded-full bg-[#0A0A0A] text-white text-[12px] px-5 py-2 hover:opacity-80 disabled:opacity-50">{saving ? "Saving…" : "Save"}</button>
             </div>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       )}
+      </AnimatePresence>
     </div>
   );
 }

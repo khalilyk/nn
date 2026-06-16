@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
+import { AnimatePresence, motion } from "framer-motion";
 import Reveal from "./Reveal";
 import RotatingWord from "./RotatingWord";
 import PacMan from "./PacMan";
@@ -68,17 +69,21 @@ export default function SiteFooter({ footer = DEFAULT_CONTENT.footer }: { footer
       <PacMan />
 
       {/* Legal modal - toggles, with inner scroll. Portaled to body so it escapes the transformed panel. */}
-      {mounted && doc && createPortal(
-        <div
+      {mounted && createPortal(
+        <AnimatePresence>
+        {doc && (
+        <motion.div
           className="fixed inset-0 z-[300] flex items-center justify-center p-4 md:p-8"
           data-cursor="Close"
           onClick={() => setLegal(null)}
+          initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.25 }}
         >
           <div className="absolute inset-0 bg-[#0A0A0A]/60 backdrop-blur-sm" />
-          <div
+          <motion.div
             className="relative w-full max-w-2xl max-h-[85vh] flex flex-col rounded-3xl bg-[#F3F1EC] text-[#0A0A0A] shadow-[0_40px_120px_-30px_rgba(0,0,0,0.7)]"
             onClick={(e) => e.stopPropagation()}
             data-cursor=""
+            initial={{ opacity: 0, y: 16, scale: 0.985 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: 16, scale: 0.985 }} transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
           >
             <div className="flex items-start justify-between gap-6 px-7 md:px-10 pt-8 md:pt-10 pb-5 border-b border-[#0A0A0A]/10">
               <div>
@@ -99,8 +104,10 @@ export default function SiteFooter({ footer = DEFAULT_CONTENT.footer }: { footer
               {doc.body.map((p, i) => <p key={i}>{p}</p>)}
               <p className="pt-2 text-[10px] tracking-[0.2em] uppercase text-[#0A0A0A]/40">Last updated June 2026</p>
             </div>
-          </div>
-        </div>,
+          </motion.div>
+        </motion.div>
+        )}
+        </AnimatePresence>,
         document.body
       )}
     </footer>
