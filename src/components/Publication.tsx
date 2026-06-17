@@ -201,7 +201,7 @@ export default function Publication({ initialContent }: { initialContent?: SiteC
           <div className="relative z-10 w-full flex justify-center">
             <h1 className="font-display uppercase leading-[0.95] tracking-tight text-[#F3F1EC] w-full max-w-2xl" style={{ fontSize: "clamp(2rem, 6vw, 5.5rem)" }}>
               {c.hero.titleLines.map((line, i) => (
-                <span key={i} className="block overflow-hidden"><Reveal as="span" delay={i * 0.08} className="block text-justify [text-align-last:justify]"><ScrambleText text={line} /></Reveal></span>
+                <span key={i} className="block overflow-hidden"><Reveal as="span" delay={i * 0.08} className="block text-center md:text-justify md:[text-align-last:justify]"><ScrambleText text={line} /></Reveal></span>
               ))}
             </h1>
           </div>
