@@ -78,30 +78,20 @@ function DocField({ k, value, onChange, depth }: { k: string; value: Json; onCha
 
   if (Array.isArray(value)) {
     const arr = value as Json[];
-    const set = (i: number, v: Json) => { const n = [...arr]; n[i] = v; onChange(n); };
-    const remove = (i: number) => onChange(arr.filter((_, j) => j !== i));
-    const move = (i: number, d: number) => { const j = i + d; if (j < 0 || j >= arr.length) return; const n = [...arr]; [n[i], n[j]] = [n[j], n[i]]; onChange(n); };
-    const add = () => onChange([...arr, arr.length ? emptyLike(arr[0]) : ""]);
     const simple = arr.every((it) => typeof it === "string");
+    if (!simple) return <ObjectArray k={k} arr={arr} onChange={onChange} depth={depth} />;
+    const set = (i: number, v: Json) => onChange(arr.map((x, j) => (j === i ? v : x)));
+    const remove = (i: number) => onChange(arr.filter((_, j) => j !== i));
+    const add = () => onChange([...arr, ""]);
     return (
-      <div className={simple ? "space-y-1.5" : "space-y-4"}>
+      <div className="space-y-1.5">
         {arr.map((item, i) => (
-          <div key={i} className={`group/item relative ${simple ? "flex items-center gap-2" : "rounded-xl border border-black/[0.07] bg-black/[0.015] p-4"}`}>
-            {!simple && (
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-[10px] uppercase tracking-[0.16em] text-black/35">{labelize(k.replace(/s$/, ""))} {i + 1}</span>
-                <div className="flex items-center gap-1.5 opacity-0 group-hover/item:opacity-100 transition-opacity">
-                  <button onClick={() => move(i, -1)} className="text-black/35 hover:text-black text-xs">▲</button>
-                  <button onClick={() => move(i, 1)} className="text-black/35 hover:text-black text-xs">▼</button>
-                  <button onClick={() => remove(i)} className="text-black/35 hover:text-[#c0392b] text-sm">✕</button>
-                </div>
-              </div>
-            )}
-            {simple && <span className="text-black/25 text-xs">•</span>}
+          <div key={i} className="group/item relative flex items-center gap-2">
+            <span className="text-black/25 text-xs">•</span>
             <div className="flex-1 min-w-0">
               <DocField k={k} value={item} onChange={(v) => set(i, v)} depth={depth + 1} />
             </div>
-            {simple && <button onClick={() => remove(i)} className="text-black/25 hover:text-[#c0392b] text-sm opacity-0 group-hover/item:opacity-100">✕</button>}
+            <button onClick={() => remove(i)} className="text-black/25 hover:text-[#c0392b] text-sm opacity-0 group-hover/item:opacity-100">✕</button>
           </div>
         ))}
         <button onClick={add} className="text-[12px] text-black/45 hover:text-black inline-flex items-center gap-1">+ Add {labelize(k.replace(/s$/, "")).toLowerCase()}</button>
@@ -129,6 +119,58 @@ function DocField({ k, value, onChange, depth }: { k: string; value: Json; onCha
   }
 
   return null;
+}
+
+function previewOf(item: Json): string {
+  if (item && typeof item === "object" && !Array.isArray(item)) {
+    const o = item as Record<string, Json>;
+    for (const key of ["name", "title", "heading", "label", "q", "cat"]) {
+      if (typeof o[key] === "string" && (o[key] as string).trim()) return o[key] as string;
+    }
+    const firstStr = Object.values(o).find((v) => typeof v === "string" && v.trim());
+    if (firstStr) return firstStr as string;
+  }
+  return "";
+}
+
+/** Collapsible (accordion) list of object items. */
+function ObjectArray({ k, arr, onChange, depth }: { k: string; arr: Json[]; onChange: (v: Json) => void; depth: number }) {
+  const [open, setOpen] = useState<number | null>(null);
+  const noun = labelize(k.replace(/s$/, ""));
+  const set = (i: number, v: Json) => onChange(arr.map((it, j) => (j === i ? v : it)));
+  const remove = (i: number) => { onChange(arr.filter((_, j) => j !== i)); setOpen(null); };
+  const move = (i: number, d: number) => { const j = i + d; if (j < 0 || j >= arr.length) return; const n = [...arr]; [n[i], n[j]] = [n[j], n[i]]; onChange(n); setOpen(j); };
+  const add = () => { onChange([...arr, arr.length ? emptyLike(arr[0]) : {}]); setOpen(arr.length); };
+
+  return (
+    <div className="space-y-2">
+      {arr.map((item, i) => {
+        const on = open === i;
+        return (
+          <div key={i} className="rounded-xl border border-black/[0.07] bg-black/[0.015] overflow-hidden">
+            <div className="flex items-center gap-2 px-3 py-2.5">
+              <button onClick={() => setOpen(on ? null : i)} className="flex items-center gap-2 flex-1 min-w-0 text-left">
+                <span className="text-black/35 text-[10px] w-3 shrink-0">{on ? "▾" : "▸"}</span>
+                <span className="text-[10px] uppercase tracking-[0.16em] text-black/35 shrink-0">{noun} {i + 1}</span>
+                <span className="text-[13px] text-[#0A0A0A]/70 truncate">{previewOf(item) || "—"}</span>
+              </button>
+              <div className="flex items-center gap-1.5 shrink-0">
+                <button onClick={() => move(i, -1)} className="text-black/35 hover:text-black text-xs">▲</button>
+                <button onClick={() => move(i, 1)} className="text-black/35 hover:text-black text-xs">▼</button>
+                <button onClick={() => remove(i)} className="text-black/35 hover:text-[#c0392b] text-sm">✕</button>
+              </div>
+            </div>
+            {on && (
+              <div className="px-4 pb-4 pt-1 border-t border-black/[0.06]">
+                <DocField k={k} value={item} onChange={(v) => set(i, v)} depth={depth + 1} />
+              </div>
+            )}
+          </div>
+        );
+      })}
+      <button onClick={add} className="text-[12px] text-black/45 hover:text-black inline-flex items-center gap-1">+ Add {noun.toLowerCase()}</button>
+    </div>
+  );
 }
 
 export default function SectionDocument({ sectionKey, value, onChange }: { sectionKey: string; value: Json; onChange: (v: Json) => void }) {
