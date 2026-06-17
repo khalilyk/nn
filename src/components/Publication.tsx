@@ -244,7 +244,7 @@ export default function Publication({ initialContent }: { initialContent?: SiteC
               </h2>
             </Reveal>
             <Reveal delay={0.1} className="w-full">
-              <OverlapImages />
+              <OverlapImages images={c.menu.gallery} />
             </Reveal>
           </div>
 

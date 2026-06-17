@@ -1,23 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-
-const A = "https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&w=900&q=80";
-const B = "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=900&q=80";
-const C = "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&w=900&q=80";
-const D = "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=900&q=80";
-const E = "https://images.unsplash.com/photo-1424847651672-bf20a4b0982b?auto=format&fit=crop&w=900&q=80";
-const F = "https://images.unsplash.com/photo-1551218808-94e220e084d2?auto=format&fit=crop&w=900&q=80";
-const G = "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=900&q=80";
-const H = "https://images.unsplash.com/photo-1470337458703-46ad1756a187?auto=format&fit=crop&w=900&q=80";
-const I = "https://images.unsplash.com/photo-1577219491135-ce391730fb2c?auto=format&fit=crop&w=900&q=80";
-
-/* Overlapping work imagery, spills past both edges, rotates sets every 30s. */
-const sets: string[][] = [
-  [A, B, E, D, G, H],
-  [I, F, C, A, B, D],
-  [G, F, C, H, E, A],
-];
+import { DEFAULT_CONTENT } from "@/lib/content/defaults";
 
 const pos = [
   { rot: -6, z: 1, top: "10%", left: "-8%" },
@@ -28,11 +12,19 @@ const pos = [
   { rot: 6, z: 1, top: "4%", left: "87%" },
 ];
 
-export default function OverlapImages() {
+export default function OverlapImages({ images }: { images?: string[] }) {
+  const gallery = (images && images.length ? images : DEFAULT_CONTENT.menu.gallery!).filter(Boolean);
+  // build rotating sets of 6, wrapping the gallery so each slot is filled
+  const sets: string[][] = gallery.length <= 6
+    ? [Array.from({ length: 6 }, (_, i) => gallery[i % gallery.length])]
+    : Array.from({ length: Math.ceil(gallery.length / 6) }, (_, s) =>
+        Array.from({ length: 6 }, (_, i) => gallery[(s * 6 + i) % gallery.length]));
+
   const [si, setSi] = useState(0);
   const [show, setShow] = useState(true);
 
   useEffect(() => {
+    if (sets.length < 2) return;
     const id = setInterval(() => {
       setShow(false);
       setTimeout(() => {
@@ -41,7 +33,7 @@ export default function OverlapImages() {
       }, 600);
     }, 30000);
     return () => clearInterval(id);
-  }, []);
+  }, [sets.length]);
 
   return (
     <div className="relative w-full" style={{ height: "clamp(260px, 38vw, 440px)" }}>
@@ -62,7 +54,7 @@ export default function OverlapImages() {
           onMouseLeave={(e) => { e.currentTarget.style.zIndex = String(p.z); e.currentTarget.style.transform = `rotate(${p.rot}deg)`; }}
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={sets[si][i]} alt="" className="w-full h-full object-cover" />
+          <img src={(sets[si] ?? sets[0])[i]} alt="" className="w-full h-full object-cover" />
         </div>
       ))}
     </div>

@@ -21,6 +21,7 @@ export interface Menu {
   heading: string;
   courses: Course[];
   palette: Swatch[];
+  gallery?: string[]; // overlapping imagery shown above the menu
 }
 
 export interface Project {

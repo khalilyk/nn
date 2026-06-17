@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import type { Menu, Course, Swatch } from "@/lib/content/types";
+import { DEFAULT_CONTENT } from "@/lib/content/defaults";
 
 const lab = "block text-[10px] tracking-[0.16em] uppercase text-black/35 mb-1.5";
 const bare = "w-full bg-transparent border-0 outline-none";
@@ -26,6 +27,20 @@ export default function MenuEditor({ value, onChange }: { value: Menu; onChange:
   const setColor = (gi: number, patch: Partial<Swatch>) => {
     const idx = gi % palette.length;
     onChange({ ...value, palette: palette.map((s, i) => (i === idx ? { ...s, ...patch } : s)) });
+  };
+
+  // gallery (overlapping imagery)
+  const gallery = value.gallery ?? DEFAULT_CONTENT.menu.gallery ?? [];
+  const setGallery = (g: string[]) => onChange({ ...value, gallery: g });
+  const [uploading, setUploading] = useState(false);
+  const uploadInto = async (file: File, replaceIdx?: number) => {
+    setUploading(true);
+    try {
+      const fd = new FormData(); fd.append("file", file);
+      const r = await fetch("/api/admin/upload", { method: "POST", body: fd });
+      const d = await r.json();
+      if (d.url) setGallery(replaceIdx === undefined ? [...gallery, d.url] : gallery.map((g, i) => (i === replaceIdx ? d.url : g)));
+    } finally { setUploading(false); }
   };
 
   return (
@@ -78,6 +93,27 @@ export default function MenuEditor({ value, onChange }: { value: Menu; onChange:
         </div>
       ))}
       <p className="text-[11px] text-black/40 leading-relaxed">Tip: pill colours cycle through a shared palette, so editing one colour also updates pills that reuse it.</p>
+
+      {/* overlapping imagery */}
+      <div>
+        <label className={lab}>Imagery (overlapping photos)</label>
+        <div className="grid grid-cols-3 gap-2">
+          {gallery.map((src, i) => (
+            <div key={i} className="group/g relative aspect-[3/4] rounded-lg overflow-hidden border border-black/10 bg-black/[0.02]">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={src} alt="" className="w-full h-full object-cover grayscale" />
+              <div className="absolute inset-0 bg-black/45 opacity-0 group-hover/g:opacity-100 transition-opacity flex items-center justify-center gap-2">
+                <label className="text-white text-[11px] underline cursor-pointer">Replace<input type="file" accept="image/*" className="hidden" onChange={(e) => e.target.files?.[0] && uploadInto(e.target.files[0], i)} /></label>
+                <button onClick={() => setGallery(gallery.filter((_, j) => j !== i))} className="text-white text-[11px] underline">Remove</button>
+              </div>
+            </div>
+          ))}
+          <label className="aspect-[3/4] rounded-lg border border-dashed border-black/20 grid place-items-center text-[12px] text-black/45 hover:bg-black/[0.03] cursor-pointer text-center px-2">
+            {uploading ? "Uploading…" : "+ Add image"}
+            <input type="file" accept="image/*" className="hidden" onChange={(e) => e.target.files?.[0] && uploadInto(e.target.files[0])} />
+          </label>
+        </div>
+      </div>
     </div>
   );
 }
