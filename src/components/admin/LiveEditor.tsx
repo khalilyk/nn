@@ -25,6 +25,22 @@ export default function LiveEditor({ initial, initialSection = "hero" }: { initi
   const [active, setActive] = useState<keyof SiteContent>(initialSection);
   const [navOpen, setNavOpen] = useState(true);
   const [device, setDevice] = useState<"desktop" | "mobile">("desktop");
+  const [editorW, setEditorW] = useState(520);
+  const editorCol = useRef<HTMLDivElement>(null);
+  const dragging = useRef(false);
+
+  useEffect(() => {
+    const move = (e: PointerEvent) => {
+      if (!dragging.current || !editorCol.current) return;
+      const left = editorCol.current.getBoundingClientRect().left;
+      const w = Math.min(Math.max(e.clientX - left, 340), window.innerWidth - 360);
+      setEditorW(w);
+    };
+    const up = () => { dragging.current = false; document.body.style.userSelect = ""; };
+    window.addEventListener("pointermove", move);
+    window.addEventListener("pointerup", up);
+    return () => { window.removeEventListener("pointermove", move); window.removeEventListener("pointerup", up); };
+  }, []);
   const [status, setStatus] = useState<"idle" | "saving" | "saved" | "error">("idle");
   const [ready, setReady] = useState(false);
   const iframe = useRef<HTMLIFrameElement>(null);
@@ -118,7 +134,7 @@ export default function LiveEditor({ initial, initialSection = "hero" }: { initi
         </nav>
 
         {/* type-into document */}
-        <div className="w-[520px] shrink-0 overflow-y-auto bg-[#EFEFF1] py-8 px-6 border-r border-black/[0.08]">
+        <div ref={editorCol} className="shrink-0 overflow-y-auto bg-[#EFEFF1] py-8 px-6" style={{ width: editorW }}>
           <div className="mx-auto w-full max-w-[460px] rounded-2xl bg-white shadow-sm border border-black/[0.06] px-8 py-9">
             <p className="text-[11px] tracking-[0.18em] uppercase text-[#FF2EC4] mb-2">{activeLabel}</p>
             {active === "notes" ? (
@@ -127,6 +143,16 @@ export default function LiveEditor({ initial, initialSection = "hero" }: { initi
               <SectionDocument sectionKey={active} value={content[active]} onChange={(v) => patch(active, v as SiteContent[keyof SiteContent])} />
             )}
           </div>
+        </div>
+
+        {/* drag handle */}
+        <div
+          onPointerDown={(e) => { dragging.current = true; document.body.style.userSelect = "none"; e.preventDefault(); }}
+          title="Drag to resize"
+          className="group/resize relative w-1.5 shrink-0 cursor-col-resize bg-black/[0.08] hover:bg-[#0A0A0A]/30 transition-colors"
+        >
+          <span className="absolute inset-y-0 -left-1.5 -right-1.5" />
+          <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-8 w-1 rounded-full bg-black/20 group-hover/resize:bg-white/70" />
         </div>
 
         {/* live preview */}
