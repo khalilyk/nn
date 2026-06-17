@@ -17,15 +17,17 @@ export default function FeaturedCarousel({ projects = DEFAULT_CONTENT.projects }
   useEffect(() => setMounted(true), []);
   useEffect(() => { setGi(0); }, [open]);
 
-  // drag/swipe on the gallery (3 images)
+  // drag/swipe on the gallery
   const galStart = useRef<number | null>(null);
+  const galLen = useRef(1);
   const onGalDown = (e: React.PointerEvent) => { galStart.current = e.clientX; };
   const onGalUp = (e: React.PointerEvent) => {
     if (galStart.current === null) return;
     const dx = e.clientX - galStart.current;
     galStart.current = null;
-    if (dx < -45) setGi((g) => (g + 1) % 3);
-    else if (dx > 45) setGi((g) => (g - 1 + 3) % 3);
+    const len = Math.max(1, galLen.current);
+    if (dx < -45) setGi((g) => (g + 1) % len);
+    else if (dx > 45) setGi((g) => (g - 1 + len) % len);
   };
 
   useEffect(() => {
@@ -50,7 +52,7 @@ export default function FeaturedCarousel({ projects = DEFAULT_CONTENT.projects }
                 data-cursor="Open"
                 className={`md:col-span-7 relative aspect-[16/10] md:aspect-auto md:min-h-[480px] w-full overflow-hidden bg-[#0A0A0A] cursor-pointer group ${flip ? "md:order-2" : ""}`}
               >
-                <div className="absolute inset-0 bg-cover bg-center transition-transform duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.04]" style={{ backgroundImage: `url('${pr.img}')` }} />
+                <div className="absolute inset-0 bg-cover bg-center transition-transform duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.04]" style={{ backgroundImage: `url('${pr.images?.[0] ?? pr.img}')` }} />
                 <h3
                   className="absolute left-8 md:left-12 top-1/2 -translate-y-1/2 text-white font-sans font-bold tracking-tight leading-[0.95] drop-shadow-[0_4px_24px_rgba(0,0,0,0.45)]"
                   style={{ fontSize: "clamp(1.8rem, 4vw, 3.6rem)" }}
@@ -108,7 +110,8 @@ export default function FeaturedCarousel({ projects = DEFAULT_CONTENT.projects }
           >
             {/* image carousel */}
             {(() => {
-              const gallery = [doc.img, projects[(open! + 3) % projects.length].img, projects[(open! + 6) % projects.length].img];
+              const gallery = (doc.images && doc.images.length ? doc.images : [doc.img]).filter(Boolean);
+              galLen.current = gallery.length;
               const body = [
                 doc.desc,
                 `Working across ${doc.city}, we shaped every touchpoint, identity, environment and content, into one coherent story that feels unmistakably ${doc.name}.`,

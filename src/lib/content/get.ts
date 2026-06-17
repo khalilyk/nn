@@ -8,15 +8,26 @@ import type { SiteContent } from "./types";
  *  Never throws — a missing/broken DB just falls back to defaults so the site
  *  always renders. */
 export async function getSiteContent(): Promise<SiteContent> {
-  if (!hasDb) return DEFAULT_CONTENT;
+  if (!hasDb) return normalize(DEFAULT_CONTENT);
   try {
     const rows = await db
       .select()
       .from(siteContent)
       .orderBy(desc(siteContent.id))
       .limit(1);
-    return rows[0]?.content ?? DEFAULT_CONTENT;
+    return normalize(rows[0]?.content ?? DEFAULT_CONTENT);
   } catch {
-    return DEFAULT_CONTENT;
+    return normalize(DEFAULT_CONTENT);
   }
+}
+
+/** Backfill newer fields on older saved content so the editor/site stay consistent. */
+function normalize(c: SiteContent): SiteContent {
+  return {
+    ...c,
+    projects: (c.projects ?? []).map((p) => ({
+      ...p,
+      images: p.images && p.images.length ? p.images : (p.img ? [p.img] : []),
+    })),
+  };
 }

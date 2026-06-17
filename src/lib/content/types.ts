@@ -31,7 +31,8 @@ export interface Project {
   year: string;
   cat: string;
   desc: string;
-  img: ImageRef;
+  img: ImageRef; // cover (shown in the works grid)
+  images?: ImageRef[]; // gallery shown in the project popup carousel
 }
 
 export interface About {
