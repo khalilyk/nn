@@ -4,11 +4,11 @@ export const metadata = { title: "Not Normal — Admin" };
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="admin-surface min-h-screen bg-[#E8E8EA] p-3 md:p-5 text-[#0A0A0A]" style={{ fontFamily: "system-ui, -apple-system, sans-serif" }}>
-      <div className="mx-auto max-w-6xl flex flex-col md:flex-row gap-3 md:gap-5">
+    <div className="admin-surface min-h-screen md:h-screen md:overflow-hidden bg-[#E8E8EA] p-3 md:p-5 text-[#0A0A0A]" style={{ fontFamily: "system-ui, -apple-system, sans-serif" }}>
+      <div className="mx-auto max-w-6xl md:h-full flex flex-col md:flex-row gap-3 md:gap-5">
         <AdminSidebar />
 
-        <div className="flex-1 min-w-0">
+        <div className="flex-1 min-w-0 md:h-full md:overflow-y-auto">
           {/* toolbar */}
           <div className="flex items-center justify-between gap-3 rounded-[22px] bg-white shadow-sm px-5 py-3 mb-4">
             {/* eslint-disable-next-line @next/next/no-img-element */}

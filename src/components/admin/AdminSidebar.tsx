@@ -57,7 +57,7 @@ export default function AdminSidebar() {
   };
 
   return (
-    <div className="flex md:flex-col gap-3 self-start md:sticky md:top-5 md:w-[200px]">
+    <div className="flex md:flex-col gap-3 md:w-[200px] md:h-full md:overflow-y-auto shrink-0">
       <nav className="flex md:flex-col gap-1.5 rounded-[26px] bg-white p-2.5 shadow-sm overflow-x-auto">
         <Item href="/admin" k="dashboard" label="Dashboard" />
 
