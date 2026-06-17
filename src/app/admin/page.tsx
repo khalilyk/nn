@@ -101,7 +101,7 @@ export default async function AdminDashboard() {
               {daily.map((d, i) => (
                 <div key={i} className="flex-1 flex flex-col items-center gap-1 group">
                   <span className="text-[9px] text-black/45 opacity-0 group-hover:opacity-100">{d.count}</span>
-                  <div className="w-full rounded-t bg-[#0A0A0A]" style={{ height: `${Math.max(3, (d.count / maxDay) * 100)}%` }} title={`${d.day}: ${d.count}`} />
+                  <div className="w-full rounded-t" style={{ height: `${Math.max(3, (d.count / maxDay) * 100)}%`, background: "linear-gradient(180deg, #2D6BFF 0%, #6F9BFF 100%)" }} title={`${d.day}: ${d.count}`} />
                   <span className="text-[8px] text-black/35 whitespace-nowrap">{d.day.split(" ")[0]}</span>
                 </div>
               ))}
