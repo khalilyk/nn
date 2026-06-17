@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import type { Project } from "@/lib/content/types";
@@ -16,6 +16,17 @@ export default function FeaturedCarousel({ projects = DEFAULT_CONTENT.projects }
 
   useEffect(() => setMounted(true), []);
   useEffect(() => { setGi(0); }, [open]);
+
+  // drag/swipe on the gallery (3 images)
+  const galStart = useRef<number | null>(null);
+  const onGalDown = (e: React.PointerEvent) => { galStart.current = e.clientX; };
+  const onGalUp = (e: React.PointerEvent) => {
+    if (galStart.current === null) return;
+    const dx = e.clientX - galStart.current;
+    galStart.current = null;
+    if (dx < -45) setGi((g) => (g + 1) % 3);
+    else if (dx > 45) setGi((g) => (g - 1 + 3) % 3);
+  };
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setOpen(null); };
@@ -105,7 +116,7 @@ export default function FeaturedCarousel({ projects = DEFAULT_CONTENT.projects }
               ];
               return (
                 <>
-                  <div className="relative shrink-0 aspect-[4/3] md:aspect-auto md:min-h-[420px] overflow-hidden bg-[#0A0A0A]" data-cursor="grab">
+                  <div className="relative shrink-0 aspect-[4/3] md:aspect-auto md:min-h-[420px] overflow-hidden bg-[#0A0A0A] cursor-grab active:cursor-grabbing" data-cursor="grab" onPointerDown={onGalDown} onPointerUp={onGalUp} style={{ touchAction: "pan-y" }}>
                     {gallery.map((src, i) => (
                       <div
                         key={src + i}
