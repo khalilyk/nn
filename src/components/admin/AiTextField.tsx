@@ -15,11 +15,15 @@ export default function AiTextField({
   onChange,
   multiline = true,
   rows = 3,
+  bare = false,
+  textClass = "",
 }: {
   value: string;
   onChange: (v: string) => void;
   multiline?: boolean;
   rows?: number;
+  bare?: boolean;
+  textClass?: string;
 }) {
   const [open, setOpen] = useState(false);
   const [busy, setBusy] = useState<string | null>(null);
@@ -49,14 +53,17 @@ export default function AiTextField({
     }
   };
 
-  const field = "w-full bg-white border border-black/10 rounded-lg px-2.5 py-2 text-[13px] leading-relaxed";
+  const field = bare
+    ? `w-full bg-transparent border-0 outline-none resize-none ${textClass}`
+    : "w-full bg-white border border-black/10 rounded-lg px-2.5 py-2 text-[13px] leading-relaxed";
+  const grow = bare ? { fieldSizing: "content" } as React.CSSProperties : undefined;
 
   return (
-    <div ref={wrap} className="relative">
+    <div ref={wrap} className={`relative group ${bare ? "" : ""}`}>
       {multiline ? (
-        <textarea value={value} onChange={(e) => onChange(e.target.value)} rows={rows} className={`${field} resize-y pr-9`} />
+        <textarea value={value} onChange={(e) => onChange(e.target.value)} rows={bare ? undefined : rows} style={grow} className={`${field} ${bare ? "pr-7" : "resize-y pr-9"}`} />
       ) : (
-        <input value={value} onChange={(e) => onChange(e.target.value)} className={`${field} pr-9`} />
+        <input value={value} onChange={(e) => onChange(e.target.value)} className={`${field} ${bare ? "pr-7" : "pr-9"}`} />
       )}
 
       {/* AI trigger */}
@@ -65,7 +72,7 @@ export default function AiTextField({
         onClick={() => setOpen((o) => !o)}
         disabled={!!busy}
         title="Rewrite with AI"
-        className="absolute right-1.5 top-1.5 grid place-items-center w-6 h-6 rounded-md text-[12px] text-[#6D28D9] hover:bg-[#6D28D9]/10 disabled:opacity-50"
+        className={`absolute grid place-items-center w-6 h-6 rounded-md text-[12px] text-[#6D28D9] hover:bg-[#6D28D9]/10 disabled:opacity-50 ${bare ? "right-0 top-0 opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity" : "right-1.5 top-1.5"}`}
       >
         {busy ? <span className="inline-block w-3 h-3 border-2 border-[#6D28D9]/30 border-t-[#6D28D9] rounded-full animate-spin" /> : "✦"}
       </button>
