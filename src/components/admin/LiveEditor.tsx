@@ -23,6 +23,7 @@ export default function LiveEditor({ initial, initialSection = "hero" }: { initi
   const canRedo = hi < history.length - 1;
 
   const [active, setActive] = useState<keyof SiteContent>(initialSection);
+  const [navOpen, setNavOpen] = useState(true);
   const [status, setStatus] = useState<"idle" | "saving" | "saved" | "error">("idle");
   const [ready, setReady] = useState(false);
   const iframe = useRef<HTMLIFrameElement>(null);
@@ -80,7 +81,10 @@ export default function LiveEditor({ initial, initialSection = "hero" }: { initi
     <div className="fixed inset-0 z-[60] flex flex-col bg-[#EFEFF1]" style={{ fontFamily: "system-ui, -apple-system, sans-serif" }}>
       {/* top bar */}
       <div className="flex items-center justify-between gap-3 px-4 py-2.5 bg-white border-b border-black/[0.08]">
-        <div className="flex items-center gap-3 min-w-0">
+        <div className="flex items-center gap-2 min-w-0">
+          <button onClick={() => setNavOpen((o) => !o)} title={navOpen ? "Hide sections" : "Show sections"} className="grid place-items-center w-9 h-9 rounded-full bg-[#F1F1F3] hover:bg-[#E6E6E9] text-[#0A0A0A]/70 transition-colors shrink-0">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"><path d="M4 6h16M4 12h16M4 18h16" /></svg>
+          </button>
           <Link href="/admin" className="rounded-full bg-[#F1F1F3] hover:bg-[#E6E6E9] px-3.5 py-2 text-[12px] text-[#0A0A0A]/70 transition-colors shrink-0">← Exit</Link>
           <span className="text-[13px] text-black/40 truncate">Editor <span className="text-black/25 px-1">/</span> <span className="text-[#0A0A0A] font-medium">{activeLabel}</span></span>
         </div>
@@ -101,13 +105,15 @@ export default function LiveEditor({ initial, initialSection = "hero" }: { initi
 
       <div className="flex-1 flex min-h-0">
         {/* section nav rail */}
-        <nav className="w-[180px] shrink-0 border-r border-black/[0.08] bg-white overflow-y-auto py-3 px-2.5">
+        <nav className={`${navOpen ? "w-[180px]" : "w-0 px-0 border-0"} shrink-0 border-r border-black/[0.08] bg-white overflow-hidden transition-[width] duration-200 py-3`}>
+          <div className="w-[180px] px-2.5 overflow-y-auto h-full">
           <p className="px-2.5 pb-2 text-[10px] tracking-[0.16em] uppercase text-black/35">Sections</p>
           {SECTIONS.map((s) => (
             <button key={s.key} onClick={() => setActive(s.key)} className={`block w-full text-left px-2.5 py-2 rounded-lg text-[13px] transition-colors ${active === s.key ? "bg-[#0A0A0A] text-white" : "text-[#0A0A0A]/70 hover:bg-black/[0.05]"}`}>
               {s.label}
             </button>
           ))}
+          </div>
         </nav>
 
         {/* type-into document */}
