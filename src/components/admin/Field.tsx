@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import AiTextField from "./AiTextField";
 
 type Json = unknown;
 
@@ -69,10 +70,12 @@ export default function Field({
   k,
   value,
   onChange,
+  depth = 0,
 }: {
   k: string;
   value: Json;
   onChange: (v: Json) => void;
+  depth?: number;
 }) {
   // string
   if (typeof value === "string") {
@@ -86,11 +89,7 @@ export default function Field({
       );
     }
     const long = value.length > 70 || value.includes("\n");
-    return long ? (
-      <textarea value={value} onChange={(e) => onChange(e.target.value)} rows={3} className="w-full bg-white border border-black/10 rounded-lg px-2.5 py-2 text-[13px] leading-relaxed resize-y" />
-    ) : (
-      <input value={value} onChange={(e) => onChange(e.target.value)} className="w-full bg-white border border-black/10 rounded-lg px-2.5 py-1.5 text-[13px]" />
-    );
+    return <AiTextField value={value} onChange={(v) => onChange(v)} multiline={long} rows={long ? 4 : 1} />;
   }
 
   // number
@@ -125,7 +124,7 @@ export default function Field({
               <button onClick={() => move(i, 1)} className="text-black/40 hover:text-black text-xs leading-none" title="Down">▼</button>
             </div>
             <div className="flex-1 min-w-0">
-              <Field k={k} value={item} onChange={(v) => set(i, v)} />
+              <Field k={k} value={item} onChange={(v) => set(i, v)} depth={depth + 1} />
             </div>
             <button onClick={() => remove(i)} className="text-black/40 hover:text-[#c0392b] text-sm shrink-0" title="Remove">✕</button>
           </div>
@@ -138,12 +137,13 @@ export default function Field({
   // object
   if (value && typeof value === "object") {
     const obj = value as Record<string, Json>;
+    const top = depth === 0;
     return (
-      <div className="space-y-3 rounded-lg border border-black/10 p-3">
+      <div className={top ? "space-y-5" : "space-y-3 rounded-xl border border-black/10 bg-black/[0.015] p-3"}>
         {Object.entries(obj).map(([key, v]) => (
           <div key={key}>
-            <label className="block text-[11px] tracking-[0.12em] uppercase text-black/45 mb-1">{labelize(key)}</label>
-            <Field k={key} value={v} onChange={(nv) => onChange({ ...obj, [key]: nv })} />
+            <label className="block text-[11px] tracking-[0.12em] uppercase text-black/45 mb-1.5">{labelize(key)}</label>
+            <Field k={key} value={v} onChange={(nv) => onChange({ ...obj, [key]: nv })} depth={depth + 1} />
           </div>
         ))}
       </div>

@@ -64,13 +64,15 @@ export default function LiveEditor({ initial, initialSection = "hero" }: { initi
     }
   };
 
+  const activeLabel = SECTIONS.find((s) => s.key === active)?.label ?? "Section";
+
   return (
-    <div className="fixed inset-0 z-[60] flex flex-col bg-[#E8E8EA]" style={{ fontFamily: "system-ui, -apple-system, sans-serif" }}>
+    <div className="fixed inset-0 z-[60] flex flex-col bg-[#EFEFF1]" style={{ fontFamily: "system-ui, -apple-system, sans-serif" }}>
       {/* top bar */}
-      <div className="flex items-center justify-between gap-3 px-4 py-3 bg-white border-b border-black/10">
-        <div className="flex items-center gap-3">
-          <Link href="/admin" className="rounded-full bg-[#F1F1F3] hover:bg-[#E6E6E9] px-4 py-2 text-[12px] text-[#0A0A0A]/70 transition-colors">← Exit</Link>
-          <span className="font-semibold text-[14px] text-[#0A0A0A]">Live editor</span>
+      <div className="flex items-center justify-between gap-3 px-4 py-3 bg-white border-b border-black/[0.08]">
+        <div className="flex items-center gap-3 min-w-0">
+          <Link href="/admin" className="rounded-full bg-[#F1F1F3] hover:bg-[#E6E6E9] px-3.5 py-2 text-[12px] text-[#0A0A0A]/70 transition-colors shrink-0">← Exit</Link>
+          <span className="text-[13px] text-black/40 truncate">Editor <span className="text-black/25 px-1">/</span> <span className="text-[#0A0A0A] font-medium">{activeLabel}</span></span>
         </div>
         <div className="flex items-center gap-3">
           <span className="text-[12px] text-black/55">
@@ -78,32 +80,41 @@ export default function LiveEditor({ initial, initialSection = "hero" }: { initi
             {status === "saved" && "Published ✓"}
             {status === "error" && "Save failed — is the database connected?"}
           </span>
-          <button onClick={save} disabled={status === "saving"} className="rounded-full bg-[#0A0A0A] text-white px-6 py-2.5 text-[12px] tracking-[0.15em] uppercase font-medium hover:opacity-80 transition-opacity disabled:opacity-50">
-            Publish
+          <button onClick={save} disabled={status === "saving"} className="rounded-full bg-[#0A0A0A] text-white px-6 py-2.5 text-[12px] tracking-[0.12em] uppercase font-medium hover:opacity-80 transition-opacity disabled:opacity-50">
+            Save &amp; Publish
           </button>
         </div>
       </div>
 
       <div className="flex-1 flex min-h-0">
-        {/* editor panel */}
-        <div className="w-[340px] shrink-0 flex flex-col border-r border-black/10 bg-white">
-          <div className="p-3 border-b border-black/10">
-            <select
-              value={active}
-              onChange={(e) => setActive(e.target.value as keyof SiteContent)}
-              className="w-full rounded-lg border border-black/15 bg-white px-3 py-2 text-[13px] text-[#0A0A0A]"
+        {/* section nav rail */}
+        <nav className="w-[190px] shrink-0 border-r border-black/[0.08] bg-white overflow-y-auto py-3 px-2.5">
+          <p className="px-2.5 pb-2 text-[10px] tracking-[0.16em] uppercase text-black/35">Sections</p>
+          {SECTIONS.map((s) => (
+            <button
+              key={s.key}
+              onClick={() => setActive(s.key)}
+              className={`block w-full text-left px-2.5 py-2 rounded-lg text-[13px] transition-colors ${active === s.key ? "bg-[#0A0A0A] text-white" : "text-[#0A0A0A]/70 hover:bg-black/[0.05]"}`}
             >
-              {SECTIONS.map((s) => (
-                <option key={s.key} value={s.key}>{s.label}</option>
-              ))}
-            </select>
-          </div>
-          <div className="flex-1 overflow-y-auto p-3 text-[#0A0A0A]">
-            {active === "notes" ? (
-              <NotesEditor value={content.notes} onChange={(n: Notes) => setContent((c) => ({ ...c, notes: n }))} />
-            ) : (
-              <Field k={active} value={content[active]} onChange={(v) => setContent((c) => ({ ...c, [active]: v }))} />
-            )}
+              {s.label}
+            </button>
+          ))}
+        </nav>
+
+        {/* document-style editor */}
+        <div className="w-[480px] shrink-0 overflow-y-auto p-6 text-[#0A0A0A] border-r border-black/[0.08]">
+          <div className="mx-auto max-w-[420px]">
+            <div className="mb-5">
+              <h1 className="text-[22px] font-semibold tracking-tight text-[#0A0A0A]">{activeLabel}</h1>
+              <p className="text-[12.5px] text-black/45 mt-1">Edit the fields below. Use the ✦ button on any text to rewrite it with AI. Changes preview live on the right.</p>
+            </div>
+            <div className="rounded-2xl bg-white shadow-sm border border-black/[0.06] p-5">
+              {active === "notes" ? (
+                <NotesEditor value={content.notes} onChange={(n: Notes) => setContent((c) => ({ ...c, notes: n }))} />
+              ) : (
+                <Field k={active} value={content[active]} onChange={(v) => setContent((c) => ({ ...c, [active]: v }))} />
+              )}
+            </div>
           </div>
         </div>
 
