@@ -4,8 +4,9 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import SectionDocument from "./SectionDocument";
 import NotesEditor from "./NotesEditor";
+import MenuEditor from "./MenuEditor";
 import { SECTIONS } from "@/lib/content/sections";
-import type { SiteContent, Notes } from "@/lib/content/types";
+import type { SiteContent, Notes, Menu } from "@/lib/content/types";
 
 export default function LiveEditor({ initial, initialSection = "hero" }: { initial: SiteContent; initialSection?: keyof SiteContent }) {
   // content history (for undo / redo)
@@ -139,6 +140,8 @@ export default function LiveEditor({ initial, initialSection = "hero" }: { initi
             <p className="text-[11px] tracking-[0.18em] uppercase text-[#FF2EC4] mb-2">{activeLabel}</p>
             {active === "notes" ? (
               <NotesEditor value={content.notes} onChange={(n: Notes) => patch("notes", n)} />
+            ) : active === "menu" ? (
+              <MenuEditor value={content.menu} onChange={(m: Menu) => patch("menu", m)} />
             ) : (
               <SectionDocument sectionKey={active} value={content[active]} onChange={(v) => patch(active, v as SiteContent[keyof SiteContent])} />
             )}
