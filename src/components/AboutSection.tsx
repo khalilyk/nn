@@ -1,13 +1,45 @@
+"use client";
+
+import { useEffect, useRef } from "react";
 import type { About } from "@/lib/content/types";
 import { DEFAULT_CONTENT } from "@/lib/content/defaults";
 
-/* The About content, woven into the one-pager. */
+/* The About content. The founder image holds with a gentle parallax as the
+   section scrolls (CSS sticky is blocked by the panel wrappers' overflow). */
 export default function AboutSection({ about = DEFAULT_CONTENT.about }: { about?: About }) {
+  const secRef = useRef<HTMLElement>(null);
+  const colRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const col = colRef.current, sec = secRef.current;
+    if (!col || !sec) return;
+    const mq = window.matchMedia("(min-width: 768px)");
+    const AMP = 90; // how far the image drifts (px)
+    let raf = 0;
+
+    const update = () => {
+      raf = 0;
+      if (!mq.matches) { col.style.transform = ""; return; }
+      const sr = sec.getBoundingClientRect();
+      const vh = window.innerHeight;
+      // -1 (section below) → 1 (section above); 0 when centred
+      const p = (sr.top + sr.height / 2 - vh / 2) / (vh + sr.height / 2);
+      const ty = Math.max(-AMP, Math.min(AMP, p * AMP));
+      col.style.transform = `translateY(${ty.toFixed(1)}px)`;
+    };
+    const onScroll = () => { if (!raf) raf = requestAnimationFrame(update); };
+
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => { window.removeEventListener("scroll", onScroll); window.removeEventListener("resize", onScroll); cancelAnimationFrame(raf); };
+  }, []);
+
   return (
-    <section id="about" className="relative scroll-mt-20 bg-white text-[#0A0A0A] overflow-hidden">
+    <section ref={secRef} id="about" className="relative scroll-mt-20 bg-white text-[#0A0A0A] overflow-hidden">
       {/* founder */}
       <div className="px-8 md:px-16 pt-28 md:pt-36 pb-20 md:pb-28">
-        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-start">
+        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-center">
           <div>
             <p className="text-[10px] tracking-[0.3em] uppercase text-[#0A0A0A]/45 mb-6">{about.eyebrow}</p>
             <p className="font-editorial leading-[1.1]" style={{ fontSize: "clamp(1.8rem, 4vw, 3rem)" }}>
@@ -19,7 +51,7 @@ export default function AboutSection({ about = DEFAULT_CONTENT.about }: { about?
               ))}
             </div>
           </div>
-          <div className="relative">
+          <div ref={colRef} className="relative self-center will-change-transform">
             <div className="relative w-full aspect-square overflow-hidden rounded-2xl">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={about.image} alt={about.founderName} className="absolute inset-0 w-full h-full object-cover" />
@@ -37,7 +69,6 @@ export default function AboutSection({ about = DEFAULT_CONTENT.about }: { about?
           </div>
         </div>
       </div>
-
     </section>
   );
 }
