@@ -6,6 +6,7 @@ import Reveal from "./Reveal";
 import FeaturedCarousel from "./FeaturedCarousel";
 import ParallaxBg from "./ParallaxBg";
 import ClientLogos from "./ClientLogos";
+import PinInView from "./PinInView";
 import SiteNav from "./SiteNav";
 import SiteFooter from "./SiteFooter";
 import Terminal from "./Terminal";
@@ -284,10 +285,12 @@ export default function Publication({ initialContent }: { initialContent?: SiteC
       {/* ═══ 05, POSTCARD ═══ */}
       <Panel index={5} bg="ivory" minH="auto" pin={false} slideFrom="up">
         <div className="relative px-8 md:px-16 py-28 md:py-36 bg-[#C0392B] overflow-hidden">
-          {/* graffiti backdrop */}
-          <span aria-hidden className="pointer-events-none absolute inset-0 z-0 flex flex-col items-center justify-center text-center font-permanent uppercase leading-[0.78] text-[#0A0A0A]/[0.18] select-none" style={{ fontSize: "clamp(6.4rem, 27vw, 24rem)" }}>
-            Not The<br />Louvre
-          </span>
+          {/* graffiti backdrop, pinned in the viewport while the section scrolls */}
+          <PinInView>
+            <span aria-hidden className="w-full h-full flex flex-col items-center justify-center text-center font-permanent uppercase leading-[0.78] text-[#0A0A0A]/[0.18] select-none" style={{ fontSize: "clamp(6.4rem, 27vw, 24rem)" }}>
+              Not The<br />Louvre
+            </span>
+          </PinInView>
           <div className="relative z-10">
             <Postcard />
           </div>
