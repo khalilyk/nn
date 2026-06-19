@@ -251,6 +251,9 @@ export default function Publication({ initialContent }: { initialContent?: SiteC
             </Reveal>
           </div>
 
+          {/* Brands / client logos */}
+          <ClientLogos clients={c.clients} />
+
           {/* The Menu, split screen, sticky left + scrolling services.
               No Reveal wrapper here - its transform would break the sticky column. */}
           <div className="px-8 md:px-16 pb-24 md:pb-28">
@@ -259,12 +262,6 @@ export default function Publication({ initialContent }: { initialContent?: SiteC
 
           <SectionNo n="02" />
         </div>
-      </Panel>
-
-
-      {/* ═══ BRANDS / CLIENT LOGOS ═══ */}
-      <Panel index={3} bg="ivory" minH="auto" pin={false}>
-        <ClientLogos clients={c.clients} />
       </Panel>
 
       {/* ═══ 03, FEATURED PROJECTS ═══ */}
