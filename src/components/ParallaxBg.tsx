@@ -2,36 +2,38 @@
 
 import { useEffect, useRef } from "react";
 
-/** A background image layer that drifts with scroll (parallax), plus a dark overlay. */
-export default function ParallaxBg({ src, overlay = 0.7, amp = 100, cover = true }: { src: string; overlay?: number; amp?: number; cover?: boolean }) {
+/** A background image that stays fixed in the viewport while the section scrolls
+ *  over it (emulates background-attachment:fixed, which the transformed panels break). */
+export default function ParallaxBg({ src, overlay = 0.7, cover = true }: { src: string; overlay?: number; cover?: boolean }) {
   const wrap = useRef<HTMLDivElement>(null);
   const layer = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const w = wrap.current, l = layer.current;
     if (!w || !l) return;
-    let raf = 0;
-    const update = () => {
-      raf = 0;
+    let raf = 0, running = true;
+    const loop = () => {
+      if (!running) return;
       const r = w.getBoundingClientRect();
       const vh = window.innerHeight;
-      // -1 (below viewport) → 1 (above); 0 when centred
-      const p = (r.top + r.height / 2 - vh / 2) / (vh + r.height / 2);
-      l.style.transform = `translate3d(0, ${(-p * amp).toFixed(1)}px, 0)`;
+      // only update while the section is anywhere near the viewport
+      if (r.bottom > -vh && r.top < vh * 2) {
+        // pin the viewport-tall layer to the top of the screen while the section covers it
+        const ty = Math.min(Math.max(-r.top, 0), Math.max(0, r.height - vh));
+        l.style.transform = `translate3d(0, ${ty.toFixed(1)}px, 0)`;
+      }
+      raf = requestAnimationFrame(loop);
     };
-    const onScroll = () => { if (!raf) raf = requestAnimationFrame(update); };
-    update();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
-    return () => { window.removeEventListener("scroll", onScroll); window.removeEventListener("resize", onScroll); cancelAnimationFrame(raf); };
-  }, [amp]);
+    raf = requestAnimationFrame(loop);
+    return () => { running = false; cancelAnimationFrame(raf); };
+  }, []);
 
   return (
     <div ref={wrap} className="absolute inset-0 overflow-hidden pointer-events-none">
       <div
         ref={layer}
-        className="absolute inset-x-0 bg-center bg-no-repeat will-change-transform"
-        style={{ top: -amp, bottom: -amp, backgroundImage: `url('${src}')`, backgroundSize: cover ? "cover" : "contain" }}
+        className="absolute inset-x-0 top-0 bg-center bg-no-repeat will-change-transform"
+        style={{ height: "100dvh", backgroundImage: `url('${src}')`, backgroundSize: cover ? "cover" : "contain" }}
       />
       <div className="absolute inset-0" style={{ background: `rgba(0,0,0,${overlay})` }} />
     </div>
