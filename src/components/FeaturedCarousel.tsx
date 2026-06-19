@@ -50,7 +50,7 @@ export default function FeaturedCarousel({ projects = DEFAULT_CONTENT.projects }
               <div
                 onClick={() => { setOpen(i); track("project_open", pr.name); }}
                 data-cursor="Open"
-                className={`md:col-span-7 relative aspect-[16/10] md:aspect-auto md:min-h-[480px] w-full overflow-hidden bg-[#0A0A0A] cursor-pointer group shadow-[0_0_70px_-5px_rgba(255,255,255,0.55)] ${flip ? "md:order-2" : ""}`}
+                className={`md:col-span-7 relative aspect-[16/10] md:aspect-auto md:min-h-[480px] w-full overflow-hidden bg-[#0A0A0A] cursor-pointer group shadow-[0_0_90px_-12px_rgba(255,255,255,0.38)] ${flip ? "md:order-2" : ""}`}
               >
                 <div className="absolute inset-0 bg-cover bg-center transition-transform duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.04]" style={{ backgroundImage: `url('${pr.images?.[0] ?? pr.img}')` }} />
                 <h3
