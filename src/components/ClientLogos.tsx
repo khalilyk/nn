@@ -1,107 +1,42 @@
 "use client";
 
-import { useState, useRef, useEffect, useCallback } from "react";
+import type { Clients } from "@/lib/content/types";
+import { DEFAULT_CONTENT } from "@/lib/content/defaults";
 
-const clients = [
-  "3Fils", "Revolver", "Maison Dali", "Oakberry",
-  "Kinoya", "Tony's Woodfire", "PieHaus", "Yava",
-  "Bar Baker", "Shanghai Me", "Mimi Kakushi", "Lucky's",
-];
-
-const PER_PAGE = 4;
-
-export default function ClientLogos() {
-  const pages = Math.ceil(clients.length / PER_PAGE);
-  const [page, setPage] = useState(0);
-  const [delta, setDelta] = useState(0);
-  const drag = useRef({ x: 0, active: false });
-  const track = useRef<HTMLDivElement>(null);
-
-  const clamp = (n: number) => Math.max(0, Math.min(pages - 1, n));
-
-  const onDown = (e: React.PointerEvent) => {
-    drag.current = { x: e.clientX, active: true };
-    (e.target as HTMLElement).setPointerCapture?.(e.pointerId);
-  };
-  const onMove = (e: React.PointerEvent) => {
-    if (drag.current.active) setDelta(e.clientX - drag.current.x);
-  };
-  const onUp = useCallback(() => {
-    if (!drag.current.active) return;
-    drag.current.active = false;
-    const w = track.current?.offsetWidth || window.innerWidth;
-    setDelta((d) => {
-      if (d < -w * 0.15) setPage((p) => clamp(p + 1));
-      else if (d > w * 0.15) setPage((p) => clamp(p - 1));
-      return 0;
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pages]);
-
-  useEffect(() => {
-    window.addEventListener("pointerup", onUp);
-    return () => window.removeEventListener("pointerup", onUp);
-  }, [onUp]);
+/* A boxed, auto-scrolling carousel of client logos. */
+export default function ClientLogos({ clients = DEFAULT_CONTENT.clients }: { clients?: Clients }) {
+  const logos = (clients.logos ?? []).filter(Boolean);
+  if (!logos.length) return null;
+  // duplicate so the marquee loops seamlessly
+  const row = [...logos, ...logos];
 
   return (
-    <div className="w-full select-none">
-      {/* Header */}
-      <div className="flex items-end justify-between mb-10">
-        <p className="font-display uppercase text-[#0A0A0A] leading-[0.95] tracking-tight max-w-3xl" style={{ fontSize: "clamp(2rem, 5vw, 4rem)" }}>
-          Call them clients, call them friends, basically the same thing.
-        </p>
-        <div className="flex items-center gap-4 shrink-0">
-          <span className="text-[9px] tracking-[0.3em] uppercase text-[#0A0A0A]/40 hidden md:block">Drag</span>
-          <div className="flex gap-3">
-            <button onClick={() => setPage((p) => clamp(p - 1))} aria-label="Previous"
-              className="w-9 h-9 rounded-full border border-[#0A0A0A]/30 flex items-center justify-center text-sm text-[#0A0A0A] hover:bg-[#0A0A0A] hover:text-[#81D742] transition-colors">←</button>
-            <button onClick={() => setPage((p) => clamp(p + 1))} aria-label="Next"
-              className="w-9 h-9 rounded-full border border-[#0A0A0A]/30 flex items-center justify-center text-sm text-[#0A0A0A] hover:bg-[#0A0A0A] hover:text-[#81D742] transition-colors">→</button>
-          </div>
-        </div>
+    <section className="relative bg-[#F3F1EC] text-[#0A0A0A] py-20 md:py-28 overflow-hidden">
+      <div className="text-center px-8 mb-12 md:mb-16">
+        {clients.eyebrow && <p className="text-[10px] tracking-[0.3em] uppercase text-[#0A0A0A]/45 mb-4">{clients.eyebrow}</p>}
+        {clients.heading && <h2 className="font-editorial leading-[1.1]" style={{ fontSize: "clamp(1.8rem, 4vw, 3rem)" }}>{clients.heading}</h2>}
       </div>
 
-      {/* Track */}
-      <div
-        className="overflow-hidden cursor-grab active:cursor-grabbing border-t border-l border-[#0A0A0A]/15"
-        onPointerDown={onDown}
-        onPointerMove={onMove}
-        data-cursor="grab"
-      >
-        <div
-          ref={track}
-          className="flex"
-          style={{
-            transform: `translateX(calc(${-page * 100}% + ${delta}px))`,
-            transition: drag.current.active ? "none" : "transform 0.7s cubic-bezier(0.16,1,0.3,1)",
-          }}
-        >
-          {clients.map((name) => (
+      <div className="relative">
+        {/* edge fades */}
+        <div className="pointer-events-none absolute inset-y-0 left-0 w-24 z-10 bg-gradient-to-r from-[#F3F1EC] to-transparent" />
+        <div className="pointer-events-none absolute inset-y-0 right-0 w-24 z-10 bg-gradient-to-l from-[#F3F1EC] to-transparent" />
+
+        <div className="flex w-max border-t border-b border-[#0A0A0A]/12 animate-[marquee-left_40s_linear_infinite] hover:[animation-play-state:paused]">
+          {row.map((src, i) => (
             <div
-              key={name}
-              className="shrink-0 basis-1/2 md:basis-1/4 border-r border-b border-[#0A0A0A]/15 flex items-center justify-center group"
-              style={{ minHeight: "clamp(160px, 24vh, 280px)" }}
+              key={i}
+              className="group relative shrink-0 w-[200px] md:w-[240px] h-[130px] md:h-[150px] grid place-items-center p-8 border-r border-[#0A0A0A]/12"
             >
-              <span className="font-display text-[#0A0A0A]/40 group-hover:text-[#0A0A0A] transition-all duration-500 group-hover:scale-105 text-center px-2" style={{ fontSize: "clamp(1rem, 1.5vw, 1.6rem)" }}>
-                {name.toUpperCase()}
-              </span>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={src} alt="" className="max-w-full max-h-full object-contain grayscale opacity-60 group-hover:opacity-100 group-hover:grayscale-0 transition-all duration-300" />
+              {/* diamond markers at the box corners (grid-intersection look) */}
+              <span className="absolute -top-1 -right-1 w-2 h-2 rotate-45 bg-[#0A0A0A]/20" />
+              <span className="absolute -bottom-1 -right-1 w-2 h-2 rotate-45 bg-[#0A0A0A]/20" />
             </div>
           ))}
         </div>
       </div>
-
-      {/* Pagination */}
-      <div className="flex gap-2 mt-8">
-        {Array.from({ length: pages }).map((_, i) => (
-          <button
-            key={i}
-            onClick={() => setPage(i)}
-            aria-label={`Page ${i + 1}`}
-            className="h-1 rounded-full transition-all"
-            style={{ width: i === page ? 28 : 8, background: i === page ? "#0A0A0A" : "rgba(10,10,10,0.25)" }}
-          />
-        ))}
-      </div>
-    </div>
+    </section>
   );
 }

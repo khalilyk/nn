@@ -44,6 +44,12 @@ export interface About {
   thoughtBubble: string;
 }
 
+export interface Clients {
+  eyebrow: string;
+  heading: string;
+  logos: ImageRef[];
+}
+
 export interface Testimonial {
   q: string;
   name: string;
@@ -111,6 +117,7 @@ export interface SiteContent {
   menu: Menu;
   about: About;
   projects: Project[];
+  clients: Clients;
   testimonials: Testimonial[];
   notes: Notes;
   contact: Contact;

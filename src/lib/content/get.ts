@@ -25,6 +25,7 @@ export async function getSiteContent(): Promise<SiteContent> {
 function normalize(c: SiteContent): SiteContent {
   return {
     ...c,
+    clients: c.clients ?? DEFAULT_CONTENT.clients,
     projects: (c.projects ?? []).map((p) => ({
       ...p,
       images: p.images && p.images.length ? p.images : (p.img ? [p.img] : []),

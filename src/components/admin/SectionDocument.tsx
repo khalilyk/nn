@@ -9,7 +9,7 @@ const labelize = (k: string) =>
   k.replace(/([A-Z])/g, " $1").replace(/^./, (s) => s.toUpperCase()).replace(/_/g, " ");
 const isColor = (v: string) => /^#([0-9a-f]{3}|[0-9a-f]{6}|[0-9a-f]{8})$/i.test(v.trim());
 const isImageKey = (k: string) => /^(img|image|photo|src|logo|avatar)$/i.test(k);
-const isImageArrayKey = (k: string) => /^(images|imgs|gallery|photos|slides)$/i.test(k);
+const isImageArrayKey = (k: string) => /^(images|imgs|gallery|photos|slides|logos)$/i.test(k);
 
 function ImageGallery({ items, onChange }: { items: string[]; onChange: (v: string[]) => void }) {
   const [busy, setBusy] = useState(false);

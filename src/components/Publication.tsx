@@ -5,6 +5,7 @@ import Lenis from "lenis";
 import Reveal from "./Reveal";
 import FeaturedCarousel from "./FeaturedCarousel";
 import ParallaxBg from "./ParallaxBg";
+import ClientLogos from "./ClientLogos";
 import SiteNav from "./SiteNav";
 import SiteFooter from "./SiteFooter";
 import Terminal from "./Terminal";
@@ -273,6 +274,11 @@ export default function Publication({ initialContent }: { initialContent?: SiteC
           </div>
           <SectionNo n="03" />
         </div>
+      </Panel>
+
+      {/* ═══ BRANDS / CLIENT LOGOS ═══ */}
+      <Panel index={3} bg="ivory" minH="auto" pin={false}>
+        <ClientLogos clients={c.clients} />
       </Panel>
 
       {/* ═══ 05, POSTCARD ═══ */}

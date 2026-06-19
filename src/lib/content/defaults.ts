@@ -1,5 +1,12 @@
 import type { SiteContent } from "./types";
 
+/** A simple SVG wordmark as a data URI — placeholder client logos until real ones are uploaded. */
+const textLogo = (t: string) =>
+  "data:image/svg+xml;utf8," +
+  encodeURIComponent(
+    `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 80'><text x='120' y='52' font-family='Helvetica,Arial,sans-serif' font-size='30' font-weight='700' letter-spacing='1' text-anchor='middle' fill='#0A0A0A'>${t}</text></svg>`
+  );
+
 /** The current site content, used as the DB seed AND the runtime fallback.
  *  Components import their slice from here as the default prop, so the site
  *  renders identically whether or not the database is connected. */
@@ -121,6 +128,12 @@ export const DEFAULT_CONTENT: SiteContent = {
     { name: "Shanghai Me", sub: "Old-World Glamour, Rebuilt", city: "Dubai", year: "2021", cat: "Identity", desc: "Old-world glamour, rebuilt for today. A cinematic identity steeped in 1930s Shanghai, dialled up for a modern fine-dining stage.", img: "https://images.unsplash.com/photo-1552566626-52f8b828add9?auto=format&fit=crop&w=1800&q=80" },
     { name: "Mimi Kakushi", sub: "1920s Osaka, Reborn in Dubai", city: "Dubai", year: "2024", cat: "Branding", desc: "1920s Osaka reborn in Dubai. A richly detailed world of jazz-age Japan, translated into every plate, menu and surface.", img: "https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?auto=format&fit=crop&w=1800&q=80" },
   ],
+
+  clients: {
+    eyebrow: "Selected partners",
+    heading: "Brands we've shaped.",
+    logos: ["3FILS", "BRIX", "BORDO MAVI", "REVOLVER", "MAISON DALI", "OAKBERRY", "KINOYA", "MIMI KAKUSHI"].map(textLogo),
+  },
 
   testimonials: [
     { q: "Everything finally felt like it belonged together.", name: "Bassil", venue: "Tonton Bakes", color: "#FF5C1A" },
