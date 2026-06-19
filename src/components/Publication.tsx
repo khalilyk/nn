@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, ReactNode } from "react";
+import { useEffect, useRef, ReactNode } from "react";
 import Lenis from "lenis";
 import Reveal from "./Reveal";
 import FeaturedCarousel from "./FeaturedCarousel";
@@ -11,7 +11,6 @@ import SiteFooter from "./SiteFooter";
 import Terminal from "./Terminal";
 import Cursor from "./Cursor";
 import Grain from "./Grain";
-import Preloader from "./Preloader";
 import ScrollProgress from "./ScrollProgress";
 import Magnetic from "./Magnetic";
 import HeroMedia from "./HeroMedia";
@@ -143,7 +142,6 @@ function SectionNo({ n, side = "left", dark }: { n: string; side?: "left" | "rig
 /* ───────────────── PUBLICATION ───────────────── */
 export default function Publication({ initialContent }: { initialContent?: SiteContent }) {
   const c = initialContent ?? DEFAULT_CONTENT;
-  const [loading, setLoading] = useState(true);
   const lenisRef = useRef<Lenis | null>(null);
 
   useEffect(() => {
@@ -166,15 +164,8 @@ export default function Publication({ initialContent }: { initialContent?: SiteC
     };
   }, []);
 
-  // Lock scroll while the preloader is up
-  useEffect(() => {
-    if (loading) lenisRef.current?.stop();
-    else lenisRef.current?.start();
-  }, [loading]);
-
   return (
     <div className="relative overflow-x-clip md:overflow-x-visible">
-      <Preloader onDone={() => setLoading(false)} />
       <Cursor />
       <Grain />
       <ScrollProgress total={9} />
