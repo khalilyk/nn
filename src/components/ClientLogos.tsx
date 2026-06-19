@@ -11,12 +11,7 @@ export default function ClientLogos({ clients = DEFAULT_CONTENT.clients }: { cli
   const row = [...logos, ...logos];
 
   return (
-    <section className="relative bg-[#F3F1EC] text-[#0A0A0A] py-20 md:py-28 overflow-hidden">
-      <div className="text-center px-8 mb-12 md:mb-16">
-        {clients.eyebrow && <p className="text-[10px] tracking-[0.3em] uppercase text-[#0A0A0A]/45 mb-4">{clients.eyebrow}</p>}
-        {clients.heading && <h2 className="font-editorial leading-[1.1]" style={{ fontSize: "clamp(1.8rem, 4vw, 3rem)" }}>{clients.heading}</h2>}
-      </div>
-
+    <section className="relative bg-[#F3F1EC] text-[#0A0A0A] py-14 md:py-20 overflow-hidden">
       <div className="relative">
         {/* edge fades */}
         <div className="pointer-events-none absolute inset-y-0 left-0 w-24 z-10 bg-gradient-to-r from-[#F3F1EC] to-transparent" />
