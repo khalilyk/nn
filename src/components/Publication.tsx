@@ -265,6 +265,11 @@ export default function Publication({ initialContent }: { initialContent?: SiteC
         <AboutSection about={c.about} />
       </Panel>
 
+      {/* ═══ BRANDS / CLIENT LOGOS ═══ */}
+      <Panel index={3} bg="ivory" minH="auto" pin={false}>
+        <ClientLogos clients={c.clients} />
+      </Panel>
+
       {/* ═══ 03, FEATURED PROJECTS ═══ */}
       <Panel index={3} bg="ivory" minH="auto" pin={false}>
         <div id="s04" className="relative bg-[#0A0A0A] text-[#F3F1EC]" data-cursor-color="#F3F1EC">
@@ -274,11 +279,6 @@ export default function Publication({ initialContent }: { initialContent?: SiteC
           </div>
           <SectionNo n="03" />
         </div>
-      </Panel>
-
-      {/* ═══ BRANDS / CLIENT LOGOS ═══ */}
-      <Panel index={3} bg="ivory" minH="auto" pin={false}>
-        <ClientLogos clients={c.clients} />
       </Panel>
 
       {/* ═══ 05, POSTCARD ═══ */}
