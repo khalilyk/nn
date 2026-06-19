@@ -171,8 +171,8 @@ export const DEFAULT_CONTENT: SiteContent = {
 
   nav: [
     { l: "The Menu", href: "/#s02", tip: "What we do", shape: "rounded-none" },
-    { l: "About", href: "/#about", tip: "Who we are", shape: "rounded-full" },
     { l: "Projects", href: "/#s04", tip: "Selected proof", shape: "rounded-tl-xl rounded-br-xl" },
+    { l: "About", href: "/#about", tip: "Who we are", shape: "rounded-full" },
     { l: "Notes", href: "/#journal", tip: "Thinking & insights", shape: "rounded-lg" },
   ],
 
