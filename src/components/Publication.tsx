@@ -5,7 +5,6 @@ import Lenis from "lenis";
 import Reveal from "./Reveal";
 import FeaturedCarousel from "./FeaturedCarousel";
 import ParallaxBg from "./ParallaxBg";
-import ClientLogos from "./ClientLogos";
 import PinInView from "./PinInView";
 import SiteNav from "./SiteNav";
 import SiteFooter from "./SiteFooter";
@@ -250,9 +249,6 @@ export default function Publication({ initialContent }: { initialContent?: SiteC
               <OverlapImages images={c.menu.gallery} />
             </Reveal>
           </div>
-
-          {/* Brands / client logos */}
-          <ClientLogos clients={c.clients} />
 
           {/* The Menu, split screen, sticky left + scrolling services.
               No Reveal wrapper here - its transform would break the sticky column. */}
