@@ -43,7 +43,7 @@ export default function AboutSection({ about = DEFAULT_CONTENT.about }: { about?
           <div>
             <p className="text-[10px] tracking-[0.3em] uppercase text-[#0A0A0A]/45 mb-6">{about.eyebrow}</p>
             <p className="font-editorial leading-[1.1]" style={{ fontSize: "clamp(1.8rem, 4vw, 3rem)" }}>
-              Founded by <span className="italic">{about.founderName}</span>.
+              {about.heading ? about.heading : <>Founded by <span className="italic">{about.founderName}</span>.</>}
             </p>
             <div className="mt-8 space-y-5 text-[14px] md:text-[15px] leading-relaxed text-[#0A0A0A]/65">
               {about.paragraphs.map((p, i) => (

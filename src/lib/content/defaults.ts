@@ -97,13 +97,14 @@ export const DEFAULT_CONTENT: SiteContent = {
   about: {
     eyebrow: "The founder",
     founderName: "Khalil Khouri",
+    heading: "Founded on a refusal to blend in.",
     image: "/nn-founder.jpg",
     thoughtBubble: "What's for lunch?",
     paragraphs: [
-      "The former Head of Marketing behind some of Dubai's most recognised hospitality brands, including 3Fils, BRIX and Bordo Mavi, Not Normal was born from a simple belief: the world doesn't need more of the same.",
-      "Over the past two decades, our work has helped shape brands recognised by Michelin, celebrated by The World's 50 Best Restaurants, and awarded across some of the region's most competitive dining markets. From Dubai's waterfront institutions to emerging concepts in Sydney and creative collaborations throughout Beirut, we've seen firsthand what separates a venue people visit from one they talk about.",
-      "Today, Not Normal partners with restaurants, cafés and lifestyle brands to build identities with substance and longevity. From concept development and brand strategy to menus, packaging, content, digital marketing and launch campaigns, every project is approached through a hospitality lens.",
-      "Built across cities, cultures and award-winning hospitality brands, Not Normal creates work designed to be remembered.",
+      "Khalil Khouri started Not Normal on a simple conviction: the world doesn't need more of the same. He'd spent years proving it, taking venues that could have looked like everyone else and making them impossible to ignore.",
+      "Before this, Khalil ran marketing for some of Dubai's most recognised hospitality brands, 3Fils, BRIX and Bordo Mavi among them. Two decades of work shaped names recognised by Michelin, celebrated by The World's 50 Best Restaurants, and awarded across the region's most competitive dining rooms. From Dubai's waterfront institutions to new concepts in Sydney and collaborations across Beirut, he learned what separates a venue people visit from one they talk about.",
+      "Today Not Normal partners with restaurants, cafés and lifestyle brands to build identities with substance and longevity. Concept and strategy, menus and packaging, content, digital and launch campaigns, every project runs through a hospitality lens.",
+      "Built across cities, cultures and award-winning brands. Designed to be remembered.",
     ],
   },
 

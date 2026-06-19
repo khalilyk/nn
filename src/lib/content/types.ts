@@ -38,6 +38,7 @@ export interface Project {
 export interface About {
   eyebrow: string;
   founderName: string;
+  heading?: string; // overrides the "Founded by {founderName}." headline when set
   paragraphs: string[];
   image: ImageRef;
   thoughtBubble: string;
