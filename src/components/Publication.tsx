@@ -4,6 +4,7 @@ import { useEffect, useRef, useState, ReactNode } from "react";
 import Lenis from "lenis";
 import Reveal from "./Reveal";
 import FeaturedCarousel from "./FeaturedCarousel";
+import ParallaxBg from "./ParallaxBg";
 import SiteNav from "./SiteNav";
 import SiteFooter from "./SiteFooter";
 import Terminal from "./Terminal";
@@ -265,8 +266,8 @@ export default function Publication({ initialContent }: { initialContent?: SiteC
 
       {/* ═══ 03, FEATURED PROJECTS ═══ */}
       <Panel index={3} bg="ivory" minH="auto" pin={false}>
-        <div id="s04" className="relative bg-[#0A0A0A] bg-cover bg-center text-[#F3F1EC]" style={{ backgroundImage: "url('/nn-wall.png')" }} data-cursor-color="#F3F1EC">
-          <div className="absolute inset-0 bg-black/70" />
+        <div id="s04" className="relative bg-[#0A0A0A] text-[#F3F1EC]" data-cursor-color="#F3F1EC">
+          <ParallaxBg src="/nn-wall.png" overlay={0.7} />
           <div className="relative px-8 md:px-16 pt-28 md:pt-36 pb-28 md:pb-36 overflow-hidden">
             <FeaturedCarousel projects={c.projects} />
           </div>
