@@ -101,10 +101,11 @@ export const DEFAULT_CONTENT: SiteContent = {
     image: "/nn-founder.jpg",
     thoughtBubble: "What's for lunch?",
     paragraphs: [
-      "Khalil Khouri started Not Normal on a simple conviction: the world doesn't need more of the same. He'd spent years proving it, taking venues that could have looked like everyone else and making them impossible to ignore.",
-      "Before this, Khalil ran marketing for some of Dubai's most recognised hospitality brands, 3Fils, BRIX and Bordo Mavi among them. Two decades of work shaped names recognised by Michelin, celebrated by The World's 50 Best Restaurants, and awarded across the region's most competitive dining rooms. From Dubai's waterfront institutions to new concepts in Sydney and collaborations across Beirut, he learned what separates a venue people visit from one they talk about.",
-      "Today Not Normal partners with restaurants, cafés and lifestyle brands to build identities with substance and longevity. Concept and strategy, menus and packaging, content, digital and launch campaigns, every project runs through a hospitality lens.",
-      "Built across cities, cultures and award-winning brands. Designed to be remembered.",
+      "Most venues settle for being good. Not Normal exists for the ones that refuse to be forgotten.",
+      "The conviction is simple: the world doesn't need more of the same. Founder Khalil Khouri has spent two decades proving it, behind names recognised by Michelin, celebrated by The World's 50 Best, and awarded across Dubai's most competitive dining rooms. 3Fils. BRIX. Bordo Mavi.",
+      "From Dubai's waterfront to new concepts in Sydney and collaborations across Beirut, one thing held true everywhere. There's a difference between a venue people visit and one they can't stop talking about. We build the second kind.",
+      "Restaurants, cafés, lifestyle brands. Identity, strategy, menus, packaging, content, launch. Every decision runs through a hospitality lens, because that's the only one we've ever worked through.",
+      "Built across cities and cultures. Designed to be remembered.",
     ],
   },
 
