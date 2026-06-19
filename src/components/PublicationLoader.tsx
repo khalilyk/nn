@@ -4,11 +4,21 @@ import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 import type { SiteContent } from "@/lib/content/types";
 import { track } from "@/lib/track";
+import GlitchLoader from "@/components/GlitchLoader";
 
 const Publication = dynamic(() => import("@/components/Publication"), { ssr: false });
 
 export default function PublicationLoader({ initialContent }: { initialContent: SiteContent }) {
   const [content, setContent] = useState<SiteContent>(initialContent);
+  const [loading, setLoading] = useState(true);
+
+  // glitch loading screen — once per session, never in the admin live-preview iframe
+  useEffect(() => {
+    const preview = new URLSearchParams(window.location.search).has("preview");
+    if (preview || sessionStorage.getItem("nn-loaded")) { setLoading(false); return; }
+    const t = setTimeout(() => { setLoading(false); sessionStorage.setItem("nn-loaded", "1"); }, 2400);
+    return () => clearTimeout(t);
+  }, []);
 
   useEffect(() => {
     const preview = new URLSearchParams(window.location.search).has("preview");
@@ -30,5 +40,10 @@ export default function PublicationLoader({ initialContent }: { initialContent: 
     return () => window.removeEventListener("message", onMsg);
   }, []);
 
-  return <Publication initialContent={content} />;
+  return (
+    <>
+      {loading && <GlitchLoader />}
+      <Publication initialContent={content} />
+    </>
+  );
 }

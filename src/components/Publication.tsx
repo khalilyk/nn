@@ -261,10 +261,6 @@ export default function Publication({ initialContent }: { initialContent?: SiteC
         </div>
       </Panel>
 
-      {/* ═══ ABOUT (woven in) ═══ */}
-      <Panel index={2} bg="ivory" minH="auto" pin={false}>
-        <AboutSection about={c.about} />
-      </Panel>
 
       {/* ═══ BRANDS / CLIENT LOGOS ═══ */}
       <Panel index={3} bg="ivory" minH="auto" pin={false}>
@@ -324,6 +320,11 @@ Meet <span className="italic">NORM</span>, our marketing exec.<br />
         </div>
       </Panel>
 
+
+      {/* ═══ ABOUT (woven in) ═══ */}
+      <Panel index={2} bg="ivory" minH="auto" pin={false}>
+        <AboutSection about={c.about} />
+      </Panel>
 
       {/* ═══ JOURNAL (blog) ═══ */}
       <Panel index={9} bg="ivory" minH="auto" pin={false}>
