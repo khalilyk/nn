@@ -16,7 +16,7 @@ export default function PublicationLoader({ initialContent }: { initialContent: 
   useEffect(() => {
     const preview = new URLSearchParams(window.location.search).has("preview");
     if (preview || sessionStorage.getItem("nn-loaded")) { setLoading(false); return; }
-    const t = setTimeout(() => { setLoading(false); sessionStorage.setItem("nn-loaded", "1"); }, 2400);
+    const t = setTimeout(() => { setLoading(false); sessionStorage.setItem("nn-loaded", "1"); }, 4200);
     return () => clearTimeout(t);
   }, []);
 

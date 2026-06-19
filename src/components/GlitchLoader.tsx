@@ -18,7 +18,7 @@ export default function GlitchLoader() {
 
         {/* bar */}
         <div className="mx-auto w-[260px] md:w-[340px] h-7 md:h-8 border-2 border-white p-[3px]">
-          <div className="h-full bg-white" style={{ animation: "nn-loadbar 2.1s cubic-bezier(0.45,0.05,0.4,1) forwards" }} />
+          <div className="h-full bg-white" style={{ animation: "nn-loadbar 3.9s cubic-bezier(0.45,0.05,0.4,1) forwards" }} />
         </div>
       </div>
     </div>
