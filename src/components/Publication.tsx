@@ -267,7 +267,7 @@ export default function Publication({ initialContent }: { initialContent?: SiteC
       {/* ═══ 03, FEATURED PROJECTS ═══ */}
       <Panel index={3} bg="ivory" minH="auto" pin={false}>
         <div id="s04" className="relative bg-[#0A0A0A] text-[#F3F1EC]" data-cursor-color="#F3F1EC">
-          <ParallaxBg src="/nn-wall.png" overlay={0.7} />
+          <ParallaxBg src="/nn-wall.png" overlay={0.7} cover={false} />
           <div className="relative px-8 md:px-16 pt-28 md:pt-36 pb-28 md:pb-36 overflow-hidden">
             <FeaturedCarousel projects={c.projects} />
           </div>

@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react";
 
 /** A background image layer that drifts with scroll (parallax), plus a dark overlay. */
-export default function ParallaxBg({ src, overlay = 0.7, amp = 100 }: { src: string; overlay?: number; amp?: number }) {
+export default function ParallaxBg({ src, overlay = 0.7, amp = 100, cover = true }: { src: string; overlay?: number; amp?: number; cover?: boolean }) {
   const wrap = useRef<HTMLDivElement>(null);
   const layer = useRef<HTMLDivElement>(null);
 
@@ -30,8 +30,8 @@ export default function ParallaxBg({ src, overlay = 0.7, amp = 100 }: { src: str
     <div ref={wrap} className="absolute inset-0 overflow-hidden pointer-events-none">
       <div
         ref={layer}
-        className="absolute inset-x-0 bg-cover bg-center will-change-transform"
-        style={{ top: -amp, bottom: -amp, backgroundImage: `url('${src}')` }}
+        className="absolute inset-x-0 bg-center bg-no-repeat will-change-transform"
+        style={{ top: -amp, bottom: -amp, backgroundImage: `url('${src}')`, backgroundSize: cover ? "cover" : "contain" }}
       />
       <div className="absolute inset-0" style={{ background: `rgba(0,0,0,${overlay})` }} />
     </div>
