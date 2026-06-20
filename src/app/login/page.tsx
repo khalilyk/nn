@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
   const router = useRouter();
-  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [show, setShow] = useState(false);
   const [err, setErr] = useState(false);
@@ -55,17 +54,11 @@ export default function LoginPage() {
         <form onSubmit={submit} className="w-full max-w-md">
           <h1 className="leading-none mb-12" style={{ fontSize: "clamp(2.6rem, 5vw, 3.6rem)", fontWeight: 400 }}>Login</h1>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            <div>
-              <label className="block text-[11px] text-white/55 mb-2">Email</label>
-              <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} className={field} placeholder="you@example.com" autoComplete="username" />
-            </div>
-            <div>
-              <label className="block text-[11px] text-white/55 mb-2">Password</label>
-              <div className="relative">
-                <input type={show ? "text" : "password"} value={password} onChange={(e) => setPassword(e.target.value)} className={`${field} pr-7`} placeholder="••••••••" autoFocus autoComplete="current-password" />
-                <button type="button" onClick={() => setShow((s) => !s)} className="absolute right-0 bottom-2 text-white/40 hover:text-white text-sm" aria-label="Toggle password">{show ? "🙈" : "👁"}</button>
-              </div>
+          <div>
+            <label className="block text-[11px] text-white/55 mb-2">Password</label>
+            <div className="relative">
+              <input type={show ? "text" : "password"} value={password} onChange={(e) => setPassword(e.target.value)} className={`${field} pr-7`} placeholder="••••••••" autoFocus autoComplete="current-password" />
+              <button type="button" onClick={() => setShow((s) => !s)} className="absolute right-0 bottom-2 text-white/40 hover:text-white text-sm" aria-label="Toggle password">{show ? "🙈" : "👁"}</button>
             </div>
           </div>
 
