@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import { DEFAULT_CONTENT } from "@/lib/content/defaults";
 
 const pos = [
@@ -53,8 +54,13 @@ export default function OverlapImages({ images }: { images?: string[] }) {
           onMouseEnter={(e) => { e.currentTarget.style.zIndex = "10"; e.currentTarget.style.transform = `rotate(0deg) scale(1.05)`; }}
           onMouseLeave={(e) => { e.currentTarget.style.zIndex = String(p.z); e.currentTarget.style.transform = `rotate(${p.rot}deg)`; }}
         >
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={(sets[si] ?? sets[0])[i]} alt="" className="w-full h-full object-cover" />
+          <Image
+            src={(sets[si] ?? sets[0])[i]}
+            alt=""
+            fill
+            sizes="(max-width: 768px) 34vw, 20vw"
+            className="object-cover"
+          />
         </div>
       ))}
     </div>
