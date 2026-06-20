@@ -229,7 +229,7 @@ export default function Publication({ initialContent }: { initialContent?: SiteC
           <div className="flex flex-col items-center justify-center text-center px-8 md:px-16 pt-28 pb-16">
             <Reveal>
               <Greeting />
-              <h2 className="font-editorial leading-[1.15] mb-12 max-w-3xl mx-auto" style={{ fontSize: "clamp(1.8rem, 3.6vw, 3rem)" }}>
+              <h2 className="font-editorial uppercase leading-[1.15] mb-12 max-w-3xl mx-auto" style={{ fontSize: "clamp(1.8rem, 3.6vw, 3rem)" }}>
                 We build <HoverWord mode="bold">bold</HoverWord> brands<br />
                 for the <HoverWord variant={0}>edible</HoverWord> and <HoverWord variant={1}>drinkable</HoverWord>,<br />
                 from <HoverWord variant={2}>branding</HoverWord> &amp; <HoverWord variant={3}>storytelling</HoverWord> to<br />
