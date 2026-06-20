@@ -253,6 +253,9 @@ export default function Publication({ initialContent }: { initialContent?: SiteC
       </Panel>
 
       {/* ═══ 03, FEATURED PROJECTS ═══ */}
+      {/* ═══ BRANDS — orange logo carousel (before projects) ═══ */}
+      <ClientLogos clients={c.clients} />
+
       <Panel index={3} bg="ivory" minH="auto" pin={false}>
         <div id="s04" className="relative bg-[#0A0A0A] text-[#F3F1EC]" data-cursor-color="#F3F1EC">
           {/* mobile keeps the section-wide fixed wall; desktop's wall lives inside the pinned split layer (no drift) */}
@@ -265,9 +268,6 @@ export default function Publication({ initialContent }: { initialContent?: SiteC
           <SectionNo n="03" />
         </div>
       </Panel>
-
-      {/* ═══ BRANDS — orange logo carousel ═══ */}
-      <ClientLogos clients={c.clients} />
 
       {/* ═══ 04, POSTCARD ═══ */}
       <Panel index={5} bg="ivory" minH="auto" pin={false} slideFrom="up">
