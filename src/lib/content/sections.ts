@@ -5,7 +5,6 @@ export const SECTIONS: { key: keyof SiteContent; label: string }[] = [
   { key: "menu", label: "Menu" },
   { key: "about", label: "About" },
   { key: "projects", label: "Projects" },
-  { key: "clients", label: "Brands" },
   { key: "testimonials", label: "Testimonials" },
   { key: "notes", label: "Notes" },
   { key: "contact", label: "Contact" },

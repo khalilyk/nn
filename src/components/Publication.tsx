@@ -262,7 +262,7 @@ export default function Publication({ initialContent }: { initialContent?: SiteC
         </div>
       </Panel>
 
-      {/* ═══ 05, POSTCARD ═══ */}
+      {/* ═══ 04, POSTCARD ═══ */}
       <Panel index={5} bg="ivory" minH="auto" pin={false} slideFrom="up">
         <div className="relative px-8 md:px-16 py-28 md:py-36 bg-[#C0392B] overflow-hidden">
           {/* graffiti backdrop, pinned in the viewport while the section scrolls */}
@@ -274,15 +274,15 @@ export default function Publication({ initialContent }: { initialContent?: SiteC
           <div className="relative z-10">
             <Postcard />
           </div>
-          <SectionNo n="05" dark />
+          <SectionNo n="04" dark />
         </div>
       </Panel>
 
-      {/* ═══ 06, NORM ═══ */}
+      {/* ═══ 05, NORM ═══ */}
       <Panel index={6} bg="ivory" minH="auto" pin={false} slideFrom="left">
         <div id="s08" className="relative px-8 md:px-16 py-20 md:py-32 flex flex-col items-center">
           <Reveal>
-            <p className="text-[9px] tracking-[0.3em] uppercase text-[#0A0A0A]/40 mb-3 text-center">06, Not a Therapist</p>
+            <p className="text-[9px] tracking-[0.3em] uppercase text-[#0A0A0A]/40 mb-3 text-center">05, Not a Therapist</p>
           </Reveal>
           <Reveal delay={0.06}>
             <h2 className="font-editorial text-center mb-12 leading-[1.2]" style={{ fontSize: "clamp(1.6rem, 3.2vw, 2.6rem)" }}>
@@ -293,11 +293,11 @@ Meet <span className="italic">NORM</span>, our marketing exec.<br />
           <Reveal delay={0.12} className="w-full">
             <Terminal />
           </Reveal>
-          <SectionNo n="06" />
+          <SectionNo n="05" />
         </div>
       </Panel>
 
-      {/* ═══ 07, TESTIMONIALS ═══ */}
+      {/* ═══ 06, TESTIMONIALS ═══ */}
       <Panel index={7} bg="black" minH="85vh" pin={false}>
         <div className="relative min-h-[85vh] overflow-hidden">
           <Testimonials items={c.testimonials} />
