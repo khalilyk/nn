@@ -40,3 +40,6 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 public/tinymce
+
+# uncompressed source hero video (compressed nn-header-bg.* are committed instead)
+public/nn-header.mp4
