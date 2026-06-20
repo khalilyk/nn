@@ -8,6 +8,40 @@ type Json = unknown;
 const labelize = (k: string) =>
   k.replace(/([A-Z])/g, " $1").replace(/^./, (s) => s.toUpperCase()).replace(/_/g, " ");
 const isColor = (v: string) => /^#([0-9a-f]{3}|[0-9a-f]{6}|[0-9a-f]{8})$/i.test(v.trim());
+const isColorKey = (k: string) => /^(color|colour|bg|background|fg|accent|swatch)$/i.test(k);
+const SWATCHES = ["#FF5C1A", "#FF2EC4", "#6AB7FF", "#C9A7FF", "#4ADE80", "#FFD23F", "#C0392B", "#0A0A0A", "#F3F1EC", "#9B5DE5", "#00BBF9", "#FEE440"];
+
+function ColorField({ value, onChange }: { value: string; onChange: (v: string) => void }) {
+  const cur = value.trim();
+  return (
+    <div className="space-y-2.5">
+      <div className="grid grid-cols-6 gap-2 max-w-[260px]">
+        {SWATCHES.map((c) => {
+          const on = cur.toLowerCase() === c.toLowerCase();
+          return (
+            <button
+              key={c}
+              type="button"
+              onClick={() => onChange(c)}
+              title={c}
+              className={`aspect-square rounded-md border transition-transform hover:scale-105 ${on ? "border-[#0A0A0A] ring-2 ring-[#0A0A0A]/20" : "border-black/10"}`}
+              style={{ background: c }}
+            />
+          );
+        })}
+      </div>
+      <div className="flex items-center gap-2">
+        <input type="color" value={isColor(cur) ? cur : "#000000"} onChange={(e) => onChange(e.target.value)} className="w-7 h-7 rounded border border-black/15 bg-white p-0.5 cursor-pointer" title="Custom colour" />
+        <input
+          value={cur}
+          onChange={(e) => onChange(e.target.value)}
+          placeholder="#000000"
+          className="w-24 bg-transparent border-b border-black/15 text-[12px] font-mono text-black/55 py-0.5 outline-none focus:border-black/40"
+        />
+      </div>
+    </div>
+  );
+}
 const isImageKey = (k: string) => /^(img|image|photo|src|logo|avatar)$/i.test(k);
 const isImageArrayKey = (k: string) => /^(images|imgs|gallery|photos|slides|logos)$/i.test(k);
 
@@ -98,14 +132,7 @@ function textClassFor(k: string) {
 function DocField({ k, value, onChange, depth }: { k: string; value: Json; onChange: (v: Json) => void; depth: number }) {
   if (typeof value === "string") {
     if (isImageKey(k)) return <DocImage value={value} onChange={onChange} />;
-    if (isColor(value)) {
-      return (
-        <div className="flex items-center gap-2">
-          <input type="color" value={value} onChange={(e) => onChange(e.target.value)} className="w-7 h-7 rounded border border-black/15 bg-white p-0.5 cursor-pointer" />
-          <span className="text-[12px] font-mono text-black/55">{value}</span>
-        </div>
-      );
-    }
+    if (isColorKey(k) || isColor(value)) return <ColorField value={value} onChange={(v) => onChange(v)} />;
     const long = isTitleKey(k) ? false : value.length > 60 || value.includes("\n");
     return <AiTextField bare value={value} onChange={(v) => onChange(v)} multiline={long || isQuoteKey(k)} textClass={textClassFor(k)} />;
   }
