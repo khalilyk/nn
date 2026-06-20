@@ -162,12 +162,12 @@ export default function LiveEditor({ initial, initialSection = "hero" }: { initi
         <div className="flex-1 min-w-0 bg-[#D9DBDD] flex flex-col">
           <div className="flex items-center justify-center gap-1 py-2.5 shrink-0">
             <div className="inline-flex rounded-full bg-white shadow-sm p-0.5">
-              <button onClick={() => setDevice("desktop")} title="Desktop" className={`grid place-items-center gap-1.5 px-3.5 py-1.5 rounded-full text-[12px] flex items-center transition-colors ${device === "desktop" ? "bg-[#0A0A0A] text-white" : "text-black/55 hover:bg-black/[0.04]"}`}>
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="12" rx="1.5" /><path d="M8 20h8M12 16v4" /></svg>
+              <button onClick={() => setDevice("desktop")} title="Desktop" className={`gap-1 px-2.5 py-0.5 rounded-full text-[11px] flex items-center transition-colors ${device === "desktop" ? "bg-[#0A0A0A] text-white" : "text-black/55 hover:bg-black/[0.04]"}`}>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="12" rx="1.5" /><path d="M8 20h8M12 16v4" /></svg>
                 Desktop
               </button>
-              <button onClick={() => setDevice("mobile")} title="Mobile" className={`grid place-items-center gap-1.5 px-3.5 py-1.5 rounded-full text-[12px] flex items-center transition-colors ${device === "mobile" ? "bg-[#0A0A0A] text-white" : "text-black/55 hover:bg-black/[0.04]"}`}>
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect x="6" y="3" width="12" height="18" rx="2" /><path d="M11 18h2" /></svg>
+              <button onClick={() => setDevice("mobile")} title="Mobile" className={`gap-1 px-2.5 py-0.5 rounded-full text-[11px] flex items-center transition-colors ${device === "mobile" ? "bg-[#0A0A0A] text-white" : "text-black/55 hover:bg-black/[0.04]"}`}>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><rect x="6" y="3" width="12" height="18" rx="2" /><path d="M11 18h2" /></svg>
                 Mobile
               </button>
             </div>
