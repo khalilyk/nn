@@ -28,40 +28,55 @@ export default function Postcard() {
     return () => mq.removeEventListener("change", update);
   }, []);
 
-  // ── MOBILE: stacked fronts → tap → tall portrait back ──
+  // ── MOBILE: stacked fronts → tap → each card flips in 3D to its back ──
   if (!isDesktop) {
     return (
-      <div className="w-full flex flex-col items-center">
-        {!expanded ? (
-          <div className="w-full flex flex-col gap-5" onClick={() => setExpanded(true)} data-cursor="Flip">
-            {[0, 1, 2].map((i) => (
+      <div
+        className="w-full flex flex-col gap-5"
+        onClick={() => setExpanded((e) => !e)}
+        data-cursor={expanded ? "Close" : "Flip"}
+      >
+        {[0, 1, 2].map((i) => (
+          <div key={i} style={{ perspective: "1200px" }}>
+            <div
+              className="relative w-full rounded-[3px] transition-transform duration-[900ms] ease-[cubic-bezier(0.16,1,0.3,1)]"
+              style={{
+                aspectRatio: "1599 / 1127",
+                transformStyle: "preserve-3d",
+                transform: expanded ? "rotateY(180deg)" : "rotateY(0deg)",
+                transitionDelay: `${i * 90}ms`,
+              }}
+            >
+              {/* FRONT */}
               <div
-                key={i}
-                className="relative w-full rounded-[3px] overflow-hidden bg-[#0A0A0A]"
-                style={{ aspectRatio: "1599 / 1127", boxShadow: CARD_SHADOW }}
+                className="absolute inset-0 rounded-[3px] overflow-hidden bg-[#0A0A0A]"
+                style={{ backfaceVisibility: "hidden", WebkitBackfaceVisibility: "hidden", boxShadow: CARD_SHADOW }}
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src="/postcard-art.jpg" alt="" draggable={false} className="absolute inset-0 w-full h-full object-cover pointer-events-none" />
               </div>
-            ))}
-          </div>
-        ) : (
-          <div
-            className="w-full max-w-sm mx-auto rounded-md bg-[#F3EDE0] text-[#0A0A0A] p-7 flex flex-col items-center text-center gap-6"
-            style={{ boxShadow: CARD_SHADOW }}
-            onClick={() => setExpanded(false)}
-            data-cursor="Close"
-          >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/postcard-art.jpg" alt="" draggable={false} className="w-full rounded-[3px]" style={{ aspectRatio: "1599 / 1127", objectFit: "cover" }} />
-            <div className="font-editorial leading-relaxed space-y-4" style={{ fontSize: "clamp(1rem, 4.2vw, 1.2rem)" }}>
-              {MESSAGE.map((p, i) => <p key={i}>{p}</p>)}
+
+              {/* BACK */}
+              <div
+                className="absolute inset-0 rounded-[3px] overflow-hidden bg-[#F3EDE0]"
+                style={{ backfaceVisibility: "hidden", WebkitBackfaceVisibility: "hidden", transform: "rotateY(180deg)", boxShadow: CARD_SHADOW }}
+              >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src="/postcard-art-2.jpg" alt="" draggable={false} className="absolute inset-0 w-full h-full object-cover pointer-events-none" />
+                <div className="absolute inset-0 flex flex-col items-start justify-center pl-[5%] pr-[7%] py-[6%] pointer-events-none">
+                  <p className="font-editorial text-[#0A0A0A] leading-relaxed text-left" style={{ fontSize: "clamp(0.7rem, 3vw, 1rem)" }}>
+                    {MESSAGE[i]}
+                  </p>
+                  {i === 2 && (
+                    <p className="mt-2 text-[8px] tracking-[0.12em] uppercase text-[#0A0A0A]/45">
+                      Abraham Welcoming the Three Angels, Francesco Guardi, 1750s
+                    </p>
+                  )}
+                </div>
+              </div>
             </div>
-            <p className="text-[10px] tracking-[0.12em] uppercase text-[#0A0A0A]/45 mt-2">
-              Abraham Welcoming the Three Angels, Francesco Guardi, 1750s
-            </p>
           </div>
-        )}
+        ))}
       </div>
     );
   }
