@@ -4,6 +4,7 @@ import { useEffect, useRef, ReactNode } from "react";
 import Lenis from "lenis";
 import Reveal from "./Reveal";
 import FeaturedCarousel from "./FeaturedCarousel";
+import ClientLogos from "./ClientLogos";
 import ParallaxBg from "./ParallaxBg";
 import PinInView from "./PinInView";
 import SiteNav from "./SiteNav";
@@ -264,6 +265,9 @@ export default function Publication({ initialContent }: { initialContent?: SiteC
           <SectionNo n="03" />
         </div>
       </Panel>
+
+      {/* ═══ BRANDS — orange logo carousel ═══ */}
+      <ClientLogos clients={c.clients} />
 
       {/* ═══ 04, POSTCARD ═══ */}
       <Panel index={5} bg="ivory" minH="auto" pin={false} slideFrom="up">

@@ -4,7 +4,7 @@ import type { SiteContent } from "./types";
 const textLogo = (t: string) =>
   "data:image/svg+xml;utf8," +
   encodeURIComponent(
-    `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 80'><text x='120' y='52' font-family='Helvetica,Arial,sans-serif' font-size='30' font-weight='700' letter-spacing='1' text-anchor='middle' fill='#0A0A0A'>${t}</text></svg>`
+    `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 80'><text x='120' y='52' font-family='Helvetica,Arial,sans-serif' font-size='30' font-weight='700' letter-spacing='1' text-anchor='middle' fill='#F3F1EC'>${t}</text></svg>`
   );
 
 /** The current site content, used as the DB seed AND the runtime fallback.
@@ -132,7 +132,7 @@ export const DEFAULT_CONTENT: SiteContent = {
   clients: {
     eyebrow: "Selected partners",
     heading: "Brands we've shaped.",
-    logos: ["3FILS", "BRIX", "BORDO MAVI", "REVOLVER", "MAISON DALI", "OAKBERRY", "KINOYA", "MIMI KAKUSHI"].map(textLogo),
+    logos: ["KINOYA", "PIEHAUS", "MAISON15", "MIMI KAKUSHI", "XU"].map(textLogo),
   },
 
   testimonials: [
