@@ -12,9 +12,13 @@ import type { Project } from "@/lib/content/types";
 export default function ProjectsSplit({
   projects,
   onOpen,
+  wallSrc = "/nn-wall.png",
+  overlay = 0.82,
 }: {
   projects: Project[];
   onOpen: (i: number) => void;
+  wallSrc?: string;
+  overlay?: number;
 }) {
   const track = useRef<HTMLDivElement>(null);
   const layer = useRef<HTMLDivElement>(null);
@@ -51,7 +55,12 @@ export default function ProjectsSplit({
   return (
     <div ref={track} className="relative" style={{ height: trackHeight }}>
       <div ref={layer} className="absolute inset-x-0 top-0 h-screen overflow-hidden will-change-transform">
-        <div className="grid grid-cols-2 h-full">
+        {/* wall backdrop — lives INSIDE the pinned layer so it shares the exact
+            same transform/frame as the content (no cross-rAF drift) */}
+        <div className="absolute inset-0 bg-center bg-no-repeat" style={{ backgroundImage: `url('${wallSrc}')`, backgroundSize: "cover" }} />
+        <div className="absolute inset-0" style={{ background: `rgba(0,0,0,${overlay})` }} />
+
+        <div className="relative z-10 grid grid-cols-2 h-full">
           {/* LEFT — images, slide up */}
           <div className="relative overflow-hidden">
             <div ref={leftT} className="will-change-transform">
@@ -107,7 +116,7 @@ export default function ProjectsSplit({
         </div>
 
         {/* centre divider */}
-        <div className="pointer-events-none absolute inset-y-0 left-1/2 -translate-x-1/2 w-px bg-[#F3F1EC]/15" />
+        <div className="pointer-events-none absolute inset-y-0 left-1/2 -translate-x-1/2 w-px bg-[#F3F1EC]/15 z-20" />
       </div>
     </div>
   );
