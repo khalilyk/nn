@@ -12,12 +12,33 @@ export default function PublicationLoader({ initialContent }: { initialContent: 
   const [content, setContent] = useState<SiteContent>(initialContent);
   const [loading, setLoading] = useState(true);
 
-  // glitch loading screen — once per session, never in the admin live-preview iframe
+  // glitch loading screen — once per session, never in the admin live-preview iframe.
+  // Ends as soon as the page is actually ready (window load), with a brief minimum
+  // so the glitch is visible, and a hard cap so it never overstays.
   useEffect(() => {
     const preview = new URLSearchParams(window.location.search).has("preview");
     if (preview || sessionStorage.getItem("nn-loaded")) { setLoading(false); return; }
-    const t = setTimeout(() => { setLoading(false); sessionStorage.setItem("nn-loaded", "1"); }, 4200);
-    return () => clearTimeout(t);
+
+    const MIN = 1200; // keep the glitch on screen at least this long
+    const CAP = 2500; // never block longer than this
+    const start = performance.now();
+    let done = false;
+    const finish = () => {
+      if (done) return;
+      done = true;
+      setLoading(false);
+      sessionStorage.setItem("nn-loaded", "1");
+    };
+    const ready = () => {
+      const wait = Math.max(0, MIN - (performance.now() - start));
+      setTimeout(finish, wait);
+    };
+
+    if (document.readyState === "complete") ready();
+    else window.addEventListener("load", ready, { once: true });
+    const cap = setTimeout(finish, CAP);
+
+    return () => { window.removeEventListener("load", ready); clearTimeout(cap); };
   }, []);
 
   useEffect(() => {

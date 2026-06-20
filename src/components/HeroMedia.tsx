@@ -29,7 +29,7 @@ export default function HeroMedia({ className = "" }: { className?: string }) {
         muted
         loop
         playsInline
-        preload="auto"
+        preload="metadata"
         poster="/nn-header-poster.jpg"
         onCanPlay={() => setReady(true)}
         className="absolute inset-0 w-full h-full object-cover"
