@@ -63,15 +63,10 @@ export default function Postcard() {
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src="/postcard-art-2.jpg" alt="" draggable={false} className="absolute inset-0 w-full h-full object-cover pointer-events-none" />
-                <div className="absolute inset-0 flex flex-col items-start justify-center pl-[5%] pr-[7%] py-[6%] pointer-events-none">
-                  <p className="font-editorial text-[#0A0A0A] leading-relaxed text-left" style={{ fontSize: "clamp(0.7rem, 3vw, 1rem)" }}>
+                <div className="absolute inset-0 flex flex-col items-start justify-start px-[6%] pt-[7%] pb-[26%] pointer-events-none">
+                  <p className="font-editorial text-[#0A0A0A] leading-snug text-left" style={{ fontSize: "clamp(0.6rem, 2.6vw, 0.95rem)" }}>
                     {MESSAGE[i]}
                   </p>
-                  {i === 2 && (
-                    <p className="mt-2 text-[8px] tracking-[0.12em] uppercase text-[#0A0A0A]/45">
-                      Abraham Welcoming the Three Angels, Francesco Guardi, 1750s
-                    </p>
-                  )}
                 </div>
               </div>
             </div>
