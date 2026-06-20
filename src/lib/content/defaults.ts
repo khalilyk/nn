@@ -181,7 +181,7 @@ export const DEFAULT_CONTENT: SiteContent = {
     phone: "+61 433 714 701",
     socials: [
       { label: "Instagram", href: "https://www.instagram.com/bynotnormal" },
-      { label: "LinkedIn", href: "#" },
+      { label: "LinkedIn", href: "https://www.linkedin.com/company/bynotnormal" },
     ],
     locations: "Sydney, Dubai, Beirut",
     landAck: "We acknowledge the Gadigal, the traditional custodians of the Country on which Not Normal and its brands stands.",
