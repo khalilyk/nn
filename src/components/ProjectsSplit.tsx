@@ -75,7 +75,9 @@ export default function ProjectsSplit({
 
           {/* RIGHT — captions (reversed), slide down */}
           <div className="relative overflow-hidden">
-            <div ref={rightT} className="will-change-transform">
+            {/* scrim for legibility over the busy wall background */}
+            <div className="pointer-events-none absolute inset-0 z-0 bg-gradient-to-r from-[#0A0A0A]/90 via-[#0A0A0A]/70 to-[#0A0A0A]/45" />
+            <div ref={rightT} className="relative z-10 will-change-transform">
               {projects.map((_, ri) => {
                 const i = N - 1 - ri; // reversed order so it counter-aligns with the left
                 const pr = projects[i];
