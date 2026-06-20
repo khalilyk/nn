@@ -193,9 +193,9 @@ export default async function AdminDashboard() {
         </div>
       </Link>
 
-      {/* Pinterest moodboard */}
+      {/* Pinterest moodboard — 6 random pins, re-rolled each load */}
       <div className="mt-3">
-        <PinterestBoard href="https://www.pinterest.com/khalilyk/not-normal/" />
+        <PinterestBoard board="khalilyk/not-normal" href="https://www.pinterest.com/khalilyk/not-normal/" />
       </div>
     </div>
   );
