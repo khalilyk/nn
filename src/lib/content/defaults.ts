@@ -132,7 +132,12 @@ export const DEFAULT_CONTENT: SiteContent = {
   clients: {
     eyebrow: "Selected partners",
     heading: "Brands we've shaped.",
-    logos: ["/nn-kinoya.png", "/nn-piehaus.png", "/nn-maisan15.png", "/nn-mimi.png", "/nn-xu.png"],
+    logos: [
+      "/nn-kinoya.png", "/nn-piehaus.png", "/nn-maisan15.png", "/nn-mimi.png", "/nn-xu.png",
+      "/nn-shanghaimelogo.png", "/nn-genesis.png", "/nn-tontonlogo.png", "/nn-sirenelogo.png",
+      "/nn-atlantislogo.png", "/nn-bymoudzlogo.png", "/nn-chezwamogo.png", "/nn-diantilogo.png",
+      "/nn-evergreenlogo.png", "/nn-ftflogo.png", "/nn-matterlogo.png", "/nn-yavalogo.png",
+    ],
   },
 
   testimonials: [
