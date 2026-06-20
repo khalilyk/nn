@@ -11,6 +11,24 @@ const isColor = (v: string) => /^#([0-9a-f]{3}|[0-9a-f]{6}|[0-9a-f]{8})$/i.test(
 const isColorKey = (k: string) => /^(color|colour|bg|background|fg|accent|swatch)$/i.test(k);
 const SWATCHES = ["#FF5C1A", "#FF2EC4", "#6AB7FF", "#C9A7FF", "#4ADE80", "#FFD23F", "#C0392B", "#0A0A0A", "#F3F1EC", "#9B5DE5", "#00BBF9", "#FEE440"];
 
+const isCityKey = (k: string) => /^city$/i.test(k);
+const CITIES = ["Sydney", "Dubai", "Beirut"];
+
+function CityField({ value, onChange }: { value: string; onChange: (v: string) => void }) {
+  // keep any existing custom value selectable so nothing is lost
+  const opts = CITIES.includes(value) || !value ? CITIES : [value, ...CITIES];
+  return (
+    <select
+      value={value}
+      onChange={(e) => onChange(e.target.value)}
+      className="w-full bg-transparent border-0 outline-none text-[15px] text-[#0A0A0A]/85 cursor-pointer pr-7 -ml-0.5"
+    >
+      {!value && <option value="">Select a city…</option>}
+      {opts.map((c) => <option key={c} value={c}>{c}</option>)}
+    </select>
+  );
+}
+
 function ColorField({ value, onChange }: { value: string; onChange: (v: string) => void }) {
   const cur = value.trim();
   return (
@@ -141,6 +159,7 @@ function DocField({ k, value, onChange, depth, ctx = "" }: { k: string; value: J
   if (typeof value === "string") {
     if (isImageKey(k)) return <DocImage value={value} onChange={onChange} />;
     if (isColorKey(k) || isColor(value)) return <ColorField value={value} onChange={(v) => onChange(v)} />;
+    if (isCityKey(k)) return <CityField value={value} onChange={(v) => onChange(v)} />;
     const long = isTitleKey(k) ? false : value.length > 60 || value.includes("\n");
     return <AiTextField bare value={value} onChange={(v) => onChange(v)} multiline={long || isQuoteKey(k)} textClass={textClassFor(k)} label={labelize(k)} context={ctx} />;
   }
