@@ -13,8 +13,8 @@ const SCATTER = [
   { top: "35%", left: "66%", rot: 3 },
   { top: "52%", left: "26%", rot: -2 },
   { top: "53%", left: "60%", rot: 2 },
-  { top: "69%", left: "34%", rot: -1 },
-  { top: "70%", left: "64%", rot: 3 },
+  { top: "76%", left: "30%", rot: -1 },
+  { top: "77%", left: "66%", rot: 3 },
 ];
 
 export default function MenuSplit({ menu = DEFAULT_CONTENT.menu }: { menu?: Menu }) {
