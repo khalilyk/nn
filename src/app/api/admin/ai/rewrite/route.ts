@@ -18,9 +18,22 @@ export async function POST(req: Request) {
   const key = process.env.ANTHROPIC_API_KEY;
   if (!key) return NextResponse.json({ error: "AI isn’t set up yet. Add ANTHROPIC_API_KEY in the project settings to enable rewrites." }, { status: 503 });
 
-  const { text, action } = await req.json().catch(() => ({}));
-  if (typeof text !== "string" || !text.trim()) return NextResponse.json({ error: "Nothing to rewrite." }, { status: 400 });
-  const instruction = INSTRUCTIONS[action] || INSTRUCTIONS.grammar;
+  const { text, action, label, context } = await req.json().catch(() => ({}));
+  const isGenerate = action === "generate";
+
+  if (!isGenerate && (typeof text !== "string" || !text.trim())) {
+    return NextResponse.json({ error: "Nothing to rewrite." }, { status: 400 });
+  }
+
+  const fieldLabel = typeof label === "string" && label.trim() ? label.trim() : "field";
+  const ctx = typeof context === "string" && context.trim() ? context.trim() : "";
+
+  const userContent = isGenerate
+    ? `Write the copy for the "${fieldLabel}" field.` +
+      (ctx ? `\n\nContext about this item:\n${ctx}` : "") +
+      (typeof text === "string" && text.trim() ? `\n\nCurrent draft to improve on:\n${text}` : "") +
+      `\n\nReturn only the value for the field — concise and on-brand, no label or quotes.`
+    : `Instruction: ${INSTRUCTIONS[action] || INSTRUCTIONS.grammar}\n\nText:\n${text}`;
 
   try {
     const client = new Anthropic({ apiKey: key });
@@ -28,10 +41,12 @@ export async function POST(req: Request) {
       model: "claude-haiku-4-5-20251001",
       max_tokens: 1024,
       system:
-        "You are an editing assistant for a premium hospitality branding studio's website copy. " +
-        "Rewrite the user's text per the instruction. Return ONLY the rewritten text — no preamble, quotes, or explanation. " +
-        "Preserve line breaks and any obvious formatting.",
-      messages: [{ role: "user", content: `Instruction: ${instruction}\n\nText:\n${text}` }],
+        "You are a copywriting assistant for a premium hospitality branding studio's website. " +
+        (isGenerate
+          ? "Write short, confident, on-brand copy for the requested field using the context. Match the field's purpose (a tagline is a few words; a description a sentence or two). "
+          : "Rewrite the user's text per the instruction. ") +
+        "Return ONLY the text — no preamble, quotes, labels, or explanation. Preserve line breaks and any obvious formatting.",
+      messages: [{ role: "user", content: userContent }],
     });
     const out = msg.content.map((b) => (b.type === "text" ? b.text : "")).join("").trim();
     if (!out) return NextResponse.json({ error: "No rewrite returned." }, { status: 502 });

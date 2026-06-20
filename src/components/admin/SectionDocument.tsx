@@ -129,12 +129,20 @@ function textClassFor(k: string) {
   return "text-[15px] leading-relaxed text-[#0A0A0A]/85";
 }
 
-function DocField({ k, value, onChange, depth }: { k: string; value: Json; onChange: (v: Json) => void; depth: number }) {
+function objContext(obj: Record<string, Json>): string {
+  const parts: string[] = [];
+  for (const [key, v] of Object.entries(obj)) {
+    if (typeof v === "string" && v.trim() && v.length < 90) parts.push(`${labelize(key)}: ${v.trim()}`);
+  }
+  return parts.join("\n");
+}
+
+function DocField({ k, value, onChange, depth, ctx = "" }: { k: string; value: Json; onChange: (v: Json) => void; depth: number; ctx?: string }) {
   if (typeof value === "string") {
     if (isImageKey(k)) return <DocImage value={value} onChange={onChange} />;
     if (isColorKey(k) || isColor(value)) return <ColorField value={value} onChange={(v) => onChange(v)} />;
     const long = isTitleKey(k) ? false : value.length > 60 || value.includes("\n");
-    return <AiTextField bare value={value} onChange={(v) => onChange(v)} multiline={long || isQuoteKey(k)} textClass={textClassFor(k)} />;
+    return <AiTextField bare value={value} onChange={(v) => onChange(v)} multiline={long || isQuoteKey(k)} textClass={textClassFor(k)} label={labelize(k)} context={ctx} />;
   }
 
   if (typeof value === "number")
@@ -157,7 +165,7 @@ function DocField({ k, value, onChange, depth }: { k: string; value: Json; onCha
           <div key={i} className="group/item relative flex items-center gap-2">
             <span className="text-black/25 text-xs">•</span>
             <div className="flex-1 min-w-0">
-              <DocField k={k} value={item} onChange={(v) => set(i, v)} depth={depth + 1} />
+              <DocField k={k} value={item} onChange={(v) => set(i, v)} depth={depth + 1} ctx={ctx} />
             </div>
             <button onClick={() => remove(i)} className="text-black/25 hover:text-[#c0392b] text-sm opacity-0 group-hover/item:opacity-100">✕</button>
           </div>
@@ -172,6 +180,7 @@ function DocField({ k, value, onChange, depth }: { k: string; value: Json; onCha
     // when an item has a gallery, hide the single cover field (gallery[0] is the cover)
     const hasGallery = Array.isArray(obj.images);
     const entries = Object.entries(obj).filter(([key]) => !(hasGallery && key === "img"));
+    const itemCtx = objContext(obj); // siblings, for AI generation context
     // float the title-ish field to the top, rendered big without a label
     return (
       <div className="space-y-5">
@@ -180,7 +189,7 @@ function DocField({ k, value, onChange, depth }: { k: string; value: Json; onCha
           return (
             <div key={key}>
               {!titleish && <label className="block text-[10px] tracking-[0.16em] uppercase text-black/35 mb-1.5">{labelize(key)}</label>}
-              <DocField k={key} value={v} onChange={(nv) => onChange({ ...obj, [key]: nv })} depth={depth + 1} />
+              <DocField k={key} value={v} onChange={(nv) => onChange({ ...obj, [key]: nv })} depth={depth + 1} ctx={itemCtx} />
             </div>
           );
         })}

@@ -9,7 +9,7 @@ const ACTIONS: { key: string; label: string; icon: string }[] = [
   { key: "shorten", label: "Make it shorter", icon: "↧" },
 ];
 
-/** Textarea/input with an AI "Rewrite" menu that rewrites the whole field. */
+/** Textarea/input with an AI menu that can generate a draft or rewrite the field. */
 export default function AiTextField({
   value,
   onChange,
@@ -17,6 +17,8 @@ export default function AiTextField({
   rows = 3,
   bare = false,
   textClass = "",
+  label = "",
+  context = "",
 }: {
   value: string;
   onChange: (v: string) => void;
@@ -24,6 +26,8 @@ export default function AiTextField({
   rows?: number;
   bare?: boolean;
   textClass?: string;
+  label?: string;   // the field name, e.g. "sub", "heading"
+  context?: string; // surrounding info, e.g. the item's name/category
 }) {
   const [open, setOpen] = useState(false);
   const [busy, setBusy] = useState<string | null>(null);
@@ -41,13 +45,13 @@ export default function AiTextField({
     try {
       const res = await fetch("/api/admin/ai/rewrite", {
         method: "POST", headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ text: value, action }),
+        body: JSON.stringify({ text: value, action, label, context }),
       });
       const data = await res.json();
       if (res.ok && data.text) onChange(data.text);
-      else setErr(data.error || "Rewrite failed.");
+      else setErr(data.error || "AI request failed.");
     } catch {
-      setErr("Rewrite failed.");
+      setErr("AI request failed.");
     } finally {
       setBusy(null);
     }
@@ -79,12 +83,20 @@ export default function AiTextField({
 
       {open && (
         <div className="absolute right-1.5 top-9 z-20 w-56 rounded-xl bg-white shadow-[0_12px_40px_-12px_rgba(0,0,0,0.35)] border border-black/10 p-1.5">
-          <p className="px-2 py-1 text-[10px] uppercase tracking-[0.14em] text-black/40">Rewrite · AI</p>
-          {ACTIONS.map((a) => (
-            <button key={a.key} type="button" onClick={() => run(a.key)} className="flex items-center gap-2.5 w-full text-left px-2 py-2 rounded-lg text-[13px] text-[#0A0A0A] hover:bg-black/[0.05]">
-              <span className="w-4 text-center text-[#6D28D9]">{a.icon}</span>{a.label}
-            </button>
-          ))}
+          <p className="px-2 py-1 text-[10px] uppercase tracking-[0.14em] text-black/40">AI</p>
+          <button type="button" onClick={() => run("generate")} className="flex items-center gap-2.5 w-full text-left px-2 py-2 rounded-lg text-[13px] text-[#0A0A0A] hover:bg-black/[0.05]">
+            <span className="w-4 text-center text-[#6D28D9]">✦</span>{value.trim() ? "Regenerate a draft" : "Write a draft"}
+          </button>
+          {value.trim() && (
+            <>
+              <div className="my-1 border-t border-black/[0.06]" />
+              {ACTIONS.map((a) => (
+                <button key={a.key} type="button" onClick={() => run(a.key)} className="flex items-center gap-2.5 w-full text-left px-2 py-2 rounded-lg text-[13px] text-[#0A0A0A] hover:bg-black/[0.05]">
+                  <span className="w-4 text-center text-[#6D28D9]">{a.icon}</span>{a.label}
+                </button>
+              ))}
+            </>
+          )}
         </div>
       )}
 
