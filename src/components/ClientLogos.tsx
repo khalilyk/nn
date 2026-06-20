@@ -11,13 +11,16 @@ export default function ClientLogos({ clients = DEFAULT_CONTENT.clients }: { cli
   const row = [...logos, ...logos];
 
   return (
-    <section className="relative bg-[#FF5C1A] overflow-hidden py-10 md:py-14">
+    <section className="relative z-10 bg-[#FF5C1A] overflow-hidden py-14 md:py-20">
+      <p className="text-center text-[10px] md:text-[11px] tracking-[0.3em] uppercase text-[#0A0A0A]/55 mb-8 md:mb-10">
+        {clients.eyebrow || "Brands we've shaped"}
+      </p>
       <div className="flex w-max animate-[marquee-left_60s_linear_infinite]">
         {row.map((src, i) => (
           <div
             key={i}
             aria-hidden={i >= logos.length}
-            className="shrink-0 mx-3 md:mx-4 w-[112px] h-[112px] md:w-[150px] md:h-[150px] rounded-xl overflow-hidden bg-[#161616]"
+            className="shrink-0 mx-3 md:mx-4 w-[130px] h-[130px] md:w-[168px] md:h-[168px] rounded-xl overflow-hidden bg-[#161616]"
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={src} alt="" className="w-full h-full object-contain" />
