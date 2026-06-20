@@ -6,6 +6,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import type { Project } from "@/lib/content/types";
 import { DEFAULT_CONTENT } from "@/lib/content/defaults";
 import { track } from "@/lib/track";
+import ProjectsSplit from "./ProjectsSplit";
 
 export default function FeaturedCarousel({ projects = DEFAULT_CONTENT.projects }: { projects?: Project[] }) {
   const [open, setOpen] = useState<number | null>(null);
@@ -38,10 +39,17 @@ export default function FeaturedCarousel({ projects = DEFAULT_CONTENT.projects }
 
   const doc = open !== null ? projects[open] : null;
 
+  const openProject = (i: number) => { setOpen(i); track("project_open", projects[i].name); };
+
   return (
     <div className="w-full select-none text-[#F3F1EC]">
-      {/* all projects, stacked down the page */}
-      <div className="flex flex-col gap-20 md:gap-28">
+      {/* DESKTOP — pinned split-screen counter-scroll */}
+      <div className="hidden md:block">
+        <ProjectsSplit projects={projects} onOpen={openProject} />
+      </div>
+
+      {/* MOBILE — stacked list */}
+      <div className="md:hidden flex flex-col gap-20">
         {projects.slice(0, visible).map((pr, i) => {
           const flip = i % 2 === 1;
           return (
@@ -78,7 +86,7 @@ export default function FeaturedCarousel({ projects = DEFAULT_CONTENT.projects }
       </div>
 
       {visible < projects.length && (
-        <div className="mt-16 md:mt-20 flex justify-center">
+        <div className="md:hidden mt-16 flex justify-center">
           <button
             onClick={() => setVisible((v) => Math.min(v + STEP, projects.length))}
             data-cursor="More"
