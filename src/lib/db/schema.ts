@@ -42,6 +42,17 @@ export const adminUser = pgTable("admin_user", {
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });
 
+/** WebAuthn passkeys for admin login (Touch ID / Windows Hello / Google passkey). */
+export const passkeys = pgTable("passkeys", {
+  id: serial("id").primaryKey(),
+  credentialId: text("credential_id").notNull().unique(), // base64url
+  publicKey: text("public_key").notNull(),                // base64url of COSE public key
+  counter: integer("counter").notNull().default(0),
+  transports: text("transports"),                         // CSV
+  label: text("label").notNull().default("Passkey"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
 // ── Invoicing + CRM ──
 
 /** CRM client records. */

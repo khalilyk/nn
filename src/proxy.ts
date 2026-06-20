@@ -5,8 +5,13 @@ import { verifyToken, SESSION_COOKIE } from "@/lib/auth/jwt";
 export async function proxy(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
-  // login/logout must be reachable unauthenticated
-  if (pathname === "/api/admin/login" || pathname === "/api/admin/logout") {
+  // login/logout + the passkey login ceremony must be reachable unauthenticated
+  if (
+    pathname === "/api/admin/login" ||
+    pathname === "/api/admin/logout" ||
+    pathname === "/api/admin/passkey/login/options" ||
+    pathname === "/api/admin/passkey/login/verify"
+  ) {
     return NextResponse.next();
   }
 
