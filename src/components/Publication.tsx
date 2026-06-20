@@ -211,7 +211,7 @@ export default function Publication({ initialContent }: { initialContent?: SiteC
               </span>
             </Reveal>
             <Reveal delay={0.3}>
-              <p className="text-[11px] leading-relaxed text-[#B9B5AE] md:text-right md:max-w-[170px]">
+              <p className="text-[11px] leading-relaxed text-[#B9B5AE] md:text-right max-w-[260px] md:max-w-[260px] text-balance">
                 {c.hero.supportingCopy}
               </p>
             </Reveal>
