@@ -53,12 +53,6 @@ export default function FeaturedCarousel({ projects = DEFAULT_CONTENT.projects }
                 className={`md:col-span-7 relative aspect-[16/10] md:aspect-auto md:min-h-[480px] w-full overflow-hidden bg-[#0A0A0A] cursor-pointer group shadow-[0_0_90px_-12px_rgba(255,255,255,0.38)] ${flip ? "md:order-2" : ""}`}
               >
                 <div className="absolute inset-0 bg-cover bg-center transition-transform duration-[800ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.04]" style={{ backgroundImage: `url('${pr.images?.[0] ?? pr.img}')` }} />
-                <h3
-                  className="absolute left-8 md:left-12 top-1/2 -translate-y-1/2 text-white font-sans font-bold tracking-tight leading-[0.95] drop-shadow-[0_4px_24px_rgba(0,0,0,0.45)]"
-                  style={{ fontSize: "clamp(1.8rem, 4vw, 3.6rem)" }}
-                >
-                  {pr.name}
-                </h3>
               </div>
 
               {/* caption */}
