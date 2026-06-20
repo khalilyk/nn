@@ -4,8 +4,17 @@ import { SignJWT, jwtVerify } from "jose";
 
 export const SESSION_COOKIE = "nn_session";
 
-const secret = () =>
-  new TextEncoder().encode(process.env.SESSION_SECRET || "dev-insecure-secret-change-me");
+const secret = () => {
+  const s = process.env.SESSION_SECRET;
+  if (!s) {
+    // Never sign/verify with a known secret in production — fail closed.
+    if (process.env.NODE_ENV === "production") {
+      throw new Error("SESSION_SECRET is not set");
+    }
+    return new TextEncoder().encode("dev-insecure-secret-change-me");
+  }
+  return new TextEncoder().encode(s);
+};
 
 export async function signToken(): Promise<string> {
   return new SignJWT({ admin: true })

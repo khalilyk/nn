@@ -14,6 +14,15 @@ export async function POST(req: Request) {
   if (!(file instanceof File)) {
     return NextResponse.json({ error: "no file" }, { status: 400 });
   }
+  // Only allow real raster images — block SVG (can carry script) and arbitrary files.
+  const ALLOWED = ["image/jpeg", "image/png", "image/webp", "image/gif", "image/avif"];
+  const MAX_BYTES = 10 * 1024 * 1024; // 10MB
+  if (!ALLOWED.includes(file.type)) {
+    return NextResponse.json({ error: "unsupported file type" }, { status: 415 });
+  }
+  if (file.size > MAX_BYTES) {
+    return NextResponse.json({ error: "file too large (max 10MB)" }, { status: 413 });
+  }
   const blob = await put(file.name, file, { access: "public", addRandomSuffix: true });
   return NextResponse.json({ url: blob.url });
 }
