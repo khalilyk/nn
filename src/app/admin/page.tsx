@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { sql } from "drizzle-orm";
+import PinterestBoard from "@/components/admin/PinterestBoard";
 import { db, hasDb } from "@/lib/db";
 import { events } from "@/lib/db/schema";
 import { listClients, listInvoices } from "@/lib/invoice/store";
@@ -191,6 +192,11 @@ export default async function AdminDashboard() {
           <span className="text-[12px] text-black/45">Open →</span>
         </div>
       </Link>
+
+      {/* Pinterest moodboard */}
+      <div className="mt-3">
+        <PinterestBoard href="https://www.pinterest.com/khalilyk/not-normal/" />
+      </div>
     </div>
   );
 }
