@@ -5,15 +5,16 @@ import type { Menu } from "@/lib/content/types";
 import { DEFAULT_CONTENT } from "@/lib/content/defaults";
 
 // scatter positions (desktop) - top/left in %, slight rotation
+// positioned over the big title rows (≈12/34/52/68%), clear of the eyebrow labels in between
 const SCATTER = [
-  { top: "14%", left: "34%", rot: -3 },
-  { top: "30%", left: "16%", rot: 2 },
-  { top: "44%", left: "42%", rot: -2 },
-  { top: "40%", left: "70%", rot: 3 },
-  { top: "56%", left: "22%", rot: -2 },
-  { top: "60%", left: "52%", rot: 2 },
-  { top: "24%", left: "60%", rot: -1 },
-  { top: "70%", left: "38%", rot: 3 },
+  { top: "11%", left: "30%", rot: -3 },
+  { top: "15%", left: "62%", rot: 2 },
+  { top: "33%", left: "18%", rot: 2 },
+  { top: "35%", left: "66%", rot: 3 },
+  { top: "52%", left: "26%", rot: -2 },
+  { top: "53%", left: "60%", rot: 2 },
+  { top: "69%", left: "34%", rot: -1 },
+  { top: "70%", left: "64%", rot: 3 },
 ];
 
 export default function MenuSplit({ menu = DEFAULT_CONTENT.menu }: { menu?: Menu }) {
@@ -34,7 +35,7 @@ export default function MenuSplit({ menu = DEFAULT_CONTENT.menu }: { menu?: Menu
 
         {/* layered list + scattered pills (desktop) */}
         <div className="relative hidden md:block">
-          <ul className="relative">
+          <ul className="relative z-10">
             {COURSES.map((c, i) => {
               const on = i === active;
               return (
@@ -46,7 +47,7 @@ export default function MenuSplit({ menu = DEFAULT_CONTENT.menu }: { menu?: Menu
                     className="group w-full text-center flex flex-col items-center py-1.5 md:py-2"
                   >
                     <span className="flex flex-col items-center">
-                      <span className={`relative z-30 block text-[8px] md:text-[9px] tracking-[0.3em] uppercase mb-1 transition-colors duration-300 ${on ? "text-[#FF2EC4]" : "text-[#0A0A0A]/25"}`}>
+                      <span className={`block text-[8px] md:text-[9px] tracking-[0.3em] uppercase mb-1 transition-colors duration-300 ${on ? "text-[#FF2EC4]" : "text-[#0A0A0A]/25"}`}>
                         [ {c.course} ]
                       </span>
                       <span
