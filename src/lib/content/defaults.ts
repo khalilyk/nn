@@ -180,7 +180,7 @@ export const DEFAULT_CONTENT: SiteContent = {
     email: "hello@thisisnn.com",
     phone: "+61 433 714 701",
     socials: [
-      { label: "Instagram", href: "#" },
+      { label: "Instagram", href: "https://www.instagram.com/bynotnormal" },
       { label: "LinkedIn", href: "#" },
     ],
     locations: "Sydney, Dubai, Beirut",

@@ -35,9 +35,12 @@ export default function SiteFooter({ footer = DEFAULT_CONTENT.footer }: { footer
             <a href={`mailto:${footer.email}`} className="block text-[11px] tracking-[0.1em] uppercase hover:opacity-60 transition-opacity">{footer.email}</a>
             <a href={`tel:${footer.phone.replace(/[^+\d]/g, "")}`} className="block text-[11px] tracking-[0.1em] hover:opacity-60 transition-opacity">{footer.phone}</a>
             <div className="pt-4 flex items-center justify-center gap-6">
-              {footer.socials.map((s) => (
-                <a key={s.label} href={s.href} className="block text-[11px] tracking-[0.1em] uppercase hover:opacity-60 transition-opacity">{s.label}</a>
-              ))}
+              {footer.socials.map((s) => {
+                const ext = /^https?:\/\//.test(s.href);
+                return (
+                  <a key={s.label} href={s.href} {...(ext ? { target: "_blank", rel: "noopener noreferrer" } : {})} className="block text-[11px] tracking-[0.1em] uppercase hover:opacity-60 transition-opacity">{s.label}</a>
+                );
+              })}
             </div>
           </div>
         </Reveal>
