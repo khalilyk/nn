@@ -112,6 +112,13 @@ export interface Footer {
   legal: { privacy: LegalDoc; terms: LegalDoc };
 }
 
+export interface Seo {
+  title: string;        // <title> + og:title
+  description: string;  // meta description + og:description
+  keywords: string;     // comma-separated
+  ogImage: string;      // absolute URL for og/twitter image
+}
+
 export interface SiteContent {
   hero: Hero;
   menu: Menu;
@@ -123,4 +130,5 @@ export interface SiteContent {
   contact: Contact;
   nav: NavLink[];
   footer: Footer;
+  seo: Seo;
 }

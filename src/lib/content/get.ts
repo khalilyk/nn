@@ -26,6 +26,7 @@ function normalize(c: SiteContent): SiteContent {
   return {
     ...c,
     clients: c.clients ?? DEFAULT_CONTENT.clients,
+    seo: { ...DEFAULT_CONTENT.seo, ...(c.seo ?? {}) },
     projects: (c.projects ?? []).map((p) => ({
       ...p,
       images: p.images && p.images.length ? p.images : (p.img ? [p.img] : []),

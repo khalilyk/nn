@@ -213,4 +213,12 @@ export const DEFAULT_CONTENT: SiteContent = {
       },
     },
   },
+  seo: {
+    title: "Not Normal, Nobody Remembers Normal",
+    description:
+      "A hospitality branding and marketing studio for brands that refuse to blend in. Sydney, Dubai, Beirut.",
+    keywords:
+      "hospitality branding, restaurant branding, brand strategy, marketing studio, Sydney, Dubai, Beirut",
+    ogImage: "/nn-header-poster.jpg",
+  },
 };

@@ -20,6 +20,7 @@ const ICONS: Record<string, string> = {
   media: "M4 6h16v12H4zM4 16l5-5 4 4 3-3 4 4M9.5 9a1.2 1.2 0 1 1 0-.01",
   submissions: "M4 6h16v12H4zM4 12h5l2 3h2l2-3h5",
   analytics: "M5 19V9M10 19V5M15 19v-7M20 19v-11",
+  seo: "M11 4a7 7 0 1 0 0 14 7 7 0 0 0 0-14zM16 16l4 4",
   invoices: "M6 3h12v18l-3-2-3 2-3-2-3 2zM9 8h6M9 12h6M9 16h4",
   clients: "M9 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM3 20c0-3 2.7-5 6-5s6 2 6 5M17 7a2.5 2.5 0 1 1 0 5M19 20c0-2-1-3.6-2.5-4.4",
   proposals: "M4 4h16v16H4zM4 9h16M8 4v5M8 13h8M8 16h5",
@@ -81,6 +82,7 @@ export default function AdminSidebar() {
         <Item href="/admin/media" k="media" label="Media" />
         <Item href="/admin/submissions" k="submissions" label="Submissions" />
         <Item href="/admin/analytics" k="analytics" label="Analytics" />
+        <Item href="/admin/seo" k="seo" label="SEO" />
       </nav>
 
       {/* Business: invoicing + CRM, in its own box */}

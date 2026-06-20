@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Playfair_Display, Space_Grotesk, Anton, Caveat, Special_Elite, Permanent_Marker, Rock_Salt, Zilla_Slab, Reenie_Beanie, Space_Mono, DM_Serif_Display, Mansalva, Kalam, Old_Standard_TT, Yellowtail, Imperial_Script } from "next/font/google";
 import "./globals.css";
+import { getSiteContent } from "@/lib/content/get";
 import { Analytics } from "@vercel/analytics/next";
 import Script from "next/script";
 
@@ -107,11 +108,33 @@ const anton = Anton({
   weight: ["400"],
 });
 
-export const metadata: Metadata = {
-  title: "Not Normal, Nobody Remembers Normal",
-  description:
-    "A hospitality branding and marketing studio for brands that refuse to blend in. Sydney, Dubai, Beirut.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const { seo } = await getSiteContent();
+  const base =
+    process.env.NEXT_PUBLIC_SITE_URL ||
+    (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "https://thisisnn.com");
+  return {
+    metadataBase: new URL(base),
+    title: seo.title,
+    description: seo.description,
+    keywords: seo.keywords ? seo.keywords.split(",").map((k) => k.trim()).filter(Boolean) : undefined,
+    alternates: { canonical: "/" },
+    openGraph: {
+      title: seo.title,
+      description: seo.description,
+      url: "/",
+      siteName: "Not Normal",
+      type: "website",
+      images: seo.ogImage ? [{ url: seo.ogImage }] : undefined,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: seo.title,
+      description: seo.description,
+      images: seo.ogImage ? [seo.ogImage] : undefined,
+    },
+  };
+}
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
