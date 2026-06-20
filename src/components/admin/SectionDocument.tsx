@@ -234,19 +234,41 @@ function previewOf(item: Json): string {
 /** Collapsible (accordion) list of object items. */
 function ObjectArray({ k, arr, onChange, depth }: { k: string; arr: Json[]; onChange: (v: Json) => void; depth: number }) {
   const [open, setOpen] = useState<number | null>(null);
+  const [dragI, setDragI] = useState<number | null>(null);
+  const [overI, setOverI] = useState<number | null>(null);
   const noun = labelize(k.replace(/s$/, ""));
   const set = (i: number, v: Json) => onChange(arr.map((it, j) => (j === i ? v : it)));
   const remove = (i: number) => { onChange(arr.filter((_, j) => j !== i)); setOpen(null); };
   const move = (i: number, d: number) => { const j = i + d; if (j < 0 || j >= arr.length) return; const n = [...arr]; [n[i], n[j]] = [n[j], n[i]]; onChange(n); setOpen(j); };
   const add = () => { onChange([...arr, arr.length ? emptyLike(arr[0]) : {}]); setOpen(arr.length); };
+  const reorder = (from: number, to: number) => {
+    if (from === to) return;
+    const n = [...arr];
+    const [m] = n.splice(from, 1);
+    n.splice(to, 0, m);
+    onChange(n);
+    setOpen(null);
+  };
 
   return (
     <div className="space-y-2">
       {arr.map((item, i) => {
         const on = open === i;
         return (
-          <div key={i} className="rounded-xl border border-black/[0.07] bg-black/[0.015] overflow-hidden">
+          <div
+            key={i}
+            onDragOver={(e) => { if (dragI !== null) { e.preventDefault(); setOverI(i); } }}
+            onDrop={(e) => { e.preventDefault(); if (dragI !== null) reorder(dragI, i); setDragI(null); setOverI(null); }}
+            className={`rounded-xl border bg-black/[0.015] overflow-hidden transition-colors ${overI === i && dragI !== null && dragI !== i ? "border-[#FF2EC4]/60" : "border-black/[0.07]"} ${dragI === i ? "opacity-40" : ""}`}
+          >
             <div className="flex items-center gap-2 px-3 py-2.5">
+              <span
+                draggable
+                onDragStart={() => { setDragI(i); setOpen(null); }}
+                onDragEnd={() => { setDragI(null); setOverI(null); }}
+                title="Drag to reorder"
+                className="shrink-0 cursor-grab active:cursor-grabbing text-black/25 hover:text-black/50 text-[13px] leading-none select-none px-0.5"
+              >⠿</span>
               <button onClick={() => setOpen(on ? null : i)} className="flex items-center gap-2 flex-1 min-w-0 text-left">
                 <span className="text-black/35 text-[10px] w-3 shrink-0">{on ? "▾" : "▸"}</span>
                 <span className="text-[10px] uppercase tracking-[0.16em] text-black/35 shrink-0">{noun} {i + 1}</span>
