@@ -11,6 +11,18 @@ const variants = {
   exit: (dir: number) => ({ x: dir > 0 ? -120 : 120, opacity: 0 }),
 };
 
+// shrink the giant quote as it gets longer so it never overflows the panel
+function quoteSize(text: string) {
+  const len = text.trim().length;
+  const longestWord = text.trim().split(/\s+/).reduce((m, w) => Math.max(m, w.length), 0);
+  // a single very long unbroken word forces a smaller size too
+  const eff = Math.max(len, longestWord * 7);
+  if (eff <= 70) return "clamp(2.4rem, 8vw, 6.5rem)";
+  if (eff <= 120) return "clamp(2rem, 6.4vw, 5rem)";
+  if (eff <= 180) return "clamp(1.6rem, 5.2vw, 3.9rem)";
+  return "clamp(1.3rem, 4.4vw, 3.1rem)";
+}
+
 export default function Testimonials({ items = DEFAULT_CONTENT.testimonials }: { items?: Testimonial[] }) {
   const [[index, dir], setState] = useState<[number, number]>([0, 0]);
   const paginate = (d: number) => setState([(index + d + items.length) % items.length, d]);
@@ -50,7 +62,7 @@ export default function Testimonials({ items = DEFAULT_CONTENT.testimonials }: {
             }}
             whileDrag={{ cursor: "grabbing" }}
             className="font-sans font-bold uppercase leading-[0.92] tracking-[-0.02em] cursor-grab touch-pan-y"
-            style={{ fontSize: "clamp(2.4rem, 8vw, 6.5rem)" }}
+            style={{ fontSize: quoteSize(t.q), overflowWrap: "anywhere" }}
           >
             {t.q}
           </motion.blockquote>
