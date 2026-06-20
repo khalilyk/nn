@@ -28,50 +28,43 @@ export default function Postcard() {
     return () => mq.removeEventListener("change", update);
   }, []);
 
-  // ── MOBILE: stacked fronts → tap → each card flips in 3D to its back ──
+  // ── MOBILE: single card → tap → flips in 3D to back with full message (like desktop) ──
   if (!isDesktop) {
     return (
-      <div
-        className="w-full flex flex-col gap-5"
-        onClick={() => setExpanded((e) => !e)}
-        data-cursor={expanded ? "Close" : "Flip"}
-      >
-        {[0, 1, 2].map((i) => (
-          <div key={i} style={{ perspective: "1200px" }}>
-            <div
-              className="relative w-full rounded-[3px] transition-transform duration-[900ms] ease-[cubic-bezier(0.16,1,0.3,1)]"
-              style={{
-                aspectRatio: "1599 / 1127",
-                transformStyle: "preserve-3d",
-                transform: expanded ? "rotateY(180deg)" : "rotateY(0deg)",
-                transitionDelay: `${i * 90}ms`,
-              }}
-            >
-              {/* FRONT */}
-              <div
-                className="absolute inset-0 rounded-[3px] overflow-hidden bg-[#0A0A0A]"
-                style={{ backfaceVisibility: "hidden", WebkitBackfaceVisibility: "hidden", boxShadow: CARD_SHADOW }}
-              >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="/postcard-art.jpg" alt="" draggable={false} className="absolute inset-0 w-full h-full object-cover pointer-events-none" />
-              </div>
+      <div className="w-full" style={{ perspective: "1400px" }}>
+        <div
+          className="relative w-full rounded-[3px] transition-transform duration-[900ms] ease-[cubic-bezier(0.16,1,0.3,1)]"
+          style={{
+            aspectRatio: "1599 / 1127",
+            transformStyle: "preserve-3d",
+            transform: expanded ? "rotateY(180deg)" : "rotateY(0deg)",
+          }}
+          onClick={() => setExpanded((e) => !e)}
+          data-cursor={expanded ? "Close" : "Flip"}
+        >
+          {/* FRONT */}
+          <div
+            className="absolute inset-0 rounded-[3px] overflow-hidden bg-[#0A0A0A]"
+            style={{ backfaceVisibility: "hidden", WebkitBackfaceVisibility: "hidden", boxShadow: CARD_SHADOW }}
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/postcard-art.jpg" alt="" draggable={false} className="absolute inset-0 w-full h-full object-cover pointer-events-none" />
+          </div>
 
-              {/* BACK */}
-              <div
-                className="absolute inset-0 rounded-[3px] overflow-hidden bg-[#F3EDE0]"
-                style={{ backfaceVisibility: "hidden", WebkitBackfaceVisibility: "hidden", transform: "rotateY(180deg)", boxShadow: CARD_SHADOW }}
-              >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="/postcard-art-2.jpg" alt="" draggable={false} className="absolute inset-0 w-full h-full object-cover pointer-events-none" />
-                <div className="absolute inset-0 flex flex-col items-start justify-start px-[6%] pt-[7%] pb-[26%] pointer-events-none">
-                  <p className="font-editorial text-[#0A0A0A] leading-snug text-left" style={{ fontSize: "clamp(0.6rem, 2.6vw, 0.95rem)" }}>
-                    {MESSAGE[i]}
-                  </p>
-                </div>
+          {/* BACK */}
+          <div
+            className="absolute inset-0 rounded-[3px] overflow-hidden bg-[#F3EDE0]"
+            style={{ backfaceVisibility: "hidden", WebkitBackfaceVisibility: "hidden", transform: "rotateY(180deg)", boxShadow: CARD_SHADOW }}
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/postcard-art-2.jpg" alt="" draggable={false} className="absolute inset-0 w-full h-full object-cover pointer-events-none" />
+            <div className="absolute inset-0 flex items-start justify-start pl-[3.5%] pr-[8%] pt-[10%] pb-[16%] pointer-events-none">
+              <div className="font-editorial text-[#0A0A0A] leading-relaxed space-y-2.5 max-w-md text-left" style={{ fontSize: "clamp(0.6rem, 2.1vw, 0.85rem)" }}>
+                {MESSAGE.map((p, i) => <p key={i}>{p}</p>)}
               </div>
             </div>
           </div>
-        ))}
+        </div>
       </div>
     );
   }
