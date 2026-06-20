@@ -21,8 +21,9 @@ export default function MenuSplit({ menu = DEFAULT_CONTENT.menu }: { menu?: Menu
   const COURSES = menu.courses;
   const PALETTE = menu.palette;
   const [active, setActive] = useState(0);
+  const [hovered, setHovered] = useState<number | null>(null); // desktop: course whose pills show (only while hovering)
   const [open, setOpen] = useState<number | null>(null); // mobile: which course's pills are revealed
-  const cur = COURSES[active];
+  const cur = hovered !== null ? COURSES[hovered] : null;
 
   return (
     <div className="overflow-hidden">
@@ -34,7 +35,7 @@ export default function MenuSplit({ menu = DEFAULT_CONTENT.menu }: { menu?: Menu
         </h3>
 
         {/* layered list + scattered pills (desktop) */}
-        <div className="relative hidden md:block">
+        <div className="relative hidden md:block" onMouseLeave={() => setHovered(null)}>
           <ul className="relative z-10">
             {COURSES.map((c, i) => {
               const on = i === active;
@@ -42,7 +43,7 @@ export default function MenuSplit({ menu = DEFAULT_CONTENT.menu }: { menu?: Menu
                 <li key={c.title}>
                   <button
                     onClick={() => setActive(i)}
-                    onMouseEnter={() => setActive(i)}
+                    onMouseEnter={() => { setActive(i); setHovered(i); }}
                     data-cursor="View"
                     className="group w-full text-center flex flex-col items-center py-1.5 md:py-2"
                   >
@@ -63,9 +64,9 @@ export default function MenuSplit({ menu = DEFAULT_CONTENT.menu }: { menu?: Menu
             })}
           </ul>
 
-          {/* scattered pills (desktop overlay) */}
+          {/* scattered pills (desktop overlay) — only while hovering a course */}
           <div className="hidden md:block pointer-events-none absolute inset-0 z-20">
-            {cur.items.map((it, i) => {
+            {cur?.items.map((it, i) => {
               const pos = SCATTER[i % SCATTER.length];
               const col = PALETTE[i % PALETTE.length];
               return (
