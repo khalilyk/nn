@@ -34,7 +34,7 @@ export default function MenuSplit({ menu = DEFAULT_CONTENT.menu }: { menu?: Menu
 
         {/* layered list + scattered pills (desktop) */}
         <div className="relative hidden md:block">
-          <ul className="relative z-10">
+          <ul className="relative">
             {COURSES.map((c, i) => {
               const on = i === active;
               return (
@@ -46,7 +46,7 @@ export default function MenuSplit({ menu = DEFAULT_CONTENT.menu }: { menu?: Menu
                     className="group w-full text-center flex flex-col items-center py-1.5 md:py-2"
                   >
                     <span className="flex flex-col items-center">
-                      <span className={`block text-[8px] md:text-[9px] tracking-[0.3em] uppercase mb-1 transition-colors duration-300 ${on ? "text-[#FF2EC4]" : "text-[#0A0A0A]/25"}`}>
+                      <span className={`relative z-30 block text-[8px] md:text-[9px] tracking-[0.3em] uppercase mb-1 transition-colors duration-300 ${on ? "text-[#FF2EC4]" : "text-[#0A0A0A]/25"}`}>
                         [ {c.course} ]
                       </span>
                       <span
