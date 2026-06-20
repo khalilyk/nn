@@ -129,7 +129,7 @@ export const DEFAULT_CONTENT: SiteContent = {
     { name: "Mimi Kakushi", sub: "1920s Osaka, Reborn in Dubai", city: "Dubai", year: "2024", cat: "Branding", desc: "1920s Osaka reborn in Dubai. A richly detailed world of jazz-age Japan, translated into every plate, menu and surface.", img: "https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?auto=format&fit=crop&w=1800&q=80" },
   ],
 
-  clients: {
+  brands: {
     eyebrow: "Friends we've worked with",
     heading: "Brands we've shaped.",
     logos: [

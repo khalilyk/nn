@@ -25,7 +25,7 @@ export async function getSiteContent(): Promise<SiteContent> {
 function normalize(c: SiteContent): SiteContent {
   return {
     ...c,
-    clients: c.clients ?? DEFAULT_CONTENT.clients,
+    brands: { ...DEFAULT_CONTENT.brands, ...(((c as unknown as Record<string, unknown>).brands ?? (c as unknown as Record<string, unknown>).clients ?? {}) as object) },
     seo: { ...DEFAULT_CONTENT.seo, ...(c.seo ?? {}) },
     projects: (c.projects ?? []).map((p) => ({
       ...p,

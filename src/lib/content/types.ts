@@ -124,7 +124,7 @@ export interface SiteContent {
   menu: Menu;
   about: About;
   projects: Project[];
-  clients: Clients;
+  brands: Clients;
   testimonials: Testimonial[];
   notes: Notes;
   contact: Contact;

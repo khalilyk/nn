@@ -254,7 +254,7 @@ export default function Publication({ initialContent }: { initialContent?: SiteC
 
       {/* ═══ 03, FEATURED PROJECTS ═══ */}
       {/* ═══ BRANDS — orange logo carousel (before projects) ═══ */}
-      <ClientLogos clients={c.clients} />
+      <ClientLogos brands={c.brands} />
 
       <Panel index={3} bg="ivory" minH="auto" pin={false}>
         <div id="s04" className="relative bg-[#0A0A0A] text-[#F3F1EC]" data-cursor-color="#F3F1EC">

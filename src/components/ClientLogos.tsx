@@ -6,8 +6,8 @@ import { DEFAULT_CONTENT } from "@/lib/content/defaults";
 
 /* Orange logo carousel — square tiles, slow steady auto-loop that you can also
    grab and drag (mouse) or swipe (touch). Auto-scroll pauses while interacting. */
-export default function ClientLogos({ clients = DEFAULT_CONTENT.clients }: { clients?: Clients }) {
-  const logos = (clients.logos ?? []).filter(Boolean);
+export default function ClientLogos({ brands = DEFAULT_CONTENT.brands }: { brands?: Clients }) {
+  const logos = (brands.logos ?? []).filter(Boolean);
   const scroller = useRef<HTMLDivElement>(null);
   const drag = useRef({ active: false, startX: 0, startLeft: 0 });
   const pos = useRef(0);          // float source-of-truth (scrollLeft rounds, so we track our own)
@@ -74,7 +74,7 @@ export default function ClientLogos({ clients = DEFAULT_CONTENT.clients }: { cli
   return (
     <section className="relative z-10 bg-[#FF5C1A] overflow-hidden py-14 md:py-20">
       <p className="text-center text-[10px] md:text-[11px] tracking-[0.3em] uppercase text-[#0A0A0A]/55 mb-8 md:mb-10">
-        {clients.eyebrow || "Brands we've shaped"}
+        {brands.eyebrow || "Brands we've shaped"}
       </p>
       <div
         ref={scroller}
