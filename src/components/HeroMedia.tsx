@@ -1,16 +1,32 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 /* Hero background — single looping, muted, full-bleed video (nn-header).
    Smoothness:
    - poster paints instantly, video fades in over it once it can play (no pop)
    - WebM (small) with MP4 fallback
    - muted + playsInline so it autoplays on desktop AND mobile (iOS)
-   - a very slow, continuous zoom adds life without any visible loop seam */
+   - a very slow, continuous zoom adds life without any visible loop seam
+   - PAUSES when scrolled out of view so it stops stealing the main thread
+     while you scroll the sections just below the hero */
 export default function HeroMedia({ className = "" }: { className?: string }) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [ready, setReady] = useState(false);
+
+  useEffect(() => {
+    const v = videoRef.current;
+    if (!v) return;
+    const io = new IntersectionObserver(
+      ([e]) => {
+        if (e.isIntersecting) { v.play().catch(() => {}); }
+        else { v.pause(); }
+      },
+      { threshold: 0.05 }
+    );
+    io.observe(v);
+    return () => io.disconnect();
+  }, []);
 
   return (
     <div className={`relative overflow-hidden bg-[#0A0A0A] ${className}`}>
