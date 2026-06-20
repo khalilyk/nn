@@ -1,4 +1,5 @@
 import { getMoodboardPins, pickRandom } from "@/lib/pinterest";
+import MoodboardGrid from "./MoodboardGrid";
 
 /* Full-width moodboard: 6 random pins from the board, re-rolled on every load
    (dashboard is force-dynamic + the fetch is no-store). */
@@ -22,27 +23,7 @@ export default async function PinterestBoard({
       {pins.length === 0 ? (
         <p className="text-[12px] text-black/40">Couldn’t load the board right now — open it directly above.</p>
       ) : (
-        <div className="grid grid-cols-3 md:grid-cols-6 gap-2.5">
-          {pins.map((p) => (
-            <a
-              key={p.id}
-              href={`https://www.pinterest.com/pin/${p.id}/`}
-              target="_blank"
-              rel="noopener noreferrer"
-              title="Open on Pinterest"
-              className="group relative block aspect-[3/4] overflow-hidden rounded-xl"
-              style={{ backgroundColor: p.color }}
-            >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={p.img}
-                alt=""
-                loading="lazy"
-                className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.05]"
-              />
-            </a>
-          ))}
-        </div>
+        <MoodboardGrid pins={pins} />
       )}
     </div>
   );

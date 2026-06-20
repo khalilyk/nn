@@ -87,6 +87,11 @@ export default async function AdminDashboard() {
         ))}
       </div>
 
+      {/* Pinterest moodboard — 6 random pins, re-rolled each load */}
+      <div className="mb-3">
+        <PinterestBoard board="khalilyk/not-normal" href="https://www.pinterest.com/khalilyk/not-normal/" />
+      </div>
+
       {/* graphs */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 mb-3">
         {/* page views over 14 days */}
@@ -192,11 +197,6 @@ export default async function AdminDashboard() {
           <span className="text-[12px] text-black/45">Open →</span>
         </div>
       </Link>
-
-      {/* Pinterest moodboard — 6 random pins, re-rolled each load */}
-      <div className="mt-3">
-        <PinterestBoard board="khalilyk/not-normal" href="https://www.pinterest.com/khalilyk/not-normal/" />
-      </div>
     </div>
   );
 }
