@@ -130,7 +130,7 @@ export const DEFAULT_CONTENT: SiteContent = {
   ],
 
   clients: {
-    eyebrow: "Selected partners",
+    eyebrow: "Friends we've worked with",
     heading: "Brands we've shaped.",
     logos: [
       "/nn-kinoya.png", "/nn-piehaus.png", "/nn-maisan15.png", "/nn-mimi.png", "/nn-xu.png",
