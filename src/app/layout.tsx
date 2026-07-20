@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Playfair_Display, Space_Grotesk, Anton, Caveat, Special_Elite, Permanent_Marker, Rock_Salt, Zilla_Slab, Reenie_Beanie, Space_Mono, DM_Serif_Display, Mansalva, Kalam, Old_Standard_TT, Yellowtail, Imperial_Script } from "next/font/google";
 import "./globals.css";
 import { getSiteContent } from "@/lib/content/get";
+import { SITE_URL } from "@/lib/site-url";
 import { Analytics } from "@vercel/analytics/next";
 import Script from "next/script";
 
@@ -110,9 +111,7 @@ const anton = Anton({
 
 export async function generateMetadata(): Promise<Metadata> {
   const { seo } = await getSiteContent();
-  const base =
-    process.env.NEXT_PUBLIC_SITE_URL ||
-    (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "https://thisisnn.com");
+  const base = SITE_URL;
   return {
     metadataBase: new URL(base),
     title: seo.title,
