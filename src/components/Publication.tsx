@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, Fragment, ReactNode } from "react";
+import { useEffect, useRef, useState, Fragment, ReactNode } from "react";
 import Lenis from "lenis";
 import Reveal from "./Reveal";
 import FeaturedCarousel from "./FeaturedCarousel";
@@ -141,6 +141,7 @@ export default function Publication({ initialContent, show }: { initialContent?:
   const order = show ?? DEFAULT_ORDER;
   // homepage = hero only → lock to one viewport, no scroll (esp. on mobile)
   const singleScreen = order.length === 1 && order[0] === "hero";
+  const [showSpots, setShowSpots] = useState(false); // mobile: tap the dot to reveal the availability text
   const lenisRef = useRef<Lenis | null>(null);
 
   useEffect(() => {
@@ -196,12 +197,22 @@ export default function Publication({ initialContent, show }: { initialContent?:
           {/* Bottom meta row — badge in bottom-left corner, copy in bottom-right, with
               padding equal to the page's side padding (perfectly balanced corners) */}
           <div className="absolute bottom-8 right-8 left-8 md:bottom-16 md:left-16 md:right-16 flex flex-row items-end justify-between gap-6 animate-[fadeUp_0.8s_ease_0.3s_both]">
-            <span className="flex items-start gap-2 max-w-[9rem] shrink-0">
-              <span className="relative flex h-2 w-2 shrink-0 mt-1">
-                <span className="absolute inline-flex h-full w-full rounded-full bg-[#4ADE80] opacity-75 animate-ping" />
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-[#4ADE80] shadow-[0_0_8px_2px_rgba(74,222,128,0.7)]" />
+            <span className="flex flex-col items-start gap-2 md:flex-row md:items-start max-w-[9rem] shrink-0">
+              <button
+                type="button"
+                onClick={() => setShowSpots((v) => !v)}
+                aria-expanded={showSpots}
+                aria-label="Availability"
+                className="flex shrink-0 mt-1 md:pointer-events-none md:cursor-default"
+              >
+                <span className="relative flex h-2 w-2">
+                  <span className="absolute inline-flex h-full w-full rounded-full bg-[#4ADE80] opacity-75 animate-ping" />
+                  <span className="relative inline-flex h-2 w-2 rounded-full bg-[#4ADE80] shadow-[0_0_8px_2px_rgba(74,222,128,0.7)]" />
+                </span>
+              </button>
+              <span className={`text-[10px] tracking-[0.18em] uppercase text-[#4ADE80] leading-[1.7] ${showSpots ? "block" : "hidden"} md:block`}>
+                {c.hero.spotsLeftBadge}
               </span>
-              <span className="text-[10px] tracking-[0.18em] uppercase text-[#4ADE80] leading-[1.7]">{c.hero.spotsLeftBadge}</span>
             </span>
             <p className="text-[11px] leading-relaxed text-[#B9B5AE] text-right max-w-[260px] text-balance">
               {c.hero.supportingCopy}
