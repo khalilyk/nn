@@ -264,7 +264,7 @@ export default function Terminal() {
         ref={bodyRef}
         onClick={() => inputRef.current?.focus()}
         className="px-5 py-5 font-mono text-[12px] md:text-[13px] leading-relaxed overflow-y-auto cursor-text"
-        style={{ height: "clamp(300px, 44vh, 440px)" }}
+        style={{ height: "clamp(75px, 11vh, 110px)" }}
       >
         {msgs.map((m, i) => (
           <div key={i} className="mb-2" style={{ color: colour[m.who], whiteSpace: "pre-wrap" }}>
