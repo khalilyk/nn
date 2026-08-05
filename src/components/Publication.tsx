@@ -193,21 +193,17 @@ export default function Publication({ initialContent, show }: { initialContent?:
 
           {/* Bottom meta row — badge in bottom-left corner, copy in bottom-right, with
               padding equal to the page's side padding (perfectly balanced corners) */}
-          <div className="absolute bottom-8 right-8 left-8 md:bottom-16 md:left-16 md:right-16 flex flex-col-reverse md:flex-row md:items-end md:justify-between gap-5">
-            <Reveal delay={0.3}>
-              <span className="flex items-center gap-2">
-                <span className="relative flex h-2 w-2 shrink-0">
-                  <span className="absolute inline-flex h-full w-full rounded-full bg-[#4ADE80] opacity-75 animate-ping" />
-                  <span className="relative inline-flex h-2 w-2 rounded-full bg-[#4ADE80] shadow-[0_0_8px_2px_rgba(74,222,128,0.7)]" />
-                </span>
-                <span className="text-[10px] tracking-[0.18em] uppercase text-[#4ADE80]">{c.hero.spotsLeftBadge}</span>
+          <div className="absolute bottom-8 right-8 left-8 md:bottom-16 md:left-16 md:right-16 flex flex-col-reverse md:flex-row md:items-end md:justify-between gap-5 animate-[fadeUp_0.8s_ease_0.3s_both]">
+            <span className="flex items-center gap-2">
+              <span className="relative flex h-2 w-2 shrink-0">
+                <span className="absolute inline-flex h-full w-full rounded-full bg-[#4ADE80] opacity-75 animate-ping" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-[#4ADE80] shadow-[0_0_8px_2px_rgba(74,222,128,0.7)]" />
               </span>
-            </Reveal>
-            <Reveal delay={0.3}>
-              <p className="text-[11px] leading-relaxed text-[#B9B5AE] md:text-right max-w-[260px] md:max-w-[260px] text-balance">
-                {c.hero.supportingCopy}
-              </p>
-            </Reveal>
+              <span className="text-[10px] tracking-[0.18em] uppercase text-[#4ADE80]">{c.hero.spotsLeftBadge}</span>
+            </span>
+            <p className="text-[11px] leading-relaxed text-[#B9B5AE] md:text-right max-w-[260px] md:max-w-[260px] text-balance">
+              {c.hero.supportingCopy}
+            </p>
           </div>
 
           {/* Bottom row */}
