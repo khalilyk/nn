@@ -85,7 +85,7 @@ export default function SiteNav({ links = DEFAULT_CONTENT.nav, footer = DEFAULT_
         {/* logo */}
         <div className="flex items-center h-11">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/notnormal-logoblack.png" alt="Not Normal" className="h-4 w-auto" style={{ filter: "invert(1)" }} />
+          <img src="/notnormal-logoblack.png" alt="Not Normal" className="h-3.5 md:h-4 w-auto" style={{ filter: "invert(1)" }} />
         </div>
 
         {/* nav items */}
