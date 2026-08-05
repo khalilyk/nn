@@ -8,7 +8,7 @@ import GlitchLoader from "@/components/GlitchLoader";
 
 const Publication = dynamic(() => import("@/components/Publication"), { ssr: false });
 
-export default function PublicationLoader({ initialContent }: { initialContent: SiteContent }) {
+export default function PublicationLoader({ initialContent, show }: { initialContent: SiteContent; show?: string[] }) {
   const [content, setContent] = useState<SiteContent>(initialContent);
   const [loading, setLoading] = useState(true);
 
@@ -64,7 +64,7 @@ export default function PublicationLoader({ initialContent }: { initialContent: 
   return (
     <>
       {loading && <GlitchLoader />}
-      <Publication initialContent={content} />
+      <Publication initialContent={content} show={show} />
     </>
   );
 }

@@ -128,21 +128,15 @@ function Panel({
 }
 
 /* Bottom corner section number */
-function SectionNo({ n, side = "left", dark }: { n: string; side?: "left" | "right"; dark?: boolean }) {
-  return (
-    <span
-      className={`absolute bottom-7 ${side === "left" ? "left-8 md:left-16" : "right-8 md:right-16"} text-[10px] tracking-[0.2em] ${
-        dark ? "text-[#B9B5AE]/70" : "text-[#0A0A0A]/40"
-      }`}
-    >
-      {n}
-    </span>
-  );
+// section index labels removed by request
+function SectionNo(_: { n: string; side?: "left" | "right"; dark?: boolean }) {
+  return null;
 }
 
 /* ───────────────── PUBLICATION ───────────────── */
-export default function Publication({ initialContent }: { initialContent?: SiteContent }) {
+export default function Publication({ initialContent, show }: { initialContent?: SiteContent; show?: string[] }) {
   const c = initialContent ?? DEFAULT_CONTENT;
+  const S = (k: string) => !show || show.includes(k); // which sections to render (all if unset)
   const lenisRef = useRef<Lenis | null>(null);
 
   useEffect(() => {
@@ -169,10 +163,13 @@ export default function Publication({ initialContent }: { initialContent?: SiteC
     <div className="relative overflow-x-clip md:overflow-x-visible">
       <Cursor />
       <Grain />
-      <ScrollProgress total={9} />
+      {(!show || show.filter((k) => k !== "footer").length > 1) && (
+        <ScrollProgress total={(show ?? Array(9)).filter((k) => k !== "footer").length || 9} />
+      )}
       <SiteNav links={c.nav} />
 
       {/* ═══ 01, HERO ═══ */}
+      {S("hero") && (
       <Panel index={1} bg="black">
         <div id="top" className="relative min-h-screen flex flex-col justify-center px-8 md:px-16 pt-20 pb-16 overflow-hidden">
           {/* Hero crossfading media, full-bleed, centred */}
@@ -222,8 +219,10 @@ export default function Publication({ initialContent }: { initialContent?: SiteC
           <SectionNo n="01" dark />
         </div>
       </Panel>
+      )}
 
       {/* ═══ 02, NOBODY REMEMBERS NORMAL + THE MENU ═══ */}
+      {S("menu") && (
       <Panel index={2} bg="ivory" minH="auto" pin={false} clip={false}>
         <div id="s02" className="relative">
           {/* Top, statement + image */}
@@ -251,11 +250,13 @@ export default function Publication({ initialContent }: { initialContent?: SiteC
           <SectionNo n="02" />
         </div>
       </Panel>
+      )}
+
+      {/* ═══ BRANDS — orange logo carousel ═══ */}
+      {S("brands") && <ClientLogos brands={c.brands} />}
 
       {/* ═══ 03, FEATURED PROJECTS ═══ */}
-      {/* ═══ BRANDS — orange logo carousel (before projects) ═══ */}
-      <ClientLogos brands={c.brands} />
-
+      {S("projects") && (
       <Panel index={3} bg="ivory" minH="auto" pin={false}>
         <div id="s04" className="relative bg-[#0A0A0A] text-[#F3F1EC]" data-cursor-color="#F3F1EC">
           {/* mobile keeps the section-wide fixed wall; desktop's wall lives inside the pinned split layer (no drift) */}
@@ -268,8 +269,10 @@ export default function Publication({ initialContent }: { initialContent?: SiteC
           <SectionNo n="03" />
         </div>
       </Panel>
+      )}
 
       {/* ═══ 04, POSTCARD ═══ */}
+      {S("postcard") && (
       <Panel index={5} bg="ivory" minH="auto" pin={false} slideFrom="up">
         <div className="relative px-8 md:px-16 py-28 md:py-36 bg-[#C0392B] overflow-hidden">
           {/* graffiti backdrop, pinned in the viewport while the section scrolls */}
@@ -284,8 +287,10 @@ export default function Publication({ initialContent }: { initialContent?: SiteC
           <SectionNo n="04" dark />
         </div>
       </Panel>
+      )}
 
       {/* ═══ 05, NORM ═══ */}
+      {S("norm") && (
       <Panel index={6} bg="ivory" minH="auto" pin={false} slideFrom="left">
         <div id="s08" className="relative px-8 md:px-16 py-20 md:py-32 flex flex-col items-center">
           <Reveal>
@@ -303,34 +308,44 @@ Meet <span className="italic">NORM</span>, our marketing exec.<br />
           <SectionNo n="05" />
         </div>
       </Panel>
+      )}
 
       {/* ═══ 06, TESTIMONIALS ═══ */}
+      {S("testimonials") && (
       <Panel index={7} bg="black" minH="85vh" pin={false}>
         <div className="relative min-h-[85vh] overflow-hidden">
           <Testimonials items={c.testimonials} />
         </div>
       </Panel>
+      )}
 
-
-      {/* ═══ ABOUT (woven in) ═══ */}
+      {/* ═══ ABOUT ═══ */}
+      {S("about") && (
       <Panel index={2} bg="ivory" minH="auto" pin={false}>
         <AboutSection about={c.about} />
       </Panel>
+      )}
 
-      {/* ═══ JOURNAL (blog) ═══ */}
+      {/* ═══ JOURNAL / NOTES ═══ */}
+      {S("notes") && (
       <Panel index={9} bg="ivory" minH="auto" pin={false}>
         <JournalSection notes={c.notes} />
       </Panel>
+      )}
 
-      {/* ═══ CONTACT (woven in, now incl. Three Cities) ═══ */}
+      {/* ═══ CONTACT (incl. Three Cities) ═══ */}
+      {S("contact") && (
       <Panel index={10} bg="ivory" minH="auto" pin={false}>
         <ContactSection contact={c.contact} />
       </Panel>
+      )}
 
       {/* ═══ FOOTER, THE INVITATION ═══ */}
+      {S("footer") && (
       <Panel index={10} bg="ivory" minH="auto" slideFrom="up">
         <SiteFooter footer={c.footer} />
       </Panel>
+      )}
     </div>
   );
 }

@@ -63,6 +63,16 @@ export default function LiveEditor({ initial, initialSection = "hero" }: { initi
     return () => clearTimeout(id);
   }, [content, ready]);
 
+  // each section now lives on its own page — preview the right route
+  const PREVIEW_ROUTE: Record<string, string> = {
+    hero: "/", nav: "/", menu: "/menu", brands: "/menu",
+    projects: "/projects", about: "/about", testimonials: "/about",
+    notes: "/notes", contact: "/contact", footer: "/menu",
+  };
+  const previewSrc = `${PREVIEW_ROUTE[active as string] ?? "/"}?preview=1`;
+  // when the previewed route changes, wait for the new page to report ready again
+  useEffect(() => { setReady(false); }, [previewSrc]);
+
   const ANCHORS: Record<string, string> = {
     hero: "#top", menu: "#s02", about: "#about", projects: "#s04",
     notes: "#journal", contact: "#contact", footer: "#footer", nav: "#top",
@@ -173,7 +183,7 @@ export default function LiveEditor({ initial, initialSection = "hero" }: { initi
             </div>
           </div>
           <div className="flex-1 min-h-0 px-4 pb-4 grid place-items-center overflow-hidden">
-            <iframe ref={iframe} src="/?preview=1" className="h-full rounded-xl bg-white shadow-lg border border-black/10 transition-[width,max-width] duration-300" style={{ width: device === "mobile" ? 390 : "100%", maxWidth: "100%" }} title="Live preview" />
+            <iframe ref={iframe} src={previewSrc} className="h-full rounded-xl bg-white shadow-lg border border-black/10 transition-[width,max-width] duration-300" style={{ width: device === "mobile" ? 390 : "100%", maxWidth: "100%" }} title="Live preview" />
           </div>
         </div>
       </div>
