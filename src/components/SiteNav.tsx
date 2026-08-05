@@ -3,17 +3,10 @@
 import { useEffect, useState } from "react";
 import Magnetic from "./Magnetic";
 import ChatLink from "./ChatLink";
-import type { NavLink } from "@/lib/content/types";
+import type { NavLink, Footer } from "@/lib/content/types";
 import { DEFAULT_CONTENT } from "@/lib/content/defaults";
 
-// staggered entrance for each stacked menu card
-const card = (open: boolean, i: number) => ({
-  opacity: open ? 1 : 0,
-  transform: open ? "translateY(0) scale(1)" : "translateY(18px) scale(0.98)",
-  transition: `opacity 0.5s cubic-bezier(0.16,1,0.3,1) ${open ? 0.1 + i * 0.08 : 0}s, transform 0.5s cubic-bezier(0.16,1,0.3,1) ${open ? 0.1 + i * 0.08 : 0}s`,
-});
-
-export default function SiteNav({ links = DEFAULT_CONTENT.nav }: { links?: NavLink[] }) {
+export default function SiteNav({ links = DEFAULT_CONTENT.nav, footer = DEFAULT_CONTENT.footer }: { links?: NavLink[]; footer?: Footer }) {
   const LINKS = links;
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -62,100 +55,75 @@ export default function SiteNav({ links = DEFAULT_CONTENT.nav }: { links?: NavLi
         </div>
       </nav>
 
-      {/* ─── MORPHING HAMBURGER ⇄ X TOGGLE (above the overlay) ─── */}
+      {/* ─── MOBILE MENU TOGGLE (circular, stays put, morphs hamburger ⇄ minus) ─── */}
       <button
-        aria-label="Open menu"
-        onClick={() => setMenuOpen(true)}
-        className={`lg:hidden fixed top-6 right-8 z-[120] w-8 h-8 flex items-center justify-center transition-opacity duration-200 ${menuOpen ? "opacity-0 pointer-events-none" : "opacity-100"}`}
-        style={{ color: "#F3F1EC", mixBlendMode: "difference" }}
+        aria-label={menuOpen ? "Close menu" : "Open menu"}
+        onClick={() => setMenuOpen((o) => !o)}
+        className="lg:hidden fixed top-5 right-6 z-[130] w-11 h-11 rounded-full bg-white text-[#0A0A0A] grid place-items-center shadow-[0_6px_18px_-4px_rgba(0,0,0,0.4)]"
       >
-        <span
-          className="absolute left-1/2 top-1/2 block h-[2px] w-7 rounded-full bg-current"
-          style={{
-            transform: menuOpen ? "translate(-50%,-50%) rotate(45deg)" : "translate(-50%,-50%) translateY(-4px)",
-            transition: "transform 0.35s cubic-bezier(0.16,1,0.3,1)",
-          }}
-        />
-        <span
-          className="absolute left-1/2 top-1/2 block h-[2px] w-7 rounded-full bg-current"
-          style={{
-            transform: menuOpen ? "translate(-50%,-50%) rotate(-45deg)" : "translate(-50%,-50%) translateY(4px)",
-            transition: "transform 0.35s cubic-bezier(0.16,1,0.3,1)",
-          }}
-        />
+        <span className="relative block w-4 h-4">
+          <span
+            className="absolute left-0 right-0 top-1/2 h-[2px] rounded-full bg-current transition-transform duration-300 ease-[cubic-bezier(0.76,0,0.24,1)]"
+            style={{ transform: menuOpen ? "translateY(-50%)" : "translateY(-350%)" }}
+          />
+          <span
+            className="absolute left-0 right-0 top-1/2 h-[2px] rounded-full bg-current transition-all duration-300 ease-[cubic-bezier(0.76,0,0.24,1)]"
+            style={{ transform: menuOpen ? "translateY(-50%)" : "translateY(250%)", opacity: menuOpen ? 0 : 1 }}
+          />
+        </span>
       </button>
 
-      {/* ─── MOBILE MENU OVERLAY (3 stacked cards) ─── */}
-      <div className={`fixed inset-0 z-[110] lg:hidden bg-[#0A0A0A] flex flex-col gap-2.5 p-2.5 pt-12 transition-opacity duration-[450ms] ease-in-out ${menuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}>
-        {/* 0 - close bar */}
-        <button
-          aria-label="Close menu"
-          onClick={() => setMenuOpen(false)}
-          className="rounded-[26px] bg-[#BBD9F2] text-[#0A0A0A] py-4 flex items-center justify-center"
-          style={card(menuOpen, 0)}
-        >
-          <span className="relative block w-5 h-5">
-            <span
-              className="absolute left-1/2 top-1/2 block h-[2.5px] w-5 rounded-full bg-current"
-              style={{ transform: menuOpen ? "translate(-50%,-50%) rotate(45deg)" : "translate(-50%,-50%) rotate(0deg)", transition: "transform 0.45s cubic-bezier(0.16,1,0.3,1) 0.18s" }}
-            />
-            <span
-              className="absolute left-1/2 top-1/2 block h-[2.5px] w-5 rounded-full bg-current"
-              style={{ transform: menuOpen ? "translate(-50%,-50%) rotate(-45deg)" : "translate(-50%,-50%) rotate(0deg)", transition: "transform 0.45s cubic-bezier(0.16,1,0.3,1) 0.18s" }}
-            />
-          </span>
-        </button>
-
-        {/* 1 - navigation card */}
-        <div
-          className="relative flex-1 overflow-hidden rounded-[26px] bg-[#C5E8B7] text-[#0A0A0A] flex flex-col justify-center items-center px-6 py-6"
-          style={card(menuOpen, 1)}
-        >
-          <nav className="flex flex-col items-center gap-[2vh]">
-            {LINKS.map(({ l, href }) => (
-              <a
-                key={l}
-                href={href}
-                onClick={() => setMenuOpen(false)}
-                className="font-display uppercase tracking-tight leading-none transition-opacity duration-300 hover:opacity-50"
-                style={{ fontSize: "clamp(1.6rem, 7vw, 2.6rem)" }}
-              >
-                {l}
-              </a>
-            ))}
-          </nav>
+      {/* ─── MOBILE MENU (black, expands from the toggle's corner) ─── */}
+      <div
+        className="lg:hidden fixed inset-0 z-[120] bg-[#0A0A0A] text-[#F3F1EC] flex flex-col px-7 pt-7 pb-8 transition-[clip-path] duration-[650ms] ease-[cubic-bezier(0.76,0,0.24,1)]"
+        style={{
+          clipPath: menuOpen ? "circle(150% at calc(100% - 2.75rem) 2.75rem)" : "circle(0px at calc(100% - 2.75rem) 2.75rem)",
+          pointerEvents: menuOpen ? "auto" : "none",
+        }}
+        aria-hidden={!menuOpen}
+      >
+        {/* logo */}
+        <div className="flex items-center h-11">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/notnormal-logoblack.png" alt="Not Normal" className="h-4 w-auto" style={{ filter: "invert(1)" }} />
         </div>
 
-        {/* 2 - ring ring band */}
-        <a
-          href="tel:+610433714701"
-          onClick={() => setMenuOpen(false)}
-          className="group relative z-0 rounded-[26px] bg-[#FBD9BE] text-[#0A0A0A] px-6 py-3 flex items-center justify-between"
-          style={card(menuOpen, 2)}
-        >
-          <span className="font-display uppercase tracking-tight leading-none" style={{ fontSize: "clamp(1.4rem, 7vw, 2rem)" }}>Give us a ring</span>
-          <span aria-hidden className="flex items-center group-hover:rotate-12 transition-transform duration-300 origin-center">
-            <svg width="64" height="80" viewBox="-5 -10 110 135" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-              <path d="m45.094 85.672s8.4219-9.1719 8.4219-9.1719l3.0469-39.234s-2.5625-3.2969-2.5625-3.2969h-19.812c0 0.015625 2.4883 3.293 2.4688 3.3125 0 0-3.2031 39.25-3.2031 39.25l-7.2031 9.1406c2.5352-0.011719 16.012 0.007813 18.844 0zm-3.0469-21.828h-2.4844c-0.85938 0-1.5625-0.70312-1.5625-1.5625 0-0.875 0.70312-1.5625 1.5625-1.5625h2.4844c2.0547 0.019531 2.0586 3.0938 0 3.125zm1.0156 4.5c0 0.85938-0.6875 1.5625-1.5625 1.5625h-2.4844c-0.85938 0-1.5625-0.70312-1.5625-1.5625 0-0.875 0.70312-1.5625 1.5625-1.5625h2.4844c0.875 0 1.5625 0.6875 1.5625 1.5625zm-0.4375-10.562h-2.4844c-0.85938 0-1.5625-0.70312-1.5625-1.5625s0.70312-1.5625 1.5625-1.5625h2.4844c2.0547 0.03125 2.0547 3.0938 0 3.125zm0.67188-6.0625h-2.4844c-2.0547-0.03125-2.0547-3.0938 0-3.125h2.4844c2.0508 0.039062 2.0547 3.0859 0 3.125zm0.125-6.0625h-2.5c-0.85938 0-1.5625-0.70312-1.5625-1.5625s0.70312-1.5625 1.5625-1.5625h2.5c2.0508 0.039062 2.0547 3.0859 0 3.125zm5.0156 2.9375h2.5c0.85938 0 1.5625 0.70312 1.5625 1.5625s-0.70312 1.5625-1.5625 1.5625h-2.5c-2.0508-0.039062-2.0547-3.0859 0-3.125zm-1.4375-4.5c0-0.85938 0.70312-1.5625 1.5625-1.5625h2.5c0.85938 0 1.5625 0.70312 1.5625 1.5625s-0.70312 1.5625-1.5625 1.5625h-2.5c-0.85938 0-1.5625-0.70312-1.5625-1.5625zm0.78125 10.562h2.4844c2.0547 0.03125 2.0547 3.0938 0 3.125h-2.4844c-2.0508-0.039062-2.0547-3.0859 0-3.125zm-0.57812 6.0625h2.4844c0.85938 0 1.5625 0.6875 1.5625 1.5625 0 0.85938-0.70312 1.5625-1.5625 1.5625h-2.4844c-2.0586-0.03125-2.0547-3.1055 0-3.125zm-0.54688 6.0625h2.4844c2.0547 0.019531 2.0586 3.0938 0 3.125h-2.4844c-2.0547-0.039062-2.0547-3.0977 0-3.125z" />
-              <path d="m45.312 88.797h-18.5l10.281 7.2656c0.27344 0.19531 0.60156 0.28516 0.9375 0.28125l17.766-0.46875z" />
-              <path d="m53.312 30.844c0.17969-2.2852 1.3711-17.207 1.5-19.125h-18.266c-0.8125 0-1.4844 0.625-1.5469 1.4375l-1.4531 17.688c1.707-0.015625 17.621 0.011719 19.766 0zm-8.7031-3.2969c-7.7617-0.25391-7.7617-11.496 0-11.75 7.7617 0.25391 7.7617 11.496 0 11.75z" />
-              <path d="m44.609 18.922c-3.625 0.097656-3.625 5.4062 0 5.5 3.625-0.097656 3.625-5.4062 0-5.5z" />
-              <path d="m73.32 3.7188c-0.82812-0.24219-1.6953 0.23438-1.9375 1.0625l-4.9648 17.055-8.543-9.1055s-1.3125 16.602-1.5156 19.188c0.21484 0.34766 3.2539 4.0469 3.25 4.2969 0.14844 0.24219 0.089844 0.70312 0.09375 0.89062l-3.125 40.156c-0.023437 0.16016-0.046875 0.33594-0.125 0.48438-0.0625 0.17969-8.2812 9.2031-8.2812 9.2031l10.266 6.9375 8.0625-11.672c0.6875-1 1.0938-2.1719 1.1719-3.3906l3.2969-48.969c0.125-1.8594-0.53125-3.7188-1.8125-5.0938-0.007812-0.007813 5.2266-19.109 5.2266-19.109 0.24219-0.82812-0.23437-1.6953-1.0625-1.9375z" />
-            </svg>
-          </span>
-        </a>
+        {/* nav items */}
+        <nav className="flex-1 flex flex-col justify-center gap-1.5">
+          {[{ l: "Home", href: "/" }, ...LINKS.map((x) => ({ l: x.l, href: x.href })), { l: "Contact", href: "/contact" }].map(({ l, href }, i) => (
+            <a
+              key={l}
+              href={href}
+              onClick={() => setMenuOpen(false)}
+              className="font-sans font-medium leading-[1.02] hover:opacity-55 transition-opacity"
+              style={{
+                fontSize: "clamp(2.4rem, 12vw, 3.6rem)",
+                opacity: menuOpen ? 1 : 0,
+                transform: menuOpen ? "translateY(0)" : "translateY(14px)",
+                transition: `opacity 0.5s ease ${menuOpen ? 0.18 + i * 0.05 : 0}s, transform 0.5s cubic-bezier(0.16,1,0.3,1) ${menuOpen ? 0.18 + i * 0.05 : 0}s`,
+              }}
+            >
+              {l}
+            </a>
+          ))}
+        </nav>
 
-        {/* 3 - mascot / chat card */}
-        <div
-          className="relative z-10 flex-[1.3] overflow-hidden rounded-[26px] bg-[#F9CEDF] text-[#0A0A0A]"
-          style={card(menuOpen, 3)}
-        >
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/nn-panda.png"
-            alt="Not Normal"
-            className="pointer-events-none absolute left-1/2 -translate-x-1/2 bottom-0 z-20 h-[90%] w-auto max-w-none"
-          />
+        {/* footer block */}
+        <div style={{ opacity: menuOpen ? 1 : 0, transition: "opacity 0.5s ease 0.4s" }}>
+          <div className="text-[12px] tracking-[0.12em] uppercase text-white/75 leading-[1.7]">
+            {footer.locations.split(",").map((loc) => (
+              <div key={loc}>{loc.trim()}</div>
+            ))}
+          </div>
+          <a href={`mailto:${footer.email}`} className="inline-block mt-5 text-[12px] tracking-[0.12em] uppercase border-b border-white/50 pb-1 hover:border-white transition-colors">
+            Email us
+          </a>
+          <div className="mt-8 pt-5 border-t border-white/12 flex items-center justify-between text-[10px] tracking-[0.16em] uppercase text-white/40">
+            <span>© {new Date().getFullYear()} Not Normal</span>
+            <a href={footer.socials[0]?.href ?? "#"} target="_blank" rel="noopener noreferrer" className="hover:text-white/70 transition-colors">
+              {footer.socials[0]?.label ?? "Instagram"} ↗
+            </a>
+          </div>
         </div>
       </div>
     </>

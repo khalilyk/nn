@@ -343,7 +343,7 @@ export default function Publication({ initialContent, show }: { initialContent?:
       {order.filter((k) => k !== "footer").length > 1 && (
         <ScrollProgress total={order.filter((k) => k !== "footer").length} />
       )}
-      <SiteNav links={c.nav} />
+      <SiteNav links={c.nav} footer={c.footer} />
       {order.map((k) => (sectionMap[k] ? <Fragment key={k}>{sectionMap[k]}</Fragment> : null))}
     </div>
   );
