@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, ReactNode } from "react";
+import { useEffect, useRef, Fragment, ReactNode } from "react";
 import Lenis from "lenis";
 import Reveal from "./Reveal";
 import FeaturedCarousel from "./FeaturedCarousel";
@@ -136,7 +136,9 @@ function SectionNo(_: { n: string; side?: "left" | "right"; dark?: boolean }) {
 /* ───────────────── PUBLICATION ───────────────── */
 export default function Publication({ initialContent, show }: { initialContent?: SiteContent; show?: string[] }) {
   const c = initialContent ?? DEFAULT_CONTENT;
-  const S = (k: string) => !show || show.includes(k); // which sections to render (all if unset)
+  // sections render in this order; a page passes `show` to pick a subset (and its order)
+  const DEFAULT_ORDER = ["hero", "menu", "brands", "projects", "postcard", "norm", "testimonials", "about", "notes", "contact", "footer"];
+  const order = show ?? DEFAULT_ORDER;
   const lenisRef = useRef<Lenis | null>(null);
 
   useEffect(() => {
@@ -159,17 +161,9 @@ export default function Publication({ initialContent, show }: { initialContent?:
     };
   }, []);
 
-  return (
-    <div className="relative overflow-x-clip md:overflow-x-visible">
-      <Cursor />
-      <Grain />
-      {(!show || show.filter((k) => k !== "footer").length > 1) && (
-        <ScrollProgress total={(show ?? Array(9)).filter((k) => k !== "footer").length || 9} />
-      )}
-      <SiteNav links={c.nav} />
-
-      {/* ═══ 01, HERO ═══ */}
-      {S("hero") && (
+  const sectionMap: Record<string, ReactNode> = {
+      /* ═══ HERO ═══ */
+      hero: (
       <Panel index={1} bg="black">
         <div id="top" className="relative min-h-screen flex flex-col justify-center px-8 md:px-16 pt-20 pb-16 overflow-hidden">
           {/* Hero crossfading media, full-bleed, centred */}
@@ -220,10 +214,10 @@ export default function Publication({ initialContent, show }: { initialContent?:
           <SectionNo n="01" dark />
         </div>
       </Panel>
-      )}
+      ),
 
-      {/* ═══ 02, NOBODY REMEMBERS NORMAL + THE MENU ═══ */}
-      {S("menu") && (
+      /* ═══ MENU ═══ */
+      menu: (
       <Panel index={2} bg="ivory" minH="auto" pin={false} clip={false}>
         <div id="s02" className="relative">
           {/* Top, statement + image */}
@@ -251,13 +245,13 @@ export default function Publication({ initialContent, show }: { initialContent?:
           <SectionNo n="02" />
         </div>
       </Panel>
-      )}
+      ),
 
-      {/* ═══ BRANDS — orange logo carousel ═══ */}
-      {S("brands") && <ClientLogos brands={c.brands} />}
+      /* ═══ BRANDS — orange logo carousel ═══ */
+      brands: <ClientLogos brands={c.brands} />,
 
-      {/* ═══ 03, FEATURED PROJECTS ═══ */}
-      {S("projects") && (
+      /* ═══ FEATURED PROJECTS ═══ */
+      projects: (
       <Panel index={3} bg="ivory" minH="auto" pin={false}>
         <div id="s04" className="relative bg-[#0A0A0A] text-[#F3F1EC]" data-cursor-color="#F3F1EC">
           {/* mobile keeps the section-wide fixed wall; desktop's wall lives inside the pinned split layer (no drift) */}
@@ -270,10 +264,10 @@ export default function Publication({ initialContent, show }: { initialContent?:
           <SectionNo n="03" />
         </div>
       </Panel>
-      )}
+      ),
 
-      {/* ═══ 04, POSTCARD ═══ */}
-      {S("postcard") && (
+      /* ═══ POSTCARD ═══ */
+      postcard: (
       <Panel index={5} bg="ivory" minH="auto" pin={false} slideFrom="up">
         <div className="relative px-8 md:px-16 py-28 md:py-36 bg-[#C0392B] overflow-hidden">
           {/* graffiti backdrop, pinned in the viewport while the section scrolls */}
@@ -288,10 +282,10 @@ export default function Publication({ initialContent, show }: { initialContent?:
           <SectionNo n="04" dark />
         </div>
       </Panel>
-      )}
+      ),
 
-      {/* ═══ 05, NORM ═══ */}
-      {S("norm") && (
+      /* ═══ NORM ═══ */
+      norm: (
       <Panel index={6} bg="ivory" minH="auto" pin={false} slideFrom="left">
         <div id="s08" className="relative px-8 md:px-16 py-20 md:py-32 flex flex-col items-center">
           <Reveal>
@@ -309,44 +303,55 @@ Meet <span className="italic">NORM</span>, our marketing exec.<br />
           <SectionNo n="05" />
         </div>
       </Panel>
-      )}
+      ),
 
-      {/* ═══ 06, TESTIMONIALS ═══ */}
-      {S("testimonials") && (
+      /* ═══ TESTIMONIALS ═══ */
+      testimonials: (
       <Panel index={7} bg="black" minH="85vh" pin={false}>
         <div className="relative min-h-[85vh] overflow-hidden">
           <Testimonials items={c.testimonials} />
         </div>
       </Panel>
-      )}
+      ),
 
-      {/* ═══ ABOUT ═══ */}
-      {S("about") && (
+      /* ═══ ABOUT ═══ */
+      about: (
       <Panel index={2} bg="ivory" minH="auto" pin={false}>
         <AboutSection about={c.about} />
       </Panel>
-      )}
+      ),
 
-      {/* ═══ JOURNAL / NOTES ═══ */}
-      {S("notes") && (
+      /* ═══ JOURNAL / NOTES ═══ */
+      notes: (
       <Panel index={9} bg="ivory" minH="auto" pin={false}>
         <JournalSection notes={c.notes} />
       </Panel>
-      )}
+      ),
 
-      {/* ═══ CONTACT (incl. Three Cities) ═══ */}
-      {S("contact") && (
+      /* ═══ CONTACT (incl. Three Cities) ═══ */
+      contact: (
       <Panel index={10} bg="ivory" minH="auto" pin={false}>
         <ContactSection contact={c.contact} />
       </Panel>
-      )}
+      ),
 
-      {/* ═══ FOOTER, THE INVITATION ═══ */}
-      {S("footer") && (
+      /* ═══ FOOTER, THE INVITATION ═══ */
+      footer: (
       <Panel index={10} bg="ivory" minH="auto" slideFrom="up">
         <SiteFooter footer={c.footer} />
       </Panel>
+      ),
+  };
+
+  return (
+    <div className="relative overflow-x-clip md:overflow-x-visible">
+      <Cursor />
+      <Grain />
+      {order.filter((k) => k !== "footer").length > 1 && (
+        <ScrollProgress total={order.filter((k) => k !== "footer").length} />
       )}
+      <SiteNav links={c.nav} />
+      {order.map((k) => (sectionMap[k] ? <Fragment key={k}>{sectionMap[k]}</Fragment> : null))}
     </div>
   );
 }
