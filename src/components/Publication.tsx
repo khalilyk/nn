@@ -139,6 +139,8 @@ export default function Publication({ initialContent, show }: { initialContent?:
   // sections render in this order; a page passes `show` to pick a subset (and its order)
   const DEFAULT_ORDER = ["hero", "menu", "brands", "projects", "postcard", "norm", "testimonials", "about", "notes", "contact", "footer"];
   const order = show ?? DEFAULT_ORDER;
+  // homepage = hero only → lock to one viewport, no scroll (esp. on mobile)
+  const singleScreen = order.length === 1 && order[0] === "hero";
   const lenisRef = useRef<Lenis | null>(null);
 
   useEffect(() => {
@@ -165,7 +167,7 @@ export default function Publication({ initialContent, show }: { initialContent?:
       /* ═══ HERO ═══ */
       hero: (
       <Panel index={1} bg="black">
-        <div id="top" className="relative min-h-screen flex flex-col justify-center px-8 md:px-16 pt-20 pb-16 overflow-hidden">
+        <div id="top" className="relative h-[100dvh] flex flex-col justify-center px-8 md:px-16 pt-20 pb-16 overflow-hidden">
           {/* Hero crossfading media, full-bleed, centred */}
           <div className="absolute inset-0">
             <HeroMedia className="w-full h-full" />
@@ -193,15 +195,15 @@ export default function Publication({ initialContent, show }: { initialContent?:
 
           {/* Bottom meta row — badge in bottom-left corner, copy in bottom-right, with
               padding equal to the page's side padding (perfectly balanced corners) */}
-          <div className="absolute bottom-8 right-8 left-8 md:bottom-16 md:left-16 md:right-16 flex flex-col-reverse md:flex-row md:items-end md:justify-between gap-5 animate-[fadeUp_0.8s_ease_0.3s_both]">
-            <span className="flex items-center gap-2">
-              <span className="relative flex h-2 w-2 shrink-0">
+          <div className="absolute bottom-8 right-8 left-8 md:bottom-16 md:left-16 md:right-16 flex flex-row items-end justify-between gap-6 animate-[fadeUp_0.8s_ease_0.3s_both]">
+            <span className="flex items-start gap-2 max-w-[9rem] shrink-0">
+              <span className="relative flex h-2 w-2 shrink-0 mt-1">
                 <span className="absolute inline-flex h-full w-full rounded-full bg-[#4ADE80] opacity-75 animate-ping" />
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-[#4ADE80] shadow-[0_0_8px_2px_rgba(74,222,128,0.7)]" />
               </span>
-              <span className="text-[10px] tracking-[0.18em] uppercase text-[#4ADE80]">{c.hero.spotsLeftBadge}</span>
+              <span className="text-[10px] tracking-[0.18em] uppercase text-[#4ADE80] leading-[1.7]">{c.hero.spotsLeftBadge}</span>
             </span>
-            <p className="text-[11px] leading-relaxed text-[#B9B5AE] md:text-right max-w-[260px] md:max-w-[260px] text-balance">
+            <p className="text-[11px] leading-relaxed text-[#B9B5AE] text-right max-w-[260px] text-balance">
               {c.hero.supportingCopy}
             </p>
           </div>
@@ -337,7 +339,7 @@ export default function Publication({ initialContent, show }: { initialContent?:
   };
 
   return (
-    <div className="relative overflow-x-clip md:overflow-x-visible">
+    <div className={`relative overflow-x-clip md:overflow-x-visible${singleScreen ? " h-[100dvh] overflow-hidden" : ""}`}>
       <Cursor />
       <Grain />
       {order.filter((k) => k !== "footer").length > 1 && (
