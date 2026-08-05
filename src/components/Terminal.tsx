@@ -221,7 +221,7 @@ export default function Terminal({ heading }: { heading?: React.ReactNode }) {
   }, []);
 
   return (
-    <div className="w-full md:w-[75%] mx-auto rounded-xl overflow-hidden shadow-2xl" style={{ background: "#0A0A0A", border: "1px solid rgba(255,255,255,0.08)" }}>
+    <div className="w-full rounded-xl overflow-hidden shadow-2xl" style={{ background: "#0A0A0A", border: "1px solid rgba(255,255,255,0.08)" }}>
       {/* Heading inside the box */}
       {heading && <div className="px-6 md:px-10 pt-8 md:pt-10 pb-3">{heading}</div>}
 
