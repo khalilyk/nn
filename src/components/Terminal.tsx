@@ -223,7 +223,7 @@ export default function Terminal({ heading }: { heading?: React.ReactNode }) {
   return (
     <div className="w-full rounded-xl overflow-hidden shadow-2xl" style={{ background: "#0A0A0A", border: "1px solid rgba(255,255,255,0.08)" }}>
       {/* Heading inside the box */}
-      {heading && <div className="px-6 md:px-10 pt-8 md:pt-10 pb-3">{heading}</div>}
+      {heading && <div className="px-6 md:px-10 pt-10 md:pt-14 pb-6 md:pb-8">{heading}</div>}
 
       {/* Title bar */}
       <div className="flex items-center gap-2 px-4 py-3 border-b border-white/8" style={{ background: "#111" }}>

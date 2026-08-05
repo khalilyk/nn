@@ -291,13 +291,10 @@ export default function Publication({ initialContent, show }: { initialContent?:
           <Reveal delay={0.12} className="w-full">
             <Terminal
               heading={
-                <>
-                  <p className="text-[9px] tracking-[0.3em] uppercase text-white/40 mb-3 text-center">05, Not a Therapist</p>
-                  <h2 className="font-editorial text-center leading-[1.2] text-[#F3F1EC]" style={{ fontSize: "clamp(1.6rem, 3.2vw, 2.6rem)" }}>
-                    Meet <span className="italic">NORM</span>, our marketing exec.<br />
-                    Here for a chat about all things food &amp; marketing.
-                  </h2>
-                </>
+                <h2 className="font-editorial text-center leading-[1.2] text-[#F3F1EC]" style={{ fontSize: "clamp(1.6rem, 3.2vw, 2.6rem)" }}>
+                  Meet <span className="italic">NORM</span>, our marketing exec.<br />
+                  Here for a chat about all things food &amp; marketing.
+                </h2>
               }
             />
           </Reveal>
