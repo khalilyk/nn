@@ -222,9 +222,6 @@ export default function Terminal({ heading }: { heading?: React.ReactNode }) {
 
   return (
     <div className="w-full rounded-xl overflow-hidden shadow-2xl" style={{ background: "#0A0A0A", border: "1px solid rgba(255,255,255,0.08)" }}>
-      {/* Heading inside the box */}
-      {heading && <div className="px-6 md:px-10 pt-10 md:pt-14 pb-6 md:pb-8">{heading}</div>}
-
       {/* Title bar */}
       <div className="flex items-center gap-2 px-4 py-3 border-b border-white/8" style={{ background: "#111" }}>
         <div className="group/dots flex items-center gap-2">
@@ -248,6 +245,9 @@ export default function Terminal({ heading }: { heading?: React.ReactNode }) {
           <span className="text-[9px] tracking-[0.2em] uppercase text-white/30 font-mono">{phase === "chatting" ? "online" : "idle"}</span>
         </span>
       </div>
+
+      {/* Heading, inside the terminal window under the title bar */}
+      {heading && <div className="px-6 md:px-10 pt-10 md:pt-14 pb-6 md:pb-8 border-b border-white/8">{heading}</div>}
 
       {/* Quick-prompt pills, directly under the title for visibility */}
       <div className="flex flex-wrap gap-2 px-5 pt-4 pb-3 border-b border-white/8" style={{ background: "#0C0C0C" }}>
