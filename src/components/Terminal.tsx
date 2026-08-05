@@ -105,7 +105,7 @@ const colour: Record<Msg["who"], string> = {
   sys: "#6B7A8F",
 };
 
-export default function Terminal() {
+export default function Terminal({ heading }: { heading?: React.ReactNode }) {
   const [msgs, setMsgs] = useState<Msg[]>([
     { who: "sys", text: "Ask NORM anything, food, marketing & hospitality, Sydney to Dubai." },
   ]);
@@ -221,7 +221,10 @@ export default function Terminal() {
   }, []);
 
   return (
-    <div className="w-full max-w-4xl mx-auto rounded-xl overflow-hidden shadow-2xl" style={{ background: "#0A0A0A", border: "1px solid rgba(255,255,255,0.08)" }}>
+    <div className="w-full md:w-[75%] mx-auto rounded-xl overflow-hidden shadow-2xl" style={{ background: "#0A0A0A", border: "1px solid rgba(255,255,255,0.08)" }}>
+      {/* Heading inside the box */}
+      {heading && <div className="px-6 md:px-10 pt-8 md:pt-10 pb-3">{heading}</div>}
+
       {/* Title bar */}
       <div className="flex items-center gap-2 px-4 py-3 border-b border-white/8" style={{ background: "#111" }}>
         <div className="group/dots flex items-center gap-2">

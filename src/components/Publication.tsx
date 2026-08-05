@@ -286,21 +286,21 @@ export default function Publication({ initialContent, show }: { initialContent?:
 
       /* ═══ NORM ═══ */
       norm: (
-      <Panel index={6} bg="ivory" minH="auto" pin={false} slideFrom="left">
+      <Panel index={6} bg="black" minH="auto" pin={false} slideFrom="left">
         <div id="s08" className="relative px-8 md:px-16 py-20 md:py-32 flex flex-col items-center">
-          <Reveal>
-            <p className="text-[9px] tracking-[0.3em] uppercase text-[#0A0A0A]/40 mb-3 text-center">05, Not a Therapist</p>
-          </Reveal>
-          <Reveal delay={0.06}>
-            <h2 className="font-editorial text-center mb-12 leading-[1.2]" style={{ fontSize: "clamp(1.6rem, 3.2vw, 2.6rem)" }}>
-Meet <span className="italic">NORM</span>, our marketing exec.<br />
-              Here for a chat about all things food &amp; marketing.
-            </h2>
-          </Reveal>
           <Reveal delay={0.12} className="w-full">
-            <Terminal />
+            <Terminal
+              heading={
+                <>
+                  <p className="text-[9px] tracking-[0.3em] uppercase text-white/40 mb-3 text-center">05, Not a Therapist</p>
+                  <h2 className="font-editorial text-center leading-[1.2] text-[#F3F1EC]" style={{ fontSize: "clamp(1.6rem, 3.2vw, 2.6rem)" }}>
+                    Meet <span className="italic">NORM</span>, our marketing exec.<br />
+                    Here for a chat about all things food &amp; marketing.
+                  </h2>
+                </>
+              }
+            />
           </Reveal>
-          <SectionNo n="05" />
         </div>
       </Panel>
       ),
