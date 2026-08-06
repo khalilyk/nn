@@ -5,5 +5,5 @@ export const dynamic = "force-dynamic";
 
 export default async function Page() {
   const content = await getSiteContent();
-  return <PublicationLoader initialContent={content} show={["menu","brands","footer"]} />;
+  return <PublicationLoader initialContent={content} show={["menu","brands","talk","footer"]} />;
 }

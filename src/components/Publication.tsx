@@ -22,6 +22,7 @@ import OverlapImages from "./OverlapImages";
 import MenuSplit from "./MenuSplit";
 import Postcard from "./Postcard";
 import AboutSection from "./AboutSection";
+import TalkCTA from "./TalkCTA";
 import ContactSection from "./ContactSection";
 import JournalSection from "./JournalSection";
 import type { SiteContent } from "@/lib/content/types";
@@ -319,6 +320,13 @@ export default function Publication({ initialContent, show }: { initialContent?:
       contact: (
       <Panel index={10} bg="ivory" minH="auto" pin={false}>
         <ContactSection contact={c.contact} />
+      </Panel>
+      ),
+
+      /* ═══ TALK CTA, ABOVE THE FOOTER ═══ */
+      talk: (
+      <Panel index={10} bg="ivory" minH="auto" pin={false} slideFrom="up">
+        <TalkCTA footer={c.footer} />
       </Panel>
       ),
 
