@@ -48,24 +48,30 @@ export default function AboutSection({ about = DEFAULT_CONTENT.about }: { about?
         />
       </svg>
 
+      {/* side rules, framing the content like the reference */}
+      <div aria-hidden className="pointer-events-none absolute inset-y-0 left-8 md:left-16 w-px bg-[#0A0A0A]/10 z-0" />
+      <div aria-hidden className="pointer-events-none absolute inset-y-0 right-8 md:right-16 w-px bg-[#0A0A0A]/10 z-0" />
+
       <div className="relative z-10 px-8 md:px-16 pt-28 md:pt-40 pb-24 md:pb-36">
         {/* ── Beat 1 · opening ── */}
-        <div className="max-w-3xl mx-auto text-center">
-          <p className="text-[10px] tracking-[0.3em] uppercase text-[#0A0A0A]/45 mb-6">{about.eyebrow}</p>
-          <h2 className="font-editorial leading-[1.05]" style={{ fontSize: "clamp(2.4rem, 6vw, 5rem)" }}>
-            {about.heading ? about.heading : <>Founded by <span className="italic">{about.founderName}</span>.</>}
-          </h2>
-          {lead && (
-            <p className="mt-7 font-editorial text-[15px] md:text-[17px] leading-relaxed text-[#0A0A0A]/60 max-w-md mx-auto">
-              {lead}
-            </p>
-          )}
+        <div className="max-w-6xl mx-auto">
+          <p className="text-[10px] tracking-[0.3em] uppercase text-[#0A0A0A]/45 mb-8">{about.eyebrow}</p>
+          <div className="grid md:grid-cols-[1fr_15rem] gap-8 md:gap-14 items-start">
+            <h2 className="font-editorial leading-[1.0]" style={{ fontSize: "clamp(2.6rem, 7vw, 6rem)" }}>
+              {about.heading ? about.heading : <>Founded by <span className="italic">{about.founderName}</span>.</>}
+            </h2>
+            {lead && (
+              <p className="font-editorial text-[15px] md:text-[17px] leading-relaxed text-[#0A0A0A]/60 md:pt-4">
+                {lead}
+              </p>
+            )}
+          </div>
         </div>
 
         {/* ── Beat 2 · statement ── */}
         {closing && (
-          <div className="max-w-3xl mx-auto text-center mt-40 md:mt-64">
-            <p className="font-editorial leading-[1.28]" style={{ fontSize: "clamp(1.5rem, 3.4vw, 2.6rem)" }}>
+          <div className="max-w-5xl mx-auto mt-40 md:mt-64">
+            <p className="font-editorial leading-[1.2]" style={{ fontSize: "clamp(1.7rem, 4.2vw, 3.4rem)" }}>
               {closing}
             </p>
           </div>
