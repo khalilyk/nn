@@ -1,78 +1,56 @@
-import Reveal from "./Reveal";
+"use client";
+
+import { useState } from "react";
 
 /**
- * Full-bleed "let's talk" call-to-action, shown above the footer on every page
- * except the homepage. Styled in the brand orange (matches the brands carousel);
- * contact details are pulled from the footer content so they stay in sync.
+ * Full-bleed "talk to us" call-to-action, shown above the footer on every page
+ * except the homepage. Dark ground, oversized display headline with a lavender
+ * final line, and a pill that copies the studio email to the clipboard.
  */
-export default function CtaSection({
-  email,
-  phone,
-  locations,
-}: {
-  email: string;
-  phone: string;
-  locations: string;
-}) {
+export default function CtaSection({ email }: { email: string }) {
+  const [copied, setCopied] = useState(false);
+
+  const copy = async () => {
+    try {
+      await navigator.clipboard.writeText(email);
+    } catch {
+      // clipboard unavailable (insecure context / denied) — fall back to a mailto
+      window.location.href = `mailto:${email}`;
+      return;
+    }
+    setCopied(true);
+    window.setTimeout(() => setCopied(false), 1800);
+  };
+
   return (
-    <section className="relative overflow-hidden bg-[#FF5C1A] text-[#0A0A0A] px-8 md:px-16 py-16 md:py-28">
-      {/* faint concentric arcs, lower-left, echoing the reference */}
-      <div aria-hidden className="pointer-events-none absolute -left-40 -bottom-52 w-[560px] h-[560px] rounded-full border border-[#0A0A0A]/15" />
-      <div aria-hidden className="pointer-events-none absolute -left-28 -bottom-40 w-[400px] h-[400px] rounded-full border border-[#0A0A0A]/10" />
-
-      <div className="relative z-10">
-        {/* eyebrow row */}
-        <div className="flex items-center justify-between text-[10px] md:text-[11px] tracking-[0.25em] uppercase">
-          <span>(Get in touch)</span>
-          <span>Not Normal &#10038;</span>
-        </div>
-
-        {/* headline */}
-        <Reveal>
-          <h2 className="font-display uppercase leading-[0.9] tracking-tight mt-8 md:mt-12" style={{ fontSize: "clamp(2.6rem, 9vw, 7.5rem)" }}>
-            Let&apos;s start{" "}
-            <span className="underline decoration-[0.055em] underline-offset-[0.1em]">something</span>
-          </h2>
-        </Reveal>
-
-        {/* details + invitation */}
-        <div className="mt-12 md:mt-20 grid gap-12 md:grid-cols-2 md:items-end">
-          {/* left: contact block + badge */}
-          <div className="flex flex-col gap-9">
-            <div className="space-y-2 text-[12px] md:text-[13px] tracking-wide">
-              <a
-                href={`mailto:${email}`}
-                className="inline-block uppercase border-b border-[#0A0A0A]/40 pb-1 hover:border-[#0A0A0A] transition-colors"
-              >
-                {email}
-              </a>
-              <p><span className="font-semibold">P.</span> {phone}</p>
-              <p className="uppercase"><span className="font-semibold">A.</span> {locations}</p>
-            </div>
-
-            <a
-              href="/contact"
-              className="group grid place-items-center w-32 h-32 md:w-36 md:h-36 rounded-full border border-[#0A0A0A] text-[10px] tracking-[0.22em] uppercase text-center leading-tight transition-colors hover:bg-[#0A0A0A] hover:text-[#FF5C1A]"
+    <section className="relative overflow-hidden bg-[#0A0A0A] text-[#F3F1EC] px-8 md:px-16 py-20 md:py-32">
+      <div className="max-w-6xl">
+        <h2 className="font-display uppercase leading-[0.92] tracking-tight" style={{ fontSize: "clamp(2.8rem, 10vw, 8.5rem)" }}>
+          <span className="block">Your idea</span>
+          <span className="block">Deserves better.</span>
+          <span className="flex flex-wrap items-center gap-x-8 gap-y-6">
+            <span className="text-[#C9C6F5]">Talk to us!</span>
+            <button
+              type="button"
+              onClick={copy}
+              aria-label={`Copy email address ${email}`}
+              className="normal-case tracking-normal font-sans rounded-full bg-[#C9C6F5] text-[#0A0A0A] px-9 py-6 md:px-11 md:py-8 text-sm md:text-base leading-tight text-center transition-[transform,background-color] duration-300 hover:bg-[#d7d4fa] hover:-translate-y-0.5"
             >
-              <span>
-                Get in
-                <br />
-                touch <span className="inline-block transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5">&#8599;</span>
-              </span>
-            </a>
-          </div>
+              {copied ? (
+                <>Copied!</>
+              ) : (
+                <>
+                  Click to copy
+                  <br />
+                  email address
+                </>
+              )}
+            </button>
+          </span>
+        </h2>
 
-          {/* right: the invitation */}
-          <div className="md:justify-self-end md:text-right md:max-w-md">
-            <p className="leading-[1.4]" style={{ fontSize: "clamp(1.25rem, 2.6vw, 1.9rem)" }}>
-              Ready to discuss{" "}
-              <span className="underline decoration-1 underline-offset-4">your project</span>? Feel like we might be a{" "}
-              <span className="underline decoration-1 underline-offset-4">great</span> fit? We{" "}
-              <span className="font-editorial italic">would love</span> to{" "}
-              <span className="font-editorial italic">hear</span> about it!
-            </p>
-          </div>
-        </div>
+        {/* underline beneath the headline */}
+        <div className="mt-8 md:mt-10 h-px w-full max-w-[38rem] bg-[#F3F1EC]/70" />
       </div>
     </section>
   );

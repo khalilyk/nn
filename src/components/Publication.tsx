@@ -345,7 +345,7 @@ export default function Publication({ initialContent, show }: { initialContent?:
       /* ═══ CTA, ABOVE THE FOOTER (all pages except homepage) ═══ */
       cta: (
       <Panel index={10} bg="ivory" minH="auto" pin={false} slideFrom="up">
-        <CtaSection email={c.footer.email} phone={c.footer.phone} locations={c.footer.locations} />
+        <CtaSection email={c.footer.email} />
       </Panel>
       ),
 
