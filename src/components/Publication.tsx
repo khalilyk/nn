@@ -24,6 +24,7 @@ import MenuSplit from "./MenuSplit";
 import Postcard from "./Postcard";
 import AboutSection from "./AboutSection";
 import ContactSection from "./ContactSection";
+import CtaSection from "./CtaSection";
 import JournalSection from "./JournalSection";
 import type { SiteContent } from "@/lib/content/types";
 import { DEFAULT_CONTENT } from "@/lib/content/defaults";
@@ -338,6 +339,13 @@ export default function Publication({ initialContent, show }: { initialContent?:
       contact: (
       <Panel index={10} bg="ivory" minH="auto" pin={false}>
         <ContactSection contact={c.contact} />
+      </Panel>
+      ),
+
+      /* ═══ CTA, ABOVE THE FOOTER (all pages except homepage) ═══ */
+      cta: (
+      <Panel index={10} bg="ivory" minH="auto" pin={false} slideFrom="up">
+        <CtaSection email={c.footer.email} phone={c.footer.phone} locations={c.footer.locations} />
       </Panel>
       ),
 
