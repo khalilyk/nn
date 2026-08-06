@@ -297,7 +297,7 @@ export default function Publication({ initialContent, show }: { initialContent?:
       /* ═══ NORM ═══ */
       norm: (
       <Panel index={6} bg="black" minH="auto" pin={false} slideFrom="left">
-        <div id="s08" className="relative px-8 md:px-16 py-20 md:py-32 flex flex-col items-center">
+        <div id="s08" className="relative bg-[#1E1E22] px-8 md:px-16 py-20 md:py-32 flex flex-col items-center">
           <Reveal delay={0.12} className="w-full">
             <Terminal
               heading={
