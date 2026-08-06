@@ -119,9 +119,6 @@ export default function SiteNav({ links = DEFAULT_CONTENT.nav, footer = DEFAULT_
               <div key={loc}>{loc.trim()}</div>
             ))}
           </div>
-          <a href={`mailto:${footer.email}`} className="inline-block mt-5 text-[12px] tracking-[0.12em] uppercase border-b border-white/50 pb-1 hover:border-white transition-colors">
-            Email us
-          </a>
           <div className="mt-8 pt-5 border-t border-white/12 flex items-center justify-between text-[10px] tracking-[0.16em] uppercase text-white/40">
             <span>© {new Date().getFullYear()} Not Normal</span>
             <a href={footer.socials[0]?.href ?? "#"} target="_blank" rel="noopener noreferrer" className="hover:text-white/70 transition-colors">
