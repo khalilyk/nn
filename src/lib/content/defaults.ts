@@ -102,7 +102,7 @@ export const DEFAULT_CONTENT: SiteContent = {
   },
 
   about: {
-    eyebrow: "The founder",
+    eyebrow: "About NN",
     founderName: "Khalil Khouri",
     heading: "Founded on a refusal to blend in.",
     image: "/nn-founder.jpg",

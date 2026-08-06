@@ -326,7 +326,7 @@ export default function Publication({ initialContent, show }: { initialContent?:
       /* ═══ TALK CTA, ABOVE THE FOOTER ═══ */
       talk: (
       <Panel index={10} bg="ivory" minH="auto" pin={false} slideFrom="up">
-        <TalkCTA footer={c.footer} />
+        <TalkCTA />
       </Panel>
       ),
 
