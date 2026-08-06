@@ -171,9 +171,7 @@ export const DEFAULT_CONTENT: SiteContent = {
     coffeeOptions: ["Espresso", "Cappuccino", "Long black", "Decaf", "I don't drink coffee"],
   },
 
-  nav: [
-    { l: "The Menu", href: "/menu", tip: "What we do", shape: "rounded-none" },
-  ],
+  nav: [],
 
   footer: {
     email: "hello@thisisnn.com",

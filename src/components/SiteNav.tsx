@@ -11,7 +11,6 @@ export default function SiteNav({ links = DEFAULT_CONTENT.nav, footer = DEFAULT_
   const LINKS = links;
   const pathname = usePathname();
   const notHome = pathname !== "/";
-  const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -20,11 +19,6 @@ export default function SiteNav({ links = DEFAULT_CONTENT.nav, footer = DEFAULT_
     onScroll();
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
-
-  useEffect(() => {
-    document.body.style.overflow = menuOpen ? "hidden" : "";
-    return () => { document.body.style.overflow = ""; };
-  }, [menuOpen]);
 
   return (
     <>
@@ -63,78 +57,16 @@ export default function SiteNav({ links = DEFAULT_CONTENT.nav, footer = DEFAULT_
         </div>
       </nav>
 
-      {/* ─── MOBILE MENU TOGGLE (plain hamburger ⇄ X) ─── */}
-      <button
-        aria-label={menuOpen ? "Close menu" : "Open menu"}
-        onClick={() => setMenuOpen((o) => !o)}
+      {/* ─── MOBILE HAMBURGER — links straight to the main page ─── */}
+      <a
+        href="/contact"
+        aria-label="Menu"
         className="lg:hidden fixed top-6 right-8 md:top-8 md:right-16 z-[130] w-8 h-8 flex items-center justify-center"
         style={{ color: "#F3F1EC", mixBlendMode: "difference" }}
       >
-        <span
-          className="absolute left-1/2 top-1/2 block h-[2px] w-7 rounded-full bg-current"
-          style={{ transform: menuOpen ? "translate(-50%,-50%) rotate(45deg)" : "translate(-50%,-50%) translateY(-4px)", transition: "transform 0.35s cubic-bezier(0.76,0,0.24,1)" }}
-        />
-        <span
-          className="absolute left-1/2 top-1/2 block h-[2px] w-7 rounded-full bg-current"
-          style={{ transform: menuOpen ? "translate(-50%,-50%) rotate(-45deg)" : "translate(-50%,-50%) translateY(4px)", transition: "transform 0.35s cubic-bezier(0.76,0,0.24,1)" }}
-        />
-      </button>
-
-      {/* ─── MENU LOGO (fixed at the EXACT header-logo position, above the overlay) ─── */}
-      <a
-        href="/"
-        aria-label="Not Normal, home"
-        onClick={() => setMenuOpen(false)}
-        className={`lg:hidden fixed top-6 left-8 md:top-8 md:left-16 z-[130] h-8 flex items-center transition-opacity duration-300 ${menuOpen ? "opacity-100" : "opacity-0 pointer-events-none"}`}
-      >
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/notnormal-logoblack.png" alt="Not Normal" className="h-3.5 md:h-4 w-auto" style={{ filter: "invert(1)" }} />
+        <span className="absolute left-1/2 top-1/2 block h-[2px] w-7 rounded-full bg-current" style={{ transform: "translate(-50%,-50%) translateY(-4px)" }} />
+        <span className="absolute left-1/2 top-1/2 block h-[2px] w-7 rounded-full bg-current" style={{ transform: "translate(-50%,-50%) translateY(4px)" }} />
       </a>
-
-      {/* ─── MOBILE MENU (black, expands from the toggle's corner) ─── */}
-      <div
-        className="lg:hidden fixed inset-0 z-[120] bg-[#0A0A0A] text-[#F3F1EC] flex flex-col px-7 pt-24 pb-8 overflow-hidden transition-[clip-path] duration-[650ms] ease-[cubic-bezier(0.76,0,0.24,1)]"
-        style={{
-          clipPath: menuOpen ? "circle(150% at calc(100% - 3rem) 2.5rem)" : "circle(0px at calc(100% - 3rem) 2.5rem)",
-          pointerEvents: menuOpen ? "auto" : "none",
-        }}
-        aria-hidden={!menuOpen}
-      >
-        {/* nav items */}
-        <nav className="flex-1 flex flex-col justify-center gap-7">
-          {[{ l: "Home", href: "/" }, ...LINKS.map((x) => ({ l: x.l, href: x.href })), { l: "Contact", href: "/contact" }].map(({ l, href }, i) => (
-            <a
-              key={l}
-              href={href}
-              onClick={() => setMenuOpen(false)}
-              className="font-sans font-medium uppercase tracking-[0.22em] leading-none hover:opacity-55 transition-opacity"
-              style={{
-                fontSize: "clamp(1.3rem, 5.5vw, 1.7rem)",
-                opacity: menuOpen ? 1 : 0,
-                transform: menuOpen ? "translateY(0)" : "translateY(14px)",
-                transition: `opacity 0.5s ease ${menuOpen ? 0.18 + i * 0.05 : 0}s, transform 0.5s cubic-bezier(0.16,1,0.3,1) ${menuOpen ? 0.18 + i * 0.05 : 0}s`,
-              }}
-            >
-              {l}
-            </a>
-          ))}
-        </nav>
-
-        {/* footer block */}
-        <div style={{ opacity: menuOpen ? 1 : 0, transition: "opacity 0.5s ease 0.4s" }}>
-          <div className="text-[12px] tracking-[0.12em] uppercase text-white/75 leading-[1.7]">
-            {footer.locations.split(",").map((loc) => (
-              <div key={loc}>{loc.trim()}</div>
-            ))}
-          </div>
-          <div className="mt-8 pt-5 border-t border-white/12 flex items-center justify-between text-[10px] tracking-[0.16em] uppercase text-white/40">
-            <span>© {new Date().getFullYear()} Not Normal</span>
-            <a href={footer.socials[0]?.href ?? "#"} target="_blank" rel="noopener noreferrer" className="hover:text-white/70 transition-colors">
-              {footer.socials[0]?.label ?? "Instagram"} ↗
-            </a>
-          </div>
-        </div>
-      </div>
     </>
   );
 }
