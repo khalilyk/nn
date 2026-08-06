@@ -15,11 +15,8 @@ import ScrollProgress from "./ScrollProgress";
 import Magnetic from "./Magnetic";
 import HeroMedia from "./HeroMedia";
 import Testimonials from "./Testimonials";
-import HoverWord from "./HoverWord";
-import Greeting from "./Greeting";
 import ScrambleText from "./ScrambleText";
-import OverlapImages from "./OverlapImages";
-import MenuSplit from "./MenuSplit";
+import MenuEditorial from "./MenuEditorial";
 import Postcard from "./Postcard";
 import AboutSection from "./AboutSection";
 import TalkCTA from "./TalkCTA";
@@ -228,30 +225,12 @@ export default function Publication({ initialContent, show }: { initialContent?:
       /* ═══ MENU ═══ */
       menu: (
       <Panel index={2} bg="ivory" minH="auto" pin={false} clip={false}>
-        <div id="s02" className="relative">
-          {/* Top, statement + image */}
-          <div className="flex flex-col items-center justify-center text-center px-8 md:px-16 pt-28 pb-16">
-            <Reveal>
-              <Greeting />
-              <h2 className="font-editorial uppercase leading-[1.15] mb-12 max-w-5xl mx-auto whitespace-normal md:whitespace-nowrap" style={{ fontSize: "clamp(1.6rem, 3.4vw, 2.9rem)" }}>
-                We build <HoverWord mode="bold">bold</HoverWord> brands<br />
-                for the <HoverWord variant={0}>edible</HoverWord> and <HoverWord variant={1}>drinkable</HoverWord>,<br />
-                from <HoverWord variant={2}>branding</HoverWord> &amp; <HoverWord variant={3}>storytelling</HoverWord> to<br />
-                <HoverWord variant={4}>stuff</HoverWord> you can <HoverWord variant={5}>hold</HoverWord>.
-              </h2>
-            </Reveal>
-            <Reveal delay={0.1} className="w-full">
-              <OverlapImages images={c.menu.gallery} />
-            </Reveal>
+        <div id="s02" className="relative bg-white text-[#0A0A0A] px-8 md:px-16 pt-28 md:pt-36 pb-24 md:pb-32">
+          <div className="max-w-6xl mx-auto mb-16 md:mb-24">
+            <p className="text-[10px] tracking-[0.3em] uppercase text-[#0A0A0A]/45 mb-6">{c.menu.eyebrow}</p>
+            <h2 className="font-editorial leading-[1.02] max-w-3xl" style={{ fontSize: "clamp(2.2rem, 5vw, 4rem)" }}>{c.menu.heading}</h2>
           </div>
-
-          {/* The Menu, split screen, sticky left + scrolling services.
-              No Reveal wrapper here - its transform would break the sticky column. */}
-          <div className="px-8 md:px-16 pb-24 md:pb-28">
-            <MenuSplit menu={c.menu} />
-          </div>
-
-          <SectionNo n="02" />
+          <MenuEditorial menu={c.menu} />
         </div>
       </Panel>
       ),
