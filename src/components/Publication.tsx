@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState, Fragment, ReactNode } from "react";
 import Lenis from "lenis";
 import Reveal from "./Reveal";
-import FeaturedCarousel from "./FeaturedCarousel";
+import ProjectsBento from "./ProjectsBento";
 import ClientLogos from "./ClientLogos";
 import ParallaxBg from "./ParallaxBg";
 import PinInView from "./PinInView";
@@ -267,8 +267,8 @@ export default function Publication({ initialContent, show }: { initialContent?:
           <div className="md:hidden">
             <ParallaxBg src="/nn-wall.png" overlay={0.82} cover={false} />
           </div>
-          <div className="relative px-8 md:px-16 pt-28 md:pt-36 pb-28 md:pb-36 overflow-hidden">
-            <FeaturedCarousel projects={c.projects} />
+          <div className="relative px-4 md:px-6 pt-24 md:pt-28 pb-24 md:pb-28 overflow-hidden">
+            <ProjectsBento projects={c.projects} />
           </div>
           <SectionNo n="03" />
         </div>
