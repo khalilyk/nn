@@ -48,10 +48,6 @@ export default function AboutSection({ about = DEFAULT_CONTENT.about }: { about?
         />
       </svg>
 
-      {/* side rules, framing the content like the reference */}
-      <div aria-hidden className="pointer-events-none absolute inset-y-0 left-8 md:left-16 w-px bg-[#0A0A0A]/10 z-0" />
-      <div aria-hidden className="pointer-events-none absolute inset-y-0 right-8 md:right-16 w-px bg-[#0A0A0A]/10 z-0" />
-
       <div className="relative z-10 px-8 md:px-16 pt-28 md:pt-40 pb-24 md:pb-36">
         {/* ── Beat 1 · opening ── */}
         <div className="max-w-6xl mx-auto">
