@@ -4,6 +4,7 @@ import SiteNav from "./SiteNav";
 import SiteFooter from "./SiteFooter";
 import Cursor from "./Cursor";
 import Grain from "./Grain";
+import GalleryCards from "./GalleryCards";
 
 /** A single project's own page: hero, story, full gallery, and next/back links. */
 export default function ProjectView({ project, content }: { project: Project; content: SiteContent }) {
@@ -53,19 +54,7 @@ export default function ProjectView({ project, content }: { project: Project; co
         {/* gallery */}
         {rest.length > 0 && (
           <section className="px-4 md:px-6 pb-20 md:pb-28">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-2.5 md:gap-3">
-              {rest.map((src, i) => {
-                const full = i % 3 === 2; // every third image spans full width
-                return (
-                  <div
-                    key={src + i}
-                    className={`relative overflow-hidden bg-[#111] ${full ? "md:col-span-2 aspect-[16/9]" : "aspect-[4/3]"}`}
-                  >
-                    <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url('${src}')` }} />
-                  </div>
-                );
-              })}
-            </div>
+            <GalleryCards images={rest} />
           </section>
         )}
 
