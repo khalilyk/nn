@@ -86,7 +86,7 @@ export default function ProjectView({ project, content }: { project: Project; co
       <section className="bg-white text-[#0A0A0A] px-8 md:px-16 py-20 md:py-28">
         <div className="w-full flex flex-col items-center text-center">
           <h2 className="font-sans font-bold uppercase leading-[0.95] tracking-tight" style={{ fontSize: "clamp(2rem, 5vw, 3.6rem)" }}>
-            Starting from scratch?
+            Ready to get started?
           </h2>
           <p className="mt-6 max-w-xl text-[15px] md:text-[17px] leading-relaxed text-[#0A0A0A]/60">
             We&apos;ll build your brand from the ground up. Identity, strategy, story, the whole thing.
