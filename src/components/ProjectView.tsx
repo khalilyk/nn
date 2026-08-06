@@ -5,7 +5,7 @@ import SiteFooter from "./SiteFooter";
 import Cursor from "./Cursor";
 import Grain from "./Grain";
 import GalleryCards from "./GalleryCards";
-import TypeText from "./TypeText";
+import TalkCTA from "./TalkCTA";
 
 /** A single project's own page: hero, story, full gallery, and next/back links. */
 export default function ProjectView({ project, content }: { project: Project; content: SiteContent }) {
@@ -72,31 +72,8 @@ export default function ProjectView({ project, content }: { project: Project; co
         </section>
       </main>
 
-      {/* white "start from scratch" CTA band */}
-      <section className="relative overflow-hidden bg-white text-[#0A0A0A] px-8 md:px-16 py-20 md:py-28">
-        {/* dynamic, fuzzy "brand" watermark */}
-        <span
-          aria-hidden
-          className="pointer-events-none absolute left-1/2 top-1/2 font-sans font-black lowercase text-[#0A0A0A] whitespace-nowrap select-none"
-          style={{ fontSize: "clamp(8rem, 34vw, 34rem)", animation: "brandFuzz 7s ease-in-out infinite", willChange: "transform, filter, opacity" }}
-        >
-          brand
-        </span>
-        <div className="relative z-10 w-full flex flex-col items-center text-center">
-          <h2 className="font-sans font-bold uppercase leading-[0.95] tracking-tight" style={{ fontSize: "clamp(2rem, 5vw, 3.6rem)" }}>
-            Ready to get started?
-          </h2>
-          <p className="mt-6 max-w-xl text-[15px] md:text-[17px] leading-relaxed text-[#0A0A0A]/60">
-            We&apos;ll build your brand from the ground up. Identity, strategy, story, the whole thing.
-          </p>
-          <a
-            href="/contact"
-            className="group mt-9 inline-flex items-center gap-3 text-[12px] tracking-[0.2em] uppercase font-bold border-b-2 border-[#0A0A0A] pb-1.5 hover:opacity-60 transition-opacity"
-          >
-<TypeText>Start the conversation</TypeText> <span className="transition-transform group-hover:translate-x-0.5">→</span>
-          </a>
-        </div>
-      </section>
+      {/* CTA — same as the About page */}
+      <TalkCTA />
 
       <SiteFooter footer={content.footer} />
     </div>
