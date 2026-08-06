@@ -1,5 +1,7 @@
 import type { About } from "@/lib/content/types";
 import { DEFAULT_CONTENT } from "@/lib/content/defaults";
+import ScrollRevealText from "./ScrollRevealText";
+import StatsRow from "./StatsRow";
 
 /* The Founder story, told as three stacked "beats" — an opening headline, a
    centred statement, and the full story — with a single hand-drawn line weaving
@@ -55,11 +57,37 @@ export default function AboutSection({ about = DEFAULT_CONTENT.about }: { about?
 
         {/* ── Beat 3 · the full story, with the founder portrait below ── */}
         <div className="mt-40 md:mt-64 max-w-3xl mx-auto">
-          <p className="text-[10px] tracking-[0.3em] uppercase text-[#0A0A0A]/45 mb-5">The story</p>
-          <div className="space-y-5 text-[14px] md:text-[15px] leading-relaxed text-[#0A0A0A]/65">
-            {body.map((p, i) => (
-              <p key={i}>{p}</p>
-            ))}
+          <p className="text-[10px] tracking-[0.3em] uppercase text-[#0A0A0A]/45 mb-6">The story</p>
+
+          {/* scroll-revealed copy */}
+          <ScrollRevealText
+            paragraphs={body}
+            className="text-[#0A0A0A] leading-relaxed text-[16px] md:text-[19px]"
+          />
+
+          {/* stats */}
+          <div className="mt-16">
+            <StatsRow />
+          </div>
+
+          {/* credibility strip */}
+          <div className="mt-14 space-y-6">
+            <div className="flex flex-col sm:flex-row sm:items-baseline gap-2 sm:gap-5">
+              <p className="text-[10px] tracking-[0.3em] uppercase text-[#0A0A0A]/40 shrink-0 sm:w-32">Recognised by</p>
+              <div className="flex flex-wrap gap-2">
+                {["Michelin", "The World's 50 Best"].map((t) => (
+                  <span key={t} className="text-[11px] tracking-[0.08em] uppercase border border-[#0A0A0A]/15 rounded-full px-4 py-2">{t}</span>
+                ))}
+              </div>
+            </div>
+            <div className="flex flex-col sm:flex-row sm:items-baseline gap-2 sm:gap-5">
+              <p className="text-[10px] tracking-[0.3em] uppercase text-[#0A0A0A]/40 shrink-0 sm:w-32">Behind names like</p>
+              <div className="flex flex-wrap gap-2">
+                {["3Fils", "BRIX", "Bordo Mavi"].map((t) => (
+                  <span key={t} className="text-[11px] tracking-[0.08em] uppercase border border-[#0A0A0A]/15 rounded-full px-4 py-2">{t}</span>
+                ))}
+              </div>
+            </div>
           </div>
 
           <a
