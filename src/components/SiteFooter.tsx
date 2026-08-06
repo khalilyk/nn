@@ -32,7 +32,7 @@ export default function SiteFooter({ footer = DEFAULT_CONTENT.footer }: { footer
         </Reveal>
         <Reveal delay={0.06}>
           <div className="space-y-1.5 text-center">
-            <p className="font-editorial italic leading-[1.1] mb-5" style={{ fontSize: "clamp(1.4rem, 2.4vw, 2rem)" }}>Ready to be memorable?</p>
+            <p className="font-sans font-bold uppercase tracking-[0.1em] leading-[1.1] mb-5 text-[22px]">Ready to be memorable?</p>
             <div><a href={`mailto:${footer.email}`} data-cursor="Email" title="Email us" className="inline-block text-[11px] tracking-[0.1em] uppercase hover:opacity-60 transition-opacity">{footer.email}</a></div>
             <div><a href={`tel:${footer.phone.replace(/[^+\d]/g, "")}`} data-cursor="Call" title="Call us" className="inline-block text-[11px] tracking-[0.1em] hover:opacity-60 transition-opacity">{footer.phone}</a></div>
             <div className="pt-4 flex items-center justify-center gap-6">
