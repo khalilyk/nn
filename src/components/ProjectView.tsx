@@ -11,11 +11,7 @@ export default function ProjectView({ project, content }: { project: Project; co
   const gallery = (project.images && project.images.length ? project.images : [project.img]).filter(Boolean);
   const rest = gallery.slice(1); // hero already shows the first image
 
-  const body = [
-    project.desc,
-    `Working across ${project.city}, we shaped every touchpoint, identity, environment and content, into one coherent story that feels unmistakably ${project.name}.`,
-    `The result: a ${project.cat.toLowerCase()}-led brand that earns attention, drives footfall and keeps people coming back. Not normal, by design.`,
-  ];
+  const body = project.desc.split(/\n\n+/).map((p) => p.trim()).filter(Boolean);
 
   // find the next project in the list for the footer link
   const idx = content.projects.findIndex((p) => p.name === project.name);
