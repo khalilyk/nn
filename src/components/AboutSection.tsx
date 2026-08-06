@@ -53,26 +53,17 @@ export default function AboutSection({ about = DEFAULT_CONTENT.about }: { about?
           </div>
         )}
 
-        {/* ── Beat 3 · the full story + founder ── */}
-        <div className="mt-40 md:mt-64 max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-14 md:gap-20 items-center">
-          <div>
-            <p className="text-[10px] tracking-[0.3em] uppercase text-[#0A0A0A]/45 mb-5">The story</p>
-            <div className="space-y-5 text-[14px] md:text-[15px] leading-relaxed text-[#0A0A0A]/65">
-              {body.map((p, i) => (
-                <p key={i}>{p}</p>
-              ))}
-            </div>
-
-            <a
-              href="/contact"
-              className="group mt-9 flex w-full items-center justify-between gap-3 bg-[#0A0A0A] text-[#F3F1EC] px-7 py-5 text-[13px] uppercase tracking-[0.1em] leading-snug transition-colors duration-300 hover:bg-[#4ADE80] hover:text-[#0A0A0A]"
-            >
-              <span>Let&apos;s get started!</span>
-              <span className="shrink-0 transition-transform duration-300 group-hover:translate-x-0.5">&#8594;</span>
-            </a>
+        {/* ── Beat 3 · the full story, with the founder portrait below ── */}
+        <div className="mt-40 md:mt-64 max-w-3xl mx-auto">
+          <p className="text-[10px] tracking-[0.3em] uppercase text-[#0A0A0A]/45 mb-5">The story</p>
+          <div className="space-y-5 text-[14px] md:text-[15px] leading-relaxed text-[#0A0A0A]/65">
+            {body.map((p, i) => (
+              <p key={i}>{p}</p>
+            ))}
           </div>
 
-          <div className="relative self-center">
+          {/* founder portrait, below the text */}
+          <div className="relative mt-14 max-w-md mx-auto">
             <div className="relative w-full aspect-square overflow-hidden rounded-2xl">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={about.image} alt={about.founderName} className="absolute inset-0 w-full h-full object-cover" />
@@ -88,6 +79,14 @@ export default function AboutSection({ about = DEFAULT_CONTENT.about }: { about?
               </div>
             </div>
           </div>
+
+          <a
+            href="/contact"
+            className="group mt-14 flex w-full items-center justify-between gap-3 bg-[#0A0A0A] text-[#F3F1EC] px-7 py-5 text-[13px] uppercase tracking-[0.1em] leading-snug transition-colors duration-300 hover:bg-[#4ADE80] hover:text-[#0A0A0A]"
+          >
+            <span>Let&apos;s get started!</span>
+            <span className="shrink-0 transition-transform duration-300 group-hover:translate-x-0.5">&#8594;</span>
+          </a>
         </div>
       </div>
     </section>
