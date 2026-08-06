@@ -173,7 +173,6 @@ export const DEFAULT_CONTENT: SiteContent = {
 
   nav: [
     { l: "The Menu", href: "/menu", tip: "What we do", shape: "rounded-none" },
-    { l: "Projects", href: "/projects", tip: "Selected proof", shape: "rounded-tl-xl rounded-br-xl" },
   ],
 
   footer: {
