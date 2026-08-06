@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import CityCodes from "./CityCodes";
+import TypeText from "./TypeText";
 import type { Contact } from "@/lib/content/types";
 import { DEFAULT_CONTENT } from "@/lib/content/defaults";
 
@@ -255,7 +256,7 @@ export default function ContactSection({ contact = DEFAULT_CONTENT.contact }: { 
               >
                 <span className="absolute inset-0 bg-[#0A0A0A] -translate-x-full group-hover:translate-x-0 transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)]" />
                 <span className="relative z-10 text-[11px] tracking-[0.2em] uppercase font-bold text-[#0A0A0A] group-hover:text-[#EFEDE6] transition-colors duration-500">
-                  {status === "sending" ? "Sending…" : sent ? "Got it, talk soon ✦" : "Send it"}
+                  {status === "sending" ? "Sending…" : sent ? "Got it, talk soon ✦" : <TypeText>Send it</TypeText>}
                 </span>
               </button>
               {status === "error" && (

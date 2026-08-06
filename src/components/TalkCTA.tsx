@@ -1,3 +1,5 @@
+import TypeText from "./TypeText";
+
 /** "Ready? Let's talk" CTA — centred on black, over the spinning sphere, with a
  *  button through to the contact form. Shown above the footer. */
 export default function TalkCTA() {
@@ -23,7 +25,7 @@ export default function TalkCTA() {
           href="/contact#contact-form"
           className="group mt-12 inline-flex items-center gap-3 rounded-full bg-[#F3F1EC] text-[#0A0A0A] px-9 py-4 text-[11px] tracking-[0.18em] uppercase font-bold transition-colors hover:bg-[#4ADE80]"
         >
-          Start the conversation <span className="transition-transform group-hover:translate-x-0.5">&#8594;</span>
+<TypeText>Start the conversation</TypeText> <span className="transition-transform group-hover:translate-x-0.5">&#8594;</span>
         </a>
       </div>
     </section>
