@@ -145,9 +145,18 @@ export default function ContactSection({ contact = DEFAULT_CONTENT.contact }: { 
 
         <div className="relative z-10 flex flex-col items-center text-center px-6 pt-24 md:pt-32">
           <h2 className="font-sans font-bold uppercase leading-[0.95] tracking-tight max-w-3xl" style={{ fontSize: "clamp(2.2rem, 6.5vw, 4.6rem)" }}>{contact.heading}</h2>
-          <p className="text-center text-[11px] md:text-[13px] tracking-[0.1em] text-[#0A0A0A]/65 mt-6 max-w-2xl leading-relaxed normal-case">
-            {contact.intro}
-          </p>
+          {(() => {
+            const t = contact.intro;
+            const cut = t.indexOf(". ", Math.floor(t.length / 2));
+            const left = cut > -1 ? t.slice(0, cut + 1) : t;
+            const right = cut > -1 ? t.slice(cut + 2) : "";
+            return (
+              <div className="mt-8 grid md:grid-cols-2 gap-8 md:gap-14 max-w-4xl text-left">
+                <p className="text-[12px] md:text-[13px] tracking-[0.02em] text-[#0A0A0A]/65 leading-relaxed normal-case">{left}</p>
+                {right && <p className="text-[12px] md:text-[13px] tracking-[0.02em] text-[#0A0A0A]/65 leading-relaxed normal-case">{right}</p>}
+              </div>
+            );
+          })()}
         </div>
 
         <div className="relative z-[1] flex justify-center mt-6">

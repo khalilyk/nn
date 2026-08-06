@@ -109,9 +109,6 @@ export const DEFAULT_CONTENT: SiteContent = {
     thoughtBubble: "What's for lunch?",
     paragraphs: [
       "Most venues settle for being good. Not Normal exists for the ones that refuse to be forgotten.",
-      "The conviction is simple: the world doesn't need more of the same. Founder Khalil Khouri has spent two decades proving it, behind names recognised by Michelin, celebrated by The World's 50 Best, and awarded across Dubai's most competitive dining rooms. 3Fils. BRIX. Bordo Mavi.",
-      "From Dubai's waterfront to new concepts in Sydney and collaborations across Beirut, one thing held true everywhere. There's a difference between a venue people visit and one they can't stop talking about. We build the second kind.",
-      "Restaurants, cafés, lifestyle brands. Identity, strategy, menus, packaging, content, launch. Every decision runs through a hospitality lens, because that's the only one we've ever worked through.",
       "Built across cities and cultures. Designed to be remembered.",
     ],
   },
@@ -158,11 +155,12 @@ export const DEFAULT_CONTENT: SiteContent = {
   },
 
   contact: {
-    heading: "Ready to create something unforgettable?",
-    intro: "Got an idea? A dream? A half-baked concept scribbled on a napkin? We're into that. Whether you're building from scratch or looking to shake things up, drop us a message. We're here for bold moves, real conversations, and doing things differently, one unforgettable brand at a time.",
+    heading: "Founded on a refusal to blend in.",
+    intro: "The conviction is simple: the world doesn't need more of the same. Founder Khalil Khouri has spent two decades proving it, behind names recognised by Michelin, celebrated by The World's 50 Best, and awarded across Dubai's most competitive dining rooms. 3Fils. BRIX. Bordo Mavi. From Dubai's waterfront to new concepts in Sydney and collaborations across Beirut, one thing held true everywhere. There's a difference between a venue people visit and one they can't stop talking about. We build the second kind. Restaurants, cafés, lifestyle brands. Identity, strategy, menus, packaging, content, launch. Every decision runs through a hospitality lens, because that's the only one we've ever worked through.",
     detailEyebrow: "Contact Us",
     detailHeading: "A limited number of projects. A lot of attention.",
     detailBody: [
+      "Got an idea? A dream? A half-baked concept scribbled on a napkin? We're into that. Whether you're building from scratch or looking to shake things up, drop us a message. We're here for bold moves, real conversations, and doing things differently, one unforgettable brand at a time.",
       "We keep our client roster intentionally small, allowing us to stay hands-on from strategy through to execution. That means availability is limited, and most months fill quickly.",
       "If you're serious about building something memorable, let's talk.",
     ],

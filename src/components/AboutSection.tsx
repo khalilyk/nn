@@ -57,17 +57,16 @@ export default function AboutSection({ about = DEFAULT_CONTENT.about }: { about?
           </div>
         )}
 
-        {/* ── Beat 3 · the full story, with the founder portrait below ── */}
-        <div className="mt-40 md:mt-64 max-w-3xl mx-auto">
-          <p className="text-[10px] tracking-[0.3em] uppercase text-[#0A0A0A]/45 mb-6">The story</p>
-
-          {/* scroll-revealed copy */}
-          <ScrollRevealText
-            paragraphs={body}
-            className="font-sans text-[#0A0A0A] leading-relaxed text-[15px] md:text-[17px]"
-          />
-
-        </div>
+        {/* ── Beat 3 · the full story ── */}
+        {body.length > 0 && (
+          <div className="mt-40 md:mt-64 max-w-3xl mx-auto">
+            <p className="text-[10px] tracking-[0.3em] uppercase text-[#0A0A0A]/45 mb-6">The story</p>
+            <ScrollRevealText
+              paragraphs={body}
+              className="font-sans text-[#0A0A0A] leading-relaxed text-[15px] md:text-[17px]"
+            />
+          </div>
+        )}
       </div>
     </section>
   );
