@@ -13,20 +13,20 @@ export default function AboutSection({ about = DEFAULT_CONTENT.about }: { about?
 
   return (
     <section id="about" className="relative scroll-mt-20 bg-[#F4F2ED] text-[#0A0A0A] overflow-hidden">
-      {/* softly drifting gradient blobs */}
+      {/* softly drifting, colour-cycling gradient blobs */}
       <div aria-hidden className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
-        <div
-          className="absolute rounded-full"
-          style={{ width: "55vw", height: "55vw", top: "6%", left: "34%", background: "radial-gradient(circle, rgba(212,164,92,0.42), rgba(212,164,92,0) 62%)", filter: "blur(60px)", animation: "blobA 20s ease-in-out infinite", willChange: "transform" }}
-        />
-        <div
-          className="absolute rounded-full"
-          style={{ width: "42vw", height: "42vw", top: "34%", left: "2%", background: "radial-gradient(circle, rgba(120,120,130,0.28), rgba(120,120,130,0) 60%)", filter: "blur(70px)", animation: "blobB 26s ease-in-out infinite", willChange: "transform" }}
-        />
-        <div
-          className="absolute rounded-full"
-          style={{ width: "40vw", height: "40vw", top: "62%", left: "52%", background: "radial-gradient(circle, rgba(212,164,92,0.30), rgba(212,164,92,0) 62%)", filter: "blur(80px)", animation: "blobA 30s ease-in-out infinite reverse", willChange: "transform" }}
-        />
+        {[
+          { w: "55vw", top: "2%", left: "30%", c: "212,164,92", a: 0.42, blur: 60, drift: "blobA", ds: "22s" },
+          { w: "44vw", top: "30%", left: "0%", c: "120,120,130", a: 0.30, blur: 70, drift: "blobB", ds: "28s" },
+          { w: "40vw", top: "58%", left: "50%", c: "212,164,92", a: 0.32, blur: 80, drift: "blobA", ds: "34s" },
+        ].map((b, i) => (
+          <div key={i} className="absolute" style={{ width: b.w, height: b.w, top: b.top, left: b.left, animation: `blobHue ${18 + i * 6}s linear infinite`, willChange: "filter" }}>
+            <div
+              className="w-full h-full rounded-full"
+              style={{ background: `radial-gradient(circle, rgba(${b.c},${b.a}), rgba(${b.c},0) 62%)`, filter: `blur(${b.blur}px)`, animation: `${b.drift} ${b.ds} ease-in-out infinite${i === 2 ? " reverse" : ""}`, willChange: "transform" }}
+            />
+          </div>
+        ))}
       </div>
 
       {/* connecting line, drawn behind everything and stretched to the section.
@@ -56,7 +56,7 @@ export default function AboutSection({ about = DEFAULT_CONTENT.about }: { about?
             {about.heading ? about.heading : <>Founded by <span className="italic">{about.founderName}</span>.</>}
           </h2>
           {lead && (
-            <p className="mt-7 text-[14px] md:text-[15px] leading-relaxed text-[#0A0A0A]/60 max-w-md mx-auto">
+            <p className="mt-7 font-editorial text-[15px] md:text-[17px] leading-relaxed text-[#0A0A0A]/60 max-w-md mx-auto">
               {lead}
             </p>
           )}
@@ -78,7 +78,7 @@ export default function AboutSection({ about = DEFAULT_CONTENT.about }: { about?
           {/* scroll-revealed copy */}
           <ScrollRevealText
             paragraphs={body}
-            className="text-[#0A0A0A] leading-relaxed text-[16px] md:text-[19px]"
+            className="font-editorial text-[#0A0A0A] leading-relaxed text-[18px] md:text-[22px]"
           />
 
           {/* stats */}
