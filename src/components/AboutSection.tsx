@@ -62,24 +62,6 @@ export default function AboutSection({ about = DEFAULT_CONTENT.about }: { about?
             ))}
           </div>
 
-          {/* founder portrait, below the text */}
-          <div className="relative mt-14 max-w-md mx-auto">
-            <div className="relative w-full aspect-square overflow-hidden rounded-2xl">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={about.image} alt={about.founderName} className="absolute inset-0 w-full h-full object-cover" />
-            </div>
-
-            {/* animated thought bubble above the head */}
-            <div className="pointer-events-none absolute left-[46%] top-[4%] z-10 animate-[bob_3.5s_ease-in-out_infinite]">
-              <div className="relative bg-white text-[#0A0A0A] rounded-[1.4rem] px-5 py-3 shadow-[0_12px_30px_-10px_rgba(0,0,0,0.45)]">
-                <span className="font-editorial italic leading-none whitespace-nowrap" style={{ fontSize: "clamp(1.1rem, 1.8vw, 1.5rem)" }}>{about.thoughtBubble}</span>
-                {/* thought tail */}
-                <span className="absolute -bottom-2.5 left-5 w-3.5 h-3.5 rounded-full bg-white shadow-[0_6px_14px_-6px_rgba(0,0,0,0.4)]" />
-                <span className="absolute -bottom-5 left-2.5 w-2 h-2 rounded-full bg-white shadow-[0_6px_14px_-6px_rgba(0,0,0,0.4)]" />
-              </div>
-            </div>
-          </div>
-
           <a
             href="/contact"
             className="group mt-14 flex w-full items-center justify-between gap-3 bg-[#0A0A0A] text-[#F3F1EC] px-7 py-5 text-[13px] uppercase tracking-[0.1em] leading-snug transition-colors duration-300 hover:bg-[#4ADE80] hover:text-[#0A0A0A]"
