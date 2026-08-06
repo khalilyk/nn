@@ -5,7 +5,7 @@ import TypeText from "./TypeText";
 export default function TalkCTA() {
   const tagline = "We'll build your brand from the ground up. Identity, strategy, story, the whole thing.";
   return (
-    <section className="relative bg-[#0A0A0A] text-[#F3F1EC] overflow-hidden px-8 md:px-16 py-28 md:py-40" data-cursor-color="#F3F1EC">
+    <section className="relative flex items-center justify-center min-h-[85vh] bg-[#0A0A0A] text-[#F3F1EC] overflow-hidden px-8 md:px-16 py-24" data-cursor-color="#F3F1EC">
       {/* rotating dotted-sphere background */}
       <div className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none">
         {/* eslint-disable-next-line @next/next/no-img-element */}
