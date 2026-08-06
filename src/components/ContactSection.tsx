@@ -104,7 +104,9 @@ export default function ContactSection({ contact = DEFAULT_CONTENT.contact }: { 
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [coffee, setCoffee] = useState("");
+  const [service, setService] = useState("");
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
+  const services = ["Branding & Identity", "Web Design & Development", "Print & Production", "PR & Brand Visibility", "Something else"];
   const sent = status === "sent";
 
   const coffees = contact.coffeeOptions;
@@ -117,11 +119,11 @@ export default function ContactSection({ contact = DEFAULT_CONTENT.contact }: { 
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, message, coffee }),
+        body: JSON.stringify({ name, email, message: service ? `${message}\n\nService: ${service}` : message, coffee }),
       });
       if (!res.ok) throw new Error("send failed");
       setStatus("sent");
-      setName(""); setEmail(""); setMessage(""); setCoffee("");
+      setName(""); setEmail(""); setMessage(""); setCoffee(""); setService("");
     } catch {
       setStatus("error");
     }
@@ -211,6 +213,15 @@ export default function ContactSection({ contact = DEFAULT_CONTENT.contact }: { 
                   <label className="block text-[9px] tracking-[0.25em] uppercase text-[#0A0A0A]/50 mb-2">Email</label>
                   <input className={field} type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="you@you.com" required />
                 </div>
+              </div>
+              <div className="text-left">
+                <label className="block text-[9px] tracking-[0.25em] uppercase text-[#0A0A0A]/50 mb-2">Service</label>
+                <select className={`${field} appearance-none cursor-pointer ${service ? "" : "text-[#0A0A0A]/40"}`} value={service} onChange={(e) => setService(e.target.value)}>
+                  <option value="">Select a service</option>
+                  {services.map((s) => (
+                    <option key={s} value={s}>{s}</option>
+                  ))}
+                </select>
               </div>
               <div className="text-left">
                 <label className="block text-[9px] tracking-[0.25em] uppercase text-[#0A0A0A]/50 mb-2">Message</label>
