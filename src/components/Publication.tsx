@@ -16,7 +16,7 @@ import Magnetic from "./Magnetic";
 import HeroMedia from "./HeroMedia";
 import Testimonials from "./Testimonials";
 import ScrambleText from "./ScrambleText";
-import MenuEditorial from "./MenuEditorial";
+import MenuFestival from "./MenuFestival";
 import Postcard from "./Postcard";
 import AboutSection from "./AboutSection";
 import TalkCTA from "./TalkCTA";
@@ -225,12 +225,8 @@ export default function Publication({ initialContent, show }: { initialContent?:
       /* ═══ MENU ═══ */
       menu: (
       <Panel index={2} bg="ivory" minH="auto" pin={false} clip={false}>
-        <div id="s02" className="relative bg-white text-[#0A0A0A] px-8 md:px-16 pt-28 md:pt-36 pb-24 md:pb-32">
-          <div className="max-w-6xl mx-auto mb-16 md:mb-24">
-            <p className="text-[10px] tracking-[0.3em] uppercase text-[#0A0A0A]/45 mb-6">{c.menu.eyebrow}</p>
-            <h2 className="font-editorial leading-[1.02] max-w-3xl" style={{ fontSize: "clamp(2.2rem, 5vw, 4rem)" }}>{c.menu.heading}</h2>
-          </div>
-          <MenuEditorial menu={c.menu} />
+        <div id="s02" className="relative">
+          <MenuFestival menu={c.menu} />
         </div>
       </Panel>
       ),
