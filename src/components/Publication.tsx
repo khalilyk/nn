@@ -16,7 +16,7 @@ import Magnetic from "./Magnetic";
 import HeroMedia from "./HeroMedia";
 import Testimonials from "./Testimonials";
 import ScrambleText from "./ScrambleText";
-import MenuFestival from "./MenuFestival";
+import MenuShowcase from "./MenuShowcase";
 import Postcard from "./Postcard";
 import AboutSection from "./AboutSection";
 import TalkCTA from "./TalkCTA";
@@ -226,7 +226,7 @@ export default function Publication({ initialContent, show }: { initialContent?:
       menu: (
       <Panel index={2} bg="ivory" minH="auto" pin={false} clip={false}>
         <div id="s02" className="relative">
-          <MenuFestival menu={c.menu} />
+          <MenuShowcase menu={c.menu} />
         </div>
       </Panel>
       ),
