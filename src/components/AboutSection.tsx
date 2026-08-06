@@ -65,7 +65,7 @@ export default function AboutSection({ about = DEFAULT_CONTENT.about }: { about?
 
             <a
               href="/contact"
-              className="group mt-9 inline-flex items-center gap-3 rounded-full bg-[#0A0A0A] text-[#F3F1EC] px-7 py-4 text-[13px] leading-snug max-w-sm transition-colors duration-300 hover:bg-[#26262b]"
+              className="group mt-9 flex w-full items-center justify-between gap-3 bg-[#0A0A0A] text-[#F3F1EC] px-7 py-5 text-[13px] leading-snug transition-colors duration-300 hover:bg-[#26262b]"
             >
               <span>No matter the concept, we&apos;re ready to work with you.</span>
               <span className="shrink-0 transition-transform duration-300 group-hover:translate-x-0.5">&#8594;</span>
