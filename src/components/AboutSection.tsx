@@ -41,7 +41,7 @@ export default function AboutSection({ about = DEFAULT_CONTENT.about }: { about?
               {about.heading ? about.heading : <>Founded by <span className="italic">{about.founderName}</span>.</>}
             </h2>
             {lead && (
-              <p className="font-editorial text-[15px] md:text-[17px] leading-relaxed text-[#0A0A0A]/60 md:pt-4">
+              <p className="font-sans text-[13px] md:text-[14px] leading-relaxed text-[#0A0A0A]/55 md:pt-4">
                 {lead}
               </p>
             )}
@@ -64,7 +64,7 @@ export default function AboutSection({ about = DEFAULT_CONTENT.about }: { about?
           {/* scroll-revealed copy */}
           <ScrollRevealText
             paragraphs={body}
-            className="font-editorial text-[#0A0A0A] leading-relaxed text-[18px] md:text-[22px]"
+            className="font-sans text-[#0A0A0A] leading-relaxed text-[15px] md:text-[17px]"
           />
 
         </div>
