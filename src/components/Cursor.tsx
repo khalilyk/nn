@@ -68,9 +68,14 @@ export default function Cursor() {
         transition: "width 0.35s cubic-bezier(0.16,1,0.3,1), height 0.35s cubic-bezier(0.16,1,0.3,1)",
       }}
     >
-      {hovering && label && (
+      {hovering && label === "Open" ? (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke={color === "#0A0A0A" ? "#F3F1EC" : "#0A0A0A"} strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+          <path d="M1.5 12S5 5 12 5s10.5 7 10.5 7-3.5 7-10.5 7S1.5 12 1.5 12Z" />
+          <circle cx="12" cy="12" r="3" />
+        </svg>
+      ) : hovering && label ? (
         <span className="text-[8px] tracking-[0.2em] uppercase font-sans" style={{ color: color === "#0A0A0A" ? "#F3F1EC" : "#0A0A0A" }}>{label}</span>
-      )}
+      ) : null}
     </div>
   );
 }
