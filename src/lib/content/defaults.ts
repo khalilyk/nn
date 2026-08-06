@@ -177,7 +177,6 @@ export const DEFAULT_CONTENT: SiteContent = {
     { l: "The Menu", href: "/menu", tip: "What we do", shape: "rounded-none" },
     { l: "Projects", href: "/projects", tip: "Selected proof", shape: "rounded-tl-xl rounded-br-xl" },
     { l: "About", href: "/about", tip: "Who we are", shape: "rounded-full" },
-    { l: "Notes", href: "/notes", tip: "Thinking & insights", shape: "rounded-lg" },
   ],
 
   footer: {
