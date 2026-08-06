@@ -82,13 +82,6 @@ export default function AboutSection({ about = DEFAULT_CONTENT.about }: { about?
             className="font-editorial text-[#0A0A0A] leading-relaxed text-[18px] md:text-[22px]"
           />
 
-          <a
-            href="/contact"
-            className="group mt-14 flex w-full items-center justify-between gap-3 bg-[#0A0A0A] text-[#F3F1EC] px-7 py-5 text-[13px] uppercase tracking-[0.1em] leading-snug transition-colors duration-300 hover:bg-[#4ADE80] hover:text-[#0A0A0A]"
-          >
-            <span>Let&apos;s get started!</span>
-            <span className="shrink-0 transition-transform duration-300 group-hover:translate-x-0.5">&#8594;</span>
-          </a>
         </div>
       </div>
     </section>
