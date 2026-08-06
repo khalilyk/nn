@@ -83,8 +83,16 @@ export default function ProjectView({ project, content }: { project: Project; co
       </main>
 
       {/* white "start from scratch" CTA band */}
-      <section className="bg-white text-[#0A0A0A] px-8 md:px-16 py-20 md:py-28">
-        <div className="w-full flex flex-col items-center text-center">
+      <section className="relative overflow-hidden bg-white text-[#0A0A0A] px-8 md:px-16 py-20 md:py-28">
+        {/* dynamic, fuzzy "brand" watermark */}
+        <span
+          aria-hidden
+          className="pointer-events-none absolute left-1/2 top-1/2 font-sans font-black lowercase text-[#0A0A0A] whitespace-nowrap select-none"
+          style={{ fontSize: "clamp(8rem, 34vw, 34rem)", animation: "brandFuzz 7s ease-in-out infinite", willChange: "transform, filter, opacity" }}
+        >
+          brand
+        </span>
+        <div className="relative z-10 w-full flex flex-col items-center text-center">
           <h2 className="font-sans font-bold uppercase leading-[0.95] tracking-tight" style={{ fontSize: "clamp(2rem, 5vw, 3.6rem)" }}>
             Ready to get started?
           </h2>

@@ -63,6 +63,11 @@ img { user-select: none; -webkit-user-drag: none; }
 @keyframes spin-slow { to { transform: rotate(360deg); } }
 @keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes bob { 0%, 100% { transform: translateY(0) rotate(-1deg); } 50% { transform: translateY(-7px) rotate(1deg); } }
+@keyframes brandFuzz {
+  0%   { transform: translate(-50%, -50%) scale(1);    filter: blur(7px);  opacity: 0.05; }
+  50%  { transform: translate(-48%, -52%) scale(1.06); filter: blur(15px); opacity: 0.10; }
+  100% { transform: translate(-50%, -50%) scale(1);    filter: blur(7px);  opacity: 0.05; }
+}
 
 /* liquid blob morph for the menu masonry cards */
 @keyframes liquid-morph {
