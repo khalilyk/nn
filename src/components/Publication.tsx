@@ -9,7 +9,6 @@ import ParallaxBg from "./ParallaxBg";
 import PinInView from "./PinInView";
 import SiteNav from "./SiteNav";
 import SiteFooter from "./SiteFooter";
-import Terminal from "./Terminal";
 import Cursor from "./Cursor";
 import Grain from "./Grain";
 import ScrollProgress from "./ScrollProgress";
@@ -137,7 +136,7 @@ function SectionNo(_: { n: string; side?: "left" | "right"; dark?: boolean }) {
 export default function Publication({ initialContent, show }: { initialContent?: SiteContent; show?: string[] }) {
   const c = initialContent ?? DEFAULT_CONTENT;
   // sections render in this order; a page passes `show` to pick a subset (and its order)
-  const DEFAULT_ORDER = ["hero", "menu", "brands", "projects", "postcard", "norm", "testimonials", "about", "notes", "contact", "footer"];
+  const DEFAULT_ORDER = ["hero", "menu", "brands", "projects", "postcard", "testimonials", "about", "notes", "contact", "footer"];
   const order = show ?? DEFAULT_ORDER;
   // homepage = hero only → lock to one viewport, no scroll (esp. on mobile)
   const singleScreen = order.length === 1 && order[0] === "hero";
@@ -289,24 +288,6 @@ export default function Publication({ initialContent, show }: { initialContent?:
             <Postcard />
           </div>
           <SectionNo n="04" dark />
-        </div>
-      </Panel>
-      ),
-
-      /* ═══ NORM ═══ */
-      norm: (
-      <Panel index={6} bg="black" minH="auto" pin={false} slideFrom="left">
-        <div id="s08" className="relative bg-[#1E1E22] px-8 md:px-16 py-20 md:py-32 flex flex-col items-center">
-          <Reveal delay={0.12} className="w-full">
-            <Terminal
-              heading={
-                <h2 className="font-editorial text-center leading-[1.2] text-[#F3F1EC]" style={{ fontSize: "clamp(1.6rem, 3.2vw, 2.6rem)" }}>
-                  Meet <span className="italic">NORM</span>, our marketing exec.<br />
-                  Here for a chat about all things food &amp; marketing.
-                </h2>
-              }
-            />
-          </Reveal>
         </div>
       </Panel>
       ),
