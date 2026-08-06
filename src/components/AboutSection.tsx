@@ -1,6 +1,7 @@
 import type { About } from "@/lib/content/types";
 import { DEFAULT_CONTENT } from "@/lib/content/defaults";
 import ScrollRevealText from "./ScrollRevealText";
+import ConnectingLine from "./ConnectingLine";
 
 /* The Founder story, told as three stacked "beats" — an opening headline, a
    centred statement, and the full story — with a single hand-drawn line weaving
@@ -28,24 +29,8 @@ export default function AboutSection({ about = DEFAULT_CONTENT.about }: { about?
         ))}
       </div>
 
-      {/* connecting line, drawn behind everything and stretched to the section.
-          non-scaling-stroke keeps the ink crisp however tall the section gets. */}
-      <svg
-        aria-hidden
-        className="pointer-events-none absolute inset-0 h-full w-full z-0"
-        viewBox="0 0 100 100"
-        preserveAspectRatio="none"
-        fill="none"
-      >
-        <path
-          d="M55,4 C36,11 34,18 51,24 C72,31 71,43 44,51 C24,57 27,71 54,76 C80,80 82,90 38,97"
-          stroke="#0A0A0A"
-          strokeOpacity="0.16"
-          strokeWidth="1.4"
-          strokeLinecap="round"
-          vectorEffect="non-scaling-stroke"
-        />
-      </svg>
+      {/* connecting line — draws in on scroll down, retracts on scroll up */}
+      <ConnectingLine />
 
       <div className="relative z-10 px-8 md:px-16 pt-28 md:pt-40 pb-24 md:pb-36">
         {/* ── Beat 1 · opening ── */}
