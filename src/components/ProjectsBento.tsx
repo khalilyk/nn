@@ -9,7 +9,16 @@ import { slugify } from "@/lib/slug";
 export default function ProjectsBento({ projects = DEFAULT_CONTENT.projects }: { projects?: Project[] }) {
   return (
     <div className="w-full text-[#F3F1EC] select-none">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-2.5 md:gap-3">
+      <div className="relative overflow-hidden">
+        {/* giant faint wordmark, the top project sits over it */}
+        <span
+          aria-hidden
+          className="block text-center font-sans font-black uppercase leading-[0.72] tracking-tight text-white/10 whitespace-nowrap"
+          style={{ fontSize: "clamp(2.5rem, 20vw, 18rem)" }}
+        >
+          Projects
+        </span>
+        <div className="relative grid grid-cols-1 md:grid-cols-2 gap-2.5 md:gap-3 -mt-[3.5vw]">
         {projects.map((pr, i) => {
           const wide = i % 3 === 0; // full-width lead tile, then two squares
           const cover = pr.images?.[0] ?? pr.img;
@@ -37,6 +46,7 @@ export default function ProjectsBento({ projects = DEFAULT_CONTENT.projects }: {
             </a>
           );
         })}
+        </div>
       </div>
     </div>
   );

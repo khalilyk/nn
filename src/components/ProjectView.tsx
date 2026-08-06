@@ -82,6 +82,24 @@ export default function ProjectView({ project, content }: { project: Project; co
         </section>
       </main>
 
+      {/* white "start from scratch" CTA band */}
+      <section className="bg-white text-[#0A0A0A] px-8 md:px-16 py-20 md:py-28">
+        <div className="w-full flex flex-col items-center text-center">
+          <h2 className="font-sans font-bold uppercase leading-[0.95] tracking-tight" style={{ fontSize: "clamp(2rem, 5vw, 3.6rem)" }}>
+            Starting from scratch?
+          </h2>
+          <p className="mt-6 max-w-xl text-[15px] md:text-[17px] leading-relaxed text-[#0A0A0A]/60">
+            We&apos;ll build your brand from the ground up. Identity, strategy, story, the whole thing.
+          </p>
+          <a
+            href="/contact"
+            className="group mt-9 inline-flex items-center gap-3 text-[12px] tracking-[0.2em] uppercase font-bold border-b-2 border-[#0A0A0A] pb-1.5 hover:opacity-60 transition-opacity"
+          >
+            Let&apos;s get started <span className="transition-transform group-hover:translate-x-0.5">→</span>
+          </a>
+        </div>
+      </section>
+
       <SiteFooter footer={content.footer} />
     </div>
   );
