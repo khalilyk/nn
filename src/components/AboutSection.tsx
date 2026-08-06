@@ -1,7 +1,6 @@
 import type { About } from "@/lib/content/types";
 import { DEFAULT_CONTENT } from "@/lib/content/defaults";
 import ScrollRevealText from "./ScrollRevealText";
-import StatsRow from "./StatsRow";
 
 /* The Founder story, told as three stacked "beats" — an opening headline, a
    centred statement, and the full story — with a single hand-drawn line weaving
@@ -82,31 +81,6 @@ export default function AboutSection({ about = DEFAULT_CONTENT.about }: { about?
             paragraphs={body}
             className="font-editorial text-[#0A0A0A] leading-relaxed text-[18px] md:text-[22px]"
           />
-
-          {/* stats */}
-          <div className="mt-16">
-            <StatsRow />
-          </div>
-
-          {/* credibility strip */}
-          <div className="mt-14 space-y-6">
-            <div className="flex flex-col sm:flex-row sm:items-baseline gap-2 sm:gap-5">
-              <p className="text-[10px] tracking-[0.3em] uppercase text-[#0A0A0A]/40 shrink-0 sm:w-32">Recognised by</p>
-              <div className="flex flex-wrap gap-2">
-                {["Michelin", "The World's 50 Best"].map((t) => (
-                  <span key={t} className="text-[11px] tracking-[0.08em] uppercase border border-[#0A0A0A]/15 rounded-full px-4 py-2">{t}</span>
-                ))}
-              </div>
-            </div>
-            <div className="flex flex-col sm:flex-row sm:items-baseline gap-2 sm:gap-5">
-              <p className="text-[10px] tracking-[0.3em] uppercase text-[#0A0A0A]/40 shrink-0 sm:w-32">Behind names like</p>
-              <div className="flex flex-wrap gap-2">
-                {["3Fils", "BRIX", "Bordo Mavi"].map((t) => (
-                  <span key={t} className="text-[11px] tracking-[0.08em] uppercase border border-[#0A0A0A]/15 rounded-full px-4 py-2">{t}</span>
-                ))}
-              </div>
-            </div>
-          </div>
 
           <a
             href="/contact"
