@@ -61,7 +61,7 @@ export default function CityCodes({
   const lineMargin = center ? "mx-auto" : "mx-auto md:mx-0";
   return (
     <div className="mt-8">
-      <div className={`flex flex-wrap items-baseline gap-x-7 gap-y-1 ${justify}`}>
+      <div className={`flex flex-nowrap items-baseline gap-x-5 sm:gap-x-7 ${justify}`}>
         {CITIES.map((c, i) => (
           <CityCode key={c.code} code={c.code} name={c.name} active={active === i} onEnter={() => setActive(i)} activeColor={activeColor} idleColor={idleColor} />
         ))}
