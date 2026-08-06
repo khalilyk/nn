@@ -1,57 +1,70 @@
-"use client";
-
-import { useEffect, useRef } from "react";
 import type { About } from "@/lib/content/types";
 import { DEFAULT_CONTENT } from "@/lib/content/defaults";
 
-/* The About content. The founder image holds with a gentle parallax as the
-   section scrolls (CSS sticky is blocked by the panel wrappers' overflow). */
+/* The Founder story, told as three stacked "beats" — an opening headline, a
+   centred statement, and the full story — with a single hand-drawn line weaving
+   down the section to link them (inspired by editorial one-pagers). */
 export default function AboutSection({ about = DEFAULT_CONTENT.about }: { about?: About }) {
-  const secRef = useRef<HTMLElement>(null);
-  const colRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const col = colRef.current, sec = secRef.current;
-    if (!col || !sec) return;
-    const mq = window.matchMedia("(min-width: 768px)");
-    const AMP = 90; // how far the image drifts (px)
-    let raf = 0;
-
-    const update = () => {
-      raf = 0;
-      if (!mq.matches) { col.style.transform = ""; return; }
-      const sr = sec.getBoundingClientRect();
-      const vh = window.innerHeight;
-      // -1 (section below) → 1 (section above); 0 when centred
-      const p = (sr.top + sr.height / 2 - vh / 2) / (vh + sr.height / 2);
-      const ty = Math.max(-AMP, Math.min(AMP, p * AMP));
-      col.style.transform = `translateY(${ty.toFixed(1)}px)`;
-    };
-    const onScroll = () => { if (!raf) raf = requestAnimationFrame(update); };
-
-    update();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
-    return () => { window.removeEventListener("scroll", onScroll); window.removeEventListener("resize", onScroll); cancelAnimationFrame(raf); };
-  }, []);
+  const [lead, ...rest] = about.paragraphs;
+  const closing = rest.length ? rest[rest.length - 1] : "";
+  const body = rest.slice(0, Math.max(0, rest.length - 1)); // middle paragraphs → the full story
 
   return (
-    <section ref={secRef} id="about" className="relative scroll-mt-20 bg-white text-[#0A0A0A] overflow-hidden">
-      {/* founder */}
-      <div className="px-8 md:px-16 pt-28 md:pt-36 pb-20 md:pb-28">
-        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-center">
-          <div>
-            <p className="text-[10px] tracking-[0.3em] uppercase text-[#0A0A0A]/45 mb-6">{about.eyebrow}</p>
-            <p className="font-editorial uppercase leading-[1.1]" style={{ fontSize: "clamp(1.8rem, 4vw, 3rem)" }}>
-              {about.heading ? about.heading : <>Founded by <span className="italic">{about.founderName}</span>.</>}
+    <section id="about" className="relative scroll-mt-20 bg-white text-[#0A0A0A] overflow-hidden">
+      {/* connecting line, drawn behind everything and stretched to the section.
+          non-scaling-stroke keeps the ink crisp however tall the section gets. */}
+      <svg
+        aria-hidden
+        className="pointer-events-none absolute inset-0 h-full w-full z-0"
+        viewBox="0 0 100 100"
+        preserveAspectRatio="none"
+        fill="none"
+      >
+        <path
+          d="M55,4 C36,11 34,18 51,24 C72,31 71,43 44,51 C24,57 27,71 54,76 C80,80 82,90 38,97"
+          stroke="#0A0A0A"
+          strokeOpacity="0.16"
+          strokeWidth="1.4"
+          strokeLinecap="round"
+          vectorEffect="non-scaling-stroke"
+        />
+      </svg>
+
+      <div className="relative z-10 px-8 md:px-16 pt-28 md:pt-40 pb-24 md:pb-36">
+        {/* ── Beat 1 · opening ── */}
+        <div className="max-w-3xl mx-auto text-center">
+          <p className="text-[10px] tracking-[0.3em] uppercase text-[#0A0A0A]/45 mb-6">{about.eyebrow}</p>
+          <h2 className="font-editorial leading-[1.05]" style={{ fontSize: "clamp(2.4rem, 6vw, 5rem)" }}>
+            {about.heading ? about.heading : <>Founded by <span className="italic">{about.founderName}</span>.</>}
+          </h2>
+          {lead && (
+            <p className="mt-7 text-[14px] md:text-[15px] leading-relaxed text-[#0A0A0A]/60 max-w-md mx-auto">
+              {lead}
             </p>
-            <div className="mt-8 space-y-5 text-[14px] md:text-[15px] leading-relaxed text-[#0A0A0A]/65">
-              {about.paragraphs.map((p, i) => (
+          )}
+        </div>
+
+        {/* ── Beat 2 · statement ── */}
+        {closing && (
+          <div className="max-w-3xl mx-auto text-center mt-40 md:mt-64">
+            <p className="font-editorial leading-[1.28]" style={{ fontSize: "clamp(1.5rem, 3.4vw, 2.6rem)" }}>
+              {closing}
+            </p>
+          </div>
+        )}
+
+        {/* ── Beat 3 · the full story + founder ── */}
+        <div className="mt-40 md:mt-64 max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-14 md:gap-20 items-center">
+          <div>
+            <p className="text-[10px] tracking-[0.3em] uppercase text-[#0A0A0A]/45 mb-5">The story</p>
+            <div className="space-y-5 text-[14px] md:text-[15px] leading-relaxed text-[#0A0A0A]/65">
+              {body.map((p, i) => (
                 <p key={i}>{p}</p>
               ))}
             </div>
           </div>
-          <div ref={colRef} className="relative self-center will-change-transform">
+
+          <div className="relative self-center">
             <div className="relative w-full aspect-square overflow-hidden rounded-2xl">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={about.image} alt={about.founderName} className="absolute inset-0 w-full h-full object-cover" />
