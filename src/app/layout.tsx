@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Playfair_Display, Space_Grotesk, Anton, Caveat, Special_Elite, Permanent_Marker, Rock_Salt, Zilla_Slab, Reenie_Beanie, Space_Mono, DM_Serif_Display, Mansalva, Kalam, Old_Standard_TT, Yellowtail, Imperial_Script } from "next/font/google";
 import "./globals.css";
 import { getSiteContent } from "@/lib/content/get";
@@ -108,6 +108,17 @@ const anton = Anton({
   variable: "--font-anton",
   weight: ["400"],
 });
+
+// Applies to every page: pin the layout to the device viewport and disable
+// pinch/scale so a page can never drift outside its frame or shrink on zoom.
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+  viewportFit: "cover",
+  themeColor: "#0A0A0A",
+};
 
 export async function generateMetadata(): Promise<Metadata> {
   const { seo } = await getSiteContent();
