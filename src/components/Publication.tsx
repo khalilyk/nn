@@ -196,7 +196,7 @@ export default function Publication({ initialContent, show }: { initialContent?:
 
           {/* Bottom meta row — badge in bottom-left corner, copy in bottom-right, with
               padding equal to the page's side padding (perfectly balanced corners) */}
-          <div className="absolute bottom-8 right-8 left-8 md:bottom-16 md:left-16 md:right-16 flex flex-row items-end justify-between gap-6 animate-[fadeUp_0.8s_ease_0.3s_both]">
+          <div className="absolute bottom-8 right-8 left-8 md:bottom-16 md:left-16 md:right-16 flex flex-row items-start justify-between gap-6 animate-[fadeUp_0.8s_ease_0.3s_both]">
             <span className="flex flex-col items-start gap-2 md:flex-row md:items-start max-w-[9rem] shrink-0">
               <button
                 type="button"
