@@ -42,7 +42,7 @@ type Post = SplitPost | TypePost | BlahPost;
 
 function Badge({ ink }: { ink: string }) {
   return (
-    <span className="inline-flex items-center justify-center rounded-full border w-9 h-9 text-[10px] font-display tracking-tight shrink-0" style={{ borderColor: ink, color: ink }}>
+    <span className="inline-flex items-center justify-center rounded-full border w-9 h-9 text-[10px] font-sans font-bold tracking-tight shrink-0" style={{ borderColor: ink, color: ink }}>
       NN
     </span>
   );
@@ -251,7 +251,7 @@ export default function JournalSection({ notes = DEFAULT_CONTENT.notes }: { note
       <div className="relative px-6 sm:px-10 md:px-16">
         <div className="text-center mb-14 md:mb-20">
           <p className="text-[10px] tracking-[0.3em] uppercase text-white/45 mb-4">{notes.eyebrow}</p>
-          <h2 className="font-display uppercase tracking-tight leading-[0.92] text-white max-w-[12ch] mx-auto" style={{ fontSize: "clamp(2rem, 5vw, 4rem)" }}>
+          <h2 className="font-sans font-bold uppercase tracking-tight leading-[0.92] text-white max-w-[12ch] mx-auto" style={{ fontSize: "clamp(2rem, 5vw, 4rem)" }}>
             {notes.heading}
           </h2>
         </div>

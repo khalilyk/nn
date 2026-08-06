@@ -15,7 +15,7 @@ export default function TheInside() {
       <section className="min-h-screen flex flex-col items-center justify-center px-6">
       <div className="w-full max-w-sm">
         <p className="text-[9px] tracking-[0.3em] uppercase text-[#B9B5AE]/50 mb-4 text-center">The Inside</p>
-        <h1 className="font-display text-center leading-none mb-12" style={{ fontSize: "clamp(2.5rem, 7vw, 4rem)" }}>
+        <h1 className="font-sans font-bold text-center leading-none mb-12" style={{ fontSize: "clamp(2.5rem, 7vw, 4rem)" }}>
           MEMBERS ONLY
         </h1>
 

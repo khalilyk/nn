@@ -46,7 +46,7 @@ function CityButton({
     <button
       onMouseEnter={() => { setHovered(true); onEnter(); }}
       onMouseLeave={() => { setHovered(false); onLeave(); }}
-      className="font-display leading-[0.95] transition-colors duration-500 whitespace-nowrap"
+      className="font-sans font-bold leading-[0.95] transition-colors duration-500 whitespace-nowrap"
       style={{ fontSize: "clamp(2.2rem, 6vw, 5.5rem)", color: active ? "#F3F1EC" : "rgba(243,241,236,0.28)" }}
     >
       {text}

@@ -7,7 +7,7 @@ export default function CtaSection() {
   return (
     <section className="relative overflow-hidden bg-[#C9C6F5] text-[#0A0A0A] px-8 md:px-16 py-20 md:py-32">
       <div className="mx-auto max-w-6xl flex flex-col items-center text-center">
-        <h2 className="font-display uppercase leading-[0.95] tracking-tight" style={{ fontSize: "clamp(2rem, 6.2vw, 4.75rem)" }}>
+        <h2 className="font-sans font-bold uppercase leading-[0.95] tracking-tight" style={{ fontSize: "clamp(2rem, 6.2vw, 4.75rem)" }}>
           <span className="block">Your idea deserves better.</span>
           <span className="flex flex-wrap items-center justify-center gap-x-6 gap-y-5">
             <span className="font-sans font-normal">Talk to us!</span>

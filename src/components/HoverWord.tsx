@@ -4,16 +4,15 @@ import { useEffect, useRef, useState } from "react";
 
 type Style = { fontFamily: string; fontStyle?: string; fontWeight?: number };
 
-/* A varied pool of styles so each word cycles a different combination. */
+/* A varied pool of styles so each word cycles a different combination.
+   Restricted to the site's two typefaces: Space Grotesk + Playfair. */
 const STYLES: Style[] = [
-  { fontFamily: "var(--font-anton)" },
-  { fontFamily: "var(--font-marker)", fontWeight: 700 },
-  { fontFamily: "var(--font-grotesk)", fontWeight: 500 },
+  { fontFamily: "var(--font-grotesk)", fontWeight: 700 },
   { fontFamily: "var(--font-playfair)", fontStyle: "italic", fontWeight: 700 },
-  { fontFamily: "var(--font-playfair)", fontWeight: 900 },
-  { fontFamily: "ui-monospace, monospace" },
-  { fontFamily: "Georgia, serif", fontStyle: "italic" },
+  { fontFamily: "var(--font-grotesk)", fontWeight: 500 },
+  { fontFamily: "var(--font-playfair)", fontWeight: 700 },
   { fontFamily: "var(--font-grotesk)", fontWeight: 300, fontStyle: "italic" },
+  { fontFamily: "var(--font-playfair)", fontStyle: "italic", fontWeight: 400 },
 ];
 
 /* Word that animates on hover.

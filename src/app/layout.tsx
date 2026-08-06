@@ -100,7 +100,7 @@ const playfair = Playfair_Display({
 const grotesk = Space_Grotesk({
   subsets: ["latin"],
   variable: "--font-grotesk",
-  weight: ["300", "400", "500"],
+  weight: ["300", "400", "500", "600", "700"],
 });
 
 const anton = Anton({

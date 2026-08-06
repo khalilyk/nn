@@ -135,13 +135,13 @@ export default function ContactSection({ contact = DEFAULT_CONTENT.contact }: { 
       {/* HERO */}
       <div className="relative overflow-hidden">
         <div aria-hidden className="absolute inset-x-0 top-[10%] z-[2] flex justify-center pointer-events-none select-none">
-          <span className="font-display uppercase leading-none whitespace-nowrap text-[#0A0A0A]/[0.045]" style={{ fontSize: "clamp(5rem, 23vw, 22rem)" }}>
+          <span className="font-sans font-bold uppercase leading-none whitespace-nowrap text-[#0A0A0A]/[0.045]" style={{ fontSize: "clamp(5rem, 23vw, 22rem)" }}>
             Say Hello
           </span>
         </div>
 
         <div className="relative z-10 flex flex-col items-center text-center px-6 pt-24 md:pt-32">
-          <h2 className="font-display uppercase leading-[0.95] tracking-tight max-w-3xl" style={{ fontSize: "clamp(2.2rem, 6.5vw, 4.6rem)" }}>{contact.heading}</h2>
+          <h2 className="font-sans font-bold uppercase leading-[0.95] tracking-tight max-w-3xl" style={{ fontSize: "clamp(2.2rem, 6.5vw, 4.6rem)" }}>{contact.heading}</h2>
           <p className="text-center text-[11px] md:text-[13px] tracking-[0.1em] text-[#0A0A0A]/65 mt-6 max-w-2xl leading-relaxed normal-case">
             {contact.intro}
           </p>
@@ -200,7 +200,7 @@ export default function ContactSection({ contact = DEFAULT_CONTENT.contact }: { 
             {/* RIGHT - the form, as a light card */}
             <div id="contact-form" data-cursor-color="#0A0A0A" className="text-center md:text-left bg-[#F3F1EC] text-[#0A0A0A] rounded-3xl p-7 md:p-10 shadow-[0_34px_80px_-34px_rgba(0,0,0,0.7)]">
               <p className="text-[9px] tracking-[0.3em] uppercase text-[#0A0A0A]/40 mb-3">{contact.formEyebrow}</p>
-              <h3 className="font-display uppercase leading-[0.95] tracking-tight mb-10" style={{ fontSize: "clamp(1.7rem, 3.4vw, 2.6rem)" }}>{contact.formHeading}</h3>
+              <h3 className="font-sans font-bold uppercase leading-[0.95] tracking-tight mb-10" style={{ fontSize: "clamp(1.7rem, 3.4vw, 2.6rem)" }}>{contact.formHeading}</h3>
             <form onSubmit={submit} className="flex flex-col gap-8">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-left">
                 <div>

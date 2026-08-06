@@ -157,7 +157,7 @@ export default function ServiceMindmap({ dark = false }: { dark?: boolean }) {
           ))}
         </svg>
         <div className={`absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 rounded-full ${hubCls} flex items-center justify-center text-center px-5`} style={{ width: "clamp(130px,15vw,180px)", height: "clamp(130px,15vw,180px)" }}>
-          <span className="font-display uppercase leading-[0.95] tracking-tight" style={{ fontSize: "clamp(0.85rem,1.3vw,1.1rem)" }}>Your<br />concept</span>
+          <span className="font-sans font-bold uppercase leading-[0.95] tracking-tight" style={{ fontSize: "clamp(0.85rem,1.3vw,1.1rem)" }}>Your<br />concept</span>
         </div>
         {BRANCHES.map((b, i) => (
           <div
@@ -186,7 +186,7 @@ export default function ServiceMindmap({ dark = false }: { dark?: boolean }) {
         </svg>
         {/* planet */}
         <div className={`absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 rounded-full ${hubCls} flex items-center justify-center text-center px-5`} style={{ width: "clamp(150px,17vw,210px)", height: "clamp(150px,17vw,210px)" }}>
-          <span className="font-display uppercase leading-[0.95] tracking-tight" style={{ fontSize: "clamp(0.9rem,1.5vw,1.3rem)" }}>{branch?.label}</span>
+          <span className="font-sans font-bold uppercase leading-[0.95] tracking-tight" style={{ fontSize: "clamp(0.9rem,1.5vw,1.3rem)" }}>{branch?.label}</span>
         </div>
         {branch?.items.map((it, i) => (
           <div

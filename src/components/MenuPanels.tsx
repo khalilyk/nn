@@ -71,7 +71,7 @@ export default function MenuPanels() {
               style={{ opacity: on ? 0 : 1 }}
             >
               <span
-                className="font-display text-[#F3F1EC]/70 tracking-wide whitespace-nowrap text-lg md:text-base"
+                className="font-sans font-bold text-[#F3F1EC]/70 tracking-wide whitespace-nowrap text-lg md:text-base"
                 style={{ writingMode: "vertical-rl", transform: "rotate(180deg)" }}
               >
                 {it.title}
