@@ -95,7 +95,7 @@ export default function ProjectView({ project, content }: { project: Project; co
             href="/contact"
             className="group mt-9 inline-flex items-center gap-3 text-[12px] tracking-[0.2em] uppercase font-bold border-b-2 border-[#0A0A0A] pb-1.5 hover:opacity-60 transition-opacity"
           >
-            Let&apos;s get started <span className="transition-transform group-hover:translate-x-0.5">→</span>
+            Build something with us <span className="transition-transform group-hover:translate-x-0.5">→</span>
           </a>
         </div>
       </section>
