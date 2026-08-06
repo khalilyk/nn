@@ -63,6 +63,18 @@ img { user-select: none; -webkit-user-drag: none; }
 @keyframes spin-slow { to { transform: rotate(360deg); } }
 @keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes bob { 0%, 100% { transform: translateY(0) rotate(-1deg); } 50% { transform: translateY(-7px) rotate(1deg); } }
+@keyframes blobA {
+  0%   { transform: translate(0, 0) scale(1); }
+  33%  { transform: translate(10%, 8%) scale(1.18); }
+  66%  { transform: translate(-6%, -4%) scale(0.9); }
+  100% { transform: translate(0, 0) scale(1); }
+}
+@keyframes blobB {
+  0%   { transform: translate(0, 0) scale(1); }
+  40%  { transform: translate(-12%, 6%) scale(1.1); }
+  70%  { transform: translate(6%, -8%) scale(0.95); }
+  100% { transform: translate(0, 0) scale(1); }
+}
 @keyframes brandFuzz {
   0%   { transform: translate(-50%, -50%) scale(1);    filter: blur(7px);  opacity: 0.05; }
   50%  { transform: translate(-48%, -52%) scale(1.06); filter: blur(15px); opacity: 0.10; }

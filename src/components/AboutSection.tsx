@@ -12,7 +12,23 @@ export default function AboutSection({ about = DEFAULT_CONTENT.about }: { about?
   const body = rest.slice(0, Math.max(0, rest.length - 1)); // middle paragraphs → the full story
 
   return (
-    <section id="about" className="relative scroll-mt-20 bg-white text-[#0A0A0A] overflow-hidden">
+    <section id="about" className="relative scroll-mt-20 bg-[#F4F2ED] text-[#0A0A0A] overflow-hidden">
+      {/* softly drifting gradient blobs */}
+      <div aria-hidden className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
+        <div
+          className="absolute rounded-full"
+          style={{ width: "55vw", height: "55vw", top: "6%", left: "34%", background: "radial-gradient(circle, rgba(212,164,92,0.42), rgba(212,164,92,0) 62%)", filter: "blur(60px)", animation: "blobA 20s ease-in-out infinite", willChange: "transform" }}
+        />
+        <div
+          className="absolute rounded-full"
+          style={{ width: "42vw", height: "42vw", top: "34%", left: "2%", background: "radial-gradient(circle, rgba(120,120,130,0.28), rgba(120,120,130,0) 60%)", filter: "blur(70px)", animation: "blobB 26s ease-in-out infinite", willChange: "transform" }}
+        />
+        <div
+          className="absolute rounded-full"
+          style={{ width: "40vw", height: "40vw", top: "62%", left: "52%", background: "radial-gradient(circle, rgba(212,164,92,0.30), rgba(212,164,92,0) 62%)", filter: "blur(80px)", animation: "blobA 30s ease-in-out infinite reverse", willChange: "transform" }}
+        />
+      </div>
+
       {/* connecting line, drawn behind everything and stretched to the section.
           non-scaling-stroke keeps the ink crisp however tall the section gets. */}
       <svg
