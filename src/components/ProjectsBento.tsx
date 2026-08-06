@@ -65,12 +65,9 @@ export default function ProjectsBento({ projects = DEFAULT_CONTENT.projects }: {
               {/* content, centred */}
               <div className="absolute inset-0 flex flex-col items-center justify-end text-center px-6 pb-8 md:pb-10">
                 <p className="text-[9px] md:text-[10px] tracking-[0.28em] uppercase text-[#F3F1EC]/70 mb-2">{pr.sub || pr.cat}</p>
-                <p className="font-sans font-medium leading-tight mb-5" style={{ fontSize: wide ? "clamp(1.4rem, 3vw, 2.4rem)" : "clamp(1.15rem, 2vw, 1.6rem)" }}>
+                <p className="font-sans font-medium leading-tight" style={{ fontSize: wide ? "clamp(1.4rem, 3vw, 2.4rem)" : "clamp(1.15rem, 2vw, 1.6rem)" }}>
                   {pr.name}
                 </p>
-                <span className="inline-flex items-center gap-2 rounded-full bg-[#F3F1EC] text-[#0A0A0A] px-5 py-2 text-[10px] tracking-[0.2em] uppercase transition-colors duration-300 group-hover:bg-[#4ADE80]">
-                  Learn more
-                </span>
               </div>
             </button>
           );
