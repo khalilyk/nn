@@ -151,7 +151,7 @@ export default function ContactSection({ contact = DEFAULT_CONTENT.contact }: { 
             const left = cut > -1 ? t.slice(0, cut + 1) : t;
             const right = cut > -1 ? t.slice(cut + 2) : "";
             return (
-              <div className="mt-8 grid md:grid-cols-2 gap-8 md:gap-14 max-w-4xl text-left">
+              <div className="mt-8 grid md:grid-cols-2 gap-8 md:gap-14 max-w-4xl text-center md:text-left">
                 <p className="text-[12px] md:text-[13px] tracking-[0.02em] text-[#0A0A0A]/65 leading-relaxed normal-case">{left}</p>
                 {right && <p className="text-[12px] md:text-[13px] tracking-[0.02em] text-[#0A0A0A]/65 leading-relaxed normal-case">{right}</p>}
               </div>
