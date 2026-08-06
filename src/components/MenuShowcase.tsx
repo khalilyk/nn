@@ -8,9 +8,8 @@ import { DEFAULT_CONTENT } from "@/lib/content/defaults";
 export default function MenuShowcase({ menu = DEFAULT_CONTENT.menu }: { menu?: Menu }) {
   const imgs = menu.gallery ?? [];
   return (
-    <div className="bg-white text-[#0A0A0A]">
+    <div className="bg-white text-[#0A0A0A] pt-24 md:pt-28">
       {menu.courses.map((c, i) => {
-        const blurb = c.intro?.length ? c.intro.join(" ") : c.items.slice(0, 6).join(", ") + ".";
         return (
           <section key={c.title} className="grid md:grid-cols-2 border-t border-[#0A0A0A]/10 first:border-t-0">
             {/* image, left */}
@@ -29,7 +28,11 @@ export default function MenuShowcase({ menu = DEFAULT_CONTENT.menu }: { menu?: M
               <h2 className="font-sans font-bold uppercase leading-[0.88] tracking-tight" style={{ fontSize: "clamp(2.4rem, 5.5vw, 5rem)" }}>
                 {c.title}
               </h2>
-              <p className="mt-8 max-w-md text-[13px] md:text-[14px] leading-relaxed text-[#0A0A0A]/55">{blurb}</p>
+              <ul className="mt-8 max-w-md text-[13px] md:text-[14px] leading-relaxed text-[#0A0A0A]/55">
+                {c.items.map((it) => (
+                  <li key={it} className="border-b border-[#0A0A0A]/10 py-2">{it}</li>
+                ))}
+              </ul>
             </div>
           </section>
         );
