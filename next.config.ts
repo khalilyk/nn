@@ -14,6 +14,12 @@ const nextConfig: NextConfig = {
       { protocol: "https", hostname: "*.public.blob.vercel-storage.com" },
     ],
   },
+  // /contact was folded into /main — send it straight to the contact section
+  async redirects() {
+    return [
+      { source: "/contact", destination: "/main#contact-form", permanent: true },
+    ];
+  },
 };
 
 export default nextConfig;
