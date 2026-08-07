@@ -88,7 +88,7 @@ export default function PixelBg({ className = "", cell = 24 }: { className?: str
       ctx.clearRect(0, 0, w, h);
       const ox = origin.x * w;
       const oy = origin.y * h;
-      const maxD = Math.hypot(w, h) * 0.66;
+      const maxD = Math.hypot(w, h) * 0.52;
       const cols = Math.ceil(w / cell);
       const rows = Math.ceil(h / cell);
       for (let cx = 0; cx < cols; cx++) {
@@ -100,7 +100,7 @@ export default function PixelBg({ className = "", cell = 24 }: { className?: str
           const boost = Math.max(0, 1 - Math.hypot(px - cursor.x, py - cursor.y) / 112);
           if (d >= 1 && boost <= 0) continue;
           const [r, g, b] = mix(Math.max(0, d - boost * 0.35));
-          const alpha = Math.min(1, Math.pow(1 - Math.min(1, d), 1.6) * 0.9 + boost * 0.6);
+          const alpha = Math.min(1, Math.pow(1 - Math.min(1, d), 2.6) * 0.95 + boost * 0.6);
           const grow = boost * 3;
           ctx.fillStyle = `rgba(${r | 0},${g | 0},${b | 0},${alpha.toFixed(3)})`;
           ctx.fillRect(cx * cell + 1 - grow / 2, cy * cell + 1 - grow / 2, cell - 2 + grow, cell - 2 + grow);
