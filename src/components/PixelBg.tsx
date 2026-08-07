@@ -115,7 +115,7 @@ export default function PixelBg({ className = "", cell = 24 }: { className?: str
           }
           if (d >= 1 && boost <= 0) continue;
           const [r, g, b] = mix(Math.max(0, d - boost * 0.35));
-          const alpha = Math.min(1, Math.pow(1 - Math.min(1, d), 2.6) * 0.95 + boost * 0.6);
+          const alpha = Math.min(1, Math.pow(1 - Math.min(1, d), 2.6) * 0.95 + boost * 0.45);
           const grow = boost * 3;
           ctx.fillStyle = `rgba(${r | 0},${g | 0},${b | 0},${alpha.toFixed(3)})`;
           ctx.fillRect(cx * cell + 1 - grow / 2, cy * cell + 1 - grow / 2, cell - 2 + grow, cell - 2 + grow);
