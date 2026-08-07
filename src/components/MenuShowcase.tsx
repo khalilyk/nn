@@ -1,47 +1,38 @@
 import type { Menu } from "@/lib/content/types";
 import { DEFAULT_CONTENT } from "@/lib/content/defaults";
-
-/** grey → black, so the last slide merges into the dark projects section below */
-const SHADES = [
-  { bg: "#EDEBE4", fg: "#0A0A0A" },
-  { bg: "#B9B7B1", fg: "#0A0A0A" },
-  { bg: "#575652", fg: "#F1EFEA" },
-  { bg: "#161616", fg: "#F1EFEA" },
-];
+import PixelBg from "./PixelBg";
 
 /**
- * The Menu — each service is a full-screen editorial slide (à la "HIRE THE BEST
- * TEAM_"): an oversized bold heading with a blinking cursor and a stacked
- * monospace service list. The backgrounds step from grey to black so the
- * section merges into the dark projects grid below.
+ * The Menu — each service is a full-screen editorial slide ("HIRE THE BEST
+ * TEAM_" style) over an interactive cubic/pixel gradient background that follows
+ * the cursor. The gradient is sticky so it stays put while the slides scroll,
+ * and fades to near-black at the edges so it merges into the projects below.
  */
 export default function MenuShowcase({ menu = DEFAULT_CONTENT.menu }: { menu?: Menu }) {
   return (
-    <div>
-      {menu.courses.map((c, i) => {
-        const shade = SHADES[i % SHADES.length];
-        return (
-          <section
-            key={c.title}
-            className="relative min-h-screen flex items-center px-8 md:px-16"
-            style={{ backgroundColor: shade.bg, color: shade.fg }}
-          >
-            {/* monospace list, top-right */}
-            <div className="font-spacemono absolute top-28 md:top-36 right-8 md:right-16 text-left max-w-[18rem] text-[12px] md:text-[13px] leading-relaxed opacity-75">
-              <p className="mb-3 opacity-60">/ {c.course}</p>
-              {c.items.map((it) => (
-                <p key={it}>{it}</p>
-              ))}
-            </div>
+    <div data-pixel-scope className="relative bg-[#0A0A0A] text-[#F1EFEA]">
+      {/* interactive pixel gradient, pinned behind the scrolling slides */}
+      <div className="sticky top-0 h-screen w-full overflow-hidden pointer-events-none z-0" style={{ marginBottom: "-100vh" }}>
+        <PixelBg className="absolute inset-0 h-full w-full" />
+      </div>
 
-            {/* oversized heading, lower-left */}
-            <h2 className="font-sans font-bold uppercase leading-[0.9] tracking-tight max-w-[11ch]" style={{ fontSize: "clamp(2.6rem, 10vw, 8rem)" }}>
-              {c.title}
-              <span className="text-[#FF5C1A] animate-pulse">_</span>
-            </h2>
-          </section>
-        );
-      })}
+      {menu.courses.map((c) => (
+        <section key={c.title} className="relative z-10 min-h-screen flex items-center px-8 md:px-16">
+          {/* monospace list, top-right */}
+          <div className="font-spacemono absolute top-28 md:top-36 right-8 md:right-16 text-left max-w-[18rem] text-[12px] md:text-[13px] leading-relaxed opacity-80">
+            <p className="mb-3 opacity-60">/ {c.course}</p>
+            {c.items.map((it) => (
+              <p key={it}>{it}</p>
+            ))}
+          </div>
+
+          {/* oversized heading, lower-left */}
+          <h2 className="font-sans font-bold uppercase leading-[0.9] tracking-tight max-w-[11ch]" style={{ fontSize: "clamp(2.6rem, 10vw, 8rem)" }}>
+            {c.title}
+            <span className="text-[#FF5C1A] animate-pulse">_</span>
+          </h2>
+        </section>
+      ))}
     </div>
   );
 }
