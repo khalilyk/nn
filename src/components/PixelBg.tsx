@@ -45,6 +45,9 @@ export default function PixelBg({ className = "", cell = 24 }: { className?: str
     const origin = { x: 0.12, y: 0.86 };
     const target = { x: 0.12, y: 0.86 };
     const cursor = { x: -9999, y: -9999 }; // pixel coords, for the per-cell reaction
+    const trail: { x: number; y: number; t: number }[] = []; // recent positions → fading tail
+    const TRAIL_MS = 520;
+    const TRAIL_R = 56;
     let interacting = false;
 
     const resize = () => {
@@ -61,6 +64,8 @@ export default function PixelBg({ className = "", cell = 24 }: { className?: str
       target.y = (e.clientY - r.top) / r.height;
       cursor.x = e.clientX - r.left;
       cursor.y = e.clientY - r.top;
+      trail.push({ x: cursor.x, y: cursor.y, t: performance.now() });
+      if (trail.length > 40) trail.shift();
       interacting = true;
     };
 
@@ -85,6 +90,9 @@ export default function PixelBg({ className = "", cell = 24 }: { className?: str
         canvas.style.filter = `hue-rotate(${(progress * 300).toFixed(1)}deg)`;
       }
 
+      // drop expired trail points
+      while (trail.length && t - trail[0].t > TRAIL_MS) trail.shift();
+
       ctx.clearRect(0, 0, w, h);
       const ox = origin.x * w;
       const oy = origin.y * h;
@@ -96,8 +104,15 @@ export default function PixelBg({ className = "", cell = 24 }: { className?: str
           const px = cx * cell + cell / 2;
           const py = cy * cell + cell / 2;
           const d = Math.hypot(px - ox, py - oy) / maxD;
-          // reaction to the cursor crossing: nearby cells brighten and grow
-          const boost = Math.max(0, 1 - Math.hypot(px - cursor.x, py - cursor.y) / 56);
+          // reaction along the cursor's recent path — a fading pixel tail
+          let boost = 0;
+          for (let k = 0; k < trail.length; k++) {
+            const p = trail[k];
+            const life = 1 - (t - p.t) / TRAIL_MS;
+            if (life <= 0) continue;
+            const b = (1 - Math.hypot(px - p.x, py - p.y) / TRAIL_R) * life;
+            if (b > boost) boost = b;
+          }
           if (d >= 1 && boost <= 0) continue;
           const [r, g, b] = mix(Math.max(0, d - boost * 0.35));
           const alpha = Math.min(1, Math.pow(1 - Math.min(1, d), 2.6) * 0.95 + boost * 0.6);
