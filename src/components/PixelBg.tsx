@@ -97,7 +97,7 @@ export default function PixelBg({ className = "", cell = 24 }: { className?: str
           const py = cy * cell + cell / 2;
           const d = Math.hypot(px - ox, py - oy) / maxD;
           // reaction to the cursor crossing: nearby cells brighten and grow
-          const boost = Math.max(0, 1 - Math.hypot(px - cursor.x, py - cursor.y) / 112);
+          const boost = Math.max(0, 1 - Math.hypot(px - cursor.x, py - cursor.y) / 56);
           if (d >= 1 && boost <= 0) continue;
           const [r, g, b] = mix(Math.max(0, d - boost * 0.35));
           const alpha = Math.min(1, Math.pow(1 - Math.min(1, d), 2.6) * 0.95 + boost * 0.6);

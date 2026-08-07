@@ -15,6 +15,8 @@ export default function MenuShowcase({ menu = DEFAULT_CONTENT.menu }: { menu?: M
       <div className="sticky top-0 h-screen w-full overflow-hidden pointer-events-none z-0" style={{ marginBottom: "-100vh" }}>
         <PixelBg className="absolute inset-0 h-full w-full" />
       </div>
+      {/* fade the last slide into black so it merges into the projects grid */}
+      <div aria-hidden className="pointer-events-none absolute bottom-0 inset-x-0 h-[85vh] z-[5] bg-gradient-to-b from-transparent to-[#0A0A0A]" />
 
       {menu.courses.map((c) => (
         <section key={c.title} className="relative z-10 min-h-screen flex items-center px-8 md:px-16">
