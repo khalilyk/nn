@@ -7,6 +7,9 @@ export default function Cursor() {
   const [label, setLabel] = useState("");
   const [hovering, setHovering] = useState(false);
   const [color, setColor] = useState("#81D742");
+  const [hidden, setHidden] = useState(false);
+  const [blink, setBlink] = useState(0);
+  const lastEl = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     if (window.matchMedia("(pointer: coarse)").matches) return;
@@ -29,7 +32,13 @@ export default function Cursor() {
         setHovering(true);
         // grab/tap no longer swap to an emoji, just the dot
         setLabel(val === "grab" || val === "tap" ? "" : val);
+        // blink the eye each time it passes onto a new "Open" target (e.g. a project)
+        if (el !== lastEl.current) {
+          if (val === "Open") setBlink((b) => b + 1);
+          lastEl.current = el;
+        }
       } else if (!clearTimer) {
+        lastEl.current = null;
         // brief gaps between posters shouldn't collapse the cursor - debounce the reset
         clearTimer = window.setTimeout(() => {
           clearTimer = 0;
@@ -40,6 +49,8 @@ export default function Cursor() {
       // optional per-section cursor colour
       const colorEl = t?.closest<HTMLElement>("[data-cursor-color]");
       setColor(colorEl?.dataset.cursorColor || "#81D742");
+      // hide the custom cursor entirely inside opted-out zones (e.g. the menu)
+      setHidden(!!t?.closest("[data-cursor-hide]"));
     };
 
     const loop = () => {
@@ -65,11 +76,12 @@ export default function Cursor() {
         background: color,
         width: hovering ? 64 : 10,
         height: hovering ? 64 : 10,
-        transition: "width 0.35s cubic-bezier(0.16,1,0.3,1), height 0.35s cubic-bezier(0.16,1,0.3,1)",
+        opacity: hidden ? 0 : 1,
+        transition: "width 0.35s cubic-bezier(0.16,1,0.3,1), height 0.35s cubic-bezier(0.16,1,0.3,1), opacity 0.2s ease",
       }}
     >
       {hovering && label === "Open" ? (
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke={color === "#0A0A0A" ? "#F3F1EC" : "#0A0A0A"} strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+        <svg key={blink} width="22" height="22" viewBox="0 0 24 24" fill="none" stroke={color === "#0A0A0A" ? "#F3F1EC" : "#0A0A0A"} strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden style={{ animation: "eyeBlink 0.3s ease", transformOrigin: "center" }}>
           <path d="M1.5 12S5 5 12 5s10.5 7 10.5 7-3.5 7-10.5 7S1.5 12 1.5 12Z" />
           <circle cx="12" cy="12" r="3" />
         </svg>

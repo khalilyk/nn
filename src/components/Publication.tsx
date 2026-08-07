@@ -17,6 +17,7 @@ import HeroMedia from "./HeroMedia";
 import Testimonials from "./Testimonials";
 import ScrambleText from "./ScrambleText";
 import MenuShowcase from "./MenuShowcase";
+import Manifesto from "./Manifesto";
 import Postcard from "./Postcard";
 import AboutSection from "./AboutSection";
 import TalkCTA from "./TalkCTA";
@@ -219,6 +220,13 @@ export default function Publication({ initialContent, show }: { initialContent?:
           {/* Bottom row */}
           <SectionNo n="01" dark />
         </div>
+      </Panel>
+      ),
+
+      /* ═══ MANIFESTO (white statement header) ═══ */
+      manifesto: (
+      <Panel index={2} bg="ivory" minH="auto" pin={false}>
+        <Manifesto line={c.hero.supportingCopy} />
       </Panel>
       ),
 

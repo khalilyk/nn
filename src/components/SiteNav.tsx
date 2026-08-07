@@ -8,6 +8,7 @@ import type { NavLink, Footer } from "@/lib/content/types";
 import { DEFAULT_CONTENT } from "@/lib/content/defaults";
 
 export default function SiteNav({ links = DEFAULT_CONTENT.nav, footer = DEFAULT_CONTENT.footer }: { links?: NavLink[]; footer?: Footer }) {
+  // nav renders content-driven center links + chat CTA + a static mobile menu link
   const LINKS = links;
   const pathname = usePathname();
   const notHome = pathname !== "/";
@@ -59,7 +60,7 @@ export default function SiteNav({ links = DEFAULT_CONTENT.nav, footer = DEFAULT_
 
       {/* ─── MOBILE HAMBURGER — links straight to the main page ─── */}
       <a
-        href="/contact"
+        href="/main"
         aria-label="Menu"
         className="lg:hidden fixed top-6 right-8 md:top-8 md:right-16 z-[130] w-8 h-8 flex items-center justify-center"
         style={{ color: "#F3F1EC", mixBlendMode: "difference" }}

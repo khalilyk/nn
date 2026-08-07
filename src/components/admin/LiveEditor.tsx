@@ -67,7 +67,7 @@ export default function LiveEditor({ initial, initialSection = "hero" }: { initi
   const PREVIEW_ROUTE: Record<string, string> = {
     hero: "/", nav: "/", menu: "/menu", brands: "/menu",
     projects: "/projects", about: "/about", testimonials: "/about",
-    notes: "/notes", contact: "/contact", footer: "/menu",
+    notes: "/notes", contact: "/main", footer: "/menu",
   };
   const previewSrc = `${PREVIEW_ROUTE[active as string] ?? "/"}?preview=1`;
   // when the previewed route changes, wait for the new page to report ready again

@@ -22,7 +22,7 @@ export default function TalkCTA() {
           </p>
         )}
         <a
-          href="/contact#contact-form"
+          href="/main#contact-form"
           className="group mt-12 inline-flex items-center gap-3 rounded-full bg-[#F3F1EC] text-[#0A0A0A] px-9 py-4 text-[11px] tracking-[0.18em] uppercase font-bold transition-colors hover:bg-[#4ADE80]"
         >
 <TypeText>Start the conversation</TypeText> <span className="transition-transform group-hover:translate-x-0.5">&#8594;</span>

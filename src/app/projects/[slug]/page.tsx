@@ -12,9 +12,9 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const project = content.projects.find((p) => slugify(p.name) === slug);
   if (!project) return { title: "Project not found" };
   return {
-    title: `${project.name} — Not Normal`,
+    title: `${project.name} · Not Normal`,
     description: project.desc,
-    openGraph: { title: `${project.name} — Not Normal`, description: project.desc, images: [project.images?.[0] ?? project.img] },
+    openGraph: { title: `${project.name} · Not Normal`, description: project.desc, images: [project.images?.[0] ?? project.img] },
   };
 }
 

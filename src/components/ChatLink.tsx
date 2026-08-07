@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { usePathname } from "next/navigation";
 
 const BASE = "Let's Chat";
 const ALT = "Oh Hey!";
@@ -10,6 +11,19 @@ export default function ChatLink() {
   const [hovered, setHovered] = useState(false);
   const [text, setText] = useState(BASE);
   const cur = useRef(BASE);
+  const pathname = usePathname();
+  const onMain = pathname === "/main";
+
+  // when already on /main, smooth-scroll down to the contact form instead of
+  // reloading the page
+  const onClick = (e: React.MouseEvent) => {
+    if (!onMain) return;
+    const el = document.getElementById("contact-form");
+    if (el) {
+      e.preventDefault();
+      el.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
   useEffect(() => {
     const target = hovered ? ALT : BASE;
@@ -39,7 +53,8 @@ export default function ChatLink() {
 
   return (
     <a
-      href="/contact"
+      href={onMain ? "#contact-form" : "/main#contact-form"}
+      onClick={onClick}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       className="flex items-center gap-3 border border-current rounded-full px-4 py-2 hover:bg-current/5 transition-colors"

@@ -10,11 +10,14 @@ import PixelBg from "./PixelBg";
  */
 export default function MenuShowcase({ menu = DEFAULT_CONTENT.menu }: { menu?: Menu }) {
   return (
-    <div data-pixel-scope className="relative bg-[#0A0A0A] text-[#F1EFEA]">
+    <div data-pixel-scope data-cursor-hide className="relative bg-[#0A0A0A] text-[#F1EFEA]">
       {/* interactive pixel gradient, pinned behind the scrolling slides */}
       <div className="sticky top-0 h-screen w-full overflow-hidden pointer-events-none z-0" style={{ marginBottom: "-100vh" }}>
         <PixelBg className="absolute inset-0 h-full w-full" />
       </div>
+      {/* fade the pixel grid IN from black at the top so there's no hard grid
+          edge where it meets the white manifesto above */}
+      <div aria-hidden className="pointer-events-none absolute top-0 inset-x-0 h-[45vh] z-[5] bg-gradient-to-b from-[#0A0A0A] to-transparent" />
       {/* fade the last slide into black so it merges into the projects grid */}
       <div aria-hidden className="pointer-events-none absolute bottom-0 inset-x-0 h-[85vh] z-[5] bg-gradient-to-b from-transparent to-[#0A0A0A]" />
 

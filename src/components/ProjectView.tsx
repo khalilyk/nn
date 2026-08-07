@@ -60,12 +60,12 @@ export default function ProjectView({ project, content }: { project: Project; co
         )}
 
         {/* nav */}
-        <section className="px-8 md:px-16 pb-24 md:pb-32 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-8 border-t border-white/10 pt-12">
-          <a href="/projects" className="group inline-flex items-center gap-3 text-[11px] tracking-[0.25em] uppercase font-bold hover:opacity-60 transition-opacity">
+        <section className="px-8 md:px-16 pb-24 md:pb-32 flex flex-row items-center justify-between gap-4 border-t border-white/10 pt-12">
+          <a href="/main#s04" className="group inline-flex items-center gap-3 whitespace-nowrap text-[11px] tracking-[0.25em] uppercase font-bold hover:opacity-60 transition-opacity">
             <span className="transition-transform group-hover:-translate-x-0.5">←</span> All projects
           </a>
           {next && next.name !== project.name && (
-            <a href={`/projects/${slugify(next.name)}`} className="group inline-flex items-center gap-3 text-[11px] tracking-[0.25em] uppercase font-bold hover:opacity-60 transition-opacity">
+            <a href={`/projects/${slugify(next.name)}`} className="group inline-flex items-center gap-3 whitespace-nowrap text-[11px] tracking-[0.25em] uppercase font-bold hover:opacity-60 transition-opacity">
               Next: {next.name} <span className="transition-transform group-hover:translate-x-0.5">→</span>
             </a>
           )}

@@ -41,7 +41,7 @@ export default function SiteFooter({ footer = DEFAULT_CONTENT.footer }: { footer
                 const l = s.label.toLowerCase();
                 const tip = l.includes("insta") ? "Follow" : l.includes("linkedin") ? "Connect" : "Visit";
                 return (
-                  <a key={s.label} href={s.href} data-cursor={tip} title={`${s.label} — opens in a new tab`} {...(ext ? { target: "_blank", rel: "noopener noreferrer" } : {})} className="block text-[11px] tracking-[0.1em] uppercase hover:opacity-60 transition-opacity">{s.label}</a>
+                  <a key={s.label} href={s.href} data-cursor={tip} title={`${s.label} · opens in a new tab`} {...(ext ? { target: "_blank", rel: "noopener noreferrer" } : {})} className="block text-[11px] tracking-[0.1em] uppercase hover:opacity-60 transition-opacity">{s.label}</a>
                 );
               })}
             </div>
