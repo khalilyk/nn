@@ -63,7 +63,7 @@ export default function SiteNav({ links = DEFAULT_CONTENT.nav, footer = DEFAULT_
         href="/main"
         aria-label="Menu"
         className="lg:hidden fixed top-6 right-8 md:top-8 md:right-16 z-[130] w-8 h-8 flex items-center justify-center"
-        style={{ color: "#F3F1EC", mixBlendMode: "difference" }}
+        style={{ color: "#F3F1EC", mixBlendMode: "difference", animation: "menuIconGlow 1.8s ease-in-out infinite" }}
       >
         <span className="absolute left-1/2 top-1/2 block h-[2px] w-7 rounded-full bg-current" style={{ transform: "translate(-50%,-50%) translateY(-4px)" }} />
         <span className="absolute left-1/2 top-1/2 block h-[2px] w-7 rounded-full bg-current" style={{ transform: "translate(-50%,-50%) translateY(4px)" }} />

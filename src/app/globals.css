@@ -79,6 +79,11 @@ img { user-select: none; -webkit-user-drag: none; }
 }
 @keyframes blobHue { to { filter: hue-rotate(360deg); } }
 @keyframes eyeBlink { 0%, 100% { transform: scaleY(1); } 45%, 55% { transform: scaleY(0.08); } }
+/* pulsing white glow on the mobile menu icon itself to draw the eye */
+@keyframes menuIconGlow {
+  0%, 100% { filter: drop-shadow(0 0 1px rgba(255,255,255,0.55)); }
+  50%      { filter: drop-shadow(0 0 7px rgba(255,255,255,1)) drop-shadow(0 0 12px rgba(255,255,255,0.7)); }
+}
 @keyframes nnFloat { 0%, 100% { transform: translateY(0) rotate(-1.2deg); } 50% { transform: translateY(-9px) rotate(1.2deg); } }
 @keyframes brandFuzz {
   0%   { transform: translate(-50%, -50%) scale(1);    filter: blur(7px);  opacity: 0.05; }

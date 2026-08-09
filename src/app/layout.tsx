@@ -123,33 +123,80 @@ export const viewport: Viewport = {
 export async function generateMetadata(): Promise<Metadata> {
   const { seo } = await getSiteContent();
   const base = SITE_URL;
+  const ogImage = seo.ogImage || "/nn-header-poster.jpg";
   return {
     metadataBase: new URL(base),
-    title: seo.title,
+    title: { default: seo.title, template: "%s · Not Normal" },
     description: seo.description,
+    applicationName: "Not Normal",
+    authors: [{ name: "Not Normal" }],
+    creator: "Not Normal",
+    publisher: "Not Normal",
+    category: "Branding & Marketing",
     keywords: seo.keywords ? seo.keywords.split(",").map((k) => k.trim()).filter(Boolean) : undefined,
     alternates: { canonical: "/" },
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1, "max-video-preview": -1 },
+    },
     openGraph: {
       title: seo.title,
       description: seo.description,
       url: "/",
       siteName: "Not Normal",
       type: "website",
-      images: seo.ogImage ? [{ url: seo.ogImage }] : undefined,
+      locale: "en_AU",
+      images: [{ url: ogImage, width: 1920, height: 1080, alt: "Not Normal, hospitality branding studio" }],
     },
     twitter: {
       card: "summary_large_image",
       title: seo.title,
       description: seo.description,
-      images: seo.ogImage ? [seo.ogImage] : undefined,
+      images: [{ url: ogImage, alt: "Not Normal, hospitality branding studio" }],
     },
   };
 }
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const { seo, contact, footer, about } = await getSiteContent();
+  const base = SITE_URL;
+  const ld = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "ProfessionalService",
+        "@id": `${base}/#studio`,
+        name: "Not Normal",
+        alternateName: "NN",
+        url: base,
+        logo: `${base}/notnormal-logowhite.png`,
+        image: `${base}${seo.ogImage || "/nn-header-poster.jpg"}`,
+        description: seo.description,
+        slogan: "Nobody Remembers Normal.",
+        email: contact.email,
+        telephone: contact.phone,
+        founder: { "@type": "Person", name: about.founderName },
+        areaServed: ["Sydney", "Dubai", "Beirut"],
+        knowsAbout: ["Hospitality branding", "Restaurant branding", "Brand strategy", "Marketing", "Web design"],
+        address: { "@type": "PostalAddress", addressLocality: "Sydney", addressRegion: "NSW", addressCountry: "AU" },
+        sameAs: (footer.socials || []).map((s) => s.href),
+      },
+      {
+        "@type": "WebSite",
+        "@id": `${base}/#website`,
+        url: base,
+        name: "Not Normal",
+        description: seo.description,
+        publisher: { "@id": `${base}/#studio` },
+        inLanguage: "en",
+      },
+    ],
+  };
   return (
     <html lang="en" className={`${playfair.variable} ${grotesk.variable} ${anton.variable} ${caveat.variable} ${typewriter.variable} ${permanentMarker.variable} ${rockSalt.variable} ${zillaSlab.variable} ${reenie.variable} ${spaceMono.variable} ${dmSerif.variable} ${mansalva.variable} ${kalam.variable} ${oldStandard.variable} ${yellowtail.variable} ${imperialScript.variable}`}>
       <body className="bg-[#0A0A0A] text-[#F3F1EC]">
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ld) }} />
         {children}
         <Analytics />
         <Script src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`} strategy="afterInteractive" />

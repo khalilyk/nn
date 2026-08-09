@@ -185,19 +185,19 @@ export default function ContactSection({ contact = DEFAULT_CONTENT.contact }: { 
 
                 {/* contact detail cards - one line each, stacked */}
                 <div className="mt-10 flex flex-col gap-3 text-left">
-                  <a href={`mailto:${contact.email}`} data-cursor="Say hi" className="group flex items-center justify-between gap-4 rounded-2xl border border-[#F3F1EC]/15 bg-[#F3F1EC]/[0.03] px-5 md:px-6 py-4 hover:border-[#FF2EC4]/60 hover:bg-[#F3F1EC]/[0.06] transition-colors">
+                  <a href={`mailto:${contact.email}`} data-cursor="Say hi" className="group flex items-center justify-between gap-4 rounded-2xl border border-[#F3F1EC]/15 bg-[#F3F1EC]/[0.03] px-5 md:px-6 py-4 hover:border-[#81D742]/60 hover:bg-[#F3F1EC]/[0.06] transition-colors">
                     <span className="flex items-baseline gap-4 min-w-0">
                       <span className="text-[9px] tracking-[0.3em] uppercase text-[#F3F1EC]/40 shrink-0 w-14">Email</span>
-                      <span className="font-editorial leading-tight truncate group-hover:text-[#FF2EC4] transition-colors" style={{ fontSize: "clamp(1.05rem, 1.6vw, 1.35rem)" }}>{contact.email}</span>
+                      <span className="font-editorial leading-tight truncate group-hover:text-[#81D742] transition-colors" style={{ fontSize: "clamp(1.05rem, 1.6vw, 1.35rem)" }}>{contact.email}</span>
                     </span>
-                    <span aria-hidden className="text-[#F3F1EC]/40 group-hover:text-[#FF2EC4] group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-all shrink-0">↗</span>
+                    <span aria-hidden className="text-[#F3F1EC]/40 group-hover:text-[#81D742] group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-all shrink-0">↗</span>
                   </a>
-                  <a href={`tel:${contact.phone.replace(/[^+\d]/g, "")}`} data-cursor="Ring ring" className="group flex items-center justify-between gap-4 rounded-2xl border border-[#F3F1EC]/15 bg-[#F3F1EC]/[0.03] px-5 md:px-6 py-4 hover:border-[#FF2EC4]/60 hover:bg-[#F3F1EC]/[0.06] transition-colors">
+                  <a href={`tel:${contact.phone.replace(/[^+\d]/g, "")}`} data-cursor="Ring ring" className="group flex items-center justify-between gap-4 rounded-2xl border border-[#F3F1EC]/15 bg-[#F3F1EC]/[0.03] px-5 md:px-6 py-4 hover:border-[#81D742]/60 hover:bg-[#F3F1EC]/[0.06] transition-colors">
                     <span className="flex items-baseline gap-4 min-w-0">
                       <span className="text-[9px] tracking-[0.3em] uppercase text-[#F3F1EC]/40 shrink-0 w-14">Phone</span>
-                      <span className="font-editorial leading-tight truncate group-hover:text-[#FF2EC4] transition-colors" style={{ fontSize: "clamp(1.05rem, 1.6vw, 1.35rem)" }}>{contact.phone}</span>
+                      <span className="font-editorial leading-tight truncate group-hover:text-[#81D742] transition-colors" style={{ fontSize: "clamp(1.05rem, 1.6vw, 1.35rem)" }}>{contact.phone}</span>
                     </span>
-                    <span aria-hidden className="text-[#F3F1EC]/40 group-hover:text-[#FF2EC4] group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-all shrink-0">↗</span>
+                    <span aria-hidden className="text-[#F3F1EC]/40 group-hover:text-[#81D742] group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-all shrink-0">↗</span>
                   </a>
                 </div>
 

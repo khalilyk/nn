@@ -37,7 +37,7 @@ function CityCode({
       onMouseEnter={() => { setHovered(true); onEnter(); }}
       onMouseLeave={() => setHovered(false)}
       className="font-sans font-bold leading-[0.95] transition-colors duration-500 whitespace-nowrap"
-      style={{ fontSize: "clamp(2.6rem, 6.5vw, 5.5rem)", color: active ? activeColor : idleColor }}
+      style={{ fontSize: "clamp(1.8rem, 4vw, 3.2rem)", color: active ? activeColor : idleColor }}
     >
       {text}
     </button>
