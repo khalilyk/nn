@@ -108,6 +108,14 @@ export const invoices = pgTable("invoices", {
 
 export type InvoiceRow = typeof invoices.$inferSelect;
 
+/** Single-row services catalog — the editable list of everything the studio
+ *  offers. Proposals derive their scope + pricing from this. */
+export const servicesCatalog = pgTable("services_catalog", {
+  id: serial("id").primaryKey(),
+  data: jsonb("data").$type<import("@/lib/services/types").ServicesCatalog>().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});
+
 /** Single-row company/payment settings printed on every invoice. */
 export const invoiceSettings = pgTable("invoice_settings", {
   id: serial("id").primaryKey(),

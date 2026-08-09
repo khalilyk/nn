@@ -26,6 +26,7 @@ const ICONS: Record<string, string> = {
   clients: "M9 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM3 20c0-3 2.7-5 6-5s6 2 6 5M17 7a2.5 2.5 0 1 1 0 5M19 20c0-2-1-3.6-2.5-4.4",
   users: "M9 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM3 20c0-3 2.7-5 6-5s6 2 6 5M17 7a2.5 2.5 0 1 1 0 5M19 20c0-2-1-3.6-2.5-4.4",
   proposals: "M4 4h16v16H4zM4 9h16M8 4v5M8 13h8M8 16h5",
+  services: "M4 7h16M4 12h16M4 17h10M18.5 15.5l1.5 1.5-1.5 1.5",
 };
 
 function Icon({ d, active }: { d: string; active: boolean }) {
@@ -93,13 +94,10 @@ export default function AdminSidebar() {
       {/* Business: invoicing + CRM, in its own box */}
       <nav className="flex md:flex-col gap-1.5 rounded-[26px] bg-white p-2.5 shadow-sm overflow-x-auto">
         <span className="hidden md:block text-[10px] tracking-[0.14em] uppercase text-[#0A0A0A]/35 px-3 pt-1 pb-0.5">Business</span>
+        <Item href="/admin/services" k="services" label="Services" />
+        <Item href="/admin/proposals" k="proposals" label="Proposals" />
         <Item href="/admin/invoices" k="invoices" label="Invoices" />
         <Item href="/admin/clients" k="clients" label="Clients" />
-      </nav>
-
-      {/* Proposals, in its own box */}
-      <nav className="flex md:flex-col gap-1.5 rounded-[26px] bg-white p-2.5 shadow-sm overflow-x-auto">
-        <Item href="/admin/proposals" k="proposals" label="Proposals" />
       </nav>
 
       {/* Account, in its own box at the bottom */}

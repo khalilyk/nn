@@ -8,6 +8,7 @@ import RichTextEditor from "./RichTextEditor";
 import type { Proposal, ProposalKind, Slide, SlideLayout } from "@/lib/proposal/types";
 import { KIND_LABELS, LAYOUT_LABELS } from "@/lib/proposal/types";
 import { blankSlide, templateFor } from "@/lib/proposal/templates";
+import ScopePicker from "./ScopePicker";
 
 const input = "w-full rounded-lg border border-black/10 bg-white px-3 py-2 text-[13px] text-[#0A0A0A]";
 const lab = "block text-[11px] tracking-[0.12em] uppercase text-black/45 mb-1";
@@ -23,6 +24,7 @@ export default function ProposalEditor({ id }: { id: number }) {
   const [savedAt, setSavedAt] = useState<string | null>(null);
   const [sendOpen, setSendOpen] = useState(false);
   const [addOpen, setAddOpen] = useState(false);
+  const [scopeOpen, setScopeOpen] = useState(false);
 
   useEffect(() => {
     fetch(`/api/admin/proposals/${id}`, { cache: "no-store" }).then(async (r) => { if (r.ok) setP(await r.json()); });
@@ -42,6 +44,7 @@ export default function ProposalEditor({ id }: { id: number }) {
   const dup = (i: number) => { const next = [...slides]; next.splice(i + 1, 0, { ...slides[i], id: uid() }); setSlides(next); setSel(i + 1); };
   const del = (i: number) => { if (slides.length <= 1) return; setSlides(slides.filter((_, j) => j !== i)); setSel(Math.max(0, i - 1)); };
   const add = (layout: SlideLayout) => { const next = [...slides]; next.splice(sel + 1, 0, blankSlide(layout, uid())); setSlides(next); setSel(sel + 1); setAddOpen(false); };
+  const insertScope = (html: string) => { const next = [...slides]; next.splice(sel + 1, 0, { id: uid(), layout: "rich", image: "", html }); setSlides(next); setSel(sel + 1); setScopeOpen(false); };
 
   const save = async () => {
     setSaving(true);
@@ -105,6 +108,8 @@ export default function ProposalEditor({ id }: { id: number }) {
               {LAYOUTS.map((l) => <button key={l} onClick={() => add(l)} className="block w-full text-left text-[12px] px-2 py-1.5 rounded hover:bg-black/[0.05]">{LAYOUT_LABELS[l]}</button>)}
             </div>
           )}
+          <button onClick={() => setScopeOpen(true)} className="w-full rounded-lg border border-dashed border-[#0A0A0A]/30 py-2 text-[12px] text-[#0A0A0A]/70 hover:bg-black/[0.03]">+ Scope from services</button>
+          {scopeOpen && <ScopePicker onInsert={insertScope} onClose={() => setScopeOpen(false)} />}
         </div>
 
         {/* canvas + inspector */}
