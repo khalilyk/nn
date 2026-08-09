@@ -29,6 +29,7 @@ export const events = pgTable("events", {
   type: text("type").notNull(), // page_view | project_open | note_open | contact_submit | cta_click
   label: text("label"), // e.g. project name, path
   path: text("path"),
+  country: text("country"), // ISO code from the edge (x-vercel-ip-country)
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 

@@ -5,108 +5,88 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { SECTIONS } from "@/lib/content/sections";
 
-const ICONS: Record<string, string> = {
-  dashboard: "M3 11.5 12 4l9 7.5M5 10v10h14V10",
-  sections: "M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z",
-  hero: "M12 3l2.5 5.5L20 9l-4 4 1 6-5-3-5 3 1-6-4-4 5.5-.5z",
-  menu: "M4 6h16M4 12h16M4 18h16",
-  about: "M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM5 20c0-3.5 3-6 7-6s7 2.5 7 6",
-  projects: "M4 5h16v14H4zM4 15l4-4 4 4 3-3 5 5",
-  testimonials: "M5 5h14v9H9l-4 4z",
-  notes: "M5 4h9l5 5v11H5zM14 4v5h5",
-  contact: "M4 6h16v12H4zM4 7l8 6 8-6",
-  nav: "M12 3v18M5 8l7-5 7 5M5 16l7 5 7-5",
-  footer: "M4 5h16v14H4zM4 15h16",
-  media: "M4 6h16v12H4zM4 16l5-5 4 4 3-3 4 4M9.5 9a1.2 1.2 0 1 1 0-.01",
-  submissions: "M4 6h16v12H4zM4 12h5l2 3h2l2-3h5",
-  analytics: "M5 19V9M10 19V5M15 19v-7M20 19v-11",
-  seo: "M11 4a7 7 0 1 0 0 14 7 7 0 0 0 0-14zM16 16l4 4",
-  history: "M12 8v4l3 2M3.5 12a8.5 8.5 0 1 1 2.6 6.1L3.5 16",
-  invoices: "M6 3h12v18l-3-2-3 2-3-2-3 2zM9 8h6M9 12h6M9 16h4",
-  clients: "M9 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM3 20c0-3 2.7-5 6-5s6 2 6 5M17 7a2.5 2.5 0 1 1 0 5M19 20c0-2-1-3.6-2.5-4.4",
-  users: "M9 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM3 20c0-3 2.7-5 6-5s6 2 6 5M17 7a2.5 2.5 0 1 1 0 5M19 20c0-2-1-3.6-2.5-4.4",
-  proposals: "M4 4h16v16H4zM4 9h16M8 4v5M8 13h8M8 16h5",
-  services: "M4 7h16M4 12h16M4 17h10M18.5 15.5l1.5 1.5-1.5 1.5",
-};
-
-function Icon({ d, active }: { d: string; active: boolean }) {
-  return (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={active ? "#fff" : "#0A0A0A"} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-      <path d={d} />
-    </svg>
-  );
-}
-
+/**
+ * Admin sidebar — bric-style floating dark panel: centred logo, a filled
+ * Dashboard button, then grouped nav boxes (Website / Workspace / Company /
+ * Backend) with View site + Log out pinned to the bottom. NN palette + routes.
+ */
 export default function AdminSidebar() {
   const path = usePathname();
   const onSection = SECTIONS.some((s) => path === `/admin/${s.key}`);
   const [open, setOpen] = useState(onSection);
 
-  const Item = ({ href, k, label, indent }: { href: string; k: string; label: string; indent?: boolean }) => {
+  const cls = (active: boolean, indent = false) =>
+    `flex w-full items-center justify-between gap-2 rounded-lg py-2 text-left text-[12.5px] transition-colors ${indent ? "pl-6 pr-2.5" : "px-2.5"} ${
+      active ? "bg-white/[0.12] text-white font-medium" : "text-white/55 hover:bg-white/[0.06] hover:text-white/90"
+    }`;
+
+  const Nav = ({ href, label, indent }: { href: string; label: string; indent?: boolean }) => {
     const active = href === "/admin" ? path === "/admin" : path === href;
-    return (
-      <Link
-        href={href}
-        title={label}
-        className={`flex items-center gap-3 h-11 rounded-2xl shrink-0 transition-colors ${active ? "bg-[#0A0A0A]" : "hover:bg-black/[0.05]"}`}
-      >
-        <span className="grid place-items-center w-11 h-11 shrink-0" style={indent ? { transform: "scale(0.82)" } : undefined}>
-          <Icon d={ICONS[k] || ICONS.dashboard} active={active} />
-        </span>
-        <span className={`hidden md:block text-[13px] whitespace-nowrap ${active ? "text-white" : "text-[#0A0A0A]/75"} ${indent ? "font-normal" : ""}`}>
-          {label}
-        </span>
-      </Link>
-    );
+    return <Link href={href} className={cls(active, indent)}>{label}</Link>;
   };
 
-  return (
-    <div className="flex md:flex-col gap-3 md:w-[200px] md:h-full md:overflow-y-auto shrink-0">
-      <nav className="flex md:flex-col gap-1.5 rounded-[26px] bg-white p-2.5 shadow-sm overflow-x-auto">
-        <Item href="/admin" k="dashboard" label="Dashboard" />
-        <Item href="/admin/projects" k="projects" label="Projects" />
-
-        {/* Sections toggle */}
-        <button
-          onClick={() => setOpen((o) => !o)}
-          title="Sections"
-          className={`flex items-center gap-3 h-11 rounded-2xl shrink-0 transition-colors ${onSection ? "bg-black/[0.06]" : "hover:bg-black/[0.05]"}`}
-        >
-          <span className="grid place-items-center w-11 h-11 shrink-0">
-            <Icon d={ICONS.sections} active={false} />
-          </span>
-          <span className="hidden md:flex items-center justify-between flex-1 pr-3">
-            <span className="text-[13px] text-[#0A0A0A]/75">Sections</span>
-            <span className="text-[10px] text-[#0A0A0A]/40">{open ? "▾" : "▸"}</span>
-          </span>
-        </button>
-
-        {open && SECTIONS.filter((s) => s.key !== "projects").map((s) => <Item key={s.key} href={`/admin/${s.key}`} k={s.key} label={s.label} indent />)}
-
-        <Item href="/admin/media" k="media" label="Media" />
-        <Item href="/admin/submissions" k="submissions" label="Submissions" />
-        <Item href="/admin/analytics" k="analytics" label="Analytics" />
-        <Item href="/admin/seo" k="seo" label="SEO" />
-        <Item href="/admin/users" k="users" label="Users" />
-        <Item href="/admin/history" k="history" label="History" />
-      </nav>
-
-      {/* Business: invoicing + CRM, in its own box */}
-      <nav className="flex md:flex-col gap-1.5 rounded-[26px] bg-white p-2.5 shadow-sm overflow-x-auto">
-        <span className="hidden md:block text-[10px] tracking-[0.14em] uppercase text-[#0A0A0A]/35 px-3 pt-1 pb-0.5">Business</span>
-        <Item href="/admin/services" k="services" label="Services" />
-        <Item href="/admin/proposals" k="proposals" label="Proposals" />
-        <Item href="/admin/invoices" k="invoices" label="Invoices" />
-        <Item href="/admin/clients" k="clients" label="Clients" />
-      </nav>
-
-      {/* Account, in its own box at the bottom */}
-      <nav className="flex md:flex-col gap-1.5 rounded-[26px] bg-white p-2.5 shadow-sm overflow-x-auto md:mt-auto">
-        <Link href="/admin/settings" title="Account settings" className={`flex items-center gap-3 h-11 rounded-2xl shrink-0 transition-colors ${path === "/admin/settings" ? "bg-[#0A0A0A]" : "hover:bg-black/[0.05]"}`}>
-          <span className={`grid place-items-center w-11 h-11 rounded-full shrink-0 text-[13px] font-bold ${path === "/admin/settings" ? "bg-white text-[#0A0A0A]" : "bg-[#E8E8EA] text-[#0A0A0A]"}`}>K</span>
-          <span className={`hidden md:block text-[13px] whitespace-nowrap ${path === "/admin/settings" ? "text-white" : "text-[#0A0A0A]/60"}`}>Account</span>
-        </Link>
-      </nav>
+  const Group = ({ label, children }: { label: string; children: React.ReactNode }) => (
+    <div className="rounded-xl bg-white/[0.04] p-1.5">
+      <p className="px-2 pb-1 pt-1 text-[9px] font-semibold uppercase tracking-[0.2em] text-white/30">{label}</p>
+      {children}
     </div>
+  );
+
+  return (
+    <aside className="md:w-[212px] shrink-0 md:h-full">
+      <div className="flex flex-col h-full rounded-2xl bg-[#14151A] p-2.5 md:overflow-hidden">
+        {/* logo — centred, same wordmark as the site header */}
+        <div className="flex justify-center py-4">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/notnormal-logoblack.png" alt="Not Normal" className="h-5 w-auto" style={{ filter: "invert(1)" }} />
+        </div>
+
+        <nav className="flex-1 space-y-2.5 overflow-y-auto px-0.5 min-h-0">
+          {/* Dashboard — prominent filled button */}
+          <Link
+            href="/admin"
+            className={`flex w-full items-center justify-between rounded-lg bg-white px-3 py-2.5 text-[13px] font-semibold text-[#14151A] transition-all hover:bg-white/90 active:scale-[0.98] ${path === "/admin" ? "ring-2 ring-white/25" : ""}`}
+          >
+            Dashboard
+          </Link>
+
+          <Group label="Website">
+            <button onClick={() => setOpen((o) => !o)} aria-expanded={open} className={cls(false)}>
+              <span>Sections</span>
+              <span className={`transition-transform duration-200 ${open ? "rotate-90" : ""}`} aria-hidden>›</span>
+            </button>
+            {open && SECTIONS.filter((s) => s.key !== "projects").map((s) => <Nav key={s.key} href={`/admin/${s.key}`} label={s.label} indent />)}
+            <Nav href="/admin/projects" label="Projects" />
+            <Nav href="/admin/media" label="Media library" />
+            <Nav href="/admin/analytics" label="Analytics" />
+            <Nav href="/admin/seo" label="SEO" />
+          </Group>
+
+          <Group label="Workspace">
+            <Nav href="/admin/submissions" label="Enquiries" />
+            <Nav href="/admin/proposals" label="Proposals" />
+          </Group>
+
+          <Group label="Company">
+            <Nav href="/admin/company" label="Company" />
+            <Nav href="/admin/services" label="Services & pricing" />
+            <Nav href="/admin/invoices" label="Invoices" />
+            <Nav href="/admin/clients" label="Clients" />
+          </Group>
+
+          <Group label="Backend">
+            <Nav href="/admin/users" label="Users & account" />
+            <Nav href="/admin/history" label="History" />
+          </Group>
+        </nav>
+
+        <div className="space-y-0.5 px-0.5 pt-2">
+          <a href="/" target="_blank" className={cls(false)}>View site ↗</a>
+          <form action="/api/admin/logout" method="post">
+            <button className={`${cls(false)} w-full`}>Log out</button>
+          </form>
+        </div>
+      </div>
+    </aside>
   );
 }

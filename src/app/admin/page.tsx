@@ -94,24 +94,15 @@ export default async function AdminDashboard() {
 
   return (
     <div className="pb-10">
-      <PageHeader title={`${greeting()}, Khalil`} subtitle={today}>
-        <Button href="/" target="_blank" variant="ghost">View site ↗</Button>
-        <Button href="/admin/preview">Open live editor →</Button>
-      </PageHeader>
+      <PageHeader title={`${greeting()}, Khalil`} subtitle={today} />
 
       {/* KPI row */}
       <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-3 mb-3">
-        <StatTile value={views14.toLocaleString()} label="Page views · 14d" href="/admin/analytics" />
-        <StatTile
-          accent
-          value={leads14}
-          label="New leads · 14d"
-          href="/admin/submissions"
-          hint={unreadLeads > 0 ? <Badge tone="ink">{unreadLeads} unread</Badge> : undefined}
-        />
-        <StatTile value={money(outstanding)} label="Outstanding" href="/admin/invoices" />
-        <StatTile value={money(paidRevenue)} label="Revenue · paid" href="/admin/invoices" />
-        <StatTile value={clients.length} label="Clients" href="/admin/clients" />
+        <StatTile value={views14.toLocaleString()} label="Page views" href="/admin/analytics" sub="last 14 days" />
+        <StatTile value={leads14} label="Enquiries" href="/admin/submissions" sub="last 14 days" alert={unreadLeads} />
+        <StatTile value={money(outstanding)} label="Outstanding" href="/admin/invoices" sub={`${pending.length} pending`} />
+        <StatTile value={money(paidRevenue)} label="Revenue" href="/admin/invoices" sub="paid to date" />
+        <StatTile value={clients.length} label="Clients" href="/admin/clients" sub="total" />
       </div>
 
       {/* quick actions */}
@@ -131,7 +122,7 @@ export default async function AdminDashboard() {
               {daily.map((d, i) => (
                 <div key={i} className="flex-1 flex flex-col items-center gap-1 group">
                   <span className="text-[9px] text-black/45 opacity-0 group-hover:opacity-100">{d.count}</span>
-                  <div className="w-full rounded-t" style={{ height: `${Math.max(3, (d.count / maxDay) * 100)}%`, background: "linear-gradient(180deg, #2D6BFF 0%, #6F9BFF 100%)" }} title={`${d.day}: ${d.count}`} />
+                  <div className="w-full rounded-t" style={{ height: `${Math.max(3, (d.count / maxDay) * 100)}%`, background: "linear-gradient(180deg, #2C2D33 0%, #55565E 100%)" }} title={`${d.day}: ${d.count}`} />
                   <span className="text-[8px] text-black/35 whitespace-nowrap">{d.day.split(" ")[0]}</span>
                 </div>
               ))}
@@ -148,7 +139,7 @@ export default async function AdminDashboard() {
                 <div key={b.status} className="flex items-center gap-3">
                   <span className="text-[11px] uppercase tracking-wide text-black/55 w-16 shrink-0">{b.status}</span>
                   <div className="flex-1 h-5 rounded-full bg-black/[0.05] overflow-hidden">
-                    <div className="h-full rounded-full" style={{ width: `${(b.total / maxStatus) * 100}%`, background: b.status === "paid" ? "#1F9D55" : b.status === "overdue" ? "#C0392B" : b.status === "sent" ? "#2D6BFF" : "#9A9A9A" }} />
+                    <div className="h-full rounded-full" style={{ width: `${(b.total / maxStatus) * 100}%`, background: b.status === "paid" ? "#7FD6A0" : b.status === "overdue" ? "#EFA3A3" : b.status === "sent" ? "#A9AEF2" : "#C7C7CE" }} />
                   </div>
                   <span className="text-[12px] text-[#0A0A0A] w-24 text-right shrink-0">{money(b.total)} <span className="text-black/35">({b.count})</span></span>
                 </div>

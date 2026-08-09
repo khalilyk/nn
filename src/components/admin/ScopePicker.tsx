@@ -21,7 +21,7 @@ export default function ScopePicker({ onInsert, onClose }: { onInsert: (html: st
   }, []);
 
   const chosen = useMemo(
-    () => catalog.flatMap((c) => c.items.filter((i) => sel[i.id]).map((i) => ({ ...i, cat: c.name }))),
+    () => catalog.flatMap((c) => c.services.flatMap((s) => s.items.filter((i) => sel[i.id]).map((i) => ({ ...i, cat: c.name })))),
     [catalog, sel]
   );
   const total = chosen.reduce((n, i) => n + (i.rate || 0), 0);
@@ -66,13 +66,20 @@ export default function ScopePicker({ onInsert, onClose }: { onInsert: (html: st
             catalog.map((c) => (
               <div key={c.id}>
                 <p className="text-[11px] tracking-[0.12em] uppercase text-black/40 mb-1.5">{c.name}</p>
-                <div className="grid sm:grid-cols-2 gap-1">
-                  {c.items.map((i) => (
-                    <label key={i.id} className={`flex items-center gap-2.5 rounded-lg px-2.5 py-2 cursor-pointer border transition-colors ${sel[i.id] ? "border-[#0A0A0A] bg-black/[0.03]" : "border-black/10 hover:border-black/25"}`}>
-                      <input type="checkbox" checked={!!sel[i.id]} onChange={() => setSel((s) => ({ ...s, [i.id]: !s[i.id] }))} className="accent-[#0A0A0A]" />
-                      <span className="text-[13px] text-[#0A0A0A] flex-1 min-w-0 truncate">{i.name}</span>
-                      {i.rate > 0 && <span className="text-[12px] text-black/45 shrink-0">{money(i.rate)}</span>}
-                    </label>
+                <div className="space-y-2">
+                  {c.services.map((s) => (
+                    <div key={s.id}>
+                      <p className="text-[11px] font-medium text-black/55 mb-1">{s.name}</p>
+                      <div className="grid sm:grid-cols-2 gap-1">
+                        {s.items.map((i) => (
+                          <label key={i.id} className={`flex items-center gap-2.5 rounded-lg px-2.5 py-2 cursor-pointer border transition-colors ${sel[i.id] ? "border-[#0A0A0A] bg-black/[0.03]" : "border-black/10 hover:border-black/25"}`}>
+                            <input type="checkbox" checked={!!sel[i.id]} onChange={() => setSel((v) => ({ ...v, [i.id]: !v[i.id] }))} className="accent-[#0A0A0A]" />
+                            <span className="text-[13px] text-[#0A0A0A] flex-1 min-w-0 truncate">{i.name}</span>
+                            {i.rate > 0 && <span className="text-[12px] text-black/45 shrink-0">{money(i.rate)}</span>}
+                          </label>
+                        ))}
+                      </div>
+                    </div>
                   ))}
                 </div>
               </div>

@@ -14,7 +14,7 @@ export default async function LoginPage() {
   const hero = pick?.src || null;
 
   return (
-    <main className="admin-surface login-surface min-h-screen bg-black text-white flex flex-col md:flex-row" style={{ fontFamily: "system-ui, -apple-system, sans-serif" }}>
+    <main className="admin-surface login-surface min-h-screen bg-black text-white flex flex-col md:flex-row" style={{ fontFamily: "var(--font-grotesk), system-ui, -apple-system, sans-serif" }}>
       {/* left brand panel — random project photo */}
       <div className="relative flex-1 min-h-[34vh] md:min-h-screen overflow-hidden bg-black">
         {hero && (

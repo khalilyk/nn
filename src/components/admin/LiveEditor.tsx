@@ -106,14 +106,14 @@ export default function LiveEditor({ initial, initialSection = "hero" }: { initi
   );
 
   return (
-    <div className="fixed inset-0 z-[60] flex flex-col bg-[#EFEFF1]" style={{ fontFamily: "system-ui, -apple-system, sans-serif" }}>
+    <div className="fixed inset-0 z-[60] flex flex-col bg-[#EFEFF1]" style={{ fontFamily: "var(--font-grotesk), system-ui, -apple-system, sans-serif" }}>
       {/* top bar */}
       <div className="flex items-center justify-between gap-3 px-4 py-2.5 bg-white border-b border-black/[0.08]">
         <div className="flex items-center gap-2 min-w-0">
-          <button onClick={() => setNavOpen((o) => !o)} title={navOpen ? "Hide sections" : "Show sections"} className="grid place-items-center w-9 h-9 rounded-full bg-[#F1F1F3] hover:bg-[#E6E6E9] text-[#0A0A0A]/70 transition-colors shrink-0">
+          <button onClick={() => setNavOpen((o) => !o)} title={navOpen ? "Hide sections" : "Show sections"} className="grid place-items-center w-9 h-9 rounded-full bg-[#EFEDE6] hover:bg-[#E7E2D6] text-[#0A0A0A]/70 transition-colors shrink-0">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"><path d="M4 6h16M4 12h16M4 18h16" /></svg>
           </button>
-          <Link href="/admin" className="rounded-full bg-[#F1F1F3] hover:bg-[#E6E6E9] px-3.5 py-2 text-[12px] text-[#0A0A0A]/70 transition-colors shrink-0">← Exit</Link>
+          <Link href="/admin" className="rounded-full bg-[#EFEDE6] hover:bg-[#E7E2D6] px-3.5 py-2 text-[12px] text-[#0A0A0A]/70 transition-colors shrink-0">← Exit</Link>
           <span className="text-[13px] text-black/40 truncate">Editor <span className="text-black/25 px-1">/</span> <span className="text-[#0A0A0A] font-medium">{activeLabel}</span></span>
         </div>
         <div className="flex items-center gap-2">
@@ -127,7 +127,7 @@ export default function LiveEditor({ initial, initialSection = "hero" }: { initi
           <button onClick={save} disabled={status === "saving"} className="rounded-full bg-[#0A0A0A] text-white px-5 py-2.5 text-[12px] tracking-[0.12em] uppercase font-medium hover:opacity-80 transition-opacity disabled:opacity-50">
             Save &amp; Publish
           </button>
-          <span className="grid place-items-center w-9 h-9 rounded-full bg-[#E8E8EA] text-[12px] font-bold text-[#0A0A0A]">K</span>
+          <span className="grid place-items-center w-9 h-9 rounded-full bg-[#F3F1EC] text-[12px] font-bold text-[#0A0A0A]">K</span>
         </div>
       </div>
 

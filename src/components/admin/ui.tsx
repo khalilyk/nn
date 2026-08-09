@@ -9,7 +9,7 @@ import type { ReactNode } from "react";
 
 export const TOKENS = {
   ink: "#0A0A0A",
-  canvas: "#E8E8EA",
+  canvas: "#F3F1EC",
   accent: "#D7F23A",
   blue: "#2D6BFF",
   green: "#1F9D55",
@@ -19,7 +19,7 @@ export const TOKENS = {
 
 /** White rounded surface — the base container for everything. */
 export function Card({ children, className = "", pad = true }: { children: ReactNode; className?: string; pad?: boolean }) {
-  return <div className={`rounded-3xl bg-white shadow-sm ${pad ? "p-5" : ""} ${className}`}>{children}</div>;
+  return <div className={`rounded-2xl bg-white border border-[#14151A]/[0.1] ${pad ? "p-5" : ""} ${className}`}>{children}</div>;
 }
 
 /** Page title row with an optional right-side action slot. */
@@ -47,30 +47,47 @@ export function CardHeader({ title, action }: { title: string; action?: ReactNod
   );
 }
 
-/** KPI tile. `accent` fills it with the lime brand colour. */
+/** Small red count bubble for things needing attention. */
+export function Bubble({ count }: { count?: number }) {
+  if (!count || count <= 0) return null;
+  return (
+    <span className="inline-flex h-5 min-w-[1.25rem] items-center justify-center rounded-full bg-[#C0392B] px-1.5 text-[10px] font-semibold leading-none text-white ring-2 ring-white">
+      {count}
+    </span>
+  );
+}
+
+/** Workspace card (bric style): bordered white tile — uppercase label + arrow,
+ *  big count, optional sub-line and a corner alert bubble. Extra legacy props
+ *  (icon/tint/accent/hint) are accepted but ignored. */
 export function StatTile({
-  value, label, hint, accent = false, href,
-}: { value: ReactNode; label: string; hint?: ReactNode; accent?: boolean; href?: string }) {
+  value, label, href, sub, alert, hint,
+}: { value: ReactNode; label: string; href?: string; sub?: string; alert?: number; hint?: ReactNode; accent?: boolean; icon?: string; tint?: "lavender" | "mint" | "none" }) {
   const inner = (
     <>
-      <div className="flex items-baseline gap-2">
-        <div className="text-[30px] font-bold leading-none tracking-tight text-[#0A0A0A]">{value}</div>
+      {alert ? <span className="absolute -right-1.5 -top-1.5"><Bubble count={alert} /></span> : null}
+      <div className="flex items-start justify-between gap-1">
+        <span className="text-[10px] font-medium uppercase tracking-[0.07em] leading-tight text-[#14151A]/50">{label}</span>
+        <span className="shrink-0 text-[#14151A]/30 transition-all group-hover:translate-x-0.5 group-hover:text-[#14151A]/60">→</span>
+      </div>
+      <div className="mt-4 flex items-baseline gap-2">
+        <div className="text-[26px] font-bold leading-none tracking-tight text-[#14151A]">{value}</div>
         {hint}
       </div>
-      <div className="mt-3 text-[11px] tracking-[0.12em] uppercase text-[#0A0A0A]/50">{label}</div>
+      {sub ? <div className="mt-1.5 text-[11px] leading-tight text-[#14151A]/50 truncate">{sub}</div> : null}
     </>
   );
-  const cls = `block rounded-3xl p-5 shadow-sm transition-shadow ${accent ? "bg-[#D7F23A]" : "bg-white"} ${href ? "hover:shadow-md" : ""}`;
+  const cls = "group relative flex flex-col rounded-2xl border border-[#14151A]/[0.12] bg-white p-4 transition-colors hover:border-[#14151A]/30";
   return href ? <Link href={href} className={cls}>{inner}</Link> : <div className={cls}>{inner}</div>;
 }
 
 const BADGE: Record<string, string> = {
-  neutral: "bg-black/10 text-black/60",
-  blue: "bg-[#2D6BFF]/15 text-[#2D6BFF]",
-  green: "bg-[#1F9D55]/15 text-[#1F9D55]",
-  red: "bg-[#C0392B]/15 text-[#C0392B]",
-  amber: "bg-[#E08A00]/15 text-[#B26A00]",
-  ink: "bg-[#0A0A0A] text-white",
+  neutral: "bg-[#14151A]/[0.07] text-[#14151A]/60",
+  blue: "bg-[#E7E8FB] text-[#5B5FC7]",
+  green: "bg-[#E2F4EA] text-[#2E9E6A]",
+  red: "bg-[#FBE9E7] text-[#C0503E]",
+  amber: "bg-[#FBF0DD] text-[#B26A00]",
+  ink: "bg-[#14151A] text-white",
 };
 
 export function Badge({ children, tone = "neutral" }: { children: ReactNode; tone?: keyof typeof BADGE }) {
@@ -85,10 +102,10 @@ export function Button({
   size?: "sm" | "md"; type?: "button" | "submit"; disabled?: boolean; target?: string; className?: string;
 }) {
   const variants = {
-    primary: "bg-[#0A0A0A] text-white hover:opacity-80",
-    lime: "bg-[#D7F23A] text-[#0A0A0A] hover:brightness-95",
-    ghost: "bg-[#F1F1F3] text-[#0A0A0A]/70 hover:bg-[#E6E6E9]",
-    danger: "bg-[#C0392B]/10 text-[#C0392B] hover:bg-[#C0392B]/20",
+    primary: "bg-[#14151A] text-white hover:opacity-85",
+    lime: "bg-[#C9CCF5] text-[#14151A] hover:brightness-95",
+    ghost: "bg-white text-[#14151A]/70 hover:bg-white/70 border border-[#14151A]/10",
+    danger: "bg-[#FBE9E7] text-[#C0503E] hover:bg-[#F6D9D5]",
   };
   const sizes = { sm: "px-3.5 py-2 text-[11px]", md: "px-5 py-2.5 text-[12px]" };
   const cls = `inline-flex items-center gap-2 rounded-full tracking-[0.08em] uppercase transition-all disabled:opacity-50 ${variants[variant]} ${sizes[size]} ${className}`;
@@ -100,7 +117,7 @@ export function Button({
 export function Avatar({ name, size = 32 }: { name?: string; size?: number }) {
   return (
     <span
-      className="grid place-items-center rounded-full bg-[#E8E8EA] font-bold text-[#0A0A0A] shrink-0"
+      className="grid place-items-center rounded-full bg-[#E7E8FB] font-bold text-[#14151A] shrink-0"
       style={{ width: size, height: size, fontSize: size * 0.4 }}
     >
       {(name || "?").charAt(0).toUpperCase()}

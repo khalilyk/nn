@@ -71,7 +71,7 @@ export default function MediaManager() {
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
           {blobs.map((b) => (
             <div key={b.url} className="rounded-2xl bg-white shadow-sm overflow-hidden group">
-              <div className="relative aspect-[4/3] bg-[#F1F1F3]">
+              <div className="relative aspect-[4/3] bg-[#EFEDE6]">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={b.url} alt={b.pathname} className="absolute inset-0 w-full h-full object-cover" />
                 <button

@@ -12,7 +12,10 @@ const Card = ({ title, children }: { title: string; children: React.ReactNode })
   </div>
 );
 
-export default function InvoiceSettingsEditor() {
+export default function InvoiceSettingsEditor({
+  title = "Invoice settings",
+  subtitle = "Company info, bank details, tax and terms printed on every invoice.",
+}: { title?: string; subtitle?: string } = {}) {
   const [s, setS] = useState<InvoiceSettings | null>(null);
   const [saving, setSaving] = useState(false);
   const [savedAt, setSavedAt] = useState<string | null>(null);
@@ -44,8 +47,8 @@ export default function InvoiceSettingsEditor() {
     <div className="pb-16">
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-[26px] font-semibold tracking-[-0.02em] text-[#0A0A0A] mb-1">Invoice settings</h1>
-          <p className="text-[13px] text-[#0A0A0A]/50">Company info, bank details, tax and terms printed on every invoice.</p>
+          <h1 className="text-[26px] font-semibold tracking-[-0.02em] text-[#0A0A0A] mb-1">{title}</h1>
+          <p className="text-[13px] text-[#0A0A0A]/50">{subtitle}</p>
         </div>
         <div className="flex items-center gap-2">
           {savedAt && <span className="text-[11px] text-black/35">saved {savedAt}</span>}
