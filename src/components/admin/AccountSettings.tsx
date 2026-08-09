@@ -79,7 +79,7 @@ export default function AccountSettings() {
 
   return (
     <div className="pb-10 max-w-md">
-      <h1 className="text-[22px] font-semibold text-[#0A0A0A] mb-1">Account</h1>
+      <h1 className="text-[26px] font-semibold tracking-[-0.02em] text-[#0A0A0A] mb-1">Account</h1>
       <p className="text-[13px] text-[#0A0A0A]/50 mb-6">Update your login email and password.</p>
 
       <div className="rounded-3xl bg-white shadow-sm p-5 md:p-7 space-y-5">

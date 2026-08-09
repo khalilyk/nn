@@ -53,6 +53,19 @@ export const passkeys = pgTable("passkeys", {
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 
+/** Team directory — people with access to the studio (roles are advisory for
+ *  now; a single shared login still gates the admin). */
+export const teamMembers = pgTable("team_members", {
+  id: serial("id").primaryKey(),
+  name: text("name").notNull(),
+  email: text("email").default("").notNull(),
+  role: text("role").default("editor").notNull(), // owner | admin | editor
+  status: text("status").default("active").notNull(), // active | invited
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+export type TeamMemberRow = typeof teamMembers.$inferSelect;
+
 // ── Invoicing + CRM ──
 
 /** CRM client records. */

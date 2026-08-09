@@ -56,7 +56,7 @@ export default function HistoryView() {
 
   return (
     <div className="pb-10 max-w-2xl">
-      <h1 className="text-[22px] font-semibold text-[#0A0A0A] mb-1">History</h1>
+      <h1 className="text-[26px] font-semibold tracking-[-0.02em] text-[#0A0A0A] mb-1">History</h1>
       <p className="text-[13px] text-[#0A0A0A]/50 mb-6">Every save is a snapshot. Restore any earlier version — it re-publishes as a new entry, so you can always roll back again.</p>
 
       {msg && <p className="text-[13px] text-[#1f9d55] mb-4">{msg}</p>}

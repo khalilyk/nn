@@ -1,10 +1,11 @@
 import Link from "next/link";
-import { sql } from "drizzle-orm";
+import { sql, desc } from "drizzle-orm";
 import PinterestBoard from "@/components/admin/PinterestBoard";
 import { db, hasDb } from "@/lib/db";
-import { events } from "@/lib/db/schema";
+import { events, submissions } from "@/lib/db/schema";
 import { listClients, listInvoices } from "@/lib/invoice/store";
 import { computeTotals, money } from "@/lib/invoice/types";
+import { Card, PageHeader, StatTile, Button, Badge, Avatar, EmptyState, SectionCard, CardLink } from "@/components/admin/ui";
 
 export const dynamic = "force-dynamic";
 
@@ -15,21 +16,42 @@ function greeting() {
   return "Good evening";
 }
 
-const STATUS_COLOR: Record<string, string> = {
-  draft: "bg-black/10 text-black/60",
-  sent: "bg-[#2D6BFF]/15 text-[#2D6BFF]",
-  overdue: "bg-[#c0392b]/15 text-[#c0392b]",
-  paid: "bg-[#1f9d55]/15 text-[#1f9d55]",
+function timeAgo(d: Date | string): string {
+  const t = new Date(d).getTime();
+  const s = Math.floor((Date.now() - t) / 1000);
+  if (s < 60) return "just now";
+  const m = Math.floor(s / 60);
+  if (m < 60) return `${m}m ago`;
+  const h = Math.floor(m / 60);
+  if (h < 24) return `${h}h ago`;
+  const days = Math.floor(h / 24);
+  if (days < 7) return `${days}d ago`;
+  return new Date(d).toLocaleDateString();
+}
+
+const EVENT_LABEL: Record<string, { verb: string; tone: "neutral" | "blue" | "green" | "amber" }> = {
+  page_view: { verb: "Page view", tone: "neutral" },
+  project_open: { verb: "Opened project", tone: "blue" },
+  note_open: { verb: "Opened note", tone: "blue" },
+  contact_submit: { verb: "New enquiry", tone: "green" },
+  cta_click: { verb: "CTA click", tone: "amber" },
 };
+
+const INV_TONE: Record<string, "neutral" | "blue" | "red" | "green"> = { draft: "neutral", sent: "blue", overdue: "red", paid: "green" };
 
 export default async function AdminDashboard() {
   const clients = await listClients().catch(() => []);
   const invoices = await listInvoices().catch(() => []);
-  const pending = invoices.filter((i) => !i.isTemplate && i.status !== "paid");
+  const real = invoices.filter((i) => !i.isTemplate);
+  const pending = real.filter((i) => i.status !== "paid");
   const outstanding = pending.reduce((sum, i) => sum + computeTotals(i).total, 0);
+  const paidRevenue = real.filter((i) => i.status === "paid").reduce((sum, i) => sum + computeTotals(i).total, 0);
 
   let views14 = 0;
+  let leads14 = 0;
+  let unreadLeads = 0;
   let daily: { day: string; count: number }[] = [];
+  let activity: { type: string; label: string | null; path: string | null; createdAt: Date }[] = [];
   if (hasDb) {
     try {
       const [r] = await db
@@ -43,65 +65,67 @@ export default async function AdminDashboard() {
         .where(sql`${events.type} = 'page_view' and ${events.createdAt} > now() - interval '14 days'`)
         .groupBy(sql`to_char(${events.createdAt}, 'DD Mon'), date_trunc('day', ${events.createdAt})`)
         .orderBy(sql`date_trunc('day', ${events.createdAt})`)) as { day: string; count: number }[];
+      const [lr] = await db.select({ c: sql<number>`count(*)::int` }).from(submissions).where(sql`${submissions.createdAt} > now() - interval '14 days'`);
+      leads14 = lr?.c ?? 0;
+      const [ur] = await db.select({ c: sql<number>`count(*)::int` }).from(submissions).where(sql`${submissions.read} = false`);
+      unreadLeads = ur?.c ?? 0;
+      activity = (await db.select({ type: events.type, label: events.label, path: events.path, createdAt: events.createdAt }).from(events).orderBy(desc(events.createdAt)).limit(8)) as typeof activity;
     } catch { /* ignore */ }
   }
   const maxDay = Math.max(1, ...daily.map((d) => d.count));
 
-  // invoices by status (excludes templates)
-  const real = invoices.filter((i) => !i.isTemplate);
   const byStatus = (["draft", "sent", "overdue", "paid"] as const).map((st) => ({
     status: st,
     count: real.filter((i) => i.status === st).length,
     total: real.filter((i) => i.status === st).reduce((s, i) => s + computeTotals(i).total, 0),
   }));
   const maxStatus = Math.max(1, ...byStatus.map((b) => b.total));
+  const recentClients = clients.slice(0, 5);
 
-  const recentClients = clients.slice(0, 6);
-  const currency = pending[0]?.currency || "AUD";
+  const today = new Date().toLocaleDateString(undefined, { weekday: "long", day: "numeric", month: "long" });
 
-  const stats = [
-    { label: "Page views · 14d", value: views14.toLocaleString() },
-    { label: "Pending invoices", value: pending.length },
-    { label: "Outstanding", value: money(outstanding) },
-    { label: "Clients", value: clients.length },
+  const actions = [
+    { label: "Edit site", href: "/admin/preview" },
+    { label: "New invoice", href: "/admin/invoices" },
+    { label: "New proposal", href: "/admin/proposals" },
+    { label: "Projects", href: "/admin/projects" },
+    { label: "Media", href: "/admin/media" },
   ];
 
   return (
     <div className="pb-10">
-      <div className="flex flex-wrap items-end justify-between gap-3 pt-1 pb-7">
-        <h1 className="text-[#0A0A0A]" style={{ fontSize: "clamp(1.8rem, 4vw, 2.6rem)", fontWeight: 600, letterSpacing: "-0.02em" }}>
-          {greeting()}, <span className="text-[#0A0A0A]/45">Khalil</span>
-        </h1>
-        <Link href="/admin/preview" className="rounded-full bg-[#0A0A0A] text-white px-5 py-2.5 text-[12px] tracking-[0.12em] uppercase hover:opacity-80 transition-opacity">
-          Open live editor →
-        </Link>
+      <PageHeader title={`${greeting()}, Khalil`} subtitle={today}>
+        <Button href="/" target="_blank" variant="ghost">View site ↗</Button>
+        <Button href="/admin/preview">Open live editor →</Button>
+      </PageHeader>
+
+      {/* KPI row */}
+      <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-3 mb-3">
+        <StatTile value={views14.toLocaleString()} label="Page views · 14d" href="/admin/analytics" />
+        <StatTile
+          accent
+          value={leads14}
+          label="New leads · 14d"
+          href="/admin/submissions"
+          hint={unreadLeads > 0 ? <Badge tone="ink">{unreadLeads} unread</Badge> : undefined}
+        />
+        <StatTile value={money(outstanding)} label="Outstanding" href="/admin/invoices" />
+        <StatTile value={money(paidRevenue)} label="Revenue · paid" href="/admin/invoices" />
+        <StatTile value={clients.length} label="Clients" href="/admin/clients" />
       </div>
 
-      {/* stat row */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
-        {stats.map((s, i) => (
-          <div key={s.label} className={`rounded-3xl p-5 shadow-sm ${i === 1 ? "bg-[#D7F23A]" : "bg-white"}`}>
-            <div className="text-[30px] font-bold leading-none tracking-tight text-[#0A0A0A]">{s.value}</div>
-            <div className="mt-3 text-[11px] tracking-[0.12em] uppercase text-[#0A0A0A]/50">{s.label}</div>
-          </div>
+      {/* quick actions */}
+      <div className="flex flex-wrap gap-2 mb-4">
+        {actions.map((a) => (
+          <Button key={a.label} href={a.href} variant="ghost" size="sm">{a.label}</Button>
         ))}
       </div>
 
-      {/* Pinterest moodboard — 6 random pins, re-rolled each load */}
-      <div className="mb-3">
-        <PinterestBoard board="khalilyk/not-normal" href="https://www.pinterest.com/khalilyk/not-normal/" />
-      </div>
-
-      {/* graphs */}
+      {/* charts */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 mb-3">
-        {/* page views over 14 days */}
-        <div className="rounded-3xl bg-white shadow-sm p-5">
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-[13px] font-semibold text-[#0A0A0A]">Page views · last 14 days</h2>
-            <Link href="/admin/analytics" className="text-[12px] text-black/45 hover:text-black">Analytics →</Link>
-          </div>
+        <SectionCard title="Page views · last 14 days" action={<CardLink href="/admin/analytics">Analytics →</CardLink>}>
           {daily.length === 0 ? (
-            <p className="text-[12px] text-black/40">No views recorded yet.</p>
+            <EmptyState>No views recorded yet.</EmptyState>
           ) : (
             <div className="flex items-end gap-1.5 h-32">
               {daily.map((d, i) => (
@@ -113,68 +137,76 @@ export default async function AdminDashboard() {
               ))}
             </div>
           )}
-        </div>
+        </SectionCard>
 
-        {/* invoices by status */}
-        <div className="rounded-3xl bg-white shadow-sm p-5">
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-[13px] font-semibold text-[#0A0A0A]">Invoices by status</h2>
-            <Link href="/admin/invoices" className="text-[12px] text-black/45 hover:text-black">Invoices →</Link>
-          </div>
+        <SectionCard title="Invoices by status" action={<CardLink href="/admin/invoices">Invoices →</CardLink>}>
           {real.length === 0 ? (
-            <p className="text-[12px] text-black/40">No invoices yet.</p>
+            <EmptyState>No invoices yet.</EmptyState>
           ) : (
             <div className="space-y-3 pt-1">
               {byStatus.map((b) => (
                 <div key={b.status} className="flex items-center gap-3">
                   <span className="text-[11px] uppercase tracking-wide text-black/55 w-16 shrink-0">{b.status}</span>
                   <div className="flex-1 h-5 rounded-full bg-black/[0.05] overflow-hidden">
-                    <div className="h-full rounded-full" style={{ width: `${(b.total / maxStatus) * 100}%`, background: b.status === "paid" ? "#1f9d55" : b.status === "overdue" ? "#c0392b" : b.status === "sent" ? "#2D6BFF" : "#9A9A9A" }} />
+                    <div className="h-full rounded-full" style={{ width: `${(b.total / maxStatus) * 100}%`, background: b.status === "paid" ? "#1F9D55" : b.status === "overdue" ? "#C0392B" : b.status === "sent" ? "#2D6BFF" : "#9A9A9A" }} />
                   </div>
                   <span className="text-[12px] text-[#0A0A0A] w-24 text-right shrink-0">{money(b.total)} <span className="text-black/35">({b.count})</span></span>
                 </div>
               ))}
             </div>
           )}
-        </div>
+        </SectionCard>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
-        {/* pending invoices */}
-        <div className="rounded-3xl bg-white shadow-sm p-5">
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-[13px] font-semibold text-[#0A0A0A]">Pending invoices</h2>
-            <Link href="/admin/invoices" className="text-[12px] text-black/45 hover:text-black">View all →</Link>
-          </div>
-          {pending.length === 0 ? (
-            <p className="text-[12px] text-black/40">Nothing outstanding. 🎉</p>
+      {/* activity + pending */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 mb-3">
+        <SectionCard title="Recent activity" action={<CardLink href="/admin/analytics">All →</CardLink>}>
+          {activity.length === 0 ? (
+            <EmptyState>No activity recorded yet.</EmptyState>
           ) : (
-            <div className="space-y-2">
+            <div className="space-y-1">
+              {activity.map((e, i) => {
+                const meta = EVENT_LABEL[e.type] || { verb: e.type, tone: "neutral" as const };
+                return (
+                  <div key={i} className="flex items-center gap-3 py-1.5">
+                    <Badge tone={meta.tone}>{meta.verb}</Badge>
+                    <span className="text-[12px] text-black/65 flex-1 min-w-0 truncate">{e.label || e.path || "—"}</span>
+                    <span className="text-[11px] text-black/35 shrink-0">{timeAgo(e.createdAt)}</span>
+                  </div>
+                );
+              })}
+            </div>
+          )}
+        </SectionCard>
+
+        <SectionCard title="Pending invoices" action={<CardLink href="/admin/invoices">View all →</CardLink>}>
+          {pending.length === 0 ? (
+            <EmptyState>Nothing outstanding. 🎉</EmptyState>
+          ) : (
+            <div className="space-y-1">
               {pending.slice(0, 6).map((inv) => (
                 <Link key={inv.id} href={`/admin/invoices/${inv.id}`} className="flex items-center gap-3 rounded-xl hover:bg-black/[0.03] px-2 py-2 -mx-2">
                   <span className="text-[12px] font-semibold text-[#0A0A0A] w-16 shrink-0">{inv.number}</span>
                   <span className="text-[12px] text-black/65 flex-1 min-w-0 truncate">{inv.client.name || "—"}</span>
                   <span className="text-[12px] font-semibold text-[#0A0A0A]">{money(computeTotals(inv).total)}</span>
-                  <span className={`text-[10px] uppercase tracking-wide px-2 py-0.5 rounded-full ${STATUS_COLOR[inv.status] || ""}`}>{inv.status}</span>
+                  <Badge tone={INV_TONE[inv.status] || "neutral"}>{inv.status}</Badge>
                 </Link>
               ))}
             </div>
           )}
-        </div>
+        </SectionCard>
+      </div>
 
-        {/* new clients */}
-        <div className="rounded-3xl bg-white shadow-sm p-5">
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-[13px] font-semibold text-[#0A0A0A]">New clients</h2>
-            <Link href="/admin/clients" className="text-[12px] text-black/45 hover:text-black">View all →</Link>
-          </div>
+      {/* clients + moodboard */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
+        <SectionCard title="New clients" action={<CardLink href="/admin/clients">View all →</CardLink>}>
           {recentClients.length === 0 ? (
-            <p className="text-[12px] text-black/40">No clients yet.</p>
+            <EmptyState>No clients yet.</EmptyState>
           ) : (
-            <div className="space-y-2">
+            <div className="space-y-1">
               {recentClients.map((c) => (
-                <div key={c.id} className="flex items-center gap-3 px-2 py-2 -mx-2">
-                  <span className="grid place-items-center w-8 h-8 rounded-full bg-[#E8E8EA] text-[11px] font-bold text-[#0A0A0A] shrink-0">{(c.name || "?").charAt(0).toUpperCase()}</span>
+                <div key={c.id} className="flex items-center gap-3 py-1.5">
+                  <Avatar name={c.name} />
                   <div className="min-w-0">
                     <div className="text-[13px] text-[#0A0A0A] truncate">{c.name}{c.company ? ` · ${c.company}` : ""}</div>
                     {c.email && <div className="text-[11px] text-black/45 truncate">{c.email}</div>}
@@ -184,19 +216,16 @@ export default async function AdminDashboard() {
               ))}
             </div>
           )}
-        </div>
-      </div>
+        </SectionCard>
 
-      {/* analytics shortcut */}
-      <Link href="/admin/analytics" className="mt-3 block rounded-3xl bg-white shadow-sm p-5 hover:shadow-md transition-shadow">
-        <div className="flex items-center justify-between">
-          <div>
-            <h2 className="text-[13px] font-semibold text-[#0A0A0A] mb-1">Analytics</h2>
-            <p className="text-[12px] text-black/45">{views14.toLocaleString()} page views in the last 14 days · live activity, top pages and events.</p>
+        <Card>
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-[13px] font-semibold text-[#0A0A0A]">Moodboard</h2>
+            <CardLink href="https://www.pinterest.com/khalilyk/not-normal/">Pinterest →</CardLink>
           </div>
-          <span className="text-[12px] text-black/45">Open →</span>
-        </div>
-      </Link>
+          <PinterestBoard board="khalilyk/not-normal" href="https://www.pinterest.com/khalilyk/not-normal/" />
+        </Card>
+      </div>
     </div>
   );
 }

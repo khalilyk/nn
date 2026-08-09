@@ -44,7 +44,7 @@ export default function InvoiceSettingsEditor() {
     <div className="pb-16">
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-[22px] font-semibold text-[#0A0A0A] mb-1">Invoice settings</h1>
+          <h1 className="text-[26px] font-semibold tracking-[-0.02em] text-[#0A0A0A] mb-1">Invoice settings</h1>
           <p className="text-[13px] text-[#0A0A0A]/50">Company info, bank details, tax and terms printed on every invoice.</p>
         </div>
         <div className="flex items-center gap-2">

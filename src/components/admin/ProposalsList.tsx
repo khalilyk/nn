@@ -34,7 +34,7 @@ export default function ProposalsList() {
     <div className="pb-10">
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-[22px] font-semibold text-[#0A0A0A] mb-1">Proposals</h1>
+          <h1 className="text-[26px] font-semibold tracking-[-0.02em] text-[#0A0A0A] mb-1">Proposals</h1>
           <p className="text-[13px] text-[#0A0A0A]/50">Build branded proposal decks, edit slides, export PDF and email.</p>
         </div>
         <div className="relative">

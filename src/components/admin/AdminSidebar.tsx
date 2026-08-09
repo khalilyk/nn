@@ -24,6 +24,7 @@ const ICONS: Record<string, string> = {
   history: "M12 8v4l3 2M3.5 12a8.5 8.5 0 1 1 2.6 6.1L3.5 16",
   invoices: "M6 3h12v18l-3-2-3 2-3-2-3 2zM9 8h6M9 12h6M9 16h4",
   clients: "M9 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM3 20c0-3 2.7-5 6-5s6 2 6 5M17 7a2.5 2.5 0 1 1 0 5M19 20c0-2-1-3.6-2.5-4.4",
+  users: "M9 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM3 20c0-3 2.7-5 6-5s6 2 6 5M17 7a2.5 2.5 0 1 1 0 5M19 20c0-2-1-3.6-2.5-4.4",
   proposals: "M4 4h16v16H4zM4 9h16M8 4v5M8 13h8M8 16h5",
 };
 
@@ -62,6 +63,7 @@ export default function AdminSidebar() {
     <div className="flex md:flex-col gap-3 md:w-[200px] md:h-full md:overflow-y-auto shrink-0">
       <nav className="flex md:flex-col gap-1.5 rounded-[26px] bg-white p-2.5 shadow-sm overflow-x-auto">
         <Item href="/admin" k="dashboard" label="Dashboard" />
+        <Item href="/admin/projects" k="projects" label="Projects" />
 
         {/* Sections toggle */}
         <button
@@ -78,12 +80,13 @@ export default function AdminSidebar() {
           </span>
         </button>
 
-        {open && SECTIONS.map((s) => <Item key={s.key} href={`/admin/${s.key}`} k={s.key} label={s.label} indent />)}
+        {open && SECTIONS.filter((s) => s.key !== "projects").map((s) => <Item key={s.key} href={`/admin/${s.key}`} k={s.key} label={s.label} indent />)}
 
         <Item href="/admin/media" k="media" label="Media" />
         <Item href="/admin/submissions" k="submissions" label="Submissions" />
         <Item href="/admin/analytics" k="analytics" label="Analytics" />
         <Item href="/admin/seo" k="seo" label="SEO" />
+        <Item href="/admin/users" k="users" label="Users" />
         <Item href="/admin/history" k="history" label="History" />
       </nav>
 

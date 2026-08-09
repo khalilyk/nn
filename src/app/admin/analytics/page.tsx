@@ -57,7 +57,7 @@ export default async function AnalyticsPage() {
     <div className="pb-10">
       <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
         <div>
-          <h1 className="text-[22px] font-semibold text-[#0A0A0A] mb-1">Analytics</h1>
+          <h1 className="text-[26px] font-semibold tracking-[-0.02em] text-[#0A0A0A] mb-1">Analytics</h1>
           <p className="text-[13px] text-[#0A0A0A]/50">Live activity on the site.</p>
         </div>
         <div className="flex items-center gap-2">

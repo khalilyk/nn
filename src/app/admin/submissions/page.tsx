@@ -17,7 +17,7 @@ export default async function SubmissionsPage() {
 
   return (
     <>
-      <h1 className="text-[22px] font-bold mb-1">Submissions</h1>
+      <h1 className="text-[26px] font-semibold tracking-[-0.02em] text-[#0A0A0A] mb-1">Submissions</h1>
       <p className="text-[13px] text-black/50 mb-6">Everyone who filled in the contact form.</p>
 
       {!hasDb && <p className="text-[13px] text-black/50">Database not connected yet — submissions appear here once Postgres is set up.</p>}

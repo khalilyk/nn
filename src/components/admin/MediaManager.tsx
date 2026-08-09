@@ -53,7 +53,7 @@ export default function MediaManager() {
 
   return (
     <div className="pb-10">
-      <h1 className="text-[22px] font-semibold text-[#0A0A0A] mb-1">Media</h1>
+      <h1 className="text-[26px] font-semibold tracking-[-0.02em] text-[#0A0A0A] mb-1">Media</h1>
       <p className="text-[13px] text-[#0A0A0A]/50 mb-6">Uploaded images. Copy a URL to use it in any section, or remove what you don’t need.</p>
 
       {/* upload */}
