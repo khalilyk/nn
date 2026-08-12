@@ -20,6 +20,12 @@ const nextConfig: NextConfig = {
       { source: "/contact", destination: "/main#contact-form", permanent: true },
     ];
   },
+  // clean URL for the standalone Pixelform tool served from /public/pf.html
+  async rewrites() {
+    return [
+      { source: "/pf", destination: "/pf.html" },
+    ];
+  },
 };
 
 export default nextConfig;
