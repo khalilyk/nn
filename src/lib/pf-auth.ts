@@ -3,7 +3,7 @@
  *  Node login route without shipping the password itself into the cookie. */
 export const PF_COOKIE = "pf_auth";
 
-export const pfPassword = () => process.env.PF_PASSWORD || "notnormal";
+export const pfPassword = () => process.env.PF_PASSWORD || "Panther787";
 
 export async function pfToken(password: string): Promise<string> {
   const data = new TextEncoder().encode(password + "::pixelform-gate-v1");
