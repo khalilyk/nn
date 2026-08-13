@@ -223,7 +223,6 @@
     <div class="wordmark">PIXELFORM</div>
     <nav>
       <button class="tab on" id="tabCreate">Create</button>
-      <button class="tab" id="tabExport">Export</button>
     </nav>
     <div class="title" id="docTitle">Untitled 01</div>
     <div class="r-actions">
@@ -673,8 +672,7 @@ $('#randomise').onclick=()=>{const st=['lines','squares'],tr=['smooth','stepped'
   selColor=-1;commit();palRows();cpop();};
 $('#reset').onclick=()=>{if(confirm('Reset all settings to defaults?')){S=defaults();after();}};
 $('#save').onclick=()=>{save();toast('Saved');};
-$('#tabExport').onclick=()=>{$('#tabExport').classList.add('on');$('#tabCreate').classList.remove('on');openSheet();};
-$('#tabCreate').onclick=()=>{$('#tabCreate').classList.add('on');$('#tabExport').classList.remove('on');$('#scrim').classList.remove('open');};
+$('#tabCreate').onclick=()=>$('#scrim').classList.remove('open');
 
 /* zoom + focal */
 $('#zoomIn').onclick=()=>{zoom=zoom==='fit'?zoomScale:zoom;zoom=clamp(zoom*1.5,.02,40);render();};
@@ -733,7 +731,7 @@ function openSheet(){$('#summary').innerHTML=summaryHTML();const spec=outputSpec
   $('#exWarn').textContent='⚠ This size at 300 dpi exceeds the browser raster limit, so the export is proportionally downscaled. For true A1/A0, halve the DPI or tile from a desktop app.';
   $('#scrim').classList.add('open');}
 $('#export').onclick=openSheet;
-$('#closeSheet').onclick=()=>{$('#scrim').classList.remove('open');$('#tabCreate').classList.add('on');$('#tabExport').classList.remove('on');};
+$('#closeSheet').onclick=()=>$('#scrim').classList.remove('open');
 $('#scrim').addEventListener('click',e=>{if(e.target===$('#scrim'))$('#closeSheet').click();});
 $$('.fmtbtn').forEach(b=>b.onclick=()=>doExport(b.dataset.fmt));
 
