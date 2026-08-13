@@ -80,7 +80,12 @@
   .drop::after{content:"";position:absolute;right:14px;top:50%;transform:translateY(-25%);
     border-left:4px solid transparent;border-right:4px solid transparent;border-top:5px solid var(--muted);pointer-events:none}
   .drop.sm select{height:36px}
+  .drop.mini select{height:34px;font-size:11px;padding:0 20px 0 10px}
+  .drop.mini::after{right:9px;border-left-width:3px;border-right-width:3px;border-top-width:4px}
   .drop .sub{color:var(--muted)}
+  .fromimg{margin-top:8px;width:100%;height:34px;border:1px dashed #3a3a40;border-radius:8px;background:none;
+    color:var(--muted);font-size:11px;letter-spacing:.06em;display:flex;align-items:center;justify-content:center;gap:8px}
+  .fromimg:hover{border-color:var(--accent);color:var(--ink)}
 
   .two{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
   .pill{height:38px;border:1px solid var(--line);border-radius:8px;background:var(--field);display:flex;
@@ -259,7 +264,10 @@
         </div>
         <div class="two" id="printOpts">
           <button class="pill mini drop-dpi" id="dpiBtn"><span id="dpiTxt">300 DPI</span></button>
-          <button class="pill mini" id="bleedBtn" aria-pressed="false">3 MM BLEED</button>
+          <div class="drop mini"><select id="bleed">
+            <option value="0">No bleed</option><option value="3">3 mm bleed</option>
+            <option value="5">5 mm bleed</option><option value="10">10 mm bleed</option>
+          </select></div>
         </div>
       </div>
 
@@ -271,6 +279,8 @@
         <div class="actrow">
           <button id="shuffle">Shuffle</button><button id="vary">Vary</button><button id="randomise">Random</button><button id="reset">Reset</button>
         </div>
+        <button class="fromimg" id="fromImg"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="1.6"/><path d="m21 15-5-5L5 21"/></svg>Pull colours from image</button>
+        <input type="file" accept="image/*" id="imgFile" hidden>
       </div>
     </aside>
 
@@ -362,6 +372,28 @@ const lerpRgb=(a,b,t)=>({r:lerp(a.r,b.r,t),g:lerp(a.g,b.g,t),b:lerp(a.b,b.b,t)})
 const relLum=({r,g,b})=>{const f=v=>{v/=255;return v<=.03928?v/12.92:((v+.055)/1.055)**2.4};return .2126*f(r)+.7152*f(g)+.0722*f(b);};
 const mulberry32=a=>()=>{a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};
 
+/* median-cut colour quantisation → extract a palette from an image */
+function medianCut(px,depth){
+  if(!px.length)return[];
+  if(depth<=0){const a=px.reduce((s,p)=>[s[0]+p[0],s[1]+p[1],s[2]+p[2]],[0,0,0]);const n=px.length;return[[a[0]/n,a[1]/n,a[2]/n]];}
+  let r0=255,r1=0,g0=255,g1=0,b0=255,b1=0;
+  for(const p of px){if(p[0]<r0)r0=p[0];if(p[0]>r1)r1=p[0];if(p[1]<g0)g0=p[1];if(p[1]>g1)g1=p[1];if(p[2]<b0)b0=p[2];if(p[2]>b1)b1=p[2];}
+  const ch=(r1-r0>=g1-g0&&r1-r0>=b1-b0)?0:(g1-g0>=b1-b0)?1:2;
+  px.sort((a,b)=>a[ch]-b[ch]);const m=px.length>>1;
+  return[...medianCut(px.slice(0,m),depth-1),...medianCut(px.slice(m),depth-1)];
+}
+function extractPalette(img,n){
+  const s=90,ar=img.width/img.height;let w=s,h=s;if(ar>1)h=Math.max(1,Math.round(s/ar));else w=Math.max(1,Math.round(s*ar));
+  const c=document.createElement('canvas');c.width=w;c.height=h;const cx=c.getContext('2d');cx.drawImage(img,0,0,w,h);
+  let d;try{d=cx.getImageData(0,0,w,h).data;}catch(e){return null;}
+  const px=[];for(let i=0;i<d.length;i+=4){if(d[i+3]<125)continue;px.push([d[i],d[i+1],d[i+2]]);}
+  if(px.length<n)return null;
+  let depth=1;while((1<<depth)<n)depth++;
+  const buckets=medianCut(px,depth).sort((a,b)=>relLum({r:a[0],g:a[1],b:a[2]})-relLum({r:b[0],g:b[1],b:b[2]}));
+  const out=[];for(let k=0;k<n;k++)out.push(buckets[Math.round(k*(buckets.length-1)/(n-1))]);
+  return out.map(p=>rgbToHex({r:p[0],g:p[1],b:p[2]}));
+}
+
 const PAPERS={A5:[148,210],A4:[210,297],A3:[297,420],A2:[420,594],A1:[594,841],A0:[841,1189]};
 const PHONES={iphone_promax:{label:"iPhone 15/16 Pro Max",px:[1290,2796]},iphone_pro:{label:"iPhone 15/16 Pro",px:[1179,2556]},
   iphone_std:{label:"iPhone 13/14/15",px:[1170,2532]},iphone_mini:{label:"iPhone 13 mini",px:[1080,2340]},iphone_se:{label:"iPhone SE",px:[750,1334]}};
@@ -414,7 +446,7 @@ function defaults(){return{style:'squares',origin:'c',outward:true,
   palette:['#5c1226','#d14b45','#e8779b','#ef9d7c','#f3d9be'],
   cellmm:8, transition:'smooth', steps:48, spread:72, seed:1,
   sizeKind:'A3', orient:'portrait', custom:{w:200,h:260,unit:'mm'},
-  bleed:true, cropmarks:true, dpi:300, colormode:'cmyk', format:'pdf', focal:{x:.5,y:.5}};}
+  bleedMM:3, cropmarks:true, dpi:300, colormode:'cmyk', format:'pdf', focal:{x:.5,y:.5}};}
 let S=load()||defaults();
 let history=[],future=[],lastState=JSON.stringify(S);
 const canvas=$('#art'),ctx=canvas.getContext('2d');
@@ -428,7 +460,7 @@ function outputSpec(){
     if(unit==='px'){wpx=Math.round(w);hpx=Math.round(h);digital=true;dpi=null;}
     else{const f=unit==='mm'?1:unit==='cm'?10:MM;wmm=w*f;hmm=h*f;wpx=Math.round(wmm/MM*dpi);hpx=Math.round(hmm/MM*dpi);}}
   let bleedpx=0,bleedmm=0;
-  if(S.bleed&&!digital){bleedmm=3;bleedpx=Math.round(3/MM*dpi);wpx+=bleedpx*2;hpx+=bleedpx*2;if(wmm!=null){wmm+=6;hmm+=6;}}
+  if(S.bleedMM>0&&!digital){bleedmm=S.bleedMM;bleedpx=Math.round(S.bleedMM/MM*dpi);wpx+=bleedpx*2;hpx+=bleedpx*2;if(wmm!=null){wmm+=S.bleedMM*2;hmm+=S.bleedMM*2;}}
   return{wpx,hpx,wmm,hmm,dpi,digital,bleedpx,bleedmm};
 }
 /* Grid density is anchored to a reference width (A-series short edge, 297 mm),
@@ -573,8 +605,14 @@ function wire(){
   segWire('#orientTog',v=>{S.orient=v;commit();});
   segWire('#ioTog',v=>{S.outward=(v==='out');commit();});
   $('#dpiBtn').onclick=()=>{S.dpi=S.dpi===300?150:300;commit();};
-  $('#bleedBtn').onclick=()=>{S.bleed=!S.bleed;commit();};
+  $('#bleed').onchange=e=>{S.bleedMM=+e.target.value;commit();};
   $('#cropBtn').onclick=()=>{S.cropmarks=!S.cropmarks;commit();};
+  $('#fromImg').onclick=()=>$('#imgFile').click();
+  $('#imgFile').onchange=e=>{const f=e.target.files&&e.target.files[0];e.target.value='';if(!f)return;
+    const img=new Image();img.onload=()=>{const n=Math.max(3,S.palette.length);const pal=extractPalette(img,n);
+      if(pal){S.palette=pal;selColor=-1;commit();palRows();cpop();toast('Palette from image');}else toast('Could not read that image');
+      URL.revokeObjectURL(img.src);};
+    img.onerror=()=>{toast('Could not load image');URL.revokeObjectURL(img.src);};img.src=URL.createObjectURL(f);};
   $('#transition').onchange=e=>{S.transition=e.target.value;commit();};
   $('#colormode').onchange=e=>{S.colormode=e.target.value;commit();};
   $('#format').onchange=e=>{S.format=e.target.value;commit();};
@@ -593,7 +631,7 @@ function sync(){
   $$('#ioTog button').forEach(b=>b.setAttribute('aria-pressed',(b.dataset.v==='out')===S.outward));
   $$('#dgrid button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.o===S.origin));
   $('#dpiTxt').textContent=S.dpi+' DPI';
-  $('#bleedBtn').setAttribute('aria-pressed',S.bleed);
+  $('#bleed').value=String(S.bleedMM);
   $('#cropBtn').setAttribute('aria-pressed',S.cropmarks);
   const isPrint=!!PAPERS[S.sizeKind]||(S.sizeKind==='custom'&&S.custom.unit!=='px');
   $('#printOpts').style.display=isPrint?'grid':'none';
