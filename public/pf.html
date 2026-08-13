@@ -61,20 +61,20 @@
   .side.right{border-left:1px solid var(--line)}
   .side::-webkit-scrollbar{width:9px}
   .side::-webkit-scrollbar-thumb{background:#26262a;border-radius:20px;border:3px solid var(--panel)}
-  .sect{padding:22px}
+  .sect{padding:14px 16px}
   .sect + .sect{border-top:1px solid var(--line-2)}
-  .sect > .lbl{display:block;margin-bottom:14px}
+  .sect > .lbl{display:block;margin-bottom:9px}
 
   /* big style toggle */
   .bigtog{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:9px;overflow:hidden}
-  .bigtog button{background:var(--field);height:74px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:var(--muted)}
+  .bigtog button{background:var(--field);height:56px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;color:var(--muted)}
   .bigtog button svg{width:22px;height:22px}
   .bigtog button span{font-size:11px;letter-spacing:.14em;font-weight:600}
   .bigtog button:hover{color:var(--ink)}
   .bigtog button[aria-pressed="true"]{background:var(--field-2);color:var(--ink)}
 
   .drop{position:relative}
-  select{width:100%;height:42px;background:var(--field);border:1px solid var(--line);border-radius:8px;
+  select{width:100%;height:38px;background:var(--field);border:1px solid var(--line);border-radius:8px;
     padding:0 34px 0 14px;color:var(--ink);font-size:13px;appearance:none;-webkit-appearance:none;cursor:pointer}
   select:hover{border-color:#33333a}
   .drop::after{content:"";position:absolute;right:14px;top:50%;transform:translateY(-25%);
@@ -82,25 +82,25 @@
   .drop.sm select{height:36px}
   .drop .sub{color:var(--muted)}
 
-  .two{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
-  .pill{height:42px;border:1px solid var(--line);border-radius:8px;background:var(--field);display:flex;
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
+  .pill{height:38px;border:1px solid var(--line);border-radius:8px;background:var(--field);display:flex;
     align-items:center;justify-content:center;gap:8px;color:var(--ink);font-size:12px;letter-spacing:.08em}
   .pill svg{width:15px;height:15px}
   .pill:hover{border-color:#33333a}
   .pill[aria-pressed="true"]{border-color:var(--accent);color:var(--accent)}
-  .pill.mini{height:38px;font-size:11.5px;letter-spacing:.1em}
+  .pill.mini{height:34px;font-size:11.5px;letter-spacing:.1em}
   .pill.mini[aria-pressed="true"]{background:color-mix(in srgb,var(--accent) 14%,var(--field));color:var(--ink)}
 
   /* palette */
-  .swrow{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
-  .sw{width:40px;height:40px;border-radius:50%;position:relative;cursor:pointer;border:2px solid transparent;
+  .swrow{display:flex;flex-wrap:wrap;gap:9px;align-items:center}
+  .sw{width:33px;height:33px;border-radius:50%;position:relative;cursor:pointer;border:2px solid transparent;
     box-shadow:0 0 0 1px rgba(255,255,255,.08)}
   .sw.sel{border-color:var(--accent)}
   .sw input{position:absolute;inset:0;opacity:0;cursor:pointer}
-  .addsw{width:40px;height:40px;border-radius:50%;border:1.5px dashed #3a3a40;color:var(--muted);
+  .addsw{width:33px;height:33px;border-radius:50%;border:1.5px dashed #3a3a40;color:var(--muted);
     display:grid;place-items:center}
   .addsw:hover{border-color:var(--accent);color:var(--ink)}
-  .shuffle{margin-top:16px;width:100%;height:44px;border:1px solid var(--line);border-radius:9px;background:var(--field);
+  .shuffle{margin-top:11px;width:100%;height:38px;border:1px solid var(--line);border-radius:9px;background:var(--field);
     display:flex;align-items:center;justify-content:center;gap:9px;font-size:12px;letter-spacing:.12em;color:var(--ink)}
   .shuffle:hover{border-color:#33333a}
   .shuffle svg{width:15px;height:15px}
@@ -118,13 +118,19 @@
   .cpop .foot .rm:hover{color:var(--accent);border-color:var(--accent)}
   .cpop .foot button:disabled{opacity:.3;cursor:default}
 
-  .minirow{display:flex;gap:6px;margin-top:14px}
-  .minirow button{flex:1;height:30px;border:1px solid var(--line-2);border-radius:6px;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint)}
-  .minirow button:hover{color:var(--ink);border-color:var(--line)}
+  /* preset category buttons, each a dropdown of palettes */
+  .pgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-bottom:13px}
+  .pgrid .drop{position:relative}
+  .pgrid select{height:33px;padding:0 19px 0 9px;font-size:11px;letter-spacing:.02em}
+  .pgrid .drop::after{right:8px;border-left-width:3px;border-right-width:3px;border-top-width:4px}
+  /* shuffle / vary / random / reset on one line */
+  .actrow{display:flex;gap:6px;margin-top:11px}
+  .actrow button{flex:1;height:32px;border:1px solid var(--line);border-radius:7px;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);background:var(--field)}
+  .actrow button:hover{color:var(--ink);border-color:#33333a}
 
   /* direction 3x3 */
   .dgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:9px;overflow:hidden}
-  .dgrid button{background:var(--field);aspect-ratio:1.5/1;display:grid;place-items:center;position:relative}
+  .dgrid button{background:var(--field);aspect-ratio:2.3/1;display:grid;place-items:center;position:relative}
   .dgrid button i{width:7px;height:7px;border-radius:50%;background:#54545a}
   .dgrid button:hover i{background:var(--muted)}
   .dgrid button[aria-pressed="true"]{box-shadow:inset 0 0 0 2px var(--accent);z-index:1}
@@ -132,11 +138,12 @@
   .io{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:8px;overflow:hidden;margin-top:12px}
   .io button{height:40px;background:var(--field);font-size:11px;letter-spacing:.14em;font-weight:600;color:var(--muted)}
   .io button[aria-pressed="true"]{background:var(--accent);color:#fff}
+  .io{margin-top:10px}
 
   /* slider */
-  .sl{margin-top:20px}
+  .sl{margin-top:14px}
   .sl:first-child{margin-top:0}
-  .slh{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:9px}
+  .slh{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:7px}
   .slh .v{font-size:12.5px;color:var(--ink);font-weight:500}
   input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:16px;background:none;margin:0;display:block}
   input[type=range]::-webkit-slider-runnable-track{height:3px;border-radius:3px;background:linear-gradient(90deg,var(--accent) var(--fill,50%),#2b2b30 var(--fill,50%))}
@@ -148,7 +155,7 @@
   .finalise{margin-top:18px;width:100%;height:46px;border:1px solid var(--line);border-radius:9px;background:var(--field);
     font-size:12px;letter-spacing:.16em;text-transform:uppercase;font-weight:600;color:var(--ink)}
   .finalise:hover{border-color:var(--accent);color:var(--accent)}
-  .toggle-line{display:flex;align-items:center;justify-content:space-between;margin-top:16px}
+  .toggle-line{display:flex;align-items:center;justify-content:space-between;margin-top:13px}
   .toggle-line .lbl{margin:0}
   .tog{width:44px;height:24px;border-radius:20px;background:#2b2b30;position:relative;flex:none;cursor:pointer;transition:background .15s}
   .tog::after{content:"";position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#fff;transition:transform .15s}
@@ -258,12 +265,11 @@
 
       <div class="sect">
         <span class="lbl">Palette</span>
-        <div class="drop" style="margin-bottom:15px"><select id="preset"></select></div>
+        <div class="pgrid" id="presetGrid"></div>
         <div class="swrow" id="swrow"></div>
         <div class="cpop" id="cpop"></div>
-        <button class="shuffle" id="shuffle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 3h5v5"/><path d="M4 20 21 3"/><path d="M21 16v5h-5"/><path d="m15 15 6 6"/><path d="M4 4l5 5"/></svg>SHUFFLE PALETTE</button>
-        <div class="minirow">
-          <button id="vary">Vary</button><button id="randomise">Randomise</button><button id="reset">Reset</button>
+        <div class="actrow">
+          <button id="shuffle">Shuffle</button><button id="vary">Vary</button><button id="randomise">Random</button><button id="reset">Reset</button>
         </div>
       </div>
     </aside>
@@ -290,7 +296,7 @@
           <button data-v="in" aria-pressed="false">INWARD</button>
         </div>
 
-        <div class="sl" style="margin-top:22px" id="cellSl">
+        <div class="sl" style="margin-top:16px" id="cellSl">
           <div class="slh"><span class="lbl" id="cellLbl" style="margin:0">Pixel size</span><span class="v mono" id="cellV"></span></div>
           <input type="range" id="cell" min="1" max="20" step="1">
         </div>
@@ -299,7 +305,7 @@
           <input type="range" id="spread" min="10" max="100" step="1">
         </div>
 
-        <div class="lbl" style="font-size:9.5px;margin:20px 0 9px;color:var(--faint)">Transition</div>
+        <div class="lbl" style="font-size:9.5px;margin:13px 0 7px;color:var(--faint)">Transition</div>
         <div class="drop"><select id="transition">
           <option value="smooth">Smooth steps</option><option value="stepped">Stepped</option>
           <option value="repeated">Repeated</option><option value="mirrored">Mirrored</option>
@@ -317,7 +323,6 @@
           <option value="pdf">PDF</option><option value="tiff">TIFF</option>
           <option value="png">PNG</option><option value="jpg">JPEG</option></select></div>
         <div class="toggle-line"><span class="lbl">Crop marks</span><button class="tog" id="cropBtn" aria-pressed="false" role="switch"></button></div>
-        <button class="finalise" id="finalise">Finalise artwork</button>
       </div>
     </aside>
   </main>
@@ -371,7 +376,7 @@ const PRESETS={
     "Moss":["#171e12","#33421f","#5f7238","#98a663","#d6dab0"],
     "Fern":["#0b1f16","#1f4d3a","#3f8f6e","#8fd0b0","#e0f2e6"],
   },
-  "Stone & earth":{
+  "Stone":{
     "Slate":["#16181b","#33383f","#636c78","#a3aab4","#e4e7ea"],
     "Granite":["#201d1a","#443f39","#766c62","#aca093","#e3ddd3"],
     "Sandstone":["#3f2817","#7c4f30","#b57e4f","#dcb488","#f3e4c8"],
@@ -391,13 +396,13 @@ const PRESETS={
     "Cosmos":["#0a0612","#241539","#5a2e83","#a267c7","#e5cdf2"],
     "Mars":["#170805","#4a140b","#8f2e17","#c76a3e","#eab98a"],
   },
-  "Fire & sunset":{
+  "Fire":{
     "Sunset":["#370617","#9d0208","#e85d04","#faa307","#ffe08a"],
     "Ember":["#180804","#54160a","#9e3113","#df6120","#f2a95c"],
     "Coral":["#5c1226","#d14b45","#e8779b","#ef9d7c","#f3d9be"],
     "Copper":["#241109","#5a2f16","#a0592c","#d5925c","#f0d2ac"],
   },
-  "Mono & mineral":{
+  "Mono":{
     "Ink":["#0a0a0a","#333333","#6b6b6b","#a6a6a6","#e8e8e8"],
     "Paper":["#1a1813","#48443a","#8a8474","#c3bda9","#efe9d6"],
     "Amethyst":["#241435","#4c2c6b","#8560ad","#bd9fe0","#ecdff7"],
@@ -550,12 +555,16 @@ function cpop(){
 }
 
 function segWire(sel,fn){$$(sel+' button').forEach(b=>b.onclick=()=>fn(b.dataset.v,b));}
-function buildPresets(){$('#preset').innerHTML='<option value="">Preset palettes…</option>'+
-  Object.entries(PRESETS).map(([g,items])=>`<optgroup label="${g}">`+Object.keys(items).map(k=>`<option value="${g}|${k}">${k}</option>`).join('')+`</optgroup>`).join('');}
+function buildPresets(){
+  const g=$('#presetGrid');
+  g.innerHTML=Object.entries(PRESETS).map(([cat,items])=>
+    `<div class="drop"><select data-cat="${cat}" aria-label="${cat} palettes"><option value="">${cat}</option>`+
+    Object.keys(items).map(k=>`<option value="${k}">${k}</option>`).join('')+`</select></div>`).join('');
+  g.querySelectorAll('select').forEach(sel=>sel.onchange=e=>{const cat=sel.dataset.cat,k=e.target.value;e.target.value='';
+    if(k&&PRESETS[cat]&&PRESETS[cat][k]){S.palette=PRESETS[cat][k].slice();selColor=-1;commit();palRows();cpop();toast(k+' palette');}});
+}
 function wire(){
   buildSizeOptions();buildDGrid();buildPresets();palRows();
-  $('#preset').onchange=e=>{const v=e.target.value;e.target.value='';if(!v)return;const[g,k]=v.split('|');
-    if(PRESETS[g]&&PRESETS[g][k]){S.palette=PRESETS[g][k].slice();selColor=-1;commit();palRows();cpop();toast(k+' palette');}};
   $('#size').onchange=e=>{S.sizeKind=e.target.value==='custom'?'custom':e.target.value;
     if(e.target.value==='custom')S.sizeKind='custom';commit();};
   ['cw','ch'].forEach((id,i)=>$('#'+id).onchange=e=>{S.custom[i?'h':'w']=Math.max(1,+e.target.value||1);commit();});
@@ -685,7 +694,7 @@ function openSheet(){$('#summary').innerHTML=summaryHTML();const spec=outputSpec
   $('#exWarn').style.display=spec.wpx*spec.hpx>42e6?'block':'none';
   $('#exWarn').textContent='⚠ This size at 300 dpi exceeds the browser raster limit, so the export is proportionally downscaled. For true A1/A0, halve the DPI or tile from a desktop app.';
   $('#scrim').classList.add('open');}
-$('#export').onclick=openSheet;$('#finalise').onclick=()=>doExport(S.format);
+$('#export').onclick=openSheet;
 $('#closeSheet').onclick=()=>{$('#scrim').classList.remove('open');$('#tabCreate').classList.add('on');$('#tabExport').classList.remove('on');};
 $('#scrim').addEventListener('click',e=>{if(e.target===$('#scrim'))$('#closeSheet').click();});
 $$('.fmtbtn').forEach(b=>b.onclick=()=>doExport(b.dataset.fmt));
