@@ -1,26 +1,20 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { verifyToken, SESSION_COOKIE } from "@/lib/auth/jwt";
+import { PF_COOKIE, pfPassword, pfToken } from "@/lib/pf-auth";
+import { PF_LOGIN_HTML } from "@/lib/pf-login-html";
 
 /** Next 16 proxy (replaces middleware.ts): gate /admin and /api/admin. */
 export async function proxy(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
-  // Pixelform tool (/pf) — simple HTTP Basic Auth gate. Any username; the
-  // password is PF_PASSWORD (set in Vercel), with a default until you set one.
+  // Pixelform tool (/pf) — cookie gate with a branded login page. The password
+  // is PF_PASSWORD (set in Vercel), with a default until you set one.
   if (pathname === "/pf" || pathname === "/pf.html") {
-    const header = req.headers.get("authorization");
-    const password = process.env.PF_PASSWORD || "notnormal";
-    if (header?.startsWith("Basic ")) {
-      try {
-        const decoded = atob(header.slice(6));
-        if (decoded.slice(decoded.indexOf(":") + 1) === password) return NextResponse.next();
-      } catch {
-        /* fall through to challenge */
-      }
-    }
-    return new NextResponse("Authentication required.", {
+    const expected = await pfToken(pfPassword());
+    if (req.cookies.get(PF_COOKIE)?.value === expected) return NextResponse.next();
+    return new NextResponse(PF_LOGIN_HTML, {
       status: 401,
-      headers: { "WWW-Authenticate": 'Basic realm="Pixelform", charset="UTF-8"' },
+      headers: { "content-type": "text/html; charset=utf-8", "cache-control": "no-store" },
     });
   }
 
