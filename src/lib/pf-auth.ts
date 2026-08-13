@@ -3,7 +3,9 @@
  *  Node login route without shipping the password itself into the cookie. */
 export const PF_COOKIE = "pf_auth";
 
-export const pfPassword = () => process.env.PF_PASSWORD || "Panther787";
+// Real password lives in the PF_PASSWORD env var (Vercel). This fallback is only
+// used if that var is ever unset — keep it a neutral placeholder, not the real one.
+export const pfPassword = () => process.env.PF_PASSWORD || "pixelform";
 
 export async function pfToken(password: string): Promise<string> {
   const data = new TextEncoder().encode(password + "::pixelform-gate-v1");
