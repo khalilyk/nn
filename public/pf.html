@@ -539,7 +539,7 @@ function render(){
   else fe.classList.add('hidden');
   $('#zoomVal').textContent=zoom==='fit'?'Fit':Math.round(zoom*100)+'%';
   const cnt=S.style==='lines'?cols+' lines':cols+' × '+rows;
-  $('#cap').innerHTML=`<b>${cnt}</b> · PRINT PREVIEW`;
+  $('#cap').innerHTML=`<b>${spec.wpx.toLocaleString()} × ${spec.hpx.toLocaleString()} px</b> &nbsp;·&nbsp; ${cnt} &nbsp;·&nbsp; ${spec.digital?'WALLPAPER':'PRINT'} PREVIEW`;
 }
 
 /* ── build controls ── */
