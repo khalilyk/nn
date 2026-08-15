@@ -542,10 +542,11 @@ function paint(c2,tw,th,cols,rows){
 }
 /* Distance (in normalised 0..1 space) from a cell to the Latin-cross shape.
    0 = inside the cross; grows with distance outside → drives the glow falloff. */
-const CROSS_CB=0.32; // vertical position of the crossbeam = the cross's visual centre
-function crossDist(cx,cy){const s=(S.crossScale||100)/100, cb=CROSS_CB;
-  // scale the whole cross about its centre (0.5, cb) so a smaller cross reveals more background
-  const vw=0.20*s, vt=cb-(cb-0.04)*s, vb=cb+(0.96-cb)*s, hl=0.5-(0.5-0.14)*s, hr=0.5+(0.86-0.5)*s;
+const CROSS_CB=0.32; // crossbeam position at full size (upper third of the cross, Latin-cross proportion)
+// The cross scales about the artboard centre (0.5, 0.5) so it stays centred at any size.
+function crossCB(){const s=(S.crossScale||100)/100;return 0.5+(CROSS_CB-0.5)*s;}
+function crossDist(cx,cy){const s=(S.crossScale||100)/100, cb=crossCB();
+  const vw=0.20*s, vt=0.5-0.46*s, vb=0.5+0.46*s, hl=0.5-0.36*s, hr=0.5+0.36*s;
   const dv=(cy>=vt&&cy<=vb)?Math.max(0,Math.abs(cx-0.5)-vw/2)
     :Math.hypot(Math.max(0,Math.abs(cx-0.5)-vw/2),(cy<vt?vt-cy:cy-vb));
   const dh=(cx>=hl&&cx<=hr)?Math.max(0,Math.abs(cy-cb)-vw/2)
@@ -585,7 +586,7 @@ function dirIcon(){/* dots only */}
 function buildDGrid(){$('#dgrid').innerHTML=ORIGINS.map(o=>`<button data-o="${o}" aria-pressed="false"><i></i></button>`).join('');
   $$('#dgrid button').forEach(b=>b.onclick=()=>{S.origin=b.dataset.o;if(b.dataset.o==='c')S.focal={x:.5,y:centreY()};commit();});}
 // The centre of the composition: the cross intersection for the crucifix, else the canvas middle.
-function centreY(){return S.style==='cross'?CROSS_CB:.5;}
+function centreY(){return S.style==='cross'?crossCB():.5;}
 function fillSlider(r){r.style.setProperty('--fill',(r.value-r.min)/(r.max-r.min)*100+'%');}
 
 let selColor=-1;
@@ -662,7 +663,8 @@ function wire(){
   slWire('#cell','#cellV','cellmm',v=>v+' mm');
   slWire('#spread','#spreadV','spread',v=>v+'%');
   slWire('#steps','#stepsV','steps',v=>v);
-  slWire('#cross','#crossV','crossScale',v=>v+'%');
+  {const r=$('#cross');r.oninput=()=>{S.crossScale=+r.value;$('#crossV').textContent=r.value+'%';fillSlider(r);
+    if(S.origin==='c')S.focal={x:.5,y:centreY()};softRender();};r.onchange=commit;}
 }
 function slWire(rs,vs,key,fmt){const r=$(rs);r.oninput=()=>{S[key]=+r.value;$(vs).textContent=fmt(r.value);fillSlider(r);softRender();};r.onchange=commit;}
 
