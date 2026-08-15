@@ -340,6 +340,32 @@
           <option value="png">PNG</option><option value="jpg">JPEG</option></select></div>
         <div class="toggle-line"><span class="lbl">Crop marks</span><button class="tog" id="cropBtn" aria-pressed="false" role="switch"></button></div>
       </div>
+
+      <div class="sect">
+        <div class="toggle-line"><span class="lbl">Animation</span><button class="tog" id="animBtn" aria-pressed="false" role="switch"></button></div>
+        <div id="animOpts" style="display:none">
+          <div class="two" id="motionTog" style="margin-top:10px">
+            <button class="pill" data-v="flow" aria-pressed="false">FLOW</button>
+            <button class="pill" data-v="pulsate" aria-pressed="false">PULSATE</button>
+          </div>
+          <div class="sl" style="margin-top:12px">
+            <div class="slh"><span class="lbl" style="margin:0">Speed</span><span class="v mono" id="aspeedV"></span></div>
+            <input type="range" id="aspeed" min="1" max="6" step="1">
+          </div>
+          <div class="sl">
+            <div class="slh"><span class="lbl" style="margin:0">Duration</span><span class="v mono" id="asecsV"></span></div>
+            <input type="range" id="asecs" min="2" max="10" step="1">
+          </div>
+          <div class="lbl" style="font-size:9.5px;margin:12px 0 6px;color:var(--faint)">Instagram size</div>
+          <div class="drop"><select id="igsize">
+            <option value="reel">Reel / Story · 9:16 · 1080×1920</option>
+            <option value="portrait">Feed portrait · 4:5 · 1080×1350</option>
+            <option value="square">Feed square · 1:1 · 1080×1080</option>
+          </select></div>
+          <button id="exportVid" style="margin-top:12px;width:100%;height:40px;background:var(--accent);color:#fff;border:none;border-radius:9px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;cursor:pointer">Export video</button>
+          <div class="warnline" id="vidWarn" style="display:none;margin-top:8px"></div>
+        </div>
+      </div>
     </aside>
   </main>
 </div>
@@ -365,7 +391,11 @@
 <script>
 "use strict";
 const $=s=>document.querySelector(s), $$=s=>document.querySelectorAll(s);
-const clamp=(v,a,b)=>Math.max(a,Math.min(b,v)), lerp=(a,b,t)=>a+(b-a)*t, MM=25.4;
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v)), lerp=(a,b,t)=>a+(b-a)*t, MM=25.4, TAU=Math.PI*2;
+/* animation: ANIM_PHASE loops 0..1; ANIM_ACTIVE gates motion so static render is untouched */
+let ANIM_PHASE=0, ANIM_ACTIVE=false;
+function pulseFactor(t){if(!(ANIM_ACTIVE&&S.anim.motion==='pulsate'))return 1;
+  return 1+0.42*Math.sin(TAU*(ANIM_PHASE - t*0.5));}
 
 /* colour maths */
 function hexToRgb(h){h=h.replace('#','');if(h.length===3)h=h.split('').map(c=>c+c).join('');const n=parseInt(h,16);return{r:(n>>16)&255,g:(n>>8)&255,b:n&255};}
@@ -460,7 +490,8 @@ function defaults(){return{style:'squares',origin:'c',outward:true,
   palette:['#5c1226','#d14b45','#e8779b','#ef9d7c','#f3d9be'],
   cellmm:8, transition:'smooth', steps:48, spread:72, seed:1,
   sizeKind:'A3', orient:'portrait', custom:{w:200,h:260,unit:'mm'},
-  bleedMM:3, cropmarks:true, dpi:300, colormode:'cmyk', format:'pdf', focal:{x:.5,y:.5}, crossScale:80};}
+  bleedMM:3, cropmarks:true, dpi:300, colormode:'cmyk', format:'pdf', focal:{x:.5,y:.5}, crossScale:80,
+  anim:{on:false, motion:'flow', speed:2, secs:5, ig:'reel'}};}
 let S=load()||defaults();
 let history=[],future=[],lastState=JSON.stringify(S);
 const canvas=$('#art'),ctx=canvas.getContext('2d');
@@ -508,6 +539,7 @@ function tFor(col,row,cols,rows){
   return clamp(t,0,1);
 }
 function colorAt(t,pal,ci){
+  if(ANIM_ACTIVE&&S.anim.motion==='flow'){t-=ANIM_PHASE;t-=Math.floor(t);} // scroll along the gradient axis
   const sp=S.spread/100;t=clamp((t-.5)/(sp*1.6+.05)+.5,0,1);
   let u=t;const mode=S.transition,steps=Math.max(2,S.steps|0);
   if(mode==='stepped')u=Math.round(t*(steps-1))/(steps-1);
@@ -521,23 +553,24 @@ function edges(total,count){const e=new Array(count+1);for(let i=0;i<=count;i++)
 function paint(c2,tw,th,cols,rows){
   c2.imageSmoothingEnabled=false;const pal=S.palette.map(hexToRgb);
   const ex=edges(tw,cols),ey=edges(th,rows);
+  const px=v=>clamp(v,0,255)|0;
   if(S.style==='lines'){
-    for(let i=0;i<cols;i++){const c=colorAt(tFor(i,0,cols,1),pal,i);
-      c2.fillStyle=`rgb(${c.r|0},${c.g|0},${c.b|0})`;c2.fillRect(ex[i],0,ex[i+1]-ex[i],th);}
+    for(let i=0;i<cols;i++){const tt=tFor(i,0,cols,1),c=colorAt(tt,pal,i),p=pulseFactor(tt);
+      c2.fillStyle=`rgb(${px(c.r*p)},${px(c.g*p)},${px(c.b*p)})`;c2.fillRect(ex[i],0,ex[i+1]-ex[i],th);}
   }else if(S.style==='cross'){
     // full gradient everywhere; the cross stays lit, everything outside falls
     // into shadow with a soft glow falloff — light coming through the cross.
     let idx=0;
     for(let j=0;j<rows;j++)for(let i=0;i<cols;i++){
       const cx=cols>1?i/(cols-1):.5, cy=rows>1?j/(rows-1):.5;
-      let c=colorAt(tFor(i,j,cols,rows),pal,idx);
+      const tt=tFor(i,j,cols,rows);let c=colorAt(tt,pal,idx);const p=pulseFactor(tt);
       const d=crossDist(cx,cy);
-      if(d>0){const f=Math.max(0.10,Math.pow(1-Math.min(1,d*2.4),1.7));c={r:c.r*f,g:c.g*f,b:c.b*f};}
-      c2.fillStyle=`rgb(${c.r|0},${c.g|0},${c.b|0})`;c2.fillRect(ex[i],ey[j],ex[i+1]-ex[i],ey[j+1]-ey[j]);
+      const f=(d>0?Math.max(0.10,Math.pow(1-Math.min(1,d*2.4),1.7)):1)*p;
+      c2.fillStyle=`rgb(${px(c.r*f)},${px(c.g*f)},${px(c.b*f)})`;c2.fillRect(ex[i],ey[j],ex[i+1]-ex[i],ey[j+1]-ey[j]);
       idx++;
     }
-  }else{let idx=0;for(let j=0;j<rows;j++)for(let i=0;i<cols;i++){const c=colorAt(tFor(i,j,cols,rows),pal,idx++);
-    c2.fillStyle=`rgb(${c.r|0},${c.g|0},${c.b|0})`;c2.fillRect(ex[i],ey[j],ex[i+1]-ex[i],ey[j+1]-ey[j]);}}
+  }else{let idx=0;for(let j=0;j<rows;j++)for(let i=0;i<cols;i++){const tt=tFor(i,j,cols,rows),c=colorAt(tt,pal,idx++),p=pulseFactor(tt);
+    c2.fillStyle=`rgb(${px(c.r*p)},${px(c.g*p)},${px(c.b*p)})`;c2.fillRect(ex[i],ey[j],ex[i+1]-ex[i],ey[j+1]-ey[j]);}}
 }
 /* Distance (in normalised 0..1 space) from a cell to the Latin-cross shape.
    0 = inside the cross; grows with distance outside → drives the glow falloff. */
@@ -659,8 +692,67 @@ function wire(){
   slWire('#spread','#spreadV','spread',v=>v+'%');
   slWire('#steps','#stepsV','steps',v=>v);
   slWire('#cross','#crossV','crossScale',v=>v+'%');
+  $('#animBtn').onclick=()=>{S.anim.on=!S.anim.on;syncAnim();save();if(S.anim.on)startPreview();else stopPreview();};
+  segWire('#motionTog',v=>{S.anim.motion=v;syncAnim();save();});
+  $('#aspeed').oninput=e=>{S.anim.speed=+e.target.value;$('#aspeedV').textContent=S.anim.speed+'×';fillSlider(e.target);};
+  $('#aspeed').onchange=save;
+  $('#asecs').oninput=e=>{S.anim.secs=+e.target.value;$('#asecsV').textContent=S.anim.secs+'s';fillSlider(e.target);};
+  $('#asecs').onchange=save;
+  $('#igsize').onchange=e=>{S.anim.ig=e.target.value;save();};
+  $('#exportVid').onclick=exportVideo;
 }
 function slWire(rs,vs,key,fmt){const r=$(rs);r.oninput=()=>{S[key]=+r.value;$(vs).textContent=fmt(r.value);fillSlider(r);softRender();};r.onchange=commit;}
+
+/* ── animation preview + video export ── */
+let previewRAF=0, prevT0=0;
+function repaintPreview(){const spec=outputSpec();const {cols,rows}=counts(spec.wpx,spec.hpx);paint(ctx,canvas.width,canvas.height,cols,rows);}
+function startPreview(){stopPreviewRAF();ANIM_ACTIVE=true;prevT0=0;
+  const loop=ts=>{if(!S.anim.on){return;}
+    if(!prevT0)prevT0=ts;const dt=(ts-prevT0)/1000;prevT0=ts;
+    ANIM_PHASE=(ANIM_PHASE+dt*S.anim.speed/6)%1;
+    repaintPreview();previewRAF=requestAnimationFrame(loop);};
+  previewRAF=requestAnimationFrame(loop);}
+function stopPreviewRAF(){if(previewRAF)cancelAnimationFrame(previewRAF);previewRAF=0;}
+function stopPreview(){stopPreviewRAF();ANIM_ACTIVE=false;ANIM_PHASE=0;render();}
+function syncAnim(){
+  $('#animBtn').setAttribute('aria-pressed',S.anim.on);
+  $('#animOpts').style.display=S.anim.on?'':'none';
+  $$('#motionTog button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.v===S.anim.motion));
+  $('#aspeed').value=S.anim.speed;$('#aspeedV').textContent=S.anim.speed+'×';fillSlider($('#aspeed'));
+  $('#asecs').value=S.anim.secs;$('#asecsV').textContent=S.anim.secs+'s';fillSlider($('#asecs'));
+  $('#igsize').value=S.anim.ig;
+}
+function pickVidMime(){const c=['video/mp4;codecs=avc1.4d002a','video/mp4;codecs=avc1.42E01E','video/mp4','video/webm;codecs=vp9','video/webm;codecs=vp8','video/webm'];
+  for(const m of c)if(window.MediaRecorder&&MediaRecorder.isTypeSupported&&MediaRecorder.isTypeSupported(m))return m;return '';}
+async function exportVideo(){
+  if(!window.MediaRecorder){toast('Video recording not supported in this browser');return;}
+  const mime=pickVidMime();if(!mime){toast('No video codec available');return;}
+  const isMp4=mime.includes('mp4');const warn=$('#vidWarn');
+  if(!isMp4){warn.style.display='';warn.textContent='This browser can’t record MP4 — exporting WebM instead. Use Safari or Chrome for MP4, or convert before posting.';}else warn.style.display='none';
+  const IG={reel:[1080,1920],portrait:[1080,1350],square:[1080,1080]}[S.anim.ig]||[1080,1920];
+  const W=IG[0],H=IG[1];const {cols,rows}=counts(W,H);
+  const cv=document.createElement('canvas');cv.width=W;cv.height=H;const c=cv.getContext('2d');
+  const fps=30, cycles=Math.max(1,Math.round(S.anim.speed)), secs=S.anim.secs;
+  const wasOn=S.anim.on;stopPreviewRAF();ANIM_ACTIVE=true;
+  const stream=cv.captureStream(fps);
+  let rec;try{rec=new MediaRecorder(stream,{mimeType:mime,videoBitsPerSecond:12000000});}
+  catch(e){toast('Could not start recorder');return;}
+  const chunks=[];rec.ondataavailable=e=>{if(e.data&&e.data.size)chunks.push(e.data);};
+  const stopped=new Promise(r=>rec.onstop=r);
+  const btn=$('#exportVid');btn.disabled=true;const label=btn.textContent;btn.textContent='Recording…';toast('Recording '+secs+'s…');
+  rec.start();
+  // timer-driven frames: fixed pacing, immune to tab-visibility rAF throttling
+  const total=Math.max(1,Math.round(fps*secs));
+  await new Promise(res=>{let f=0;const tick=()=>{const prog=f/total;ANIM_PHASE=(cycles*prog)%1;paint(c,W,H,cols,rows);f++;
+    if(f>total){res();return;}setTimeout(tick,1000/fps);};tick();});
+  await new Promise(r=>setTimeout(r,160));
+  rec.stop();stream.getTracks().forEach(t=>t.stop());await stopped;
+  const ext=isMp4?'mp4':'webm';
+  download(new Blob(chunks,{type:mime}),'pixelform-'+S.anim.ig+'-'+Math.floor(performance.now())+'.'+ext);
+  toast('Exported '+ext.toUpperCase()+' · '+W+'×'+H);
+  btn.disabled=false;btn.textContent=label;
+  ANIM_PHASE=0;if(wasOn&&S.anim.on)startPreview();else{ANIM_ACTIVE=false;render();}
+}
 
 function sync(){
   $('#size').value = (PAPERS[S.sizeKind]||PHONES[S.sizeKind])?S.sizeKind:'custom';
@@ -687,6 +779,7 @@ function sync(){
   $('#stepsSl').classList.toggle('disabled',S.transition==='smooth');
   $('#cross').value=S.crossScale;$('#crossV').textContent=S.crossScale+'%';fillSlider($('#cross'));
   $('#crossSl').style.display=S.style==='cross'?'':'none';
+  syncAnim();
 }
 
 /* ── state ── */
@@ -700,7 +793,7 @@ function rev(o){return o;}
 function after(){selColor=-1;palRows();cpop();sync();render();updUndo();save();}
 function save(){try{localStorage.setItem('pixelform',JSON.stringify(S));}catch(e){}}
 function load(){try{const v=localStorage.getItem('pixelform');if(!v)return null;const o=JSON.parse(v);const d=defaults();
-  return{...d,...o,custom:{...d.custom,...(o.custom||{})},focal:{...d.focal,...(o.focal||{})}};}catch(e){return null;}}
+  return{...d,...o,custom:{...d.custom,...(o.custom||{})},focal:{...d.focal,...(o.focal||{})},anim:{...d.anim,...(o.anim||{}),on:false}};}catch(e){return null;}}
 
 $('#undo').onclick=undo;$('#redo').onclick=redo;
 $('#shuffle').onclick=()=>{for(let i=S.palette.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[S.palette[i],S.palette[j]]=[S.palette[j],S.palette[i]];}commit();palRows();};
