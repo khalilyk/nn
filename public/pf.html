@@ -66,8 +66,9 @@
   .sect > .lbl{display:block;margin-bottom:9px}
 
   /* big style toggle */
-  .bigtog{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:9px;overflow:hidden}
+  .bigtog{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:9px;overflow:hidden}
   .bigtog button{background:var(--field);height:56px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;color:var(--muted)}
+  .bigtog button span{font-size:10px}
   .bigtog button svg{width:22px;height:22px}
   .bigtog button span{font-size:11px;letter-spacing:.14em;font-weight:600}
   .bigtog button:hover{color:var(--ink)}
@@ -246,6 +247,9 @@
           <button data-v="squares" aria-pressed="false">
             <svg viewBox="0 0 24 24" fill="currentColor"><rect x="3.5" y="3.5" width="6.4" height="6.4"/><rect x="14.1" y="3.5" width="6.4" height="6.4"/><rect x="3.5" y="14.1" width="6.4" height="6.4"/><rect x="14.1" y="14.1" width="6.4" height="6.4"/></svg>
             <span>SQUARES</span></button>
+          <button data-v="cross" aria-pressed="false">
+            <svg viewBox="0 0 24 24" fill="currentColor"><rect x="10" y="2" width="4" height="20"/><rect x="5" y="7" width="14" height="4"/></svg>
+            <span>CROSS</span></button>
         </div>
       </div>
 
@@ -393,7 +397,7 @@ function extractPalette(img,n){
   return out.map(p=>rgbToHex({r:p[0],g:p[1],b:p[2]}));
 }
 
-const PAPERS={A5:[148,210],A4:[210,297],A3:[297,420],A2:[420,594],A1:[594,841],A0:[841,1189]};
+const PAPERS={"Business card":[90,55],A5:[148,210],A4:[210,297],A3:[297,420],A2:[420,594],A1:[594,841],A0:[841,1189]};
 const PHONES={iphone_promax:{label:"iPhone 15/16 Pro Max",px:[1290,2796]},iphone_pro:{label:"iPhone 15/16 Pro",px:[1179,2556]},
   iphone_std:{label:"iPhone 13/14/15",px:[1170,2532]},iphone_mini:{label:"iPhone 13 mini",px:[1080,2340]},iphone_se:{label:"iPhone SE",px:[750,1334]}};
 const ORIGINS=['tl','tc','tr','ml','c','mr','bl','bc','br'];
@@ -517,9 +521,26 @@ function paint(c2,tw,th,cols,rows){
   if(S.style==='lines'){
     for(let i=0;i<cols;i++){const c=colorAt(tFor(i,0,cols,1),pal,i);
       c2.fillStyle=`rgb(${c.r|0},${c.g|0},${c.b|0})`;c2.fillRect(ex[i],0,ex[i+1]-ex[i],th);}
+  }else if(S.style==='cross'){
+    // fill a contrasting ground, then draw the gradient only inside the cross
+    const avg=pal.reduce((s,c)=>s+relLum(c),0)/pal.length;
+    const bg=avg<0.5?[247,246,242]:[16,16,18];
+    c2.fillStyle=`rgb(${bg[0]},${bg[1]},${bg[2]})`;c2.fillRect(0,0,tw,th);
+    let idx=0;
+    for(let j=0;j<rows;j++)for(let i=0;i<cols;i++){
+      const cx=cols>1?i/(cols-1):.5, cy=rows>1?j/(rows-1):.5;
+      if(inCross(cx,cy)){const c=colorAt(tFor(i,j,cols,rows),pal,idx);
+        c2.fillStyle=`rgb(${c.r|0},${c.g|0},${c.b|0})`;c2.fillRect(ex[i],ey[j],ex[i+1]-ex[i],ey[j+1]-ey[j]);}
+      idx++;
+    }
   }else{let idx=0;for(let j=0;j<rows;j++)for(let i=0;i<cols;i++){const c=colorAt(tFor(i,j,cols,rows),pal,idx++);
     c2.fillStyle=`rgb(${c.r|0},${c.g|0},${c.b|0})`;c2.fillRect(ex[i],ey[j],ex[i+1]-ex[i],ey[j+1]-ey[j]);}}
 }
+/* Latin cross / crucifix silhouette in normalised 0..1 cell space */
+function inCross(cx,cy){const vw=0.20;
+  const inV=Math.abs(cx-0.5)<=vw/2 && cy>=0.04 && cy<=0.96;
+  const inH=Math.abs(cy-0.32)<=vw/2 && cx>=0.14 && cx<=0.86;
+  return inV||inH;}
 
 /* ── render ── */
 let zoom='fit',zoomScale=1;
@@ -535,7 +556,7 @@ function render(){
   canvas.width=bw;canvas.height=bh;paint(ctx,bw,bh,cols,rows);
   const f=$('#frame');f.style.width=dispW+'px';f.style.height=dispH+'px';
   const fe=$('#focal');
-  if(S.style==='squares'&&usesFocal(S.origin)){fe.classList.remove('hidden');fe.style.left=(S.focal.x*100)+'%';fe.style.top=(S.focal.y*100)+'%';}
+  if(S.style!=='lines'&&usesFocal(S.origin)){fe.classList.remove('hidden');fe.style.left=(S.focal.x*100)+'%';fe.style.top=(S.focal.y*100)+'%';}
   else fe.classList.add('hidden');
   $('#zoomVal').textContent=zoom==='fit'?'Fit':Math.round(zoom*100)+'%';
   const cnt=S.style==='lines'?cols+' lines':cols+' × '+rows;
@@ -643,9 +664,9 @@ function sync(){
   const isPrint=!!PAPERS[S.sizeKind]||(S.sizeKind==='custom'&&S.custom.unit!=='px');
   $('#printOpts').style.display=isPrint?'grid':'none';
   // direction only for squares
-  const dirOn=S.style==='squares';
+  const dirOn=S.style!=='lines';
   $('#dgrid').classList.toggle('disabled',!dirOn);
-  $('#cellLbl').textContent=S.style==='squares'?'Pixel size':'Line thickness';
+  $('#cellLbl').textContent=S.style==='lines'?'Line thickness':'Pixel size';
   $('#transition').value=S.transition;$('#colormode').value=S.colormode;$('#format').value=S.format;
   const _sp=outputSpec(),_ct=counts(_sp.wpx,_sp.hpx),_ec=effCell(_sp,_ct.cols);
   $('#cell').value=S.cellmm;$('#cellV').textContent=(_ec.unit==='mm'?(_ec.v<10?_ec.v.toFixed(1):Math.round(_ec.v)):Math.round(_ec.v))+' '+_ec.unit;fillSlider($('#cell'));
@@ -710,7 +731,7 @@ function drawCrop(c,W,H,bp){c.strokeStyle='#000';c.lineWidth=Math.max(1,Math.rou
 
 function summaryHTML(){const spec=outputSpec();const {cols,rows}=counts(spec.wpx,spec.hpx,spec.dpi);
   const dim=spec.wmm!=null?`${spec.wmm.toFixed(0)} × ${spec.hmm.toFixed(0)} mm`:`${spec.wpx} × ${spec.hpx} px`;
-  const styleName={lines:'Pixel lines',squares:'Pixel squares'}[S.style];
+  const styleName={lines:'Pixel lines',squares:'Pixel squares',cross:'Crucifix'}[S.style];
   const ec=effCell(spec,cols);const ecTxt=(ec.unit==='mm'?(ec.v<10?ec.v.toFixed(1):Math.round(ec.v)):Math.round(ec.v))+' '+ec.unit;
   const cell=S.style==='squares'?`${ecTxt} square`:`${ecTxt} line`;
   const cnt=S.style==='lines'?`${cols} lines`:`${cols} cols × ${rows} rows`;
@@ -724,8 +745,8 @@ function summaryHTML(){const spec=outputSpec();const {cols,rows}=counts(spec.wpx
     <dt>Resolution</dt><dd class="mono">${spec.digital?'Native (screen)':spec.dpi+' dpi'}</dd>
     <dt>Pixel style</dt><dd>${styleName}</dd><dt>Cell</dt><dd class="mono">${cell}</dd>
     <dt>Grid</dt><dd class="mono">${cnt}</dd>
-    <dt>Direction</dt><dd>${S.style==='squares'?dirName+(S.outward?' · outward':' · inward'):'Along the lines'}</dd>
-    <dt>Focal point</dt><dd class="mono">${S.style==='squares'&&usesFocal(S.origin)?`${(S.focal.x*100)|0}% , ${(S.focal.y*100)|0}%`:'—'}</dd>
+    <dt>Direction</dt><dd>${S.style!=='lines'?dirName+(S.outward?' · outward':' · inward'):'Along the lines'}</dd>
+    <dt>Focal point</dt><dd class="mono">${S.style!=='lines'&&usesFocal(S.origin)?`${(S.focal.x*100)|0}% , ${(S.focal.y*100)|0}%`:'—'}</dd>
     <dt>Transition</dt><dd>${S.transition[0].toUpperCase()+S.transition.slice(1)} · ${S.steps}</dd>
     <dt>Colour intent</dt><dd>${spec.digital?'RGB':S.colormode.toUpperCase()}</dd>
     <dt>Bleed</dt><dd>${spec.bleedmm?spec.bleedmm+' mm'+(S.cropmarks?' · crop marks':''):'None'}</dd>
