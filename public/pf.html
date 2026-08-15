@@ -250,6 +250,7 @@
             <svg viewBox="0 0 24 24" fill="currentColor"><rect x="10" y="2" width="4" height="20"/><rect x="5" y="7" width="14" height="4"/></svg>
             <span>CROSS</span></button>
         </div>
+        <button id="cleanCross" style="display:none;margin-top:10px;width:100%;height:34px;background:none;border:1px solid var(--line);border-radius:8px;color:var(--muted);font-size:10px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;cursor:pointer">Clean crucifix preset</button>
       </div>
 
       <div class="sect">
@@ -641,6 +642,9 @@ function wire(){
   ['cw','ch'].forEach((id,i)=>$('#'+id).onchange=e=>{S.custom[i?'h':'w']=Math.max(1,+e.target.value||1);commit();});
   $('#cu').onchange=e=>{S.custom.unit=e.target.value;commit();};
   segWire('#styleTog',v=>{S.style=v;if(S.origin==='c')S.focal={x:.5,y:centreY()};commit();});
+  $('#cleanCross').onclick=()=>{Object.assign(S,{style:'cross',transition:'smooth',steps:48,outward:true,origin:'c',
+    cellmm:10,spread:70,crossScale:80,palette:['#0e0a06','#3a1c08','#8a3d10','#e08a2c','#ffd98a']});
+    S.focal={x:.5,y:centreY()};selColor=-1;commit();palRows();cpop();toast('Clean crucifix');};
   segWire('#orientTog',v=>{S.orient=v;commit();});
   segWire('#ioTog',v=>{S.outward=(v==='out');commit();});
   $('#dpiBtn').onclick=()=>{S.dpi=S.dpi===300?150:300;commit();};
@@ -667,6 +671,7 @@ function sync(){
   $('#customBox').style.display=S.sizeKind==='custom'?'grid':'none';
   if(S.sizeKind==='custom'){$('#cw').value=S.custom.w;$('#ch').value=S.custom.h;$('#cu').value=S.custom.unit;}
   $$('#styleTog button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.v===S.style));
+  $('#cleanCross').style.display=S.style==='cross'?'':'none';
   $$('#orientTog button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.v===S.orient));
   $$('#ioTog button').forEach(b=>b.setAttribute('aria-pressed',(b.dataset.v==='out')===S.outward));
   $$('#dgrid button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.o===S.origin));
