@@ -316,6 +316,10 @@
           <div class="slh"><span class="lbl" style="margin:0">Spread</span><span class="v mono" id="spreadV"></span></div>
           <input type="range" id="spread" min="10" max="100" step="1">
         </div>
+        <div class="sl" id="crossSl">
+          <div class="slh"><span class="lbl" style="margin:0">Cross size</span><span class="v mono" id="crossV"></span></div>
+          <input type="range" id="cross" min="30" max="100" step="1">
+        </div>
 
         <div class="lbl" style="font-size:9.5px;margin:13px 0 7px;color:var(--faint)">Transition</div>
         <div class="drop"><select id="transition">
@@ -456,7 +460,7 @@ function defaults(){return{style:'squares',origin:'c',outward:true,
   palette:['#5c1226','#d14b45','#e8779b','#ef9d7c','#f3d9be'],
   cellmm:8, transition:'smooth', steps:48, spread:72, seed:1,
   sizeKind:'A3', orient:'portrait', custom:{w:200,h:260,unit:'mm'},
-  bleedMM:3, cropmarks:true, dpi:300, colormode:'cmyk', format:'pdf', focal:{x:.5,y:.5}};}
+  bleedMM:3, cropmarks:true, dpi:300, colormode:'cmyk', format:'pdf', focal:{x:.5,y:.5}, crossScale:80};}
 let S=load()||defaults();
 let history=[],future=[],lastState=JSON.stringify(S);
 const canvas=$('#art'),ctx=canvas.getContext('2d');
@@ -538,7 +542,9 @@ function paint(c2,tw,th,cols,rows){
 /* Distance (in normalised 0..1 space) from a cell to the Latin-cross shape.
    0 = inside the cross; grows with distance outside → drives the glow falloff. */
 const CROSS_CB=0.32; // vertical position of the crossbeam = the cross's visual centre
-function crossDist(cx,cy){const vw=0.20, vt=0.04, vb=0.96, cb=CROSS_CB, hl=0.14, hr=0.86;
+function crossDist(cx,cy){const s=(S.crossScale||100)/100, cb=CROSS_CB;
+  // scale the whole cross about its centre (0.5, cb) so a smaller cross reveals more background
+  const vw=0.20*s, vt=cb-(cb-0.04)*s, vb=cb+(0.96-cb)*s, hl=0.5-(0.5-0.14)*s, hr=0.5+(0.86-0.5)*s;
   const dv=(cy>=vt&&cy<=vb)?Math.max(0,Math.abs(cx-0.5)-vw/2)
     :Math.hypot(Math.max(0,Math.abs(cx-0.5)-vw/2),(cy<vt?vt-cy:cy-vb));
   const dh=(cx>=hl&&cx<=hr)?Math.max(0,Math.abs(cy-cb)-vw/2)
@@ -652,6 +658,7 @@ function wire(){
   slWire('#cell','#cellV','cellmm',v=>v+' mm');
   slWire('#spread','#spreadV','spread',v=>v+'%');
   slWire('#steps','#stepsV','steps',v=>v);
+  slWire('#cross','#crossV','crossScale',v=>v+'%');
 }
 function slWire(rs,vs,key,fmt){const r=$(rs);r.oninput=()=>{S[key]=+r.value;$(vs).textContent=fmt(r.value);fillSlider(r);softRender();};r.onchange=commit;}
 
@@ -678,6 +685,8 @@ function sync(){
   $('#spread').value=S.spread;$('#spreadV').textContent=S.spread+'%';fillSlider($('#spread'));
   $('#steps').value=S.steps;$('#stepsV').textContent=S.steps;fillSlider($('#steps'));
   $('#stepsSl').classList.toggle('disabled',S.transition==='smooth');
+  $('#cross').value=S.crossScale;$('#crossV').textContent=S.crossScale+'%';fillSlider($('#cross'));
+  $('#crossSl').style.display=S.style==='cross'?'':'none';
 }
 
 /* ── state ── */
